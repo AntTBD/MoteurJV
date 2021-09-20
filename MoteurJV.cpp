@@ -4,29 +4,24 @@
 #include "Particle.h"
 #include "Vector3.h"
 
-int main()
+int main(int, char**)
 {
-    Vector3 initialPosition(0, 0, 1000);
+    Vector3 initialPosition(0, 1000, 0);
     Vector3 initialSpeed(0, 0, 0);
-    Vector3 acceleration(0, 0, -9.81);
 
-    Particle particle(initialPosition, initialSpeed, acceleration);
+    Particle particle(initialPosition, initialSpeed, 1);
+    particle.AddForce(Vector3(20, 0, 0));
 
-    float dTime = 0;
-
-    while (particle.GetPosition().GetZ() > 0)
+    while (particle.GetPosition().GetY() > 0)
     {
         auto start = std::chrono::system_clock::now();
 
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
 
-        particle.Update(dTime);
-
-        auto end = std::chrono::system_clock::now();
-        auto duration = end - start;
-        auto seconds = std::chrono::duration_cast<std::chrono::duration<float>>(duration);
-        dTime = seconds.count();
+        particle.Integrate(0.2);
 
         std::cout << particle << std::endl;
     }
+
+    return 0;
 }
