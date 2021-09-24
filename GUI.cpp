@@ -4,6 +4,12 @@ GUI::GUI()
 {
    // this->init();
     this->window = nullptr;
+    this->opengl = new OpenGL3();
+
+
+    this->show_demo_window = false;
+    this->show_another_window = false;
+    this->show_3d_window = false;
 }
 
 int GUI::init()
@@ -37,7 +43,7 @@ int GUI::init()
 #endif
 
     // Create window with graphics context
-    this->window = glfwCreateWindow(1280, 720, "Moteur physique de Jeux Vidéo", NULL, NULL);
+    this->window = glfwCreateWindow(1280, 720, "Moteur physique de Jeux Video", NULL, NULL);
     if (!this->window) {
         glfwTerminate();
         return -1;
@@ -173,6 +179,7 @@ void GUI::render3D()
 {
     ImGui::Begin("3D Window", & show_3d_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
     {
+        this->opengl->display();
         ImGui::Text("Hello from 3d window!");
         if (ImGui::Button("Close Me"))
             show_3d_window = false;
@@ -182,7 +189,7 @@ void GUI::render3D()
         // Get the size of the child (i.e. the whole draw size of the windows).
         ImVec2 wsize = ImGui::GetWindowSize();
         // Because I use the texture from OpenGL, I need to invert the V from the UV.
-        //ImGui::Image((ImTextureID)textureSceneRendered, wsize, ImVec2(0, 1), ImVec2(1, 0));
+        ImGui::Image((ImTextureID)this->opengl->textureSceneRendered,  wsize, ImVec2(0, 1), ImVec2(1, 0));
         ImGui::EndChild();
 
     }

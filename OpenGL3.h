@@ -8,8 +8,12 @@
 
 class OpenGL3
 {
-
+public:
+	OpenGL3();
 	void display();
 	void render();
+
+
+	GLuint textureSceneRendered;
 };
 

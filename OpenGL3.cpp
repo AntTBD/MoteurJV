@@ -1,5 +1,10 @@
 #include "OpenGL3.h"
 
+OpenGL3::OpenGL3()
+{
+    this->textureSceneRendered = NULL;
+}
+
 // Clears the current window and draws a triangle.
 void OpenGL3::display() {
 
