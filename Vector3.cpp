@@ -152,3 +152,11 @@ Vector3& Vector3::Normalize()
 	*this /= length;
 	return *this;
 }
+
+Vector3& Vector3::SetZero()
+{
+	this->x = 0;
+	this->y = 0;
+	this->z = 0;
+	return *this;
+}

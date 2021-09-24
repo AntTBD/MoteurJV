@@ -7,22 +7,14 @@
 
 std::atomic_bool stopThreads = false;
 
-void updateObj(Particle particle) {
+void updateObj(Particle particle)
+{
 
-    float dTime = 0;
-
-    while (particle.GetPosition().GetZ() > 0 && !stopThreads)
+    while (particle.GetPosition().GetY() > 0 && !stopThreads)
     {
-        auto start = std::chrono::system_clock::now();
-
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
 
-        particle.Update(dTime);
-
-        auto end = std::chrono::system_clock::now();
-        auto duration = end - start;
-        auto seconds = std::chrono::duration_cast<std::chrono::duration<float>>(duration);
-        dTime = seconds.count();
+        particle.Integrate(0.2);
 
         std::cout << particle << std::endl;
     }
@@ -30,7 +22,8 @@ void updateObj(Particle particle) {
     return;
 }
 
-void updateUI() {
+void updateUI()
+{
 
     GUI gui;
     gui.init();
@@ -41,13 +34,18 @@ void updateUI() {
     return;
 }
 
+void Stop()
+{
+    stopThreads = true;
+}
+
 int main(int, char**)
 {
-    Vector3 initialPosition(0, 0, 0.01);
-    Vector3 initialSpeed(0, 0, 100);
-    Vector3 acceleration(0, 0, -9.81);
+    Vector3 initialPosition(0, 500, 0);
+    Vector3 initialSpeed(0, 0, 0);
 
-    Particle particle(initialPosition, initialSpeed, acceleration);
+    Particle particle(initialPosition, initialSpeed, 1, 1);
+    particle.AddForce(Vector3(20, 0, 0));
 
     // thread : https://www.cplusplus.com/reference/thread/thread/
     std::thread threadCalcul(updateObj, particle);     // spawn new thread that calls foo()
@@ -57,8 +55,7 @@ int main(int, char**)
     threadCalcul.join();                // pauses until first finishes
     threadUI.join();               // pauses until second finishes
 
-    stopThreads = true;
+    Stop();
 
     return 0;
 }
-
