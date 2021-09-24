@@ -3,6 +3,7 @@
 #include <thread>
 #include "Particle.h"
 #include "Vector3.h"
+#include "GUI.h"
 
 std::atomic_bool stopThreads = false;
 
@@ -30,6 +31,11 @@ void updateObj(Particle particle) {
 }
 
 void updateUI() {
+
+    GUI gui;
+    gui.init();
+    gui.update();
+    gui.end();
 
 
     return;

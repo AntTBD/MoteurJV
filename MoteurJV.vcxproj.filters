@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="IMGUI">
+      <UniqueIdentifier>{2498940e-7acc-4950-8310-1c9df180981a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMGUI\Source Files">
+      <UniqueIdentifier>{37d35457-4cc2-43fc-8a6b-d75fca559744}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MoteurJV.cpp">
@@ -24,12 +30,45 @@
     <ClCompile Include="Particle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui-1.84.2\imgui.cpp">
+      <Filter>IMGUI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui-1.84.2\imgui_demo.cpp">
+      <Filter>IMGUI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui-1.84.2\imgui_draw.cpp">
+      <Filter>IMGUI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_opengl3.cpp">
+      <Filter>IMGUI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui-1.84.2\imgui_tables.cpp">
+      <Filter>IMGUI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui-1.84.2\imgui_widgets.cpp">
+      <Filter>IMGUI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_glfw.cpp">
+      <Filter>IMGUI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vector3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
