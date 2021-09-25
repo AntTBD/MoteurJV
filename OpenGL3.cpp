@@ -6,11 +6,22 @@ OpenGL3::OpenGL3()
 }
 
 // Clears the current window and draws a triangle.
-void OpenGL3::display() {
+void OpenGL3::create3dModels() {
 
-    // Set every pixel in the frame buffer to the current clear color.
-    glClear(GL_COLOR_BUFFER_BIT);
+    
+    this->createTriangle();
 
+    // TODO : call functions that create objects
+    // ...
+
+    // Flush drawing command buffer to make drawing happen as soon as possible.
+    //glFlush();
+
+
+}
+
+void OpenGL3::createTriangle()
+{
     // Drawing is done by specifying a sequence of vertices.  The way these
     // vertices are connected (or not connected) depends on the argument to
     // glBegin.  GL_POLYGON constructs a filled polygon.
@@ -19,11 +30,10 @@ void OpenGL3::display() {
     glColor3f(0, 1, 0); glVertex3f(0.6, -0.75, 0);
     glColor3f(0, 0, 1); glVertex3f(0, 0.75, 0);
     glEnd();
-
-    // Flush drawing command buffer to make drawing happen as soon as possible.
-    glFlush();
 }
 
-void OpenGL3::render() {
+// TODO : Create other functions to create 3D objects with args to change sizes, color and position
+// ...
 
-}
+// TODO : Draw plan and 3D axis
+// ...

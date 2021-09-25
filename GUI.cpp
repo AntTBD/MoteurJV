@@ -9,7 +9,8 @@ GUI::GUI()
 
     this->show_demo_window = false;
     this->show_another_window = false;
-    this->show_3d_window = false;
+    this->show_config_window = true;
+    this->clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 }
 
 int GUI::init()
@@ -82,12 +83,6 @@ int GUI::init()
     //IM_ASSERT(font != NULL);
 
 
-    // Our state
-    this->show_demo_window = true;
-    this->show_another_window = false;
-    this->show_3d_window = false;
-    this->clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
     return 0;
 }
 
@@ -111,8 +106,8 @@ void GUI::update()
 
 
         // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-        if (show_demo_window)
-            ImGui::ShowDemoWindow(&show_demo_window);
+        if (this->show_demo_window)
+            ImGui::ShowDemoWindow(&this->show_demo_window);
 
         // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
         {
@@ -122,8 +117,8 @@ void GUI::update()
             ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
 
             ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-            ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-            ImGui::Checkbox("Another Window", &show_another_window);
+            ImGui::Checkbox("Demo Window", &this->show_demo_window);      // Edit bools storing our window open/close state
+            ImGui::Checkbox("Another Window", &this->show_another_window);
 
             ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
             ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
@@ -138,17 +133,18 @@ void GUI::update()
         }
 
         // 3. Show another simple window.
-        if (show_another_window)
+        if (this->show_another_window)
         {
-            ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+            ImGui::Begin("Another Window", &this->show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
             ImGui::Text("Hello from another window!");
             if (ImGui::Button("Close Me"))
-                show_another_window = false;
+                this->show_another_window = false;
             ImGui::End();
         }
 
-        //4. Show 3d Render
-        this->render3D();
+        // 4. ---- Show config window ----
+        this->showConfigWindow();
+        // -------------------------------
 
         // Rendering
         ImGui::Render();
@@ -157,6 +153,11 @@ void GUI::update()
         glViewport(0, 0, display_w, display_h);
         glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);  
+
+        // ---- Show 3d Render ----
+        this->render3D();
+        // ------------------------
+
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         glfwSwapBuffers(this->window);
@@ -175,23 +176,23 @@ void GUI::end()
     glfwTerminate();
 }
 
+void GUI::showConfigWindow() {
+    if (this->show_config_window) {
+        ImGui::Begin("Config Window", &this->show_config_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+        {
+            ImGui::Text("Hello from 3d window!");
+            if (ImGui::Button("Close Me"))
+                this->show_config_window = false;
+
+            // TODO : add more options (Théo)
+            // ...
+
+        }
+        ImGui::End();
+    }
+}
+
 void GUI::render3D()
 {
-    ImGui::Begin("3D Window", & show_3d_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-    {
-        this->opengl->display();
-        ImGui::Text("Hello from 3d window!");
-        if (ImGui::Button("Close Me"))
-            show_3d_window = false;
-        // Using a Child allow to fill all the space of the window.
-        // It also alows customization
-        ImGui::BeginChild("GameRender");
-        // Get the size of the child (i.e. the whole draw size of the windows).
-        ImVec2 wsize = ImGui::GetWindowSize();
-        // Because I use the texture from OpenGL, I need to invert the V from the UV.
-        ImGui::Image((ImTextureID)this->opengl->textureSceneRendered,  wsize, ImVec2(0, 1), ImVec2(1, 0));
-        ImGui::EndChild();
-
-    }
-    ImGui::End();
+    this->opengl->create3dModels();
 }

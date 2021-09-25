@@ -31,6 +31,7 @@ public:
 	int init();
 	void update();
 	void end();
+	void showConfigWindow();
 	void render3D();
 
 private:
@@ -39,7 +40,7 @@ private:
 	// Our state
 	bool show_demo_window;
 	bool show_another_window;
-	bool show_3d_window;
+	bool show_config_window;
 	ImVec4 clear_color;
 
 	OpenGL3* opengl;
