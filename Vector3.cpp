@@ -137,12 +137,12 @@ Vector3 Vector3::CrossProduct(const Vector3& vector) const
 
 float Vector3::Magnitude() const
 {
-	return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
+	return float(sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2)));
 }
 
 float Vector3::SquaredMagnitude() const
 {
-	return pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2);
+	return float(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
 }
 
 Vector3& Vector3::Normalize()

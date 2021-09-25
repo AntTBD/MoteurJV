@@ -1,35 +1,36 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <vector>
 #include "Particle.h"
 #include "Vector3.h"
 #include "GUI.h"
+#include "Simulator.h"
+
 
 std::atomic_bool stopThreads = false;
 
-void updateObj(Particle particle)
-{
-
-    while (particle.GetPosition().GetY() > 0 && !stopThreads)
-    {
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
-
-        particle.Integrate(0.2);
-
-        std::cout << particle << std::endl;
-    }
-
-    return;
-}
-
 void updateUI()
 {
-
     GUI gui;
     gui.init();
     gui.update();
     gui.end();
 
+    return;
+}
+
+void updateObj()
+{
+    Simulator sim;
+    Particle p1 = Particle(Vector3(0, 100, 0), Vector3(0, 0, 0), 1, 1);
+    Particle p2 = Particle(Vector3(50, 200, 0), Vector3(0, 0, 0), 1, 2);
+    p2.AddForce(Vector3(10, 0, 0));
+
+    sim.AddParticle(p1);
+    sim.AddParticle(p2);
+
+    sim.Update();
 
     return;
 }
@@ -41,19 +42,13 @@ void Stop()
 
 int main(int, char**)
 {
-    Vector3 initialPosition(0, 500, 0);
-    Vector3 initialSpeed(0, 0, 0);
-
-    Particle particle(initialPosition, initialSpeed, 1, 1);
-    particle.AddForce(Vector3(20, 0, 0));
-
     // thread : https://www.cplusplus.com/reference/thread/thread/
-    std::thread threadCalcul(updateObj, particle);     // spawn new thread that calls foo()
-    std::thread threadUI(updateUI);     // spawn new thread that calls foo()
+    std::thread threadUI(updateUI);     // spawn new ui thread
+    std::thread threadObj(updateObj);
 
     // synchronize threads:
-    threadCalcul.join();                // pauses until first finishes
     threadUI.join();               // pauses until second finishes
+    threadObj.join();
 
     Stop();
 

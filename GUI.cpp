@@ -1,3 +1,4 @@
+#include <iostream>
 #include "GUI.h"
 
 GUI::GUI()
@@ -86,6 +87,7 @@ int GUI::init()
     return 0;
 }
 
+
 void GUI::update()
 {
 
@@ -154,6 +156,7 @@ void GUI::update()
         glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);  
 
+
         // ---- Show 3d Render ----
         this->render3D();
         // ------------------------
@@ -176,13 +179,35 @@ void GUI::end()
     glfwTerminate();
 }
 
-void GUI::showConfigWindow() {
+void GUI::showConfigWindow()
+{
     if (this->show_config_window) {
         ImGui::Begin("Config Window", &this->show_config_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
         {
-            ImGui::Text("Hello from 3d window!");
-            if (ImGui::Button("Close Me"))
-                this->show_config_window = false;
+            static float px = 0.0f;
+            static float py = 100.0f;
+            static float pz = 0.0f;
+            static float sx = 0.0f;
+            static float sy = 0.0f;
+            static float sz = 0.0f;
+            static float invMass = 1.0f;
+            static float gravityFactor = 1.0f;
+
+            ImGui::Text("Initial Position");
+            ImGui::InputFloat("pos x", &px);
+            ImGui::InputFloat("pos y", &py);
+            ImGui::InputFloat("pos z", &pz);
+            ImGui::Text("Initial Speed");
+            ImGui::InputFloat("speed x", &sx);
+            ImGui::InputFloat("speed y", &sy);
+            ImGui::InputFloat("speed z", &sz);
+            ImGui::SliderFloat("inv mass", &invMass, 0.0f, 10.0f);
+            ImGui::InputFloat("gravity factor", &gravityFactor);
+
+            if (ImGui::Button("Add"))
+            {
+                Particle p = Particle(Vector3(px, py, pz), Vector3(sx, sy, sz), invMass, gravityFactor);
+            }
 
             // TODO : add more options (Théo)
             // ...
