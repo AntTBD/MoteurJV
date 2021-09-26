@@ -7,10 +7,11 @@ class Simulator
 {
 private:
 	std::vector<Particle> particles;
-	bool isOn = true;
 
 public:
 	void AddParticle(const Particle p);
-	void Update();
-	void Stop();
+	void Print();
+	bool Update();
+	void ClearParticles();
+	
 };

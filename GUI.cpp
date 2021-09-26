@@ -12,6 +12,9 @@ GUI::GUI()
     this->show_another_window = false;
     this->show_config_window = true;
     this->clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+    this->isSimulating = false;
+    this->isThreadActive = false;
+
 }
 
 int GUI::init()
@@ -175,6 +178,11 @@ void GUI::end()
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 
+    if (this->simThread.joinable())
+    {
+        this->simThread.join();
+    }
+
     glfwDestroyWindow(this->window);
     glfwTerminate();
 }
@@ -201,16 +209,56 @@ void GUI::showConfigWindow()
             ImGui::InputFloat("speed x", &sx);
             ImGui::InputFloat("speed y", &sy);
             ImGui::InputFloat("speed z", &sz);
-            ImGui::SliderFloat("inv mass", &invMass, 0.0f, 10.0f);
+            ImGui::InputFloat("inv mass", &invMass);
             ImGui::InputFloat("gravity factor", &gravityFactor);
 
             if (ImGui::Button("Add"))
             {
-                Particle p = Particle(Vector3(px, py, pz), Vector3(sx, sy, sz), invMass, gravityFactor);
+                if (!this->isSimulating && !this->isThreadActive)
+                {
+                    Particle p = Particle(Vector3(px, py, pz), Vector3(sx, sy, sz), invMass, gravityFactor);
+                    this->sim.AddParticle(p);
+                    std::cout << "New particle added -> " << p << std::endl;
+                }
+                else
+                {
+                    std::cout << "Simulation in progress..." << std::endl;
+                }
+
             }
 
-            // TODO : add more options (Théo)
-            // ...
+            if (ImGui::Button("Particles"))
+            {
+                if (!this->isSimulating && !this->isThreadActive)
+                {
+                    this->sim.Print();
+                }
+                else
+                {
+                    std::cout << "Simulation in progress..." << std::endl;
+                }
+            }
+
+            if (ImGui::Button("Start Simulation"))
+            {
+                if (!this->isSimulating && !this->isThreadActive)
+                {
+                    this->simThread = std::thread{ &GUI::Simulate, this };
+                }
+                else
+                {
+                    std::cout << "Simulation in progress..." << std::endl;
+                }
+            }
+
+            if (ImGui::Button("StopSim"))
+            {
+                this->isSimulating = false;
+                Clear();
+                std::cout << "Particles cleared" << std::endl;
+                
+            }
+
 
         }
         ImGui::End();
@@ -220,4 +268,26 @@ void GUI::showConfigWindow()
 void GUI::render3D()
 {
     this->opengl->create3dModels();
+}
+
+void GUI::Simulate()
+{
+    this->isSimulating = true;
+    this->isThreadActive = true;
+    while (this->isSimulating)
+    {
+        this->isSimulating = sim.Update();
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    }
+
+}
+
+void GUI::Clear()
+{
+    if (!this->isSimulating)
+    {
+        sim.ClearParticles();
+        this->simThread.join();
+        this->isThreadActive = false;
+    }
 }

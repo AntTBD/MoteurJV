@@ -19,7 +19,8 @@
 #pragma comment(lib, "legacy_stdio_definitions")
 #endif
 
-#include "Particle.h"
+#include "Simulator.h"
+#include <thread>
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -35,6 +36,8 @@ public:
 	void end();
 	void showConfigWindow();
 	void render3D();
+	void Simulate();
+	void Clear();
 
 private:
 	GLFWwindow* window;
@@ -46,5 +49,13 @@ private:
 	ImVec4 clear_color;
 
 	OpenGL3* opengl;
+
+	// simulation
+	bool isSimulating;
+	bool isThreadActive;
+	Simulator sim;
+	std::thread simThread;
 };
+
+
 
