@@ -19,6 +19,10 @@ public:
 
 	void createTriangle();
 
+	void draw3Dplan();
+
+	void renderScene(void);
+
 
 	GLuint* textureSceneRendered;
 };
