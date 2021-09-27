@@ -207,22 +207,33 @@ void GUI::showConfigWindow()
 
             if (ImGui::Button("Start Simulation"))
             {
-                if (!this->isSimulating && !this->isThreadActive)
+                if (!this->sim->GetParticles().empty())
                 {
-                    this->simThread = std::thread{ &GUI::Simulate, this };
+                    if (!this->isSimulating && !this->isThreadActive)
+                    {
+                        this->simThread = std::thread{ &GUI::Simulate, this };
+                    }
+                    else
+                    {
+                        std::cout << "Simulation in progress..." << std::endl;
+                    }
                 }
                 else
                 {
-                    std::cout << "Simulation in progress..." << std::endl;
+                    std::cout << "No particles..." << std::endl;
                 }
+
             }
 
-            if (ImGui::Button("StopSim"))
+            if (ImGui::Button("Pause"))
             {
-                this->isSimulating = false;
+                Pause();
+
+            }
+
+            if (ImGui::Button("Clear"))
+            {
                 Clear();
-                std::cout << "Particles cleared" << std::endl;
-                
             }
 
 
@@ -241,9 +252,9 @@ void GUI::Simulate()
     int deltaTime = 20;
     this->isSimulating = true;
     this->isThreadActive = true;
-    while (this->isSimulating)
+    while (this->isThreadActive)
     {
-        this->isSimulating = sim->Update(deltaTime/1000.0f);
+        sim->Update(deltaTime/1000.0f);
         std::this_thread::sleep_for(std::chrono::milliseconds(deltaTime));
     }
 
@@ -251,10 +262,34 @@ void GUI::Simulate()
 
 void GUI::Clear()
 {
-    if (!this->isSimulating)
+    if (this->isThreadActive)
     {
-        sim->ClearParticles();
-        this->simThread.join();
+        this->isSimulating = false;
         this->isThreadActive = false;
+        this->simThread.join();
+        std::cout << "Particles cleared" << std::endl;
     }
+    sim->ClearParticles();
+    this->sim->Resume();
+}
+
+void GUI::Pause()
+{
+    if (this->isThreadActive)
+    {
+        if (this->isSimulating)
+        {
+            this->sim->Pause();
+            this->isSimulating = false;
+            std::cout << "Simulation paused" << std::endl;
+        }
+        else
+        {
+            this->sim->Resume();
+            this->isSimulating = true;
+            std::cout << "Simulation resumed" << std::endl;
+        }
+        
+    }
+
 }

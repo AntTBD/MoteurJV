@@ -7,15 +7,15 @@ class Simulator
 {
 private:
 	std::vector<Particle> particles;
-	int size = 0;
+	bool isPaused = false;
 
 public:
 	void AddParticle(const Particle p);
 	void Print();
-	bool Update(float deltaTime);
+	void Update(float deltaTime);
+	void Pause();
+	void Resume();
 	void ClearParticles();
-	int GetSize();
-	Vector3 GetParticlePosition(int i);
 	std::vector<Particle> GetParticles();
 	
 };

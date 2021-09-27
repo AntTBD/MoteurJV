@@ -38,6 +38,7 @@ public:
 	void render3D();
 	void Simulate();
 	void Clear();
+	void Pause();
 
 private:
 	GLFWwindow* window;
