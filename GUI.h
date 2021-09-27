@@ -30,14 +30,17 @@ static void glfw_error_callback(int error, const char* description)
 class GUI
 {
 public:
-	GUI(Simulator* sim = nullptr);
+	GUI(Simulator* sim = nullptr); // Pointer to the particles simulator
 	int init();
 	void update();
 	void end();
 	void showConfigWindow();
 	void render3D();
-	void Simulate();
+
+	// Used on the simulator when pressing buttons
+	void Simulate(); 
 	void Clear();
+	void Pause(); // Pause or resume
 
 private:
 	GLFWwindow* window;

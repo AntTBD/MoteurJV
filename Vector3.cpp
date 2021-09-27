@@ -140,12 +140,12 @@ float Vector3::Magnitude() const
 	return float(sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2)));
 }
 
-float Vector3::SquaredMagnitude() const
+float Vector3::SquaredMagnitude() const // Squared magnitude is less taxing to calculate and is often enough for what we want to do
 {
 	return float(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
 }
 
-Vector3& Vector3::Normalize()
+Vector3& Vector3::Normalize() // Make the vector length to 1
 {
 	float length = this->Magnitude();
 	assert(length != 0);
@@ -153,7 +153,7 @@ Vector3& Vector3::Normalize()
 	return *this;
 }
 
-Vector3& Vector3::SetZero()
+Vector3& Vector3::SetZero() // Set vector to (0, 0, 0)
 {
 	this->x = 0;
 	this->y = 0;

@@ -7,10 +7,12 @@ private:
 	float x, y, z;
 
 public:
+	// Constructors
 	Vector3();
 	Vector3(float _x, float _y, float _z);
 	Vector3(const Vector3& vector);
 
+	// Operators
 	Vector3& operator=(const Vector3& vector);
 	Vector3 operator+(const Vector3& vector) const;
 	Vector3& operator+=(const Vector3& vector);
@@ -21,6 +23,7 @@ public:
 	Vector3 operator/(float value) const;
 	Vector3& operator/=(float value);
 
+	// Getters / Setters
 	float GetX() const;
 	float GetY() const;
 	float GetZ() const;
@@ -28,6 +31,7 @@ public:
 	void SetY(float _y);
 	void SetZ(float _z);
 
+	// Functions
 	float DotProduct(const Vector3& vector) const;
 	Vector3 CrossProduct(const Vector3& vector) const;
 	float Magnitude() const;
@@ -37,4 +41,5 @@ public:
 
 };
 
+// << operator
 std::ostream& operator<< (std::ostream& os, const Vector3& vector);
