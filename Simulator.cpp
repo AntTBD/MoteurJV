@@ -1,5 +1,10 @@
 #include "Simulator.h"
 
+Simulator::Simulator()
+{
+    std::vector<Particle>;
+}
+
 void Simulator::AddParticle(const Particle p) // add particle to the simulator
 {
 	this->particles.push_back(p);
@@ -27,7 +32,7 @@ void Simulator::Update(float deltaTime) // update each particles until they go u
     {
         for (int i = 0; i < particles.size(); i++)
         {
-            if (!this->isPaused)
+            if (!this->isPaused) // No update if simulator is paused
             {
                 particles[i].Integrate(deltaTime);
                 std::cout << "Particule " << i + 1 << " : " << particles[i] << std::endl;

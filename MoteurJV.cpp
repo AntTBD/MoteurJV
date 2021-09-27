@@ -20,7 +20,6 @@ void UI(Simulator* sim)
 int main(int, char**)
 {
     Simulator sim;
-
     std::thread threadUI(UI, &sim);     // spawn new ui thread
 
     // synchronize threads:

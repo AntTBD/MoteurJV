@@ -113,7 +113,7 @@ void GUI::update()
         ImGui::NewFrame();
 
 
-        // ---- Show config window ----
+        // ---- Show config window to add particles to simulator and manage the simulation ----
         this->showConfigWindow();
         // -------------------------------
 
@@ -153,13 +153,14 @@ void GUI::end()
     glfwTerminate();
 }
 
-void GUI::showConfigWindow()
+void GUI::showConfigWindow() // Window to add particles to simulator, start, pause and clear the simulation
 {
     if (this->show_config_window) {
         ImGui::Begin("Config Window", &this->show_config_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
         {
+            // Variable needed to make a particle
             static float px = 0.0f;
-            static float py = 0.1f;
+            static float py = 5.0f;
             static float pz = 0.0f;
             static float sx = 0.0f;
             static float sy = 0.0f;
@@ -167,6 +168,7 @@ void GUI::showConfigWindow()
             static float invMass = 1.0f;
             static float gravityFactor = 1.0f;
 
+            // Associated buttons
             ImGui::Text("Initial Position");
             ImGui::InputFloat("pos x", &px);
             ImGui::InputFloat("pos y", &py);
@@ -178,9 +180,9 @@ void GUI::showConfigWindow()
             ImGui::InputFloat("inv mass", &invMass);
             ImGui::InputFloat("gravity factor", &gravityFactor);
 
-            if (ImGui::Button("Add"))
+            if (ImGui::Button("Add")) // Add new particle to the simulator with the chosen parameters
             {
-                if (!this->isSimulating && !this->isThreadActive)
+                if (!this->isSimulating && !this->isThreadActive) //Can only add if simulation is not running
                 {
                     Particle p = Particle(Vector3(px, py, pz), Vector3(sx, sy, sz), invMass, gravityFactor);
                     this->sim->AddParticle(p);
@@ -193,9 +195,9 @@ void GUI::showConfigWindow()
 
             }
 
-            if (ImGui::Button("Particles"))
+            if (ImGui::Button("Particles")) // Print all particles in the console
             {
-                if (!this->isSimulating && !this->isThreadActive)
+                if (!this->isSimulating && !this->isThreadActive) // Only if simulation not running
                 {
                     this->sim->Print();
                 }
@@ -205,13 +207,13 @@ void GUI::showConfigWindow()
                 }
             }
 
-            if (ImGui::Button("Start Simulation"))
+            if (ImGui::Button("Start Simulation")) // Start the simulation
             {
                 if (!this->sim->GetParticles().empty())
                 {
-                    if (!this->isSimulating && !this->isThreadActive)
+                    if (!this->isSimulating && !this->isThreadActive) // Can start only if not running already
                     {
-                        this->simThread = std::thread{ &GUI::Simulate, this };
+                        this->simThread = std::thread{ &GUI::Simulate, this }; // Make new thread running the Simulate() function
                     }
                     else
                     {
@@ -220,17 +222,19 @@ void GUI::showConfigWindow()
                 }
                 else
                 {
-                    std::cout << "No particles..." << std::endl;
+                    std::cout << "No particles" << std::endl;
                 }
 
             }
 
+            // Pause and resume simulation
             if (ImGui::Button("Pause"))
             {
                 Pause();
 
             }
 
+            // Stop simulation and clear particles
             if (ImGui::Button("Clear"))
             {
                 Clear();
@@ -247,7 +251,7 @@ void GUI::render3D()
     this->opengl->update();
 }
 
-void GUI::Simulate()
+void GUI::Simulate() // Update all particles of the simulator every fixed deltatime of 20ms
 {
     int deltaTime = 20;
     this->isSimulating = true;
@@ -260,20 +264,23 @@ void GUI::Simulate()
 
 }
 
-void GUI::Clear()
+void GUI::Clear() // Remove particles from the simulator and finish thread if possible
 {
     if (this->isThreadActive)
     {
         this->isSimulating = false;
         this->isThreadActive = false;
-        this->simThread.join();
+        if (this->simThread.joinable())
+        {
+            this->simThread.join();
+        }
         std::cout << "Particles cleared" << std::endl;
     }
     sim->ClearParticles();
-    this->sim->Resume();
+    this->sim->Resume(); // Set simulation back to unpaused if we cleared while it was paused
 }
 
-void GUI::Pause()
+void GUI::Pause() // Pause or resume simulation
 {
     if (this->isThreadActive)
     {
@@ -290,6 +297,10 @@ void GUI::Pause()
             std::cout << "Simulation resumed" << std::endl;
         }
         
+    }
+    else
+    {
+        std::cout << "No simulation is running" << std::endl;
     }
 
 }
