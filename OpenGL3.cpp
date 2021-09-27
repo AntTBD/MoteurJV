@@ -25,10 +25,11 @@ void OpenGL3::update() {
 
     GetCursorPos(pt);
     if ((GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0)
-    {   this->cam->Set(15.0f, pt->y, pt->x);
-    
+    {
+        this->cam->Set(15.0f, pt->y, pt->x);
+
     }
- 
+
     this->cam->Update();
 
 
