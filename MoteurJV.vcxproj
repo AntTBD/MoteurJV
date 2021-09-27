@@ -72,22 +72,22 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>include\SDL2-2.0.16\include;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;include\imgui-1.84.2;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
+    <IncludePath>include\SDL2-2.0.16\include;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;include\imgui-1.84.2;include\glm-0.9.9.8;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
     <LibraryPath>include\SDL2-2.0.16\lib\x86;include\imgui-1.84.2\examples\libs\glfw\lib-vc2010-32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>include\SDL2-2.0.16\include;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;include\imgui-1.84.2;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
+    <IncludePath>include\SDL2-2.0.16\include;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;include\imgui-1.84.2;include\glm-0.9.9.8;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
     <LibraryPath>include\SDL2-2.0.16\lib\x86;include\imgui-1.84.2\examples\libs\glfw\lib-vc2010-32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>include\SDL2-2.0.16\include;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;include\imgui-1.84.2;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
+    <IncludePath>include\SDL2-2.0.16\include;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;include\imgui-1.84.2;include\glm-0.9.9.8;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
     <LibraryPath>include\SDL2-2.0.16\lib\x64;include\imgui-1.84.2\examples\libs\glfw\lib-vc2010-64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>include\SDL2-2.0.16\include;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;include\imgui-1.84.2;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
+    <IncludePath>include\SDL2-2.0.16\include;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;include\imgui-1.84.2;include\glm-0.9.9.8;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
     <LibraryPath>include\SDL2-2.0.16\lib\x64;include\imgui-1.84.2\examples\libs\glfw\lib-vc2010-64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -96,7 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -113,7 +113,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,7 +129,7 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_WINDOW;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -149,7 +149,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,6 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_opengl3.cpp" />
@@ -172,12 +173,15 @@
     <ClCompile Include="MoteurJV.cpp" />
     <ClCompile Include="OpenGL3.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="Simulator.cpp" />
     <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="OpenGL3.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="Simulator.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

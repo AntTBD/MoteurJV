@@ -9,8 +9,9 @@ private:
 
 	Vector3 sumForces = Vector3();
 	float invMass;
-	float damping = 0.999;
+	float damping = 0.999f;
 	float gravityFactor;
+	Vector3 gravityForce;
 
 public:
 	Particle();

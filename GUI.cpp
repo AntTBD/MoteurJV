@@ -1,25 +1,29 @@
+#include <iostream>
 #include "GUI.h"
 
-GUI::GUI()
+GUI::GUI(Simulator* sim)
 {
    // this->init();
     this->window = nullptr;
-    this->opengl = new OpenGL3();
 
 
-    this->show_demo_window = false;
-    this->show_another_window = false;
     this->show_config_window = true;
     this->clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+    this->sim = sim;
+    this->isSimulating = false;
+    this->isThreadActive = false;
+
+    this->opengl = new OpenGL3(this->sim);
 }
 
 int GUI::init()
 {
     // Setup window
     glfwSetErrorCallback(glfw_error_callback);
-    if (!glfwInit())
+    if (!glfwInit()) {
+        fprintf(stderr, "Failed to initialize GLFW\n");
         return 1;
-
+    }
     // Decide GL+GLSL versions
 #if defined(IMGUI_IMPL_OPENGL_ES2)
     // GL ES 2.0 + GLSL 100
@@ -46,7 +50,7 @@ int GUI::init()
     // Create window with graphics context
     this->window = glfwCreateWindow(1280, 720, "Moteur physique de Jeux Video", NULL, NULL);
     if (!this->window) {
-        glfwTerminate();
+        fprintf(stderr, "Failed to create window with graphics context\n");
         return -1;
     }
     glfwMakeContextCurrent(this->window);
@@ -82,9 +86,13 @@ int GUI::init()
     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
     //IM_ASSERT(font != NULL);
 
+    // configure global opengl state
+    // -----------------------------
+    glEnable(GL_DEPTH_TEST);
 
     return 0;
 }
+
 
 void GUI::update()
 {
@@ -105,44 +113,7 @@ void GUI::update()
         ImGui::NewFrame();
 
 
-        // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-        if (this->show_demo_window)
-            ImGui::ShowDemoWindow(&this->show_demo_window);
-
-        // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
-        {
-            static float f = 0.0f;
-            static int counter = 0;
-
-            ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
-            ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-            ImGui::Checkbox("Demo Window", &this->show_demo_window);      // Edit bools storing our window open/close state
-            ImGui::Checkbox("Another Window", &this->show_another_window);
-
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-            if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-                counter++;
-            ImGui::SameLine();
-            ImGui::Text("counter = %d", counter);
-
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-            ImGui::End();
-        }
-
-        // 3. Show another simple window.
-        if (this->show_another_window)
-        {
-            ImGui::Begin("Another Window", &this->show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-            ImGui::Text("Hello from another window!");
-            if (ImGui::Button("Close Me"))
-                this->show_another_window = false;
-            ImGui::End();
-        }
-
-        // 4. ---- Show config window ----
+        // ---- Show config window ----
         this->showConfigWindow();
         // -------------------------------
 
@@ -152,7 +123,8 @@ void GUI::update()
         glfwGetFramebufferSize(this->window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
         glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
-        glClear(GL_COLOR_BUFFER_BIT);  
+        //glClear(GL_COLOR_BUFFER_BIT);
+
 
         // ---- Show 3d Render ----
         this->render3D();
@@ -172,20 +144,87 @@ void GUI::end()
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 
+    if (this->simThread.joinable())
+    {
+        this->simThread.join();
+    }
+
     glfwDestroyWindow(this->window);
     glfwTerminate();
 }
 
-void GUI::showConfigWindow() {
+void GUI::showConfigWindow()
+{
     if (this->show_config_window) {
         ImGui::Begin("Config Window", &this->show_config_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
         {
-            ImGui::Text("Hello from 3d window!");
-            if (ImGui::Button("Close Me"))
-                this->show_config_window = false;
+            static float px = 0.0f;
+            static float py = 0.1f;
+            static float pz = 0.0f;
+            static float sx = 0.0f;
+            static float sy = 0.0f;
+            static float sz = 0.0f;
+            static float invMass = 1.0f;
+            static float gravityFactor = 1.0f;
 
-            // TODO : add more options (Théo)
-            // ...
+            ImGui::Text("Initial Position");
+            ImGui::InputFloat("pos x", &px);
+            ImGui::InputFloat("pos y", &py);
+            ImGui::InputFloat("pos z", &pz);
+            ImGui::Text("Initial Speed");
+            ImGui::InputFloat("speed x", &sx);
+            ImGui::InputFloat("speed y", &sy);
+            ImGui::InputFloat("speed z", &sz);
+            ImGui::InputFloat("inv mass", &invMass);
+            ImGui::InputFloat("gravity factor", &gravityFactor);
+
+            if (ImGui::Button("Add"))
+            {
+                if (!this->isSimulating && !this->isThreadActive)
+                {
+                    Particle p = Particle(Vector3(px, py, pz), Vector3(sx, sy, sz), invMass, gravityFactor);
+                    this->sim->AddParticle(p);
+                    std::cout << "New particle added -> " << p << std::endl;
+                }
+                else
+                {
+                    std::cout << "Simulation in progress..." << std::endl;
+                }
+
+            }
+
+            if (ImGui::Button("Particles"))
+            {
+                if (!this->isSimulating && !this->isThreadActive)
+                {
+                    this->sim->Print();
+                }
+                else
+                {
+                    std::cout << "Simulation in progress..." << std::endl;
+                }
+            }
+
+            if (ImGui::Button("Start Simulation"))
+            {
+                if (!this->isSimulating && !this->isThreadActive)
+                {
+                    this->simThread = std::thread{ &GUI::Simulate, this };
+                }
+                else
+                {
+                    std::cout << "Simulation in progress..." << std::endl;
+                }
+            }
+
+            if (ImGui::Button("StopSim"))
+            {
+                this->isSimulating = false;
+                Clear();
+                std::cout << "Particles cleared" << std::endl;
+                
+            }
+
 
         }
         ImGui::End();
@@ -194,5 +233,28 @@ void GUI::showConfigWindow() {
 
 void GUI::render3D()
 {
-    this->opengl->create3dModels();
+    this->opengl->update();
+}
+
+void GUI::Simulate()
+{
+    int deltaTime = 20;
+    this->isSimulating = true;
+    this->isThreadActive = true;
+    while (this->isSimulating)
+    {
+        this->isSimulating = sim->Update(deltaTime/1000.0f);
+        std::this_thread::sleep_for(std::chrono::milliseconds(deltaTime));
+    }
+
+}
+
+void GUI::Clear()
+{
+    if (!this->isSimulating)
+    {
+        sim->ClearParticles();
+        this->simThread.join();
+        this->isThreadActive = false;
+    }
 }
