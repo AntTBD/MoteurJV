@@ -1,7 +1,7 @@
 #include <iostream>
 #include "GUI.h"
 
-GUI::GUI()
+GUI::GUI(Simulator* sim)
 {
    // this->init();
     this->window = nullptr;
@@ -12,6 +12,7 @@ GUI::GUI()
     this->show_another_window = false;
     this->show_config_window = true;
     this->clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+    this->sim = sim;
     this->isSimulating = false;
     this->isThreadActive = false;
 
@@ -217,7 +218,7 @@ void GUI::showConfigWindow()
                 if (!this->isSimulating && !this->isThreadActive)
                 {
                     Particle p = Particle(Vector3(px, py, pz), Vector3(sx, sy, sz), invMass, gravityFactor);
-                    this->sim.AddParticle(p);
+                    this->sim->AddParticle(p);
                     std::cout << "New particle added -> " << p << std::endl;
                 }
                 else
@@ -231,7 +232,7 @@ void GUI::showConfigWindow()
             {
                 if (!this->isSimulating && !this->isThreadActive)
                 {
-                    this->sim.Print();
+                    this->sim->Print();
                 }
                 else
                 {
@@ -276,7 +277,7 @@ void GUI::Simulate()
     this->isThreadActive = true;
     while (this->isSimulating)
     {
-        this->isSimulating = sim.Update();
+        this->isSimulating = sim->Update();
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
 
@@ -286,7 +287,7 @@ void GUI::Clear()
 {
     if (!this->isSimulating)
     {
-        sim.ClearParticles();
+        sim->ClearParticles();
         this->simThread.join();
         this->isThreadActive = false;
     }

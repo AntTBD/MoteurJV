@@ -23,7 +23,7 @@ void Simulator::Print() // print each particle in the console
 
 bool Simulator::Update() // update each particles until they go under 0 in y axis
 {
-    int particlesCount = particles.size();
+    int particlesCount = int(particles.size());
     int particlesFinished = 0;
 
     if (!particles.empty())
@@ -56,4 +56,19 @@ bool Simulator::Update() // update each particles until they go under 0 in y axi
 void Simulator::ClearParticles() // clear the particle vector
 {
     this->particles.clear();
+}
+
+int Simulator::GetSize()
+{
+    return int(this->particles.size());
+}
+
+Vector3 Simulator::GetParticlePosition(int i)
+{
+    return this->particles[i].GetPosition();
+}
+
+std::vector<Particle> Simulator::GetParticles()
+{
+    return this->particles;
 }

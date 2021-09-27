@@ -7,11 +7,15 @@ class Simulator
 {
 private:
 	std::vector<Particle> particles;
+	int size = 0;
 
 public:
 	void AddParticle(const Particle p);
 	void Print();
 	bool Update();
 	void ClearParticles();
+	int GetSize();
+	Vector3 GetParticlePosition(int i);
+	std::vector<Particle> GetParticles();
 	
 };

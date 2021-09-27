@@ -7,9 +7,9 @@
 #include "GUI.h"
 #include "Simulator.h"
 
-void UI()
+void UI(Simulator* sim)
 {
-    GUI gui;
+    GUI gui(sim);
     gui.init();
     gui.update();
     gui.end();
@@ -19,7 +19,10 @@ void UI()
 
 int main(int, char**)
 {
-    std::thread threadUI(UI);     // spawn new ui thread
+    Simulator sim;
+
+    std::thread threadUI(UI, &sim);     // spawn new ui thread
+
     // synchronize threads:
     threadUI.join();               // pauses until second finishes
 

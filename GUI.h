@@ -30,7 +30,7 @@ static void glfw_error_callback(int error, const char* description)
 class GUI
 {
 public:
-	GUI();
+	GUI(Simulator* sim = nullptr);
 	int init();
 	void update();
 	void end();
@@ -53,7 +53,7 @@ private:
 	// simulation
 	bool isSimulating;
 	bool isThreadActive;
-	Simulator sim;
+	Simulator* sim;
 	std::thread simThread;
 };
 
