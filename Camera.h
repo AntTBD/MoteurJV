@@ -41,7 +41,7 @@ public:
 	Camera(float dist, float rotationX, float rotationY);
 	~Camera();
 
-	void OrbitalRotationY(float angleDelta);
+	void AddOrbitalRotationY(float angleDelta);
 	void Set(float dist, float rotationX, float rotationY);
 	void Update();
 

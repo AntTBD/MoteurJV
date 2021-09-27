@@ -28,7 +28,7 @@ Camera::~Camera()
 {
 }
 
-void Camera::OrbitalRotationY(float angleDelta)
+void Camera::AddOrbitalRotationY(float angleDelta)
 {
 	this->rotationOnY += angleDelta;
 	if (this->rotationOnY >= 360 || this->rotationOnY <= -360) {
@@ -55,7 +55,7 @@ void Camera::Update()
 	//this->UpdatePosition();
 	// 
 	// --------
-	glLoadMatrixf(glm::value_ptr(this->SetProjection(camDist, glm::vec2(glm::radians(this->rotationOnY), glm::radians(this->rotationOnY)))));
+	glLoadMatrixf(glm::value_ptr(this->SetProjection(camDist, glm::vec2(glm::radians(this->rotationOnY), glm::radians(this->rotationOnX)))));
 	// --------
 
 

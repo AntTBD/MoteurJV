@@ -2,7 +2,10 @@
 
 OpenGL3::OpenGL3()
 {
-    this->textureSceneRendered = NULL;
+    this->cam = new Camera();
+    this->cam->Set(10.0f, -25.0f, 0.0f);
+    this->rotationCamDeltaY = 0.0f;
+
 }
 void DrawNet(GLfloat size, GLint LinesX, GLint LinesZ)
 {
@@ -28,96 +31,38 @@ void DrawNet(GLfloat size, GLint LinesX, GLint LinesZ)
     glEnd();
 }
 // Clears the current window and draws a triangle.
-void OpenGL3::create3dModels() {
+void OpenGL3::update() {
     ImGuiIO& io = ImGui::GetIO();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    //glMatrixMode(GL_PROJECTION);// 2D Projection
     glMatrixMode(GL_MODELVIEW); // 3D Projection
     glLoadIdentity();
 
-    fov = 90.0f;
-    nearF = 0.2f;
-    far = 100.0f;
-    xX = 5.0f;
-    yY = 2.5f;
-    zZ = 5.0f;
-/*
-    // https://opengl.developpez.com/tutoriels/opengl-tutorial/6-clavier-et-souris/
-    glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), glm::radians(rotationDegrees), glm::vec3(1.0f, 1.0f, 0.0f));
-    glm::mat4 modelTransform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.5f, 0.0f));
-    // Matrice de vue
-    glm::mat4 view = glm::lookAt(
-        glm::vec3(yY, xX, zZ), // La caméra est là
-        glm::vec3(0.0f, 0.0f, 0.0f), // et regarde ici : à la même position, plus la « direction »
-        glm::vec3(0.0f, 1.0f, 0.0f) // la tête est vers le haut (définir à 0,-1,0 pour voir à l'envers) 
-    );
-    glm::mat4 modelview = view * modelTransform * rotation;
-    // Matrice de projection : champ de vision 45°, ration 4:3, distance d'affiche : 0.1 unit <-> 100 units 
-    //glm::mat4 projectionMatrix = glm::perspective(glm::radians(fov), (float)800 / (float)600, nearF, far);
-    glm::mat4 projectionMatrix = glm::perspective(glm::radians(fov), (float)io.DisplaySize.x / (float)io.DisplaySize.y, nearF, far);
-
-    rotationDegrees += 0.5f;
-
-    // https://github.com/ocornut/imgui/issues/2760#issuecomment-526557526
-    glLoadMatrixf(glm::value_ptr(projectionMatrix));//3D projection
-    //glFrustum(-1.0f, 1.0f, -1.0f, 1.0f, nearF, far);// GL_PROJECTION 2D 
-    //glOrtho(-1.0, 1.0, -1.0, 1.0, nearF, far);// Orthographic Projection
- //   glTranslatef(-xX, -yY, -zZ);
-    //glRotatef(-25, 1, 0, 0);
- //   glRotatef(-rotationDegrees, 0, 1, 0);
-    //glRotatef(-25, 0, 0, 1);
-
-    // http://www.songho.ca/opengl/gl_matrix.html#example1
-    glTranslatef(0, 0, -camDist);       // 3rd: translate along z
-    glRotatef(45, 1, 0, 0);       // 2nd: rotate on x-axis
-    glRotatef(-rotationDegrees, 0, 1, 0);       // 1st: rotate on y-axis
-    // TODO : http://www.songho.ca/opengl/gl_camera.html#lookat
-
-    //glMatrixMode(GL_MODELVIEW); // 3D Projection
-    //glLoadIdentity();
-*/
-    // --------
-    rotationDegrees += 0.25f;
-    //camDist += 0.1f;
-
-    glLoadMatrixf(glm::value_ptr(camera(camDist,glm::vec2(glm::radians(rotationDegrees), glm::radians(-25.0f)))));
-    // --------
-
+    // ----- cam ------
+    this->rotationCamDeltaY = 0.25f;
+    this->cam->AddOrbitalRotationY(this->rotationCamDeltaY);
+    this->cam->Update();
+    // -----------
+    // draw plan and axis at (0,0,0)
     this->drawPlan(10.0f);
     this->drawAxis(1);
 
-// model transform:
-// rotate 45 on Y-axis then move 2 unit up
+    // -----------
+
+    // model transform:
+    // rotate 45 on Y-axis then move 2 unit up
     glTranslatef(0, 2, 1);              // 2nd transform
-    glRotatef(rotationDegrees, 0, 1, 1);               // 1st transform
+    glRotatef(45, 0, 1, 1);               // 1st transform
 
-    // 
-    // Sélectionne les triangles dont les normales ne sont pas vers la caméra
-    //glEnable(GL_CULL_FACE);
-
-    //glUniformMatrix4fv(transformLocation, 1, GL_FALSE, glm::value_ptr(modelview)); 
-   // glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-
-
-
-    //glRotated(45, 0, 1, 0);
-
-    
-  //  glTranslatef(0.0, 0.8, 0.0);
-    //this->createTriangle();
-    //this->drawRect2D(3,2);
+   
     this->drawCube(3, 2);
 
-    glRotatef(-rotationDegrees*10, 0, 1, 0);               // 1st transform
+    glRotatef(-45*10, 0, 1, 0);               // 1st transform
 
     glTranslatef(0, 0, 2);              // 2nd transform
-    glRotatef(rotationDegrees*5, 1, 1, 1);               // 1st transform
+    glRotatef(45*5, 1, 1, 1);               // 1st transform
 
     this->drawCube(3, 2);
-
-
-   // glScalef(3.0, 1.0, 3.0);
 
     
     

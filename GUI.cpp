@@ -198,5 +198,5 @@ void GUI::showConfigWindow() {
 
 void GUI::render3D()
 {
-    this->opengl->create3dModels();
+    this->opengl->update();
 }
