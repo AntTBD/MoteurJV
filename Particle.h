@@ -11,6 +11,7 @@ private:
 	float invMass;
 	float damping = 0.999f;
 	float gravityFactor;
+	Vector3 gravityForce;
 
 public:
 	Particle();
