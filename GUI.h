@@ -19,6 +19,9 @@
 #pragma comment(lib, "legacy_stdio_definitions")
 #endif
 
+#include "Simulator.h"
+#include <thread>
+
 static void glfw_error_callback(int error, const char* description)
 {
 	fprintf(stderr, "Glfw Error %d: %s\n", error, description);
@@ -27,12 +30,14 @@ static void glfw_error_callback(int error, const char* description)
 class GUI
 {
 public:
-	GUI();
+	GUI(Simulator* sim = nullptr);
 	int init();
 	void update();
 	void end();
 	void showConfigWindow();
 	void render3D();
+	void Simulate();
+	void Clear();
 
 private:
 	GLFWwindow* window;
@@ -44,5 +49,13 @@ private:
 	ImVec4 clear_color;
 
 	OpenGL3* opengl;
+
+	// simulation
+	bool isSimulating;
+	bool isThreadActive;
+	Simulator* sim;
+	std::thread simThread;
 };
+
+
 

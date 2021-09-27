@@ -173,6 +173,7 @@
     <ClCompile Include="MoteurJV.cpp" />
     <ClCompile Include="OpenGL3.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="Simulator.cpp" />
     <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +181,7 @@
     <ClInclude Include="GUI.h" />
     <ClInclude Include="OpenGL3.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="Simulator.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
