@@ -21,7 +21,7 @@ void Simulator::Print() // print each particle in the console
 
 }
 
-bool Simulator::Update() // update each particles until they go under 0 in y axis
+bool Simulator::Update(float deltaTime) // update each particles until they go under 0 in y axis
 {
     int particlesCount = int(particles.size());
     int particlesFinished = 0;
@@ -32,7 +32,7 @@ bool Simulator::Update() // update each particles until they go under 0 in y axi
         {
             if (particles[i].GetPosition().GetY() > 0)
             {
-                particles[i].Integrate(0.2f);
+                particles[i].Integrate(deltaTime);
                 std::cout << "Particule " << i + 1 << " : " << particles[i] << std::endl;
             }
             else

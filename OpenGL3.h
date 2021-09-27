@@ -19,12 +19,13 @@
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
 //using namespace glm;
 
+#include "Simulator.h"
 #include "Camera.h"
 
 class OpenGL3
 {
 public:
-	OpenGL3();
+	OpenGL3(Simulator* sim = nullptr);
 	void update();
 
 
@@ -34,8 +35,11 @@ public:
 	void drawPlan(float nbrUnits = 1);
 	void drawRect2D(double largeur, double hauteur);
 	void drawCube(double largeur, double hauteur);
+	void DrawAllParticules();
 
 private:
+	Simulator* sim;
+
 	Camera* cam;
 	float rotationCamDeltaY;
 };

@@ -12,7 +12,7 @@ private:
 public:
 	void AddParticle(const Particle p);
 	void Print();
-	bool Update();
+	bool Update(float deltaTime);
 	void ClearParticles();
 	int GetSize();
 	Vector3 GetParticlePosition(int i);

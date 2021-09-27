@@ -1,35 +1,14 @@
 #include "OpenGL3.h"
 
-OpenGL3::OpenGL3()
+OpenGL3::OpenGL3(Simulator* sim)
 {
     this->cam = new Camera();
-    this->cam->Set(10.0f, -25.0f, 0.0f);
+    this->cam->Set(20.0f, -25.0f, 0.0f);
     this->rotationCamDeltaY = 0.0f;
 
+    this->sim = sim;
 }
-void DrawNet(GLfloat size, GLint LinesX, GLint LinesZ)
-{
-    glBegin(GL_LINES);
-    for (int xc = 0; xc < LinesX; xc++)
-    {
-        glVertex3f(-size / 2.0 + xc / (GLfloat)(LinesX - 1) * size,
-            0.0,
-            size / 2.0);
-        glVertex3f(-size / 2.0 + xc / (GLfloat)(LinesX - 1) * size,
-            0.0,
-            size / -2.0);
-    }
-    for (int zc = 0; zc < LinesX; zc++)
-    {
-        glVertex3f(size / 2.0,
-            0.0,
-            -size / 2.0 + zc / (GLfloat)(LinesZ - 1) * size);
-        glVertex3f(size / -2.0,
-            0.0,
-            -size / 2.0 + zc / (GLfloat)(LinesZ - 1) * size);
-    }
-    glEnd();
-}
+
 // Clears the current window and draws a triangle.
 void OpenGL3::update() {
     ImGuiIO& io = ImGui::GetIO();
@@ -39,7 +18,7 @@ void OpenGL3::update() {
     glLoadIdentity();
 
     // ----- cam ------
-    this->rotationCamDeltaY = 0.25f;
+    this->rotationCamDeltaY = 0.05f;
     this->cam->AddOrbitalRotationY(this->rotationCamDeltaY);
     this->cam->Update();
     // -----------
@@ -48,7 +27,7 @@ void OpenGL3::update() {
     this->drawAxis(1);
 
     // -----------
-
+    /*
     // model transform:
     // rotate 45 on Y-axis then move 2 unit up
     glTranslatef(0, 2, 1);              // 2nd transform
@@ -63,7 +42,8 @@ void OpenGL3::update() {
     glRotatef(45*5, 1, 1, 1);               // 1st transform
 
     this->drawCube(3, 2);
-
+    */
+    this->DrawAllParticules();
     
     
 
@@ -149,7 +129,9 @@ void OpenGL3::drawRect2D(double largeur, double hauteur)
 }
 
 void OpenGL3::drawCube(double largeur, double hauteur) {
+
     glPushMatrix();
+    glScalef(largeur, largeur, largeur);
     glScalef(0.5, 0.5, 0.5);
     glBegin(GL_QUADS);
 
@@ -199,3 +181,15 @@ void OpenGL3::drawCube(double largeur, double hauteur) {
 // TODO : Draw plan and 3D axis
 // ...
 
+void OpenGL3::DrawAllParticules() {
+    for (auto &particule : this->sim->GetParticles())
+    {
+        glPushMatrix();
+        Vector3 pos = particule.GetPosition();
+        glTranslatef(pos.GetX(), pos.GetY(), pos.GetZ());              // 2nd transform
+        //glRotatef(45, 0, 1, 1);               // 1st transform
+        this->drawCube(0.2, 0.2);
+
+        glPopMatrix();
+    } 
+}

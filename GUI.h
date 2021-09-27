@@ -43,8 +43,6 @@ private:
 	GLFWwindow* window;
 
 	// Our state
-	bool show_demo_window;
-	bool show_another_window;
 	bool show_config_window;
 	ImVec4 clear_color;
 
