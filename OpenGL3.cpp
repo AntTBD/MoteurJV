@@ -1,4 +1,5 @@
 #include "OpenGL3.h"
+#include <Windows.h>
 
 OpenGL3::OpenGL3(Simulator* sim)
 {
@@ -20,7 +21,17 @@ void OpenGL3::update() {
     // ----- cam ------
     this->rotationCamDeltaY = 0.05f;
     this->cam->AddOrbitalRotationY(this->rotationCamDeltaY);
+    LPPOINT pt = new POINT;
+
+    GetCursorPos(pt);
+    if ((GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0)
+    {   this->cam->Set(15.0f, pt->y, pt->x);
+    
+    }
+ 
     this->cam->Update();
+
+
     // -----------
     // draw plan and axis at (0,0,0)
     this->drawPlan(10.0f);
