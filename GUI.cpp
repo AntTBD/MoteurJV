@@ -17,9 +17,10 @@ int GUI::init()
 {
     // Setup window
     glfwSetErrorCallback(glfw_error_callback);
-    if (!glfwInit())
+    if (!glfwInit()) {
+        fprintf(stderr, "Failed to initialize GLFW\n");
         return 1;
-
+    }
     // Decide GL+GLSL versions
 #if defined(IMGUI_IMPL_OPENGL_ES2)
     // GL ES 2.0 + GLSL 100
@@ -46,7 +47,7 @@ int GUI::init()
     // Create window with graphics context
     this->window = glfwCreateWindow(1280, 720, "Moteur physique de Jeux Video", NULL, NULL);
     if (!this->window) {
-        glfwTerminate();
+        fprintf(stderr, "Failed to create window with graphics context\n");
         return -1;
     }
     glfwMakeContextCurrent(this->window);
@@ -82,6 +83,9 @@ int GUI::init()
     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
     //IM_ASSERT(font != NULL);
 
+    // configure global opengl state
+    // -----------------------------
+    glEnable(GL_DEPTH_TEST);
 
     return 0;
 }
@@ -152,7 +156,7 @@ void GUI::update()
         glfwGetFramebufferSize(this->window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
         glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
-        glClear(GL_COLOR_BUFFER_BIT);  
+        //glClear(GL_COLOR_BUFFER_BIT);
 
         // ---- Show 3d Render ----
         this->render3D();
