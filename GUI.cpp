@@ -180,7 +180,7 @@ void GUI::showConfigWindow() // Window to add particles to simulator, start, pau
             ImGui::InputFloat("inv mass", &invMass);
             ImGui::InputFloat("gravity factor", &gravityFactor);
 
-            if (ImGui::Button("Add new particle")) // Add new particle to the simulator with the chosen parameters
+            if (ImGui::Button("Add")) // Add new particle to the simulator with the chosen parameters
             {
                 if (!this->isSimulating && !this->isThreadActive) //Can only add if simulation is not running
                 {
@@ -195,7 +195,7 @@ void GUI::showConfigWindow() // Window to add particles to simulator, start, pau
 
             }
 
-            if (ImGui::Button("Print particles")) // Print all particles in the console
+            if (ImGui::Button("Particles")) // Print all particles in the console
             {
                 if (!this->isSimulating && !this->isThreadActive) // Only if simulation not running
                 {
@@ -235,7 +235,7 @@ void GUI::showConfigWindow() // Window to add particles to simulator, start, pau
             }
 
             // Stop simulation and clear particles
-            if (ImGui::Button("Stop and clear"))
+            if (ImGui::Button("Clear"))
             {
                 Clear();
             }
