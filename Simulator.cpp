@@ -2,7 +2,7 @@
 
 Simulator::Simulator()
 {
-    std::vector<Particle>;
+    std::vector<Particle>();
 }
 
 void Simulator::AddParticle(const Particle p) // add particle to the simulator
