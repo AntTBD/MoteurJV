@@ -7,6 +7,10 @@
 #include "GUI.h"
 #include "Simulator.h"
 
+/// <summary>
+/// Thread for 3D user interface face manager
+/// </summary>
+/// <param name="sim">Pointer gathering all the characteristics of the particles of the scene</param>
 void UI(Simulator* sim)
 {
     GUI gui(sim);

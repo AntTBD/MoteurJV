@@ -1,78 +1,87 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="include\imgui-1.84.2\imgui_widgets.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
     <ClCompile Include="include\imgui-1.84.2\imgui.cpp">
-      <Filter>imgui</Filter>
+      <Filter>Includes</Filter>
     </ClCompile>
     <ClCompile Include="include\imgui-1.84.2\imgui_demo.cpp">
-      <Filter>imgui</Filter>
+      <Filter>Includes</Filter>
     </ClCompile>
     <ClCompile Include="include\imgui-1.84.2\imgui_draw.cpp">
-      <Filter>imgui</Filter>
+      <Filter>Includes</Filter>
     </ClCompile>
     <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_glfw.cpp">
-      <Filter>imgui</Filter>
+      <Filter>Includes</Filter>
     </ClCompile>
     <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_opengl3.cpp">
-      <Filter>imgui</Filter>
+      <Filter>Includes</Filter>
     </ClCompile>
     <ClCompile Include="include\imgui-1.84.2\imgui_tables.cpp">
-      <Filter>imgui</Filter>
+      <Filter>Includes</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI.cpp">
-      <Filter>Source</Filter>
+    <ClCompile Include="include\imgui-1.84.2\imgui_widgets.cpp">
+      <Filter>Includes</Filter>
     </ClCompile>
     <ClCompile Include="MoteurJV.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="OpenGL3.cpp">
-      <Filter>Source</Filter>
+      <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Particle.cpp">
-      <Filter>Source</Filter>
+      <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Simulator.cpp">
-      <Filter>Source</Filter>
+      <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Vector3.cpp">
-      <Filter>Source</Filter>
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>UserInterface\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>UserInterface\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL3.cpp">
+      <Filter>UserInterface\Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenGL3.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="Particle.h">
-      <Filter>Header</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Simulator.h">
-      <Filter>Header</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Vector3.h">
-      <Filter>Header</Filter>
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>UserInterface\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>UserInterface\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL3.h">
+      <Filter>UserInterface\Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="imgui">
-      <UniqueIdentifier>{e4973a11-d83d-4a48-8f3c-7e33414f1c56}</UniqueIdentifier>
+    <Filter Include="Includes">
+      <UniqueIdentifier>{2956f14e-6009-4dcd-bdb3-db17b7bdb008}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source">
-      <UniqueIdentifier>{b076e6e0-c405-4711-918e-4107927a7988}</UniqueIdentifier>
+    <Filter Include="UserInterface">
+      <UniqueIdentifier>{6cb80b8f-acfd-4f65-993b-94298804bc58}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header">
-      <UniqueIdentifier>{2cbc52df-d4de-46f8-b47d-6e8599f631ef}</UniqueIdentifier>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{84f4a744-92bf-466a-b068-c4869f78c31c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{a8c1d71b-cb40-42a2-ad1b-82f48a534809}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserInterface\Headers">
+      <UniqueIdentifier>{d093a064-da1b-4164-9a86-05da69c96e19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserInterface\Sources">
+      <UniqueIdentifier>{37750fb9-7dff-4a0b-a316-eb61c9bc89a0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

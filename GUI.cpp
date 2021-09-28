@@ -1,14 +1,17 @@
 #include <iostream>
 #include "GUI.h"
 
+/// <summary>
+/// Constructor (instenciate simulator and openGL)
+/// </summary>
+/// <param name="sim">Global simulator</param>
 GUI::GUI(Simulator* sim)
 {
-   // this->init();
     this->window = nullptr;
-
 
     this->show_config_window = true;
     this->clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
     this->sim = sim;
     this->isSimulating = false;
     this->isThreadActive = false;
@@ -16,6 +19,10 @@ GUI::GUI(Simulator* sim)
     this->opengl = new OpenGL3(this->sim);
 }
 
+/// <summary>
+/// Init ImGUI, create window and set useful settings for OpenGL
+/// </summary>
+/// <returns>1 if GLFW error OU -1 if window error OU 0 if not errors</returns>
 int GUI::init()
 {
     // Setup window
@@ -86,14 +93,15 @@ int GUI::init()
     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
     //IM_ASSERT(font != NULL);
 
-    // configure global opengl state
-    // -----------------------------
+    // configure global opengl state to be used with 3D view mode
     glEnable(GL_DEPTH_TEST);
 
     return 0;
 }
 
-
+/// <summary>
+/// Update User Interface with ImGui + 3D OpenGL render
+/// </summary>
 void GUI::update()
 {
 
@@ -123,10 +131,10 @@ void GUI::update()
         glfwGetFramebufferSize(this->window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
         glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
-        //glClear(GL_COLOR_BUFFER_BIT);
 
 
-        // ---- Show 3d Render ----
+        // ------------------------
+        // Show 3D our Render
         this->render3D();
         // ------------------------
 
@@ -136,6 +144,9 @@ void GUI::update()
     }
 }
 
+/// <summary>
+/// Stop all (ImGUI + GLFW + OpenGL + window)
+/// </summary>
 void GUI::end()
 {
 
@@ -153,7 +164,10 @@ void GUI::end()
     glfwTerminate();
 }
 
-void GUI::showConfigWindow() // Window to add particles to simulator, start, pause and clear the simulation
+/// <summary>
+/// ImGui Window to add particles to simulator, start, pause and clear the simulation
+/// </summary>
+void GUI::showConfigWindow()
 {
     if (this->show_config_window) {
         ImGui::Begin("Config Window", &this->show_config_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
@@ -246,12 +260,18 @@ void GUI::showConfigWindow() // Window to add particles to simulator, start, pau
     }
 }
 
+/// <summary>
+/// Call 3D render update
+/// </summary>
 void GUI::render3D()
 {
     this->opengl->update();
 }
 
-void GUI::Simulate() // Update all particles of the simulator every fixed deltatime of 20ms
+/// <summary>
+/// Update all particles of the simulator every fixed deltatime of 20ms
+/// </summary>
+void GUI::Simulate()
 {
     int deltaTime = 20;
     this->isSimulating = true;
@@ -264,7 +284,10 @@ void GUI::Simulate() // Update all particles of the simulator every fixed deltat
 
 }
 
-void GUI::Clear() // Remove particles from the simulator and finish thread if possible
+/// <summary>
+/// Remove particles from the simulator and finish thread if possible
+/// </summary>
+void GUI::Clear()
 {
     if (this->isThreadActive)
     {
@@ -280,7 +303,10 @@ void GUI::Clear() // Remove particles from the simulator and finish thread if po
     this->sim->Resume(); // Set simulation back to unpaused if we cleared while it was paused
 }
 
-void GUI::Pause() // Pause or resume simulation
+/// <summary>
+/// Pause or resume simulation
+/// </summary>
+void GUI::Pause()
 {
     if (this->isThreadActive)
     {

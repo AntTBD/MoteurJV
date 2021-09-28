@@ -3,6 +3,9 @@
 #include <thread>
 #include "Particle.h"
 
+/// <summary>
+/// Our World with multiple particles
+/// </summary>
 class Simulator
 {
 private:
