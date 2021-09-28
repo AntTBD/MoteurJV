@@ -3,64 +3,51 @@
 
 OpenGL3::OpenGL3(Simulator* sim)
 {
-    this->cam = new Camera();
-    this->cam->Set(20.0f, -25.0f, 0.0f);
+    this->cam = new Camera(); // create main camera
+    this->cam->Set(20.0f, -25.0f, 0.0f); // set default position
     this->rotationCamDeltaY = 0.0f;
 
     this->sim = sim;
 }
 
-// Clears the current window and draws a triangle.
+/// <summary>
+/// Clears the window add camera and draws all objects.
+/// </summary>
 void OpenGL3::update() {
     ImGuiIO& io = ImGui::GetIO();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    // Set view mode
     glMatrixMode(GL_MODELVIEW); // 3D Projection
     glLoadIdentity();
 
-    // ----- cam ------
+    // --------------
+    // Set camera position and rotation
     this->rotationCamDeltaY = 0.05f;
     this->cam->AddOrbitalRotationY(this->rotationCamDeltaY);
+    /* 
+    // TODO : perform orbital rotation with mouse
     LPPOINT pt = new POINT;
-
     GetCursorPos(pt);
     if ((GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0)
     {
         this->cam->Set(15.0f, pt->y, pt->x);
 
-    }
-
+    }*/
+    // Update Camera
     this->cam->Update();
-
-
-    // -----------
+    
+    // --------------
     // draw plan and axis at (0,0,0)
     this->drawPlan(10.0f);
     this->drawAxis(1);
-
-    // -----------
-    /*
-    // model transform:
-    // rotate 45 on Y-axis then move 2 unit up
-    glTranslatef(0, 2, 1);              // 2nd transform
-    glRotatef(45, 0, 1, 1);               // 1st transform
-
-   
-    this->drawCube(3, 2);
-
-    glRotatef(-45*10, 0, 1, 0);               // 1st transform
-
-    glTranslatef(0, 0, 2);              // 2nd transform
-    glRotatef(45*5, 1, 1, 1);               // 1st transform
-
-    this->drawCube(3, 2);
-    */
-    this->DrawAllParticules();
     
-    
-
+    // --------------
     // TODO : call functions that create objects
+    this->DrawAllParticules();
     // ...
+
+    // --------------
 
     // Flush drawing command buffer to make drawing happen as soon as possible.
     glFlush();
@@ -68,11 +55,11 @@ void OpenGL3::update() {
 
 }
 
+/// <summary>
+/// Create multicolor 2D triangle with glVertex
+/// </summary>
 void OpenGL3::createTriangle()
 {
-    // Drawing is done by specifying a sequence of vertices.  The way these
-    // vertices are connected (or not connected) depends on the argument to
-    // glBegin.  GL_POLYGON constructs a filled polygon.
     glBegin(GL_POLYGON);
     glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(-0.6f, -0.75f, 0.5f);
     glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(0.6f, -0.75f, 0.0f);
@@ -80,19 +67,27 @@ void OpenGL3::createTriangle()
     glEnd();
 }
 
+/// <summary>
+/// Create axis for 3 dimensions 
+/// </summary>
+/// <param name="echelle">Length of axis</param>
 void OpenGL3::drawAxis(float echelle)
 {
     glPushMatrix();
     glScalef(echelle, echelle, echelle);
     glBegin(GL_LINES);
-    glColor3ub(255, 0, 0); glVertex3f(0, 0, 0); glVertex3f(1, 0, 0); // rouge
-    glColor3ub(0, 255, 0); glVertex3f(0, 0, 0); glVertex3f(0, 1, 0); // green
-    glColor3ub(0, 0, 255); glVertex3f(0, 0, 0); glVertex3f(0, 0, 1); // bleu
+    glColor3ub(255, 0, 0); glVertex3f(0, 0, 0); glVertex3f(1, 0, 0); // x => rouge
+    glColor3ub(0, 255, 0); glVertex3f(0, 0, 0); glVertex3f(0, 1, 0); // y => green
+    glColor3ub(0, 0, 255); glVertex3f(0, 0, 0); glVertex3f(0, 0, 1); // z => bleu
     glEnd();
     glScalef(-echelle, -echelle, -echelle);
     glPopMatrix();
 }
 
+/// <summary>
+/// Create plan for nbrUnits positifs
+/// </summary>
+/// <param name="nbrUnits">Nbr of positive units</param>
 void OpenGL3::drawPlan(float nbrUnits)
 {
     int nbrLinesX = (int)(nbrUnits *2.0f);
@@ -103,6 +98,7 @@ void OpenGL3::drawPlan(float nbrUnits)
     glPushMatrix();
     
     glBegin(GL_LINES);
+    // Create all X lines
     for (int xc = 0; xc <= nbrLinesX; xc++)
     {
         glVertex3f(-nbrUnits / 2.0 + xc / (float)(nbrLinesX) * nbrUnits,
@@ -112,7 +108,8 @@ void OpenGL3::drawPlan(float nbrUnits)
             0.0,
             nbrUnits / -2.0f);
     }
-    for (int zc = 0; zc <= nbrLinesX; zc++)
+    // Create all Z lines
+    for (int zc = 0; zc <= nbrLinesZ; zc++)
     {
         glVertex3f(nbrUnits / 2.0,
             0.0,
@@ -126,10 +123,11 @@ void OpenGL3::drawPlan(float nbrUnits)
     glPopMatrix();
 }
 
-/*
-    Dessine un rectangle avec comme point de référence
-    le milieu du côté gauche
-*/
+/// <summary>
+/// Create 2D rectangle with the middle of the left side as a reference point
+/// </summary>
+/// <param name="largeur"></param>
+/// <param name="hauteur"></param>
 void OpenGL3::drawRect2D(double largeur, double hauteur)
 {
     glBegin(GL_QUADS);
@@ -140,6 +138,11 @@ void OpenGL3::drawRect2D(double largeur, double hauteur)
     glEnd();
 }
 
+/// <summary>
+/// Create 3D parallelepiped with the center as a reference point
+/// </summary>
+/// <param name="largeur"></param>
+/// <param name="hauteur"></param>
 void OpenGL3::drawCube(double largeur, double hauteur) {
 
     glPushMatrix();
@@ -187,21 +190,22 @@ void OpenGL3::drawCube(double largeur, double hauteur) {
     glPopMatrix();
 }
 
+/// <summary>
+/// Create all particles of the simulator
+/// </summary>
+void OpenGL3::DrawAllParticules() {
+    for (auto &particule : this->sim->GetParticles()) // Browse particles
+    {
+        glPushMatrix();
+        Vector3 pos = particule.GetPosition(); // Get position
+        glTranslatef(pos.GetX(), pos.GetY(), pos.GetZ());              // translate to the positon
+        //glRotatef(45, 0, 1, 1); // Rotation particle (if necessary)
+        this->drawCube(0.2, 0.2); // create a small cube to simulate particle in 3D
+
+        glPopMatrix();// draw cube and return to center
+    } 
+}
+
 // TODO : Create other functions to create 3D objects with args to change sizes, color and position
 // ...
 
-// TODO : Draw plan and 3D axis
-// ...
-
-void OpenGL3::DrawAllParticules() {
-    for (auto &particule : this->sim->GetParticles())
-    {
-        glPushMatrix();
-        Vector3 pos = particule.GetPosition();
-        glTranslatef(pos.GetX(), pos.GetY(), pos.GetZ());              // 2nd transform
-        //glRotatef(45, 0, 1, 1);               // 1st transform
-        this->drawCube(0.2, 0.2);
-
-        glPopMatrix();
-    } 
-}

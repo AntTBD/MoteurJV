@@ -1,16 +1,26 @@
 #include "Simulator.h"
 
+/// <summary>
+/// Constructor
+/// </summary>
 Simulator::Simulator()
 {
     std::vector<Particle>;
 }
 
-void Simulator::AddParticle(const Particle p) // add particle to the simulator
+/// <summary>
+/// Add particle to the simulator
+/// </summary>
+/// <param name="p"></param>
+void Simulator::AddParticle(const Particle p)
 {
 	this->particles.push_back(p);
 }
 
-void Simulator::Print() // print each particle in the console
+/// <summary>
+/// Print each particle in the console
+/// </summary>
+void Simulator::Print()
 {
     if (particles.empty())
     {
@@ -26,7 +36,11 @@ void Simulator::Print() // print each particle in the console
 
 }
 
-void Simulator::Update(float deltaTime) // update each particles until they go under 0 in y axis
+/// <summary>
+/// Update each particles until they go under 0 in y axis
+/// </summary>
+/// <param name="deltaTime"></param>
+void Simulator::Update(float deltaTime)
 {
     if (!particles.empty())
     {
@@ -52,11 +66,18 @@ void Simulator::Resume()
     this->isPaused = false;
 }
 
-void Simulator::ClearParticles() // clear the particle vector
+/// <summary>
+/// Clear the particle vector
+/// </summary>
+void Simulator::ClearParticles()
 {
     this->particles.clear();
 }
 
+/// <summary>
+/// 
+/// </summary>
+/// <returns>List of all particules</returns>
 std::vector<Particle> Simulator::GetParticles()
 {
     return this->particles;

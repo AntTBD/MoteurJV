@@ -1,16 +1,19 @@
 #pragma once
-// code extrait de example/example_glfw_opengl3
+// code extrait de imguix.x.x/example/example_glfw_opengl3
 
+// Include ImGui with OpenGL and GLFW
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include <stdio.h>
+
+// Include GLFW
 #if defined(IMGUI_IMPL_OPENGL_ES2)
 #include <GLES2/gl2.h>
 #endif
 #include <GLFW/glfw3.h> // Will drag system OpenGL headers
 
-#include "OpenGL3.h"
+
 
 // [Win32] Our example includes a copy of glfw3.lib pre-compiled with VS2010 to maximize ease of testing and compatibility with old VS compilers.
 // To link with VS2010-era libraries, VS2015+ requires linking with legacy_stdio_definitions.lib, which we do using this pragma.
@@ -19,16 +22,37 @@
 #pragma comment(lib, "legacy_stdio_definitions")
 #endif
 
-#include "Simulator.h"
-#include <thread>
-
 static void glfw_error_callback(int error, const char* description)
 {
 	fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 }
 
+// Include 3D manager and simulator
+#include "OpenGL3.h"
+#include "Simulator.h"
+// include threads
+#include <thread>
+
+/// <summary>
+/// User Interface Manager (ImGui + OpenGL + Simulator)
+/// </summary>
 class GUI
 {
+private:
+	GLFWwindow* window;
+
+	// Our state
+	bool show_config_window;
+	ImVec4 clear_color;
+
+	OpenGL3* opengl;
+
+	// Simulation
+	bool isSimulating;
+	bool isThreadActive;
+	Simulator* sim;
+	std::thread simThread;
+
 public:
 	GUI(Simulator* sim = nullptr); // Pointer to the particles simulator
 	int init();
@@ -42,20 +66,6 @@ public:
 	void Clear();
 	void Pause(); // Pause or resume
 
-private:
-	GLFWwindow* window;
-
-	// Our state
-	bool show_config_window;
-	ImVec4 clear_color;
-
-	OpenGL3* opengl;
-
-	// simulation
-	bool isSimulating;
-	bool isThreadActive;
-	Simulator* sim;
-	std::thread simThread;
 };
 
 
