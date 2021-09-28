@@ -1,83 +1,87 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="IMGUI">
-      <UniqueIdentifier>{2498940e-7acc-4950-8310-1c9df180981a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="IMGUI\Source Files">
-      <UniqueIdentifier>{37d35457-4cc2-43fc-8a6b-d75fca559744}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="MoteurJV.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="include\imgui-1.84.2\imgui.cpp">
-      <Filter>IMGUI\Source Files</Filter>
+      <Filter>Includes</Filter>
     </ClCompile>
     <ClCompile Include="include\imgui-1.84.2\imgui_demo.cpp">
-      <Filter>IMGUI\Source Files</Filter>
+      <Filter>Includes</Filter>
     </ClCompile>
     <ClCompile Include="include\imgui-1.84.2\imgui_draw.cpp">
-      <Filter>IMGUI\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_opengl3.cpp">
-      <Filter>IMGUI\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\imgui-1.84.2\imgui_tables.cpp">
-      <Filter>IMGUI\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\imgui-1.84.2\imgui_widgets.cpp">
-      <Filter>IMGUI\Source Files</Filter>
+      <Filter>Includes</Filter>
     </ClCompile>
     <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_glfw.cpp">
-      <Filter>IMGUI\Source Files</Filter>
+      <Filter>Includes</Filter>
     </ClCompile>
-    <ClCompile Include="OpenGL3.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_opengl3.cpp">
+      <Filter>Includes</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui-1.84.2\imgui_tables.cpp">
+      <Filter>Includes</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui-1.84.2\imgui_widgets.cpp">
+      <Filter>Includes</Filter>
+    </ClCompile>
+    <ClCompile Include="MoteurJV.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Simulator.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-    <ClCompile Include="Simulator.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>UserInterface\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>UserInterface\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL3.cpp">
+      <Filter>UserInterface\Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Vector3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Particle.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="GUI.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Simulator.h">
+      <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="OpenGL3.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Vector3.h">
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-    <ClInclude Include="Simulator.h">
-      <Filter>Header Files</Filter>
+      <Filter>UserInterface\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>UserInterface\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL3.h">
+      <Filter>UserInterface\Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Includes">
+      <UniqueIdentifier>{2956f14e-6009-4dcd-bdb3-db17b7bdb008}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserInterface">
+      <UniqueIdentifier>{6cb80b8f-acfd-4f65-993b-94298804bc58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{84f4a744-92bf-466a-b068-c4869f78c31c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{a8c1d71b-cb40-42a2-ad1b-82f48a534809}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserInterface\Headers">
+      <UniqueIdentifier>{d093a064-da1b-4164-9a86-05da69c96e19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserInterface\Sources">
+      <UniqueIdentifier>{37750fb9-7dff-4a0b-a316-eb61c9bc89a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
