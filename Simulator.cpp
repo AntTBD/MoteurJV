@@ -1,14 +1,6 @@
 #include "Simulator.h"
 
 /// <summary>
-/// Constructor
-/// </summary>
-Simulator::Simulator()
-{
-    std::vector<Particle>;
-}
-
-/// <summary>
 /// Add particle to the simulator
 /// </summary>
 /// <param name="p"></param>

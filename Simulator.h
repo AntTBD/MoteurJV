@@ -13,8 +13,6 @@ private:
 	bool isPaused = false;
 
 public:
-	Simulator();
-
 	void AddParticle(const Particle p); // Add particle to simulator
 	void Print(); // Print all the particules of the simulation to the console
 
