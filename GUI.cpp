@@ -135,7 +135,16 @@ void GUI::update()
 
         // ------------------------
         // Show 3D our Render
-        this->render3D();
+        if (this->isSimulating) // pause the simulation while rendering and resume after render is done
+        {
+            Pause();
+            this->render3D();
+            Pause();
+        }
+        else
+        {
+            this->render3D();
+        }
         // ------------------------
 
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -269,17 +278,33 @@ void GUI::render3D()
 }
 
 /// <summary>
-/// Update all particles of the simulator every fixed deltatime of 20ms
+/// Update all particles of the simulator every 16.6ms
 /// </summary>
 void GUI::Simulate()
 {
-    int deltaTime = 20;
+    float deltaTimeTarget = 16.6f;
+    float deltaTime = 0.0f;
     this->isSimulating = true;
     this->isThreadActive = true;
+    
+    auto time = std::chrono::high_resolution_clock::now();
+
     while (this->isThreadActive)
     {
-        sim->Update(deltaTime/1000.0f);
-        std::this_thread::sleep_for(std::chrono::milliseconds(deltaTime));
+        if (this->isSimulating)
+        {
+            auto now = std::chrono::high_resolution_clock::now();
+
+            std::chrono::duration<double, std::milli> deltaTimeDuration = now - time;
+            deltaTime += deltaTimeDuration.count();
+            time = now;
+        
+            if (deltaTime >= deltaTimeTarget)
+            {
+                sim->Update(deltaTime / 1000.0f);
+                deltaTime = 0.0f;
+            }
+        }
     }
 
 }
@@ -314,19 +339,12 @@ void GUI::Pause()
         {
             this->sim->Pause();
             this->isSimulating = false;
-            std::cout << "Simulation paused" << std::endl;
         }
         else
         {
             this->sim->Resume();
             this->isSimulating = true;
-            std::cout << "Simulation resumed" << std::endl;
         }
         
     }
-    else
-    {
-        std::cout << "No simulation is running" << std::endl;
-    }
-
 }

@@ -4,7 +4,7 @@
 /// Add particle to the simulator
 /// </summary>
 /// <param name="p"></param>
-void Simulator::AddParticle(const Particle p)
+void Simulator::AddParticle(const Particle& p)
 {
 	this->particles.push_back(p);
 }
@@ -29,7 +29,7 @@ void Simulator::Print()
 }
 
 /// <summary>
-/// Update each particles until they go under 0 in y axis
+/// Update each particles
 /// </summary>
 /// <param name="deltaTime"></param>
 void Simulator::Update(float deltaTime)
@@ -70,7 +70,7 @@ void Simulator::ClearParticles()
 /// 
 /// </summary>
 /// <returns>List of all particules</returns>
-std::vector<Particle> Simulator::GetParticles()
+const std::vector<Particle*>& Simulator::GetParticles() const
 {
     return this->particles;
 }

@@ -32,6 +32,8 @@ static void glfw_error_callback(int error, const char* description)
 #include "Simulator.h"
 // include threads
 #include <thread>
+// include chrono
+#include <chrono>
 
 /// <summary>
 /// User Interface Manager (ImGui + OpenGL + Simulator)
