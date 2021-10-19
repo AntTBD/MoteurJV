@@ -197,7 +197,7 @@ void OpenGL3::DrawAllParticules() {
     for (auto &particule : this->sim->GetParticles()) // Browse particles
     {
         glPushMatrix();
-        Vector3 pos = particule.GetPosition(); // Get position
+        Vector3 pos = particule->GetPosition(); // Get position
         glTranslatef(pos.GetX(), pos.GetY(), pos.GetZ());              // translate to the positon
         //glRotatef(45, 0, 1, 1); // Rotation particle (if necessary)
         this->drawCube(0.2, 0.2); // create a small cube to simulate particle in 3D

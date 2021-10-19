@@ -13,7 +13,7 @@ private:
 	bool isPaused = false;
 
 public:
-	void AddParticle(const Particle& p); // Add particle to simulator
+	void AddParticle(Particle* p); // Add particle to simulator
 	void Print(); // Print all the particules of the simulation to the console
 
 	void Update(float deltaTime); // Update acceleration, speed and position of all particles in the simulator

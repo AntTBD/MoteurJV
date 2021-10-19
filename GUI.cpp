@@ -207,9 +207,9 @@ void GUI::showConfigWindow()
             {
                 if (!this->isSimulating && !this->isThreadActive) //Can only add if simulation is not running
                 {
-                    Particle p = Particle(Vector3(px, py, pz), Vector3(sx, sy, sz), invMass, gravityFactor);
+                    Particle *p = new Particle(Vector3(px, py, pz), Vector3(sx, sy, sz), invMass, gravityFactor);
                     this->sim->AddParticle(p);
-                    std::cout << "New particle added -> " << p << std::endl;
+                    std::cout << "New particle added -> " << *p << std::endl;
                 }
                 else
                 {
@@ -291,19 +291,16 @@ void GUI::Simulate()
 
     while (this->isThreadActive)
     {
-        if (this->isSimulating)
-        {
-            auto now = std::chrono::high_resolution_clock::now();
+        auto now = std::chrono::high_resolution_clock::now();
 
-            std::chrono::duration<double, std::milli> deltaTimeDuration = now - time;
-            deltaTime += deltaTimeDuration.count();
-            time = now;
+        std::chrono::duration<double, std::milli> deltaTimeDuration = now - time;
+        deltaTime += deltaTimeDuration.count();
+        time = now;
         
-            if (deltaTime >= deltaTimeTarget)
-            {
-                sim->Update(deltaTime / 1000.0f);
-                deltaTime = 0.0f;
-            }
+        if (deltaTime >= deltaTimeTarget)
+        {
+            sim->Update(deltaTime / 1000.0f);
+            deltaTime = 0.0f;
         }
     }
 

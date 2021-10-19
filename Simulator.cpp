@@ -4,9 +4,9 @@
 /// Add particle to the simulator
 /// </summary>
 /// <param name="p"></param>
-void Simulator::AddParticle(const Particle& p)
+void Simulator::AddParticle(Particle* p)
 {
-	this->particles.push_back(p);
+    this->particles.push_back(p);
 }
 
 /// <summary>
@@ -22,7 +22,7 @@ void Simulator::Print()
     {
         for (int i = 0; i < particles.size(); i++)
         {
-            std::cout << "Particule " << i + 1 << " : " << particles[i] << std::endl;
+            std::cout << "Particule " << i + 1 << " : " << *particles[i] << std::endl;
         }
     }
 
@@ -40,8 +40,8 @@ void Simulator::Update(float deltaTime)
         {
             if (!this->isPaused) // No update if simulator is paused
             {
-                particles[i].Integrate(deltaTime);
-                std::cout << "Particule " << i + 1 << " : " << particles[i] << std::endl;
+                particles[i]->Integrate(deltaTime);
+                std::cout << "Particule " << i + 1 << " : " << *particles[i] << std::endl;
             }
               
         }
@@ -63,6 +63,10 @@ void Simulator::Resume()
 /// </summary>
 void Simulator::ClearParticles()
 {
+    for (Particle* p : this->particles)
+    {
+        delete(p);
+    }
     this->particles.clear();
 }
 
