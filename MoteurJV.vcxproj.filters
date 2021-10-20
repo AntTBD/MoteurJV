@@ -52,14 +52,14 @@
     <ClCompile Include="ParticleBuoyancy.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Formes.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="ParticleForceRegistry.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="ParticleGravity.cpp">
       <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Formes.cpp">
+      <Filter>UserInterface\Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,7 +100,7 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Formes.h">
-      <Filter>Headers</Filter>
+      <Filter>UserInterface\Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
