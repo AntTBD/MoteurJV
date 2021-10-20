@@ -203,6 +203,36 @@ void GUI::showConfigWindow()
             ImGui::InputFloat("inv mass", &invMass);
             ImGui::InputFloat("gravity factor", &gravityFactor);
 
+            // Dropdown de presets (from https://github.com/ocornut/imgui/issues/1658#issuecomment-774676329)
+            {
+                ImGui::Text("Choose an object");
+                struct { const char* label; Vector3 initSpeed; float masse; } projectiles[] = {
+                    {"Balles",          Vector3(10,     10, 0),     1.0f},
+                    {"Boulets",         Vector3(5,      0,  0),     5.0f},
+                    {"Laser",           Vector3(100,    10, 0),     0.1f},
+                    {"Boule de feu",    Vector3(5,      5,  0),     1.5f},
+                };
+                static const char* current_projectile = NULL;
+
+                if (ImGui::BeginCombo("Preset", current_projectile)) // The second parameter is the label previewed before opening the combo.
+                {
+                    for (int n = 0; n < IM_ARRAYSIZE(projectiles); n++)
+                    {
+                        bool is_selected = (current_projectile == projectiles[n].label); // You can store your selection however you want, outside or inside your objects
+                        if (ImGui::Selectable(projectiles[n].label, is_selected)) {
+                            current_projectile = projectiles[n].label;
+                            sx = projectiles[n].initSpeed.GetX();
+                            sy = projectiles[n].initSpeed.GetY();
+                            sz = projectiles[n].initSpeed.GetZ();
+                            invMass = 1.0f / projectiles[n].masse;
+                        }
+                        if (is_selected)
+                            ImGui::SetItemDefaultFocus();   // You may set the initial focus when opening the combo (scrolling + for keyboard navigation support)
+                    }
+                    ImGui::EndCombo();
+                }
+            }
+
             if (ImGui::Button("Add")) // Add new particle to the simulator with the chosen parameters
             {
                 if (!this->isSimulating && !this->isThreadActive) //Can only add if simulation is not running
