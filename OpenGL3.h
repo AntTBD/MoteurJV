@@ -15,6 +15,7 @@
 // Include global simulator and camera
 #include "Simulator.h"
 #include "Camera.h"
+#include "Formes.h"
 
 /// <summary>
 /// 3D OpenGL Manager
@@ -29,20 +30,25 @@ private:
 	// rotaion angle
 	float rotationCamDeltaY;
 
+	Formes* formes;
 public:
 	OpenGL3(Simulator* sim = nullptr);
+
+	void InitFormes();
 
 	void update();
 
 	void createTriangle();
 
-	void drawAxis(float echelle = 1);
-	void drawPlan(float nbrUnits = 1);
+	void drawAxis(float echelle = 1.0f);
+	void drawPlan(float nbrUnits = 1.0f);
 
 	void drawRect2D(double largeur, double hauteur);
 	void drawCube(double largeur, double hauteur);
+	void DrawSphere(double diametre = 1.0);
 
 	void DrawAllParticules();
+
 
 };
 

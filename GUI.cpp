@@ -96,6 +96,8 @@ int GUI::init()
     // configure global opengl state to be used with 3D view mode
     glEnable(GL_DEPTH_TEST);
 
+    this->opengl->InitFormes();
+
     return 0;
 }
 

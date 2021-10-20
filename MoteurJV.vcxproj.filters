@@ -52,6 +52,7 @@
     <ClCompile Include="ParticleBuoyancy.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Formes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Particle.h">
@@ -84,6 +85,7 @@
     <ClInclude Include="ParticleForceGenerator.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Formes.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Includes">

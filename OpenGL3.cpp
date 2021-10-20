@@ -8,6 +8,13 @@ OpenGL3::OpenGL3(Simulator* sim)
     this->rotationCamDeltaY = 0.0f;
 
     this->sim = sim;
+
+    this->formes = new Formes();
+}
+
+void OpenGL3::InitFormes()
+{
+    this->formes->Init();
 }
 
 /// <summary>
@@ -41,7 +48,7 @@ void OpenGL3::update() {
     // draw plan and axis at (0,0,0)
     this->drawPlan(10.0f);
     this->drawAxis(1);
-    
+
     // --------------
     // TODO : call functions that create objects
     this->DrawAllParticules();
@@ -60,11 +67,7 @@ void OpenGL3::update() {
 /// </summary>
 void OpenGL3::createTriangle()
 {
-    glBegin(GL_POLYGON);
-    glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(-0.6f, -0.75f, 0.5f);
-    glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(0.6f, -0.75f, 0.0f);
-    glColor3f(0.0f, 0.0f, 1.0f); glVertex3f(0.0f, 0.75f, 0.0f);
-    glEnd();
+    this->formes->DrawTriangle();
 }
 
 /// <summary>
@@ -75,12 +78,8 @@ void OpenGL3::drawAxis(float echelle)
 {
     glPushMatrix();
     glScalef(echelle, echelle, echelle);
-    glBegin(GL_LINES);
-    glColor3ub(255, 0, 0); glVertex3f(0, 0, 0); glVertex3f(1, 0, 0); // x => rouge
-    glColor3ub(0, 255, 0); glVertex3f(0, 0, 0); glVertex3f(0, 1, 0); // y => green
-    glColor3ub(0, 0, 255); glVertex3f(0, 0, 0); glVertex3f(0, 0, 1); // z => bleu
-    glEnd();
-    glScalef(-echelle, -echelle, -echelle);
+    this->formes->DrawAxis();
+    glScalef(1.0f / echelle, 1.0f / echelle, 1.0f / echelle);
     glPopMatrix();
 }
 
@@ -97,28 +96,26 @@ void OpenGL3::drawPlan(float nbrUnits)
     glColor3f(1.0, 1.0, 1.0); // white
     glPushMatrix();
     
-    glBegin(GL_LINES);
     // Create all X lines
     for (int xc = 0; xc <= nbrLinesX; xc++)
     {
-        glVertex3f(-nbrUnits / 2.0 + xc / (float)(nbrLinesX) * nbrUnits,
-            0.0,
-            nbrUnits / 2.0);
-        glVertex3f(-nbrUnits / 2.0 + xc / (float)(nbrLinesX) * nbrUnits,
-            0.0,
-            nbrUnits / -2.0f);
+        glTranslatef(0.0, 0.0, -nbrUnits / 2.0 + xc / (float)(nbrLinesX)*nbrUnits);
+        glScalef(nbrUnits, 1.0, 1.0);
+        this->formes->DrawLine();
+        glScalef(1.0f / nbrUnits, 1.0, 1.0);
+        glTranslatef(0.0, 0.0, -(-nbrUnits / 2.0 + xc / (float)(nbrLinesX)*nbrUnits));
     }
     // Create all Z lines
+    glRotatef(90.0f, 0,1,0);
     for (int zc = 0; zc <= nbrLinesZ; zc++)
     {
-        glVertex3f(nbrUnits / 2.0,
-            0.0,
-            -nbrUnits / 2.0 + zc / (float)(nbrLinesZ) * nbrUnits);
-        glVertex3f(nbrUnits / -2.0,
-            0.0,
-            -nbrUnits / 2.0 + zc / (float)(nbrLinesZ) * nbrUnits);
+        glTranslatef(0.0, 0.0, -nbrUnits / 2.0 + zc / (float)(nbrLinesZ)*nbrUnits);
+        glScalef(nbrUnits, 1.0, 1.0);
+        this->formes->DrawLine();
+        glScalef(1.0f / nbrUnits, 1.0, 1.0);
+        glTranslatef(0.0, 0.0, -(-nbrUnits / 2.0 + zc / (float)(nbrLinesZ)*nbrUnits));
     }
-    glEnd();
+    glRotatef(-90.0f, 0, 1, 0);
 
     glPopMatrix();
 }
@@ -130,12 +127,9 @@ void OpenGL3::drawPlan(float nbrUnits)
 /// <param name="hauteur"></param>
 void OpenGL3::drawRect2D(double largeur, double hauteur)
 {
-    glBegin(GL_QUADS);
-    glVertex2d(0, -hauteur / 2);
-    glVertex2d(0, hauteur / 2);
-    glVertex2d(largeur, hauteur / 2);
-    glVertex2d(largeur, -hauteur / 2);
-    glEnd();
+    glScalef(largeur, hauteur, 1.0);
+    this->formes->DrawCarre();
+    glScalef(1.0f / largeur, 1.0f / hauteur, 1.0);
 }
 
 /// <summary>
@@ -147,46 +141,21 @@ void OpenGL3::drawCube(double largeur, double hauteur) {
 
     glPushMatrix();
     glScalef(largeur, largeur, largeur);
-    glScalef(0.5, 0.5, 0.5);
-    glBegin(GL_QUADS);
+    this->formes->DrawCube();
+    glScalef(1.0f / largeur, 1.0f / largeur, 1.0f / largeur);
+    glPopMatrix();
+}
 
-    glColor3ub(255, 0, 0); //face rouge
-    glVertex3d(1, 1, 1);
-    glVertex3d(1, 1, -1);
-    glVertex3d(-1, 1, -1);
-    glVertex3d(-1, 1, 1);
+/// <summary>
+/// Create 3D sphere with the center as a reference point (with specific diametre)
+/// </summary>
+/// <param name="diametre"></param>
+void OpenGL3::DrawSphere(double diametre) {
 
-    glColor3ub(0, 255, 0); //face verte
-    glVertex3d(1, -1, 1);
-    glVertex3d(1, -1, -1);
-    glVertex3d(1, 1, -1);
-    glVertex3d(1, 1, 1);
-
-    glColor3ub(0, 0, 255); //face bleue
-    glVertex3d(-1, -1, 1);
-    glVertex3d(-1, -1, -1);
-    glVertex3d(1, -1, -1);
-    glVertex3d(1, -1, 1);
-
-    glColor3ub(255, 255, 0); //face jaune
-    glVertex3d(-1, 1, 1);
-    glVertex3d(-1, 1, -1);
-    glVertex3d(-1, -1, -1);
-    glVertex3d(-1, -1, 1);
-
-    glColor3ub(0, 255, 255); //face cyan
-    glVertex3d(1, 1, -1);
-    glVertex3d(1, -1, -1);
-    glVertex3d(-1, -1, -1);
-    glVertex3d(-1, 1, -1);
-
-    glColor3ub(255, 0, 255); //face magenta
-    glVertex3d(1, -1, 1);
-    glVertex3d(1, 1, 1);
-    glVertex3d(-1, 1, 1);
-    glVertex3d(-1, -1, 1);
-
-    glEnd();
+    glPushMatrix();
+    glScalef(diametre, diametre, diametre);
+    this->formes->DrawSphere();
+    glScalef(1.0f / diametre, 1.0f / diametre, 1.0f / diametre);
     glPopMatrix();
 }
 
@@ -200,7 +169,8 @@ void OpenGL3::DrawAllParticules() {
         Vector3 pos = particule->GetPosition(); // Get position
         glTranslatef(pos.GetX(), pos.GetY(), pos.GetZ());              // translate to the positon
         //glRotatef(45, 0, 1, 1); // Rotation particle (if necessary)
-        this->drawCube(0.2, 0.2); // create a small cube to simulate particle in 3D
+        //this->drawCube(0.2, 0.2); // create a small cube to simulate particle in 3D
+        this->DrawSphere(0.5); // create a small sphere to simulate particle in 3D
 
         glPopMatrix();// draw cube and return to center
     } 
