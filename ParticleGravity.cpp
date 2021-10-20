@@ -26,4 +26,6 @@ void ParticleGravity::SetGravity(Vector3 gravity)
 
 void ParticleGravity::UpdateForce(Particle* particle, float duration)
 {
+	particle->AddForce(this->m_gravity * 1.0f / particle->GetinvMass());
+
 }
