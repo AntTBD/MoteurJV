@@ -1,5 +1,8 @@
 #pragma once
 #include "ParticleForceGenerator.h"
+
+#include <vector>
+
 class ParticleForceRegistry
 {
 private:
@@ -9,7 +12,11 @@ private:
 		ParticleForceGenerator* forceGenerator;
 	};
 
+	using Registry = std::vector<ParticleForceGenerator>;
+	Registry m_registry;
+
 public:
-	// 
+	// ... Registry Accessors
+	void UpdateForce(float duration);
 };
 

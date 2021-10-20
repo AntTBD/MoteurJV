@@ -7,21 +7,21 @@ ParticleGravity::ParticleGravity()
 	this->m_gravity = Vector3(0, -10, 0);
 }
 
-ParticleGravity::ParticleGravity(Vector3 m_gravity)
+ParticleGravity::ParticleGravity(Vector3 gravity)
 {
-	this->m_gravity = m_gravity
+	this->m_gravity = gravity;
 }
 
 
 // Getters & Setters
-float ParticleGravity::Get_m_Gravity() const
+Vector3 ParticleGravity::GetGravity() const
 {
 	return this->m_gravity;
 }
 
-void ParticleGravity::Set_m_gravity(Vector3 m_gravity)
+void ParticleGravity::SetGravity(Vector3 gravity)
 {
-	this->m_gravity = m_gravity;
+	this->m_gravity = gravity;
 }
 
 void ParticleGravity::UpdateForce(Particle* particle, float duration)
