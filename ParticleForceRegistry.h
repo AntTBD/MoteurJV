@@ -10,9 +10,10 @@ private:
 	{
 		Particle* particle;
 		ParticleForceGenerator* forceGenerator;
+		ParticleForceEntry(Particle* particle, ParticleForceGenerator* forceGenerator);
 
 	};
-	using Registry = std::vector<ParticleForceGenerator>;
+	using Registry = std::vector<ParticleForceEntry>;
 	Registry  m_registry;
 public:
 	// ... Registry Accessors

@@ -1,6 +1,6 @@
 #include "ParticleForceRegistry.h"
 
-
+ParticleForceRegistry::ParticleForceEntry::ParticleForceEntry(Particle* particle, ParticleForceGenerator* forceGenerator) : particle(particle), forceGenerator(forceGenerator) {}
 
 
 void ParticleForceRegistry::Add(Particle* particle, ParticleForceGenerator* forceGenerator)
