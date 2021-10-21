@@ -7,7 +7,7 @@ class ParticleContact
 public:
 	// Particle[0] => Particle A
 	// Particle[1] => Particle B - Could be nullptr
-	Particle* m_particles[2];
+	Particle* m_particle[2];
 
 	// value between 0 - 1
 	// defining the elasticness of the collision
