@@ -6,5 +6,5 @@ ParticleDrag::~ParticleDrag() {}
 
 void ParticleDrag::updateForce(Particle* particle, float duration)
 {
-	particle->AddForce(particle->GetSpeed().Normalize() * -(m_k1 * particle->GetSpeed().Magnitude() + m_k2 * particle->GetSpeed().SquaredMagnitude()));
+	particle->AddForce(particle->GetSpeed().Normalize() * -(this->m_k1 * particle->GetSpeed().Magnitude() + this->m_k2 * particle->GetSpeed().SquaredMagnitude()));
 }

@@ -5,13 +5,13 @@ ParticleForceRegistry::ParticleForceEntry::ParticleForceEntry(Particle* particle
 
 void ParticleForceRegistry::Add(Particle* particle, ParticleForceGenerator* forceGenerator)
 {
-	m_registry.push_back(ParticleForceRegistry::ParticleForceEntry(particle, forceGenerator));
+	this->m_registry.push_back(ParticleForceRegistry::ParticleForceEntry(particle, forceGenerator));
 
 }
 
 void ParticleForceRegistry::UpdateForce(float duration)
 {
-	for (ParticleForceEntry entry : m_registry )
+	for (ParticleForceEntry entry : this->m_registry )
 	{
 		entry.forceGenerator->UpdateForce(entry.particle, duration);
 	}
@@ -19,5 +19,5 @@ void ParticleForceRegistry::UpdateForce(float duration)
 
 void ParticleForceRegistry::Clear()
 {
-	m_registry.clear();
+	this->m_registry.clear();
 }

@@ -7,6 +7,6 @@ ParticleAnchoredSpring::~ParticleAnchoredSpring() {}
 
 void ParticleAnchoredSpring::UpdateForces(Particle* particle, float duration)
 {
-	Vector3 d = (particle->GetPosition() - *m_anchor);
-	particle->AddForce(d.Normalize() * (-m_k * (d.Magnitude() - m_restLenght)));
+	Vector3 d = (particle->GetPosition() - *this->m_anchor);
+	particle->AddForce(d.Normalize() * (-this->m_k * (d.Magnitude() - this->m_restLenght)));
 }
