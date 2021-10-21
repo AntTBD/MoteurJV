@@ -43,23 +43,44 @@
     <ClCompile Include="OpenGL3.cpp">
       <Filter>UserInterface\Sources</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleSpring.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleAnchoredSpring.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleBuoyancy.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleForceRegistry.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="ParticleGravity.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Formes.cpp">
       <Filter>UserInterface\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleAnchoredSpring.cpp">
+      <Filter>Sources\Forces</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleBuoyancy.cpp">
+      <Filter>Sources\Forces</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleForceRegistry.cpp">
+      <Filter>Sources\Forces</Filter>
+    </ClCompile>
+    <ClCompile Include="NaiveParticleContactGenerator.cpp">
+      <Filter>Sources\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleCable.cpp">
+      <Filter>Sources\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleContact.cpp">
+      <Filter>Sources\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleContactResolver.cpp">
+      <Filter>Sources\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleLink.cpp">
+      <Filter>Sources\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleRod.cpp">
+      <Filter>Sources\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSpring.cpp">
+      <Filter>Sources\Forces</Filter>
+    </ClCompile>
+    <ClCompile Include="WallContactGenerator.cpp">
+      <Filter>Sources\Contacts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -81,26 +102,50 @@
     <ClInclude Include="OpenGL3.h">
       <Filter>UserInterface\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleSpring.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleAnchoredSpring.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleBuoyancy.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleForceRegistry.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="ParticleGravity.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleForceGenerator.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Formes.h">
       <Filter>UserInterface\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleContact.h">
+      <Filter>Headers\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleContactGenerator.h">
+      <Filter>Headers\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleContactResolver.h">
+      <Filter>Headers\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="NaiveParticleContactGenerator.h">
+      <Filter>Headers\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleRod.h">
+      <Filter>Headers\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleCable.h">
+      <Filter>Headers\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleLink.h">
+      <Filter>Headers\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleAnchoredSpring.h">
+      <Filter>Headers\Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleBuoyancy.h">
+      <Filter>Headers\Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleForceGenerator.h">
+      <Filter>Headers\Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSpring.h">
+      <Filter>Headers\Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleForceRegistry.h">
+      <Filter>Headers\Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="WallContactGenerator.h">
+      <Filter>Headers\Contacts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +166,18 @@
     </Filter>
     <Filter Include="UserInterface\Sources">
       <UniqueIdentifier>{37750fb9-7dff-4a0b-a316-eb61c9bc89a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Forces">
+      <UniqueIdentifier>{31416223-5baa-4200-bc96-682e59a443b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Contacts">
+      <UniqueIdentifier>{eb39d0ae-85a5-47d9-884e-6d0764acbe71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Forces">
+      <UniqueIdentifier>{79eaa008-7210-48fa-b21c-66c3f7f9506f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Contacts">
+      <UniqueIdentifier>{faa6a7dc-aed6-4662-bea0-4975b79cffd2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

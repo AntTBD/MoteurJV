@@ -172,30 +172,45 @@
     <ClCompile Include="include\imgui-1.84.2\imgui_tables.cpp" />
     <ClCompile Include="include\imgui-1.84.2\imgui_widgets.cpp" />
     <ClCompile Include="MoteurJV.cpp" />
+    <ClCompile Include="NaiveParticleContactGenerator.cpp" />
     <ClCompile Include="OpenGL3.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleBuoyancy.cpp" />
     <ClCompile Include="ParticleAnchoredSpring.cpp" />
+    <ClCompile Include="ParticleCable.cpp" />
+    <ClCompile Include="ParticleContact.cpp" />
+    <ClCompile Include="ParticleContactResolver.cpp" />
+    <ClCompile Include="ParticleLink.cpp" />
+    <ClCompile Include="ParticleRod.cpp" />
     <ClCompile Include="ParticleSpring.cpp" />
     <ClCompile Include="ParticleForceRegistry.cpp" />
     <ClCompile Include="ParticleGravity.cpp" />
     <ClCompile Include="Simulator.cpp" />
     <ClCompile Include="Vector3.cpp" />
+    <ClCompile Include="WallContactGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Formes.h" />
     <ClInclude Include="GUI.h" />
+    <ClInclude Include="NaiveParticleContactGenerator.h" />
     <ClInclude Include="OpenGL3.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleBuoyancy.h" />
     <ClInclude Include="ParticleAnchoredSpring.h" />
+    <ClInclude Include="ParticleCable.h" />
+    <ClInclude Include="ParticleContact.h" />
+    <ClInclude Include="ParticleContactGenerator.h" />
+    <ClInclude Include="ParticleContactResolver.h" />
     <ClInclude Include="ParticleForceGenerator.h" />
+    <ClInclude Include="ParticleLink.h" />
+    <ClInclude Include="ParticleRod.h" />
     <ClInclude Include="ParticleSpring.h" />
     <ClInclude Include="ParticleForceRegistry.h" />
     <ClInclude Include="ParticleGravity.h" />
     <ClInclude Include="Simulator.h" />
     <ClInclude Include="Vector3.h" />
+    <ClInclude Include="WallContactGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
