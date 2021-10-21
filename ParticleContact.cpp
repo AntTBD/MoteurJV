@@ -81,11 +81,11 @@ void ParticleContact::resolveInterpenetration() // Résolution d’interpénétration
 			somInvMass += this->m_particle[1]->GetinvMass();
 		}
 
-		// particule 1 : Dp = m2 / (m1+m2) * d * n
-		this->m_particle[0]->SetPosition(this->m_contactNormal * (1.0f/this->m_particle[0]->GetinvMass()) * somInvMass * m_penetration);
-		// particule 2 (if exist) : Dp = - m2 / (m1+m2) * d * n
+		// particule 1 : p' = p + m2 / (m1+m2) * d * n
+		this->m_particle[0]->SetPosition(this->m_particle[0]->GetPosition() + this->m_contactNormal * (1.0f/this->m_particle[0]->GetinvMass()) * somInvMass * m_penetration);
+		// particule 2 (if exist) : p' = p + (- m2 / (m1+m2)) * d * n
 		if (this->m_particle[1] != nullptr) {
-			this->m_particle[1]->SetPosition(this->m_contactNormal * (-1.0f / this->m_particle[1]->GetinvMass()) * somInvMass * m_penetration);
+			this->m_particle[1]->SetPosition(this->m_particle[1]->GetPosition() + this->m_contactNormal * (-1.0f / this->m_particle[1]->GetinvMass()) * somInvMass * m_penetration);
 		}
 	}
 }
