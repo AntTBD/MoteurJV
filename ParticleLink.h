@@ -9,6 +9,9 @@ public:
     // Linked particles
     Particle* particle[2];
 
+    ParticleLink(Particle* particle1, Particle* particle2);
+    ~ParticleLink();
+
     // return the length of the link
     float currentLength() const;
 
