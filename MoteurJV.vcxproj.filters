@@ -43,9 +43,6 @@
     <ClCompile Include="OpenGL3.cpp">
       <Filter>UserInterface\Sources</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleGravity.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="Formes.cpp">
       <Filter>UserInterface\Sources</Filter>
     </ClCompile>
@@ -82,6 +79,12 @@
     <ClCompile Include="WallContactGenerator.cpp">
       <Filter>Sources\Contacts</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleDrag.cpp">
+      <Filter>Sources\Forces</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleGravity.cpp">
+      <Filter>Sources\Forces</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Particle.h">
@@ -101,9 +104,6 @@
     </ClInclude>
     <ClInclude Include="OpenGL3.h">
       <Filter>UserInterface\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleGravity.h">
-      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Formes.h">
       <Filter>UserInterface\Headers</Filter>
@@ -146,6 +146,12 @@
     </ClInclude>
     <ClInclude Include="WallContactGenerator.h">
       <Filter>Headers\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleDrag.h">
+      <Filter>Headers\Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleGravity.h">
+      <Filter>Headers\Forces</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
