@@ -19,8 +19,9 @@ public:
 	// normal of the contact
 	Vector3 m_contactNormal;
 
-	ParticleContact(Particle& particle1, float restitution, float penetration);
-	ParticleContact(Particle& particle1, Particle& particle2, float restitution, float penetration);
+	ParticleContact();
+	ParticleContact(Particle* particle1, float restitution, float penetration);
+	ParticleContact(Particle* particle1, Particle* particle2, float restitution, float penetration);
 	~ParticleContact();
 
 	// Resolve velocity and interpenetration

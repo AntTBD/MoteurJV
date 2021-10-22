@@ -10,7 +10,7 @@ Camera::Camera()
 	// ----- Projection -----
 	this->fov = 90.0f;
 	this->nearF = 0.2f;
-	this->far = 100.0f;
+	this->far = 10000.0f;
 }
 
 Camera::Camera(float dist, float rotationX, float rotationY)

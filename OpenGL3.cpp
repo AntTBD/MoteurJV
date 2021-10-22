@@ -3,8 +3,9 @@
 
 OpenGL3::OpenGL3(Simulator* sim)
 {
+    ImGuiIO& io = ImGui::GetIO();
     this->cam = new Camera(); // create main camera
-    this->cam->Set(20.0f, -25.0f, 0.0f); // set default position
+    this->cam->Set(150.0f, 0.0f, 0.0f); // set default position
     this->rotationCamDeltaY = 0.0f;
 
     this->sim = sim;
@@ -30,8 +31,8 @@ void OpenGL3::update() {
 
     // --------------
     // Set camera position and rotation
-    this->rotationCamDeltaY = 0.05f;
-    this->cam->AddOrbitalRotationY(this->rotationCamDeltaY);
+    //this->rotationCamDeltaY = 0.05f;
+    //this->cam->AddOrbitalRotationY(this->rotationCamDeltaY);
     /* 
     // TODO : perform orbital rotation with mouse
     LPPOINT pt = new POINT;
@@ -43,11 +44,12 @@ void OpenGL3::update() {
     }*/
     // Update Camera
     this->cam->Update();
+    glTranslatef(-1280 / 4.f / 2.f+50, 720 / 4.f / 2.f, 0);// move cam to be centered has screen
     
     // --------------
     // draw plan and axis at (0,0,0)
-    this->drawPlan(10.0f);
-    this->drawAxis(1);
+    //this->drawPlan(10.0f);
+    this->drawAxis(10);
 
     // --------------
     // TODO : call functions that create objects
@@ -170,7 +172,7 @@ void OpenGL3::DrawAllParticules() {
         glTranslatef(pos.GetX(), pos.GetY(), pos.GetZ());              // translate to the positon
         //glRotatef(45, 0, 1, 1); // Rotation particle (if necessary)
         //this->drawCube(0.2, 0.2); // create a small cube to simulate particle in 3D
-        this->DrawSphere(0.5); // create a small sphere to simulate particle in 3D
+        this->DrawSphere(10); // create a small sphere to simulate particle in 3D
 
         glPopMatrix();// draw cube and return to center
     } 
