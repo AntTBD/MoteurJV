@@ -6,6 +6,13 @@ Simulator::Simulator()
     this->particleGravityGenerator = ParticleGravity();
     this->particleContactGenerator = new NaiveParticleContactGenerator(&particles, 20);
     this->particleContactResolver = new ParticleContactResolver();
+
+    this->mouse = nullptr;
+}
+
+void Simulator::AddMouse(Mouse* mouse)
+{
+    this->mouse = mouse;
 }
 
 /// <summary>
