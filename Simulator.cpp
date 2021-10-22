@@ -50,13 +50,9 @@ void Simulator::Update(float deltaTime)
             for (int i = 0; i < this->particles.size(); i++)
             {
                 // collision naive entre particules
-                ParticleContact contacts[2 * 2] = {};// fonctionne avec 2 particules pour le moment
-                unsigned int nbContacts = this->particleContactGenerator->addContact(contacts, 1);
+                std::vector<ParticleContact*> particleContactList;
+                unsigned int nbContacts = this->particleContactGenerator->addContact(particleContactList, 1);
                 if (nbContacts > 0) {
-                    std::vector<ParticleContact*> particleContactList;
-                    for (unsigned int l = 0; l < nbContacts; l++) {
-                        particleContactList.push_back(&contacts[l]);
-                    }
                     this->particleContactResolver->resolveContacts(particleContactList, deltaTime);
 
                 }

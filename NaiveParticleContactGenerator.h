@@ -3,8 +3,7 @@
 #include "ParticleContactGenerator.h"
 #include <vector>
 
-class NaiveParticleContactGenerator :
-    public ParticleContactGenerator
+class NaiveParticleContactGenerator
 {
 public:
     // Particle radius
@@ -17,6 +16,6 @@ public:
     ~NaiveParticleContactGenerator();
 
     // iterate throught every pair of particles to check their penetration
-    unsigned int addContact(ParticleContact* contact, unsigned int limit);
+    unsigned int addContact(std::vector<ParticleContact*> contact, unsigned int limit);
 };
 
