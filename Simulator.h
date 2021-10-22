@@ -8,6 +8,7 @@
 #include "ParticleCable.h"
 #include "ParticleRod.h"
 #include "ParticleGravity.h"
+#include "Mouse.h"
 
 /// <summary>
 /// Our World with multiple particles
@@ -25,10 +26,12 @@ private:
 	ParticleContactResolver* particleContactResolver;
 
 	bool isPaused = false;
+	Mouse* mouse;
 
 public:
 	Simulator();
 
+	void AddMouse(Mouse* mouse);
 	void AddParticle(Particle* p); // Add particle to simulator
 	void Print(); // Print all the particules of the simulation to the console
 
@@ -37,5 +40,6 @@ public:
 	void Resume();
 	void ClearParticles(); // Remove all particles from simulator
 	const std::vector<Particle*>& GetParticles() const;
-	
+
+
 };

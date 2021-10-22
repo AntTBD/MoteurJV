@@ -172,6 +172,7 @@
     <ClCompile Include="include\imgui-1.84.2\imgui_tables.cpp" />
     <ClCompile Include="include\imgui-1.84.2\imgui_widgets.cpp" />
     <ClCompile Include="MoteurJV.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="NaiveParticleContactGenerator.cpp" />
     <ClCompile Include="OpenGL3.cpp" />
     <ClCompile Include="Particle.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Formes.h" />
     <ClInclude Include="GUI.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="NaiveParticleContactGenerator.h" />
     <ClInclude Include="OpenGL3.h" />
     <ClInclude Include="Particle.h" />

@@ -1,12 +1,36 @@
 #include <iostream>
 #include "GUI.h"
 
+GUI* GUI::instance = nullptr;
+
+void GUI::cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
+{
+    instance->mouse->SetPosition(xpos, ypos);
+}
+
+void GUI::cursor_enter_callback(GLFWwindow* window, int _entered)
+{
+    instance->mouse->SetEnter(_entered);
+}
+
+void GUI::mouse_button_callback(GLFWwindow* window, int _button, int _action, int _mods)
+{
+    instance->mouse->SetButton(_button, _action, _mods);
+    //std::cout << _button << " " << _action << std::endl;
+}
+
+void GUI::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+    instance->mouse->SetScroll(xoffset, yoffset);
+}
+
 /// <summary>
 /// Constructor (instenciate simulator and openGL)
 /// </summary>
 /// <param name="sim">Global simulator</param>
 GUI::GUI(Simulator* sim)
 {
+    instance = this;
     this->window = nullptr;
 
     this->show_config_window = true;
@@ -17,6 +41,9 @@ GUI::GUI(Simulator* sim)
     this->isThreadActive = false;
 
     this->opengl = new OpenGL3(this->sim);
+
+    this->mouse = new Mouse();
+    this->sim->AddMouse(this->mouse);
 }
 
 /// <summary>
@@ -62,6 +89,13 @@ int GUI::init()
     }
     glfwMakeContextCurrent(this->window);
     glfwSwapInterval(1); // Enable vsync
+
+    // Init Mouse
+    glfwSetInputMode(this->window, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
+    glfwSetCursorPosCallback(this->window, cursor_position_callback);
+    glfwSetCursorEnterCallback(this->window, cursor_enter_callback);
+    glfwSetMouseButtonCallback(this->window, mouse_button_callback);
+    glfwSetScrollCallback(this->window, scroll_callback);
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -295,6 +329,14 @@ void GUI::showConfigWindow()
                 Clear();
             }
 
+            // ------------ Check mouse click & add particle -----------------------------
+            if (this->mouse->ButtonHasChange() && this->mouse->button == GLFW_MOUSE_BUTTON_RIGHT && this->mouse->action == GLFW_PRESS)
+            {
+                std::cout << Vector3(this->mouse->x, this->mouse->y, 0) << std::endl;
+                Particle* p = new Particle(Vector3(this->mouse->x / 4.f, -this->mouse->y / 4.f, 0), Vector3(sx, sy, sz), 1.0f / mass);
+                this->sim->AddParticle(p);
+                std::cout << "Add particle " << *p << std::endl;
+            }
 
         }
         ImGui::End();

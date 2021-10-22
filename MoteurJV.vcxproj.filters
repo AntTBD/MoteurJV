@@ -85,6 +85,9 @@
     <ClCompile Include="ParticleGravity.cpp">
       <Filter>Sources\Forces</Filter>
     </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>UserInterface\Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Particle.h">
@@ -152,6 +155,9 @@
     </ClInclude>
     <ClInclude Include="ParticleGravity.h">
       <Filter>Headers\Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>UserInterface\Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
