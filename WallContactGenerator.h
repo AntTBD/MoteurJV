@@ -8,8 +8,10 @@ class WallContactGenerator :
 private:
     Particle* particle;
     Particle* wall;
+
+    float positionY;
 public: 
-    WallContactGenerator(Particle* particle);
+    WallContactGenerator(Particle* particle, float positionY = 0);
     ~WallContactGenerator();
     
 
