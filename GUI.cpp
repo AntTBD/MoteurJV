@@ -224,8 +224,7 @@ void GUI::showConfigWindow()
             static float sx = 0.0f;
             static float sy = 0.0f;
             static float sz = 0.0f;
-            static float invMass = 1.0f;
-            static float gravityFactor = 1.0f;
+            static float mass = 1.0f;
 
             // Associated buttons
             ImGui::Text("Initial Position");
@@ -236,8 +235,7 @@ void GUI::showConfigWindow()
             ImGui::InputFloat("speed x", &sx);
             ImGui::InputFloat("speed y", &sy);
             ImGui::InputFloat("speed z", &sz);
-            ImGui::InputFloat("inv mass", &invMass);
-            ImGui::InputFloat("gravity factor", &gravityFactor);
+            ImGui::InputFloat("mass", &mass);
 
             // Dropdown de presets (from https://github.com/ocornut/imgui/issues/1658#issuecomment-774676329)
             {
@@ -260,7 +258,7 @@ void GUI::showConfigWindow()
                             sx = projectiles[n].initSpeed.GetX();
                             sy = projectiles[n].initSpeed.GetY();
                             sz = projectiles[n].initSpeed.GetZ();
-                            invMass = 1.0f / projectiles[n].masse;
+                            mass = projectiles[n].masse;
                         }
                         if (is_selected)
                             ImGui::SetItemDefaultFocus();   // You may set the initial focus when opening the combo (scrolling + for keyboard navigation support)
@@ -273,7 +271,8 @@ void GUI::showConfigWindow()
             {
                 if (!this->isSimulating && !this->isThreadActive) //Can only add if simulation is not running
                 {
-                    Particle *p = new Particle(Vector3(px, py, pz), Vector3(sx, sy, sz), invMass, gravityFactor);
+                    if (mass == 0) mass = 0.000001f;
+                    Particle *p = new Particle(Vector3(px, py, pz), Vector3(sx, sy, sz), 1.0f/mass);
                     this->sim->AddParticle(p);
                     std::cout << "New particle added -> " << *p << std::endl;
                 }

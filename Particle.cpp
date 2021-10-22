@@ -8,22 +8,15 @@ Particle::Particle()
 	this->position = Vector3();
 	this->speed = Vector3();
 	this->acceleration = Vector3();
-
 	this->invMass = 1.0;
-	this->gravityFactor = 1.0;
 	this->sumForces = Vector3();
-	this->gravityForce = Vector3(0, 0, 0);//Vector3(0, -10, 0) * this->gravityFactor;
 }
 
-Particle::Particle(Vector3 position, Vector3 speed, float invMass, float gravityFactor)
+Particle::Particle(Vector3 position, Vector3 speed, float invMass)
 {
 	this->position = position;
 	this->speed = speed;
-
 	this->invMass = invMass;
-	this->gravityFactor = gravityFactor;
-	this->gravityForce = Vector3(0, 0, 0);//Vector3(0, -10, 0) * this->gravityFactor;
-
 }
 
 Particle::Particle(const Particle& particle)
@@ -31,8 +24,6 @@ Particle::Particle(const Particle& particle)
 	this->position = particle.GetPosition();
 	this->speed = particle.GetSpeed();
 	this->invMass = particle.GetinvMass();
-	this->gravityFactor = particle.GetGravityFactor();
-	this->gravityForce = Vector3(0, 0, 0);// Vector3(0, -10, 0)* this->gravityFactor;
 	this->sumForces = particle.GetSumForces();
 	this->acceleration = particle.GetAcceleration();
 }
@@ -65,11 +56,6 @@ float Particle::GetinvMass() const
 	return this->invMass;
 }
 
-float Particle::GetGravityFactor() const
-{
-	return this->gravityFactor;
-}
-
 Vector3 Particle::GetSumForces() const
 {
 	return this->sumForces;
@@ -93,11 +79,6 @@ void Particle::SetAcceleration(Vector3 acc)
 void Particle::SetInvMass(float invMass)
 {
 	this->invMass = invMass;
-}
-
-void Particle::SetGravityFactor(float gravityFactor)
-{
-	this->gravityFactor = gravityFactor;
 }
 
 // Functions
@@ -124,5 +105,5 @@ void Particle::Integrate(float dTime)
 void Particle::UpdateAcceleration()
 {
 	// Update acceleration with sumForces, invMass and add the gravityForce that is always there
-	this->acceleration = this->sumForces * this->invMass + this->gravityForce;
+	this->acceleration = this->sumForces;
 }
