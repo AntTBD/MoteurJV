@@ -4,7 +4,7 @@ Simulator::Simulator()
 {
     this->particleForceRegistry = ParticleForceRegistry();
     this->particleGravityGenerator = ParticleGravity();
-    this->particleContactGenerator = new NaiveParticleContactGenerator(&particles, 1);
+    this->particleContactGenerator = new NaiveParticleContactGenerator(&particles, 20);
     this->particleContactResolver = new ParticleContactResolver();
 }
 
@@ -47,6 +47,9 @@ void Simulator::Update(float deltaTime)
         if (!this->isPaused) // No update if simulator is paused
         {
 
+
+
+
             for (int i = 0; i < this->particles.size(); i++)
             {
                 // collision naive entre particules
@@ -58,27 +61,25 @@ void Simulator::Update(float deltaTime)
                 }
 
 
-                // Add cables
+                /*// Add cables
                 for (int k = i + 1; k < this->particles.size(); k++) {
                     //auto cable = new ParticleRod(this->particles[i], this->particles[k], 2);// tige de longueur 2
-                    auto cable = new ParticleCable(this->particles[i], this->particles[k], 2);// cable de longueur 2
+                    auto cable = new ParticleCable(this->particles[i], this->particles[k], 200);// cable de longueur 2
                     this->cables.push_back(cable);
-                }
+                }*/
 
                 // Add gravity force
                 this->particleForceRegistry.Add(this->particles[i], &this->particleGravityGenerator);
 
 
             }
-            //resolve contacts
+            //resolve contacts cables
             for (int j = 0; j < this->cables.size(); j++) {
-                ParticleContact contacts[2 * 2] = {};// fonctionne avec 2 particules pour le moment
-                unsigned int nbContacts = this->cables[j]->addContact(contacts, 2 * 2);// fonctionne avec 2 particules pour le moment
+                ParticleContact* contacts = new ParticleContact();// fonctionne avec 2 particules pour le moment
+                unsigned int nbContacts = this->cables[j]->addContact(contacts, 2 * this->particles.size());// fonctionne avec 2 particules pour le moment
                 if (nbContacts > 0) {
                     std::vector<ParticleContact*> particleContactList;
-                    for (unsigned int l = 0; l < nbContacts; l++) {
-                        particleContactList.push_back(&contacts[l]);
-                    }
+                    particleContactList.push_back(contacts);
                     this->particleContactResolver->resolveContacts(particleContactList, deltaTime);
 
                 }
