@@ -12,7 +12,7 @@ Particle::Particle()
 	this->invMass = 1.0;
 	this->gravityFactor = 1.0;
 	this->sumForces = Vector3();
-	this->gravityForce = Vector3(0, -10, 0) * this->gravityFactor;
+	this->gravityForce = Vector3(0, 0, 0);//Vector3(0, -10, 0) * this->gravityFactor;
 }
 
 Particle::Particle(Vector3 position, Vector3 speed, float invMass, float gravityFactor)
@@ -22,7 +22,7 @@ Particle::Particle(Vector3 position, Vector3 speed, float invMass, float gravity
 
 	this->invMass = invMass;
 	this->gravityFactor = gravityFactor;
-	this->gravityForce = Vector3(0, -10, 0) * this->gravityFactor;
+	this->gravityForce = Vector3(0, 0, 0);//Vector3(0, -10, 0) * this->gravityFactor;
 
 }
 
@@ -32,7 +32,7 @@ Particle::Particle(const Particle& particle)
 	this->speed = particle.GetSpeed();
 	this->invMass = particle.GetinvMass();
 	this->gravityFactor = particle.GetGravityFactor();
-	this->gravityForce = Vector3(0, -10, 0) * this->gravityFactor;
+	this->gravityForce = Vector3(0, 0, 0);// Vector3(0, -10, 0)* this->gravityFactor;
 	this->sumForces = particle.GetSumForces();
 	this->acceleration = particle.GetAcceleration();
 }
@@ -40,7 +40,7 @@ Particle::Particle(const Particle& particle)
 // Operator
 std::ostream& operator<< (std::ostream& os, const Particle& particle)
 {
-	os << "Acceleration : " << particle.GetAcceleration() << ", Speed : " << particle.GetSpeed() << ", Position : " << particle.GetPosition();
+	os << "Mass : " << 1.0f / particle.GetinvMass() << ", Acceleration : " << particle.GetAcceleration() << ", Speed : " << particle.GetSpeed() << ", Position : " << particle.GetPosition() << ", SumForces : " << particle.GetSumForces();
 	return os;
 }
 

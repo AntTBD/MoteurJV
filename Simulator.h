@@ -2,6 +2,12 @@
 #include <vector>
 #include <thread>
 #include "Particle.h"
+#include "ParticleContactResolver.h"
+#include "ParticleForceRegistry.h"
+#include "NaiveParticleContactGenerator.h"
+#include "ParticleCable.h"
+#include "ParticleRod.h"
+#include "ParticleGravity.h"
 
 /// <summary>
 /// Our World with multiple particles
@@ -10,9 +16,19 @@ class Simulator
 {
 private:
 	std::vector<Particle*> particles; // Vector holding all the particles in our simulation
+	
+	ParticleForceRegistry particleForceRegistry;
+	ParticleGravity particleGravityGenerator;
+
+	NaiveParticleContactGenerator* particleContactGenerator;
+	std::vector<ParticleCable*> cables;
+	ParticleContactResolver* particleContactResolver;
+
 	bool isPaused = false;
 
 public:
+	Simulator();
+
 	void AddParticle(Particle* p); // Add particle to simulator
 	void Print(); // Print all the particules of the simulation to the console
 

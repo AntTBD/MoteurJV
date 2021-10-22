@@ -5,10 +5,10 @@
 class ParticleLink :
     public ParticleContactGenerator
 {
-public:
+protected:
     // Linked particles
     Particle* particle[2];
-
+public:
     ParticleLink(Particle* particle1, Particle* particle2);
     ~ParticleLink();
 
@@ -16,6 +16,6 @@ public:
     float currentLength() const;
 
     // Take a pointer to an array of contact and the number of contact left to be generated
-    unsigned int addContact(ParticleContact* contact, unsigned int limit) const = 0;
+    unsigned int addContact(ParticleContact* contact, unsigned int limit) = 0;
 };
 

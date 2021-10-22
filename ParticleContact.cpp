@@ -1,20 +1,28 @@
 #include "ParticleContact.h"
 
-ParticleContact::ParticleContact(Particle& particle1, float restitution, float penetration) :
+ParticleContact::ParticleContact()
+{
+	this->m_particle[0] = new Particle();
+	this->m_particle[1] = new Particle();
+
+	this->m_contactNormal = Vector3(0, 0, 0);
+}
+
+ParticleContact::ParticleContact(Particle* particle1, float restitution, float penetration) :
 	m_restitution(restitution), m_penetration(penetration)
 {
-	this->m_particle[0] = &particle1;
+	this->m_particle[0] = particle1;
 	this->m_particle[1] = nullptr;
 
 	this->m_contactNormal = Vector3(0, 1, 0);
 }
 
-ParticleContact::ParticleContact(Particle& particle1, Particle& particle2, float restitution, float penetration) :
+ParticleContact::ParticleContact(Particle* particle1, Particle* particle2, float restitution, float penetration) :
 	m_restitution(restitution), m_penetration(penetration)
 
 {
-	this->m_particle[0] = &particle1;
-	this->m_particle[1] = &particle2;
+	this->m_particle[0] = particle1;
+	this->m_particle[1] = particle2;
 
 	this->m_contactNormal = (this->m_particle[0]->GetPosition() - this->m_particle[1]->GetPosition()).Normalize();
 }
@@ -59,7 +67,7 @@ void ParticleContact::resolveVelocity() // Application de l’impulsion diapo p12
 	//     (e + 1)  v_rel . n
 	// k = -------------------
 	//     (1/m1 + 1/m2) n . n
-	k = k / somInvMass;
+	k = (float)k / somInvMass;
 
 	// ----- update velocity -----
 	// Comme les deux particules subiront la même magnitude d’impulsion 
