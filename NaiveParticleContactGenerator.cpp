@@ -6,7 +6,7 @@ NaiveParticleContactGenerator::NaiveParticleContactGenerator(std::vector<Particl
 
 NaiveParticleContactGenerator::~NaiveParticleContactGenerator() {}
 
-unsigned int NaiveParticleContactGenerator::addContact(std::vector<ParticleContact*> contacts, unsigned int limit)
+unsigned int NaiveParticleContactGenerator::addContact(std::vector<ParticleContact*>* contacts, unsigned int limit)
 {
 	int iteration = 0;
 	for (int i = 0; i < this->particles->size(); i++) {
@@ -17,7 +17,7 @@ unsigned int NaiveParticleContactGenerator::addContact(std::vector<ParticleConta
 			if (i == j) continue;
 			float length = (this->particles->at(i)->GetPosition() - this->particles->at(j)->GetPosition()).Magnitude();
 			if (length < this->radius) {
-				contacts.push_back(new ParticleContact(this->particles->at(i), this->particles->at(j), 1, this->radius - length));
+				contacts->push_back(new ParticleContact(this->particles->at(i), this->particles->at(j), 1, this->radius - length));
 				iteration++;
 			}
 		}

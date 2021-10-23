@@ -159,6 +159,7 @@ void GUI::update()
 
         // ---- Show config window to add particles to simulator and manage the simulation ----
         this->showConfigWindow();
+        ImGui::ShowDemoWindow();
         // -------------------------------
 
         // Rendering
@@ -328,15 +329,30 @@ void GUI::showConfigWindow()
                 Clear();
             }
 
+            ImGui::TextWrapped(u8"HowToPlay ?");
+                ImGui::Bullet(); ImGui::TextWrapped(u8"Choisir une velocité de départ + une masse.");
+                ImGui::Bullet(); ImGui::TextWrapped(u8"Ajouter des particules à la position que vous souhaité sur l'axe Z avec le click droit de la souris.");
+                ImGui::Bullet(); ImGui::TextWrapped(u8"Start Simulation.");
+                ImGui::Bullet(); ImGui::TextWrapped(u8"Bouger la première particule ajoutée via un click gauche sur la souris.");
+                ImGui::Bullet(); ImGui::TextWrapped(u8"Toutes les autres particules seront relié à cette première particule.");
+
             // ------------ Check mouse click & add particle -----------------------------
-            if (this->mouse->ButtonHasChange() && this->mouse->button == GLFW_MOUSE_BUTTON_RIGHT && this->mouse->action == GLFW_PRESS)
-            {
-                std::cout << Vector3(this->mouse->x, this->mouse->y, 0) << std::endl;
-                Particle* p = new Particle(Vector3(this->mouse->x / 4.f, -this->mouse->y / 4.f, 0), Vector3(sx, sy, sz), 1.0f / mass);
-                this->sim->AddParticle(p);
-                std::cout << "Add particle " << *p << std::endl;
+            if (this->mouse->ButtonHasChange()) {
+                if (this->mouse->button == GLFW_MOUSE_BUTTON_RIGHT && this->mouse->action == GLFW_PRESS)
+                {
+                    std::cout << Vector3(this->mouse->x, this->mouse->y, 0) << std::endl;
+                    Particle* p = new Particle(Vector3(this->mouse->x / 4.f, -this->mouse->y / 4.f, 0), Vector3(sx, sy, sz), 1.0f / mass);
+                    this->sim->AddParticle(p);
+                    std::cout << "Add particle " << *p << std::endl;
+                }
             }
 
+            // ------------ Check mouse click & move first particle -----------------------------
+            if (this->isSimulating && this->mouse->button == GLFW_MOUSE_BUTTON_LEFT && this->mouse->action == GLFW_PRESS)
+            {
+                Particle* p = this->sim->GetParticle(0);
+                if (p != nullptr) p->SetPosition(Vector3(this->mouse->x / 4.f, -this->mouse->y / 4.f, 0));
+            }
         }
         ImGui::End();
     }

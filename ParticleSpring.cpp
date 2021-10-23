@@ -8,7 +8,7 @@ ParticleSpring::~ParticleSpring()
 }
 
 // apply Hooke's law based on particles positions
-void ParticleSpring::UpdateForces(Particle* particle, float duration)
+void ParticleSpring::UpdateForce(Particle* particle, float duration)
 {
     Vector3 d = particle->GetPosition() - this->m_other->GetPosition();
     particle->AddForce(d.Normalize() * (-this->m_k * (d.Magnitude() - this->m_restLength)));

@@ -41,7 +41,7 @@ public:
 	void createTriangle();
 
 	void drawAxis(float echelle = 1.0f);
-	void drawPlan(float nbrUnits = 1.0f);
+	void drawPlan(float nbrUnits = 1.0f, float scale = 1.0f);
 
 	void drawRect2D(double largeur, double hauteur);
 	void drawCube(double largeur, double hauteur);
