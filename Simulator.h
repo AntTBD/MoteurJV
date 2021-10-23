@@ -26,6 +26,8 @@ private:
 	ParticleContactResolver* particleContactResolver;
 
 	bool isPaused = false;
+	bool isUpdateFinished = false;
+
 	Mouse* mouse;
 
 public:
@@ -40,6 +42,7 @@ public:
 	void Resume();
 	void ClearParticles(); // Remove all particles from simulator
 	const std::vector<Particle*>& GetParticles() const;
+	bool isUpdated();
 
 
 };

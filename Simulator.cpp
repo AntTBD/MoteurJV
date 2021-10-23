@@ -54,7 +54,7 @@ void Simulator::Update(float deltaTime)
         if (!this->isPaused) // No update if simulator is paused
         {
 
-
+            isUpdateFinished = false;
 
 
             for (int i = 0; i < this->particles.size(); i++)
@@ -102,6 +102,7 @@ void Simulator::Update(float deltaTime)
 
             this->particleForceRegistry.Clear();
             this->cables.clear();
+            isUpdateFinished = true;
         }
     }
 }
@@ -135,4 +136,14 @@ void Simulator::ClearParticles()
 const std::vector<Particle*>& Simulator::GetParticles() const
 {
     return this->particles;
+}
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns>isUpdateFinished</returns>
+bool Simulator::isUpdated()
+{
+    return isUpdateFinished;
 }

@@ -370,7 +370,7 @@ void GUI::Simulate()
         deltaTime += deltaTimeDuration.count();
         time = now;
         
-        if (deltaTime >= deltaTimeTarget)
+        if (deltaTime >= deltaTimeTarget || sim->isUpdated())
         {
             sim->Update(deltaTime / 1000.0f);
             deltaTime = 0.0f;
