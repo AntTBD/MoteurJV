@@ -5,7 +5,7 @@ Simulator::Simulator()
     this->particleForceRegistry = ParticleForceRegistry();
     this->particleGravityGenerator = ParticleGravity();
     this->particleSpringGenerator = nullptr;
-    this->particleContactGenerator = new NaiveParticleContactGenerator(&particles, 5);// contacts entre particules de rayon 5
+    this->particleContactGenerator = new NaiveParticleContactGenerator(&particles, 10);// contacts entre particules de rayon 5
     this->groundContactGenerator = new GroundContactGenerator(&particles, 0.0f);// contact avec le sol à une hauteur de 0
     this->particleContactResolver = new ParticleContactResolver();
 }
@@ -88,9 +88,9 @@ void Simulator::Update(float deltaTime)
             }
             // Add cables between first particles and others
             for (int k = 1; k < this->particles.size(); k++) {
-                //auto cable = new ParticleRod(this->particles[0], this->particles[k], 2);// tige de longueur 2
-                auto cable = new ParticleCable(this->particles[0], this->particles[k], 200);// cable de longueur 2
-                this->cables.push_back(cable);
+                //auto cable = new ParticleRod(this->particles[0], this->particles[k], 200);// tige de longueur 200
+                //auto cable = new ParticleCable(this->particles[0], this->particles[k], 200);// cable de longueur 200
+                //this->cables.push_back(cable);
 
                 // add ressort
                 this->particleSpringGenerator->UpdateForce(this->particles[k], deltaTime);
