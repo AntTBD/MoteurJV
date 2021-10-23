@@ -5,8 +5,8 @@ Simulator::Simulator()
     this->particleForceRegistry = ParticleForceRegistry();
     this->particleGravityGenerator = ParticleGravity();
     this->particleSpringGenerator = nullptr;
-    this->particleContactGenerator = new NaiveParticleContactGenerator(&particles, 5);
-    this->groundContactGenerator = new WallContactGenerator(&particles, 0.0f);
+    this->particleContactGenerator = new NaiveParticleContactGenerator(&particles, 5);// contacts entre particules de rayon 5
+    this->groundContactGenerator = new GroundContactGenerator(&particles, 0.0f);// contact avec le sol à une hauteur de 0
     this->particleContactResolver = new ParticleContactResolver();
 }
 
@@ -62,16 +62,17 @@ void Simulator::Update(float deltaTime)
             // add ressort ancré sur la 1ère particule
             this->particleSpringGenerator = new ParticleSpring(*this->particles[0], 5, 50);
 
+            // parcours de la liste de particles
             for (int i = 0; i < this->particles.size(); i++)
             {
-                // collision naive entre particules
+                // add contacts naive entre particules (=colision entre 2 particules)
                 std::vector<ParticleContact*> particleContactList;
                 unsigned int nbContacts = this->particleContactGenerator->addContact(&particleContactList, this->particles.size());
                 if (nbContacts > 0) {
                     this->particleContactResolver->resolveContacts(particleContactList, deltaTime);
 
                 }
-                // collision avec le sol
+                // contact avec le sol
                 std::vector<ParticleContact*> groundContactList;
                 unsigned int nbGroundContacts = this->groundContactGenerator->addContact(&groundContactList, this->particles.size());
                 if (nbGroundContacts > 0) {

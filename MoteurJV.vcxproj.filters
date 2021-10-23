@@ -76,7 +76,7 @@
     <ClCompile Include="ParticleSpring.cpp">
       <Filter>Sources\Forces</Filter>
     </ClCompile>
-    <ClCompile Include="WallContactGenerator.cpp">
+    <ClCompile Include="GroundContactGenerator.cpp">
       <Filter>Sources\Contacts</Filter>
     </ClCompile>
     <ClCompile Include="ParticleDrag.cpp">
@@ -144,7 +144,7 @@
     <ClInclude Include="ParticleForceRegistry.h">
       <Filter>Headers\Forces</Filter>
     </ClInclude>
-    <ClInclude Include="WallContactGenerator.h">
+    <ClInclude Include="GroundContactGenerator.h">
       <Filter>Headers\Contacts</Filter>
     </ClInclude>
     <ClInclude Include="ParticleDrag.h">

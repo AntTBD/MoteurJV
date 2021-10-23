@@ -8,7 +8,7 @@
 #include "ParticleCable.h"
 #include "ParticleRod.h"
 #include "ParticleGravity.h"
-#include "WallContactGenerator.h"
+#include "GroundContactGenerator.h"
 #include "ParticleSpring.h"
 
 /// <summary>
@@ -25,7 +25,7 @@ private:
 
 	NaiveParticleContactGenerator* particleContactGenerator;
 	std::vector<ParticleCable*> cables;
-	WallContactGenerator* groundContactGenerator;
+	GroundContactGenerator* groundContactGenerator;
 	ParticleContactResolver* particleContactResolver;
 
 	bool isPaused = false;

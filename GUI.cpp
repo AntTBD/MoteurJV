@@ -193,7 +193,7 @@ void GUI::showConfigWindow()
             static float sx = 0.0f;
             static float sy = 0.0f;
             static float sz = 0.0f;
-            static float mass = 1.0f;
+            static float mass = 10.0f;
 
             // Associated buttons
             ImGui::Text("Initial Position");

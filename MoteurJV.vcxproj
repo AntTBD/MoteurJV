@@ -188,7 +188,7 @@
     <ClCompile Include="ParticleGravity.cpp" />
     <ClCompile Include="Simulator.cpp" />
     <ClCompile Include="Vector3.cpp" />
-    <ClCompile Include="WallContactGenerator.cpp" />
+    <ClCompile Include="GroundContactGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -212,7 +212,7 @@
     <ClInclude Include="ParticleGravity.h" />
     <ClInclude Include="Simulator.h" />
     <ClInclude Include="Vector3.h" />
-    <ClInclude Include="WallContactGenerator.h" />
+    <ClInclude Include="GroundContactGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

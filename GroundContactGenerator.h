@@ -3,7 +3,7 @@
 #include "ParticleContactGenerator.h"
 #include <vector>
 
-class WallContactGenerator :
+class GroundContactGenerator :
     public ParticleContactGenerator
 {
 private:
@@ -12,8 +12,8 @@ private:
 
     float positionY;
 public: 
-    WallContactGenerator(std::vector<Particle*>* particles, float positionY = 0);
-    ~WallContactGenerator();
+    GroundContactGenerator(std::vector<Particle*>* particles, float positionY = 0);
+    ~GroundContactGenerator();
     
     // do not use
     unsigned int addContact(ParticleContact* contact, unsigned int limit) {
