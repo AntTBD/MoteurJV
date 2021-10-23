@@ -48,7 +48,7 @@ Vector3& Vector3::operator+=(const Vector3& vector)
 
 Vector3 Vector3::operator-(const Vector3& vector) const
 {
-	return Vector3(this->x - vector.GetX(), this->y - vector.GetY(), this->y - vector.GetY());
+	return Vector3(this->x - vector.GetX(), this->y - vector.GetY(), this->z - vector.GetZ());
 }
 
 Vector3& Vector3::operator-=(const Vector3& vector)
