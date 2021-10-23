@@ -1,9 +1,8 @@
 #include "WallContactGenerator.h"
 
-WallContactGenerator::WallContactGenerator(Particle* particle, float positionY):
-	particle(particle)
+WallContactGenerator::WallContactGenerator(std::vector<Particle*>* particles, float positionY):
+	particles(particles), positionY(positionY)
 {
-	this->wall = new Particle(Vector3(0, positionY, 0), Vector3(), 1.0f/99.0f);
 }
 
 
@@ -12,12 +11,17 @@ WallContactGenerator::~WallContactGenerator()
 {
 }
 
-unsigned int WallContactGenerator::addContact(ParticleContact* contact, unsigned int limit) const
+unsigned int WallContactGenerator::addContact(std::vector<ParticleContact*>* contacts, unsigned int limit) const
 {
-	if (this->particle->GetPosition().GetY() < this->wall->GetPosition().GetY()) {
-		*contact = ParticleContact(this->particle, this->wall, 0, this->wall->GetPosition().GetY() -this->particle->GetPosition().GetY());
-		return 1;
+	int iteration = 0;
+	for (Particle* particle : *particles) {
+		if (iteration >= limit) {
+			return limit;
+		}
+		if (particle->GetPosition().GetY() < this->positionY) {
+			contacts->push_back(new ParticleContact(particle, 0, this->positionY - particle->GetPosition().GetY()));
+			iteration++;
+		}
 	}
-
-	return 0;
+	return iteration;
 }

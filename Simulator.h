@@ -9,6 +9,8 @@
 #include "ParticleRod.h"
 #include "ParticleGravity.h"
 #include "Mouse.h"
+#include "WallContactGenerator.h"
+#include "ParticleSpring.h"
 
 /// <summary>
 /// Our World with multiple particles
@@ -20,9 +22,11 @@ private:
 	
 	ParticleForceRegistry particleForceRegistry;
 	ParticleGravity particleGravityGenerator;
+	ParticleSpring* particleSpringGenerator;
 
 	NaiveParticleContactGenerator* particleContactGenerator;
 	std::vector<ParticleCable*> cables;
+	WallContactGenerator* groundContactGenerator;
 	ParticleContactResolver* particleContactResolver;
 
 	bool isPaused = false;
@@ -35,6 +39,7 @@ public:
 
 	void AddMouse(Mouse* mouse);
 	void AddParticle(Particle* p); // Add particle to simulator
+	Particle* GetParticle(int id);
 	void Print(); // Print all the particules of the simulation to the console
 
 	void Update(float deltaTime); // Update acceleration, speed and position of all particles in the simulator

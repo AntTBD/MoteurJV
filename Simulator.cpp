@@ -4,7 +4,9 @@ Simulator::Simulator()
 {
     this->particleForceRegistry = ParticleForceRegistry();
     this->particleGravityGenerator = ParticleGravity();
-    this->particleContactGenerator = new NaiveParticleContactGenerator(&particles, 20);
+    this->particleSpringGenerator = nullptr;
+    this->particleContactGenerator = new NaiveParticleContactGenerator(&particles, 5);
+    this->groundContactGenerator = new WallContactGenerator(&particles, -720/4.0f);
     this->particleContactResolver = new ParticleContactResolver();
 
     this->mouse = nullptr;
@@ -22,6 +24,14 @@ void Simulator::AddMouse(Mouse* mouse)
 void Simulator::AddParticle(Particle* p)
 {
     this->particles.push_back(p);
+}
+
+Particle* Simulator::GetParticle(int id)
+{
+    if (id >= 0 && id < this->particles.size())
+        return this->particles.at(id);
+    else
+        return nullptr;
 }
 
 /// <summary>
@@ -56,30 +66,41 @@ void Simulator::Update(float deltaTime)
 
             isUpdateFinished = false;
 
+            // add ressort ancré sur la 1ère particule
+            this->particleSpringGenerator = new ParticleSpring(*this->particles[0], 5, 50);
 
             for (int i = 0; i < this->particles.size(); i++)
             {
                 // collision naive entre particules
                 std::vector<ParticleContact*> particleContactList;
-                unsigned int nbContacts = this->particleContactGenerator->addContact(particleContactList, 1);
+                unsigned int nbContacts = this->particleContactGenerator->addContact(&particleContactList, this->particles.size());
                 if (nbContacts > 0) {
                     this->particleContactResolver->resolveContacts(particleContactList, deltaTime);
 
                 }
+                // collision avec le sol
+                std::vector<ParticleContact*> groundContactList;
+                unsigned int nbGroundContacts = this->groundContactGenerator->addContact(&groundContactList, this->particles.size());
+                if (nbGroundContacts > 0) {
+                    this->particleContactResolver->resolveContacts(groundContactList, deltaTime);
 
-
-                /*// Add cables
-                for (int k = i + 1; k < this->particles.size(); k++) {
-                    //auto cable = new ParticleRod(this->particles[i], this->particles[k], 2);// tige de longueur 2
-                    auto cable = new ParticleCable(this->particles[i], this->particles[k], 200);// cable de longueur 2
-                    this->cables.push_back(cable);
-                }*/
+                }
 
                 // Add gravity force
                 this->particleForceRegistry.Add(this->particles[i], &this->particleGravityGenerator);
 
 
             }
+            // Add cables between first particles and others
+            for (int k = 1; k < this->particles.size(); k++) {
+                //auto cable = new ParticleRod(this->particles[0], this->particles[k], 2);// tige de longueur 2
+                auto cable = new ParticleCable(this->particles[0], this->particles[k], 200);// cable de longueur 2
+                this->cables.push_back(cable);
+
+                // add ressort
+                this->particleSpringGenerator->UpdateForce(this->particles[k], deltaTime);
+            }
+
             //resolve contacts cables
             for (int j = 0; j < this->cables.size(); j++) {
                 ParticleContact* contacts = new ParticleContact();// fonctionne avec 2 particules pour le moment

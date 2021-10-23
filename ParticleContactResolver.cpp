@@ -46,14 +46,15 @@ void ParticleContactResolver::resolveContacts(std::vector<ParticleContact*> cont
 				}
 			}
 
-			// Si la plus petite valeur est plus grand que 0, alors tout les contacts sont résolues
-			if (minSeparatingVelocity < 0)
-			{
-				break;
-			}
 			// resolution du contact (Impulsion + interpénétration)
 			contactArray[minContactIndex]->resolve(duration);
 			iteration++;
+
+			// Si la plus petite valeur est plus grand que 0, alors tout les contacts sont résolues
+			if (minSeparatingVelocity > 0)
+			{
+				break;
+			}
 		}
 	}
 }

@@ -5,7 +5,7 @@ OpenGL3::OpenGL3(Simulator* sim)
 {
     ImGuiIO& io = ImGui::GetIO();
     this->cam = new Camera(); // create main camera
-    this->cam->Set(150.0f, 0.0f, 0.0f); // set default position
+    this->cam->Set(400.0f, -25.0f, 0.0f); // set default position
     this->rotationCamDeltaY = 0.0f;
 
     this->sim = sim;
@@ -44,12 +44,17 @@ void OpenGL3::update() {
     }*/
     // Update Camera
     this->cam->Update();
-    glTranslatef(-1280 / 4.f / 2.f+50, 720 / 4.f / 2.f, 0);// move cam to be centered has screen
+    glTranslatef(-1280 / 4.f / 2.f, 720 / 4.f / 2.f, 0);// move cam to be centered has screen
     
     // --------------
     // draw plan and axis at (0,0,0)
     //this->drawPlan(10.0f);
+
+    glTranslatef(1280 / 4.f / 2.f, -720 / 4.f, 0);
+    this->drawPlan(20,10);
     this->drawAxis(10);
+    glTranslatef(-(1280 / 4.f / 2.f), 720 / 4.f, 0);
+
 
     // --------------
     // TODO : call functions that create objects
@@ -89,11 +94,11 @@ void OpenGL3::drawAxis(float echelle)
 /// Create plan for nbrUnits positifs
 /// </summary>
 /// <param name="nbrUnits">Nbr of positive units</param>
-void OpenGL3::drawPlan(float nbrUnits)
+void OpenGL3::drawPlan(float nbrUnits, float scale)
 {
     int nbrLinesX = (int)(nbrUnits *2.0f);
     int nbrLinesZ = (int)(nbrUnits *2.0f);
-    nbrUnits = (int)(nbrUnits*2.0f);
+    nbrUnits = (int)(nbrUnits*2.0f * scale);
     
     glColor3f(1.0, 1.0, 1.0); // white
     glPushMatrix();
