@@ -323,7 +323,7 @@ void GUI::showConfigWindow()
             }
 
             // ------------ Check mouse click & move first particle -----------------------------
-            if (this->isSimulating && ImGui::IsMouseDown(0)) // left click down
+            if (this->isSimulating && IsMouseOnWidgets() == false && ImGui::IsMouseDown(0)) // left click down
             {
                 Vector3 pos = Vector3((offsetPosition.GetX() + (float)io.MousePos.x) / ratio, (offsetPosition.GetY() - (float)io.MousePos.y) / ratio, 0);
 
@@ -336,6 +336,11 @@ void GUI::showConfigWindow()
         }
         ImGui::End();
     }
+}
+
+bool GUI::IsMouseOnWidgets()
+{
+    return ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow);
 }
 
 /// <summary>

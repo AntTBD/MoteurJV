@@ -62,6 +62,7 @@ public:
 	void update();
 	void end();
 	void showConfigWindow();
+	bool IsMouseOnWidgets();
 	void render3D();
 
 	// Used on the simulator when pressing buttons
