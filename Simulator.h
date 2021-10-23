@@ -31,6 +31,7 @@ private:
 	bool isPaused = false;
 	bool isUpdateFinished = false;
 public:
+	float dT;
 	Simulator();
 
 	void AddParticle(Particle* p); // Add particle to simulator

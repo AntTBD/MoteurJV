@@ -35,10 +35,10 @@ std::ostream& operator<< (std::ostream& os, const Particle& particle)
 		os << "Mass : " << 1.0f / particle.GetinvMass() << ", Acceleration : " << particle.GetAcceleration() << ", Speed : " << particle.GetSpeed() << ", Position : " << particle.GetPosition() << ", SumForces : " << particle.GetSumForces();
 
 	}
-	catch(...)
+	catch (std::exception ex)
 	{
-		os << "Error";
-	}
+		os << "Error Particle.ToString(): " << ex.what();
+	};
 	
 	return os;
 }

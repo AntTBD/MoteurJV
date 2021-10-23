@@ -330,6 +330,9 @@ void GUI::showConfigWindow()
                 Particle* p = this->sim->GetParticle(0);
                 if (p != nullptr) p->SetPosition(pos);
             }
+
+            ImGui::Spacing();
+            ImGui::TextWrapped(u8"Simulator DeltaTime: %.2f ms", this->sim->dT * 1000.0f);
         }
         ImGui::End();
     }

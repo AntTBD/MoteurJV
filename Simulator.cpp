@@ -52,6 +52,7 @@ void Simulator::Print()
 /// <param name="deltaTime"></param>
 void Simulator::Update(float deltaTime)
 {
+    this->dT = deltaTime;
     if (!particles.empty())
     {
         if (!this->isPaused) // No update if simulator is paused
