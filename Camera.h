@@ -51,6 +51,9 @@ public:
 	void Add(float dist, float rotationX, float rotationY);
 	void Update();
 
+	float GetDistance();
+	void SetDistance(float distFromCenter);
+
 	glm::mat4 SetProjection(float Translate, glm::vec2 const& Rotate);
 };
 

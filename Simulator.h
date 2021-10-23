@@ -8,7 +8,6 @@
 #include "ParticleCable.h"
 #include "ParticleRod.h"
 #include "ParticleGravity.h"
-#include "Mouse.h"
 #include "WallContactGenerator.h"
 #include "ParticleSpring.h"
 
@@ -31,13 +30,9 @@ private:
 
 	bool isPaused = false;
 	bool isUpdateFinished = false;
-
-	Mouse* mouse;
-
 public:
 	Simulator();
 
-	void AddMouse(Mouse* mouse);
 	void AddParticle(Particle* p); // Add particle to simulator
 	Particle* GetParticle(int id);
 	void Print(); // Print all the particules of the simulation to the console

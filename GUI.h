@@ -30,7 +30,6 @@ static void glfw_error_callback(int error, const char* description)
 // Include 3D manager and simulator
 #include "OpenGL3.h"
 #include "Simulator.h"
-#include "Mouse.h"
 // include threads
 #include <thread>
 // include chrono
@@ -55,9 +54,6 @@ private:
 	bool isThreadActive;
 	Simulator* sim;
 	std::thread simThread;
-
-	Mouse* mouse;
-	static GUI* instance;
 public:
 
 
@@ -72,11 +68,6 @@ public:
 	void Simulate(); 
 	void Clear();
 	void Pause(); // Pause or resume
-
-	static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
-	static void cursor_enter_callback(GLFWwindow* window, int _entered);
-	static void mouse_button_callback(GLFWwindow* window, int _button, int _action, int _mods);
-	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 };
 
 

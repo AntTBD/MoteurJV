@@ -1,36 +1,12 @@
 #include <iostream>
 #include "GUI.h"
 
-GUI* GUI::instance = nullptr;
-
-void GUI::cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
-{
-    instance->mouse->SetPosition(xpos, ypos);
-}
-
-void GUI::cursor_enter_callback(GLFWwindow* window, int _entered)
-{
-    instance->mouse->SetEnter(_entered);
-}
-
-void GUI::mouse_button_callback(GLFWwindow* window, int _button, int _action, int _mods)
-{
-    instance->mouse->SetButton(_button, _action, _mods);
-    //std::cout << _button << " " << _action << std::endl;
-}
-
-void GUI::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
-{
-    instance->mouse->SetScroll(xoffset, yoffset);
-}
-
 /// <summary>
 /// Constructor (instenciate simulator and openGL)
 /// </summary>
 /// <param name="sim">Global simulator</param>
 GUI::GUI(Simulator* sim)
 {
-    instance = this;
     this->window = nullptr;
 
     this->show_config_window = true;
@@ -41,9 +17,6 @@ GUI::GUI(Simulator* sim)
     this->isThreadActive = false;
 
     this->opengl = new OpenGL3(this->sim);
-
-    this->mouse = new Mouse();
-    this->sim->AddMouse(this->mouse);
 }
 
 /// <summary>
@@ -89,13 +62,6 @@ int GUI::init()
     }
     glfwMakeContextCurrent(this->window);
     glfwSwapInterval(1); // Enable vsync
-
-    // Init Mouse
-    glfwSetInputMode(this->window, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
-    glfwSetCursorPosCallback(this->window, cursor_position_callback);
-    glfwSetCursorEnterCallback(this->window, cursor_enter_callback);
-    glfwSetMouseButtonCallback(this->window, mouse_button_callback);
-    glfwSetScrollCallback(this->window, scroll_callback);
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -162,12 +128,6 @@ void GUI::update()
         ImGui::ShowDemoWindow();
         // -------------------------------
 
-        // Rendering
-        ImGui::Render();
-        int display_w, display_h;
-        glfwGetFramebufferSize(this->window, &display_w, &display_h);
-        glViewport(0, 0, display_w, display_h);
-        glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
 
 
         // ------------------------
@@ -183,6 +143,14 @@ void GUI::update()
             this->render3D();
         }
         // ------------------------
+
+        // Rendering
+        ImGui::Render();
+        int display_w, display_h;
+        glfwGetFramebufferSize(this->window, &display_w, &display_h);
+        glViewport(0, 0, display_w, display_h);
+        glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
+
 
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
@@ -328,30 +296,39 @@ void GUI::showConfigWindow()
             {
                 Clear();
             }
-
+            ImGui::Spacing();
             ImGui::TextWrapped(u8"HowToPlay ?");
-                ImGui::Bullet(); ImGui::TextWrapped(u8"Choisir une velocité de départ + une masse.");
-                ImGui::Bullet(); ImGui::TextWrapped(u8"Ajouter des particules à la position que vous souhaité sur l'axe Z avec le click droit de la souris.");
-                ImGui::Bullet(); ImGui::TextWrapped(u8"Start Simulation.");
-                ImGui::Bullet(); ImGui::TextWrapped(u8"Bouger la première particule ajoutée via un click gauche sur la souris.");
-                ImGui::Bullet(); ImGui::TextWrapped(u8"Toutes les autres particules seront relié à cette première particule.");
+            ImGui::Bullet(); ImGui::TextWrapped(u8"Choisir une velocité de départ + une masse.");
+            ImGui::Bullet(); ImGui::TextWrapped(u8"Ajouter des particules à la position que vous souhaitez sur l'axe Z avec le click droit de la souris.");
+            ImGui::Bullet(); ImGui::TextWrapped(u8"Start Simulation.");
+            ImGui::Bullet(); ImGui::TextWrapped(u8"Bouger la première particule ajoutée via un click gauche sur la souris.");
+            ImGui::Bullet(); ImGui::TextWrapped(u8"Toutes les autres particules seront relié à cette première particule.");
+            ImGui::Spacing();
+            ImGui::TextWrapped(u8"Caméra Tips :");
+            ImGui::Bullet(); ImGui::TextWrapped(u8"Zoomer grâce à la molette de la souris");
+            ImGui::Bullet(); ImGui::TextWrapped(u8"Changer l'orientation de la camera en maintenant appuyé la molette et en déplaçant la souris.");
 
             // ------------ Check mouse click & add particle -----------------------------
-            if (this->mouse->ButtonHasChange()) {
-                if (this->mouse->button == GLFW_MOUSE_BUTTON_RIGHT && this->mouse->action == GLFW_PRESS)
-                {
-                    std::cout << Vector3(this->mouse->x, this->mouse->y, 0) << std::endl;
-                    Particle* p = new Particle(Vector3(this->mouse->x / 4.f, -this->mouse->y / 4.f, 0), Vector3(sx, sy, sz), 1.0f / mass);
-                    this->sim->AddParticle(p);
-                    std::cout << "Add particle " << *p << std::endl;
-                }
+            ImGuiIO& io = ImGui::GetIO();
+            Vector3 offsetPosition = Vector3(-(float)io.DisplaySize.x / 2.0f, (float)io.DisplaySize.y, 0);
+            float ratio = 4.0f;
+            if (ImGui::IsMouseClicked(1))// right click
+            {
+                if (mass == 0) mass = 0.000001f;
+                Vector3 pos = Vector3((offsetPosition.GetX() + (float)io.MousePos.x) / ratio, (offsetPosition.GetY() - (float)io.MousePos.y) / ratio, 0);
+                std::cout << pos << std::endl;
+                Particle* p = new Particle(pos, Vector3(sx, sy, sz), 1.0f / mass);
+                this->sim->AddParticle(p);
+                std::cout << "Add particle " << *p << std::endl;
             }
 
             // ------------ Check mouse click & move first particle -----------------------------
-            if (this->isSimulating && this->mouse->button == GLFW_MOUSE_BUTTON_LEFT && this->mouse->action == GLFW_PRESS)
+            if (this->isSimulating && ImGui::IsMouseDown(0)) // left click down
             {
+                Vector3 pos = Vector3((offsetPosition.GetX() + (float)io.MousePos.x) / ratio, (offsetPosition.GetY() - (float)io.MousePos.y) / ratio, 0);
+
                 Particle* p = this->sim->GetParticle(0);
-                if (p != nullptr) p->SetPosition(Vector3(this->mouse->x / 4.f, -this->mouse->y / 4.f, 0));
+                if (p != nullptr) p->SetPosition(pos);
             }
         }
         ImGui::End();

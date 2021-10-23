@@ -5,7 +5,7 @@ OpenGL3::OpenGL3(Simulator* sim)
 {
     ImGuiIO& io = ImGui::GetIO();
     this->cam = new Camera(); // create main camera
-    this->cam->Set(400.0f, -25.0f, 0.0f); // set default position
+    this->cam->Set(400.0f, -0.0f, 0.0f); // set default position
     this->rotationCamDeltaY = 0.0f;
 
     this->sim = sim;
@@ -33,27 +33,24 @@ void OpenGL3::update() {
     // Set camera position and rotation
     //this->rotationCamDeltaY = 0.05f;
     //this->cam->AddOrbitalRotationY(this->rotationCamDeltaY);
-    /* 
-    // TODO : perform orbital rotation with mouse
-    LPPOINT pt = new POINT;
-    GetCursorPos(pt);
-    if ((GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0)
-    {
-        this->cam->Set(15.0f, pt->y, pt->x);
+    
+    // mouse wheel zoom 
+    if(io.MouseWheel != 0) this->cam->SetDistance(this->cam->GetDistance() + (float)io.MouseWheel*10.f);
+    //move cam on wheel clicked
+    if (ImGui::IsMouseDown(2)) {
+        this->cam->Add(0, -(float)io.MouseDelta.y, (float)io.MouseDelta.x); // set default position
+    }
 
-    }*/
     // Update Camera
     this->cam->Update();
-    glTranslatef(-1280 / 4.f / 2.f, 720 / 4.f / 2.f, 0);// move cam to be centered has screen
+    glTranslatef(/*-(float)io.DisplaySize.x / 4.f / 2.f */ 0, -(float)io.DisplaySize.y / 4.f / 2.f, 0);// move cam to be centered has screen
     
     // --------------
     // draw plan and axis at (0,0,0)
     //this->drawPlan(10.0f);
 
-    glTranslatef(1280 / 4.f / 2.f, -720 / 4.f, 0);
-    this->drawPlan(20,10);
+    this->drawPlan(50,10);
     this->drawAxis(10);
-    glTranslatef(-(1280 / 4.f / 2.f), 720 / 4.f, 0);
 
 
     // --------------

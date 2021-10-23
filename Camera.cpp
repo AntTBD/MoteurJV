@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include <iostream>
 
 Camera::Camera()
 {
@@ -58,9 +59,20 @@ void Camera::Update()
 	glLoadIdentity();
 
 	// --------
-	glLoadMatrixf(glm::value_ptr(this->SetProjection(camDist, glm::vec2(glm::radians(this->rotationOnY), glm::radians(this->rotationOnX)))));
+	glLoadMatrixf(glm::value_ptr(this->SetProjection(this->camDist, glm::vec2(glm::radians(this->rotationOnY), glm::radians(this->rotationOnX)))));
 	// --------
 
+}
+
+float Camera::GetDistance()
+{
+	return this->camDist;
+}
+
+void Camera::SetDistance(float distFromCenter)
+{
+	if (distFromCenter < 0) distFromCenter = 0; // distance mini = 0
+	this->camDist = distFromCenter;
 }
 
 glm::mat4 Camera::SetProjection(float Translate, glm::vec2 const& Rotate)
