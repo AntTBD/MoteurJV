@@ -51,7 +51,7 @@ void ParticleContactResolver::resolveContacts(std::vector<ParticleContact*> cont
 			iteration++;
 
 			// Si la plus petite valeur est plus grand que 0, alors tout les contacts sont résolues
-			if (minSeparatingVelocity > 0)
+			if (minSeparatingVelocity < 0)
 			{
 				break;
 			}
