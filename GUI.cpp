@@ -125,9 +125,8 @@ void GUI::update()
 
         // ---- Show config window to add particles to simulator and manage the simulation ----
         this->showConfigWindow();
-        ImGui::ShowDemoWindow();
         // -------------------------------
-
+        //ImGui::ShowDemoWindow();
 
 
         // ------------------------

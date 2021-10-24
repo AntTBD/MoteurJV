@@ -61,7 +61,7 @@ void Simulator::Update(float deltaTime)
             isUpdateFinished = false;
 
             // add ressort ancré sur la 1ère particule
-            //this->particleSpringGenerator = new ParticleSpring(*this->particles[0], 5, 100);
+            this->particleSpringGenerator = new ParticleSpring(*this->particles[0], 5, 50);
 
             // parcours de la liste de particles
             for (int i = 0; i < this->particles.size(); i++)
@@ -85,21 +85,27 @@ void Simulator::Update(float deltaTime)
                 this->particleForceRegistry.Add(this->particles[i], &this->particleGravityGenerator);
 
                 // add tiges or cables between each particles
-                for (int k = i+1; k < this->particles.size(); k++) {
+                for (int k = i + 1; k < this->particles.size(); k++) {
                     if (k == i) continue;
-                    auto tige = new ParticleRod(this->particles[i], this->particles[k], 100);// tige de longueur 200
-                    this->tiges.push_back(tige);
+                    //auto tige = new ParticleRod(this->particles[i], this->particles[k], 100);// tige de longueur 200
+                    //this->tiges.push_back(tige);
 
-                    //auto cable = new ParticleCable(this->particles[i], this->particles[k], 100);// cable de longueur 200
-                    //this->cables.push_back(cable);
+                    auto cable = new ParticleCable(this->particles[i], this->particles[k], 100);// cable de longueur 200
+                    this->cables.push_back(cable);
+                }
+
+
+                // add ressort ancré sur la particule actuelle
+                this->particleSpringGenerator = new ParticleSpring(*this->particles[i], 5, 50);
+
+                // Add ressort entre la particule actuelle and toutes les autres
+                for (int k = i + 1; k < this->particles.size(); k++) {
+                    if (k == i) continue;
+
+                    // add ressort
+                    this->particleSpringGenerator->UpdateForce(this->particles[k], deltaTime);
                 }
             }
-            // Add ressort between first particles and others
-            /*for (int k = 1; k < this->particles.size(); k++) {
-
-                // add ressort
-                this->particleSpringGenerator->UpdateForce(this->particles[k], deltaTime);
-            }*/
 
             //resolve contacts cables
             for (int j = 0; j < this->cables.size(); j++) {
