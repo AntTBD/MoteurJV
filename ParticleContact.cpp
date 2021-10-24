@@ -24,7 +24,7 @@ ParticleContact::ParticleContact(Particle* particle1, Particle* particle2, float
 	this->m_particle[0] = particle1;
 	this->m_particle[1] = particle2;
 
-	this->m_contactNormal = (this->m_particle[0]->GetPosition() - this->m_particle[1]->GetPosition()).Normalize();
+	this->m_contactNormal = (this->m_particle[1]->GetPosition() - this->m_particle[0]->GetPosition()).Normalize();
 }
 
 ParticleContact::~ParticleContact()

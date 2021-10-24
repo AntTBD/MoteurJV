@@ -14,5 +14,5 @@ ParticleLink::~ParticleLink()
 
 float ParticleLink::currentLength() const
 {
-	return (this->particle[0]->GetPosition() - this->particle[1]->GetPosition()).Magnitude();
+	return (this->particle[1]->GetPosition() - this->particle[0]->GetPosition()).Magnitude();
 }

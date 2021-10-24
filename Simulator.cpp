@@ -88,21 +88,21 @@ void Simulator::Update(float deltaTime)
             }
             // Add cables between first particles and others
             for (int k = 1; k < this->particles.size(); k++) {
-                //auto cable = new ParticleRod(this->particles[0], this->particles[k], 200);// tige de longueur 200
-                //auto cable = new ParticleCable(this->particles[0], this->particles[k], 200);// cable de longueur 200
-                //this->cables.push_back(cable);
+                //auto cable = new ParticleRod(this->particles[0], this->particles[k], 100);// tige de longueur 200
+                auto cable = new ParticleCable(this->particles[0], this->particles[k], 50);// cable de longueur 200
+                this->cables.push_back(cable);
 
                 // add ressort
-                this->particleSpringGenerator->UpdateForce(this->particles[k], deltaTime);
+               // this->particleSpringGenerator->UpdateForce(this->particles[k], deltaTime);
             }
 
             //resolve contacts cables
             for (int j = 0; j < this->cables.size(); j++) {
-                ParticleContact* contacts = new ParticleContact();// fonctionne avec 2 particules pour le moment
-                unsigned int nbContacts = this->cables[j]->addContact(contacts, 2 * this->particles.size());// fonctionne avec 2 particules pour le moment
+                ParticleContact* contact = new ParticleContact();// fonctionne avec 2 particules pour le moment
+                unsigned int nbContacts = this->cables[j]->addContact(contact, 2 * this->particles.size());// fonctionne avec 2 particules pour le moment
                 if (nbContacts > 0) {
                     std::vector<ParticleContact*> particleContactList;
-                    particleContactList.push_back(contacts);
+                    particleContactList.push_back(contact);
                     this->particleContactResolver->resolveContacts(particleContactList, deltaTime);
 
                 }
