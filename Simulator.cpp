@@ -61,7 +61,7 @@ void Simulator::Update(float deltaTime)
             isUpdateFinished = false;
 
             // add ressort ancré sur la 1ère particule
-            this->particleSpringGenerator = new ParticleSpring(*this->particles[0], 5, 50);
+            //this->particleSpringGenerator = new ParticleSpring(*this->particles[0], 5, 100);
 
             // parcours de la liste de particles
             for (int i = 0; i < this->particles.size(); i++)
@@ -84,17 +84,22 @@ void Simulator::Update(float deltaTime)
                 // Add gravity force
                 this->particleForceRegistry.Add(this->particles[i], &this->particleGravityGenerator);
 
+                // add tiges or cables between each particles
+                for (int k = i+1; k < this->particles.size(); k++) {
+                    if (k == i) continue;
+                    auto tige = new ParticleRod(this->particles[i], this->particles[k], 100);// tige de longueur 200
+                    this->tiges.push_back(tige);
 
+                    //auto cable = new ParticleCable(this->particles[i], this->particles[k], 100);// cable de longueur 200
+                    //this->cables.push_back(cable);
+                }
             }
-            // Add cables between first particles and others
-            for (int k = 1; k < this->particles.size(); k++) {
-                auto cable = new ParticleRod(this->particles[0], this->particles[k], 50);// tige de longueur 200
-                //auto cable = new ParticleCable(this->particles[0], this->particles[k], 100);// cable de longueur 200
-                this->cables.push_back(cable);
+            // Add ressort between first particles and others
+            /*for (int k = 1; k < this->particles.size(); k++) {
 
                 // add ressort
-                //this->particleSpringGenerator->UpdateForce(this->particles[k], deltaTime);
-            }
+                this->particleSpringGenerator->UpdateForce(this->particles[k], deltaTime);
+            }*/
 
             //resolve contacts cables
             for (int j = 0; j < this->cables.size(); j++) {
@@ -107,6 +112,19 @@ void Simulator::Update(float deltaTime)
 
                 }
             }
+
+            //resolve contacts tiges
+            for (int j = 0; j < this->tiges.size(); j++) {
+                ParticleContact* contact = new ParticleContact();// fonctionne avec 2 particules pour le moment
+                unsigned int nbContacts = this->tiges[j]->addContact(contact, 2 * this->particles.size());// fonctionne avec 2 particules pour le moment
+                if (nbContacts > 0) {
+                    std::vector<ParticleContact*> particleContactList;
+                    particleContactList.push_back(contact);
+                    this->particleContactResolver->resolveContacts(particleContactList, deltaTime);
+
+                }
+            }
+
             // update force (gravity)
             this->particleForceRegistry.UpdateForce(deltaTime);
 
@@ -118,6 +136,8 @@ void Simulator::Update(float deltaTime)
 
             this->particleForceRegistry.Clear();
             this->cables.clear();
+            this->tiges.clear();
+
             isUpdateFinished = true;
         }
     }

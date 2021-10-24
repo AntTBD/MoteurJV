@@ -21,7 +21,7 @@ public:
 
 	ParticleContact();
 	ParticleContact(Particle* particle1, float restitution, float penetration);
-	ParticleContact(Particle* particle1, Particle* particle2, float restitution, float penetration);
+	ParticleContact(Particle* particle1, Particle* particle2, float restitution, float penetration, bool inverseNormal = false);
 	~ParticleContact();
 
 	// Resolve velocity and interpenetration

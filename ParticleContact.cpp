@@ -17,7 +17,7 @@ ParticleContact::ParticleContact(Particle* particle1, float restitution, float p
 	this->m_contactNormal = Vector3(0, 1, 0);
 }
 
-ParticleContact::ParticleContact(Particle* particle1, Particle* particle2, float restitution, float penetration) :
+ParticleContact::ParticleContact(Particle* particle1, Particle* particle2, float restitution, float penetration, bool inverseNormal) :
 	m_restitution(restitution), m_penetration(penetration)
 
 {
@@ -25,6 +25,9 @@ ParticleContact::ParticleContact(Particle* particle1, Particle* particle2, float
 	this->m_particle[1] = particle2;
 
 	this->m_contactNormal = (this->m_particle[1]->GetPosition() - this->m_particle[0]->GetPosition()).Normalize();
+	if (inverseNormal) {
+		this->m_contactNormal *= -1;
+	}
 }
 
 ParticleContact::~ParticleContact()

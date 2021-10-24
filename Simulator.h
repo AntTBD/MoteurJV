@@ -24,7 +24,8 @@ private:
 	ParticleSpring* particleSpringGenerator;
 
 	NaiveParticleContactGenerator* particleContactGenerator;
-	std::vector<ParticleRod*> cables;
+	std::vector<ParticleRod*> tiges;
+	std::vector<ParticleCable*> cables;
 	GroundContactGenerator* groundContactGenerator;
 	ParticleContactResolver* particleContactResolver;
 
