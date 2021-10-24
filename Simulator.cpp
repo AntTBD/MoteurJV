@@ -88,12 +88,12 @@ void Simulator::Update(float deltaTime)
             }
             // Add cables between first particles and others
             for (int k = 1; k < this->particles.size(); k++) {
-                //auto cable = new ParticleRod(this->particles[0], this->particles[k], 100);// tige de longueur 200
-                auto cable = new ParticleCable(this->particles[0], this->particles[k], 50);// cable de longueur 200
+                auto cable = new ParticleRod(this->particles[0], this->particles[k], 50);// tige de longueur 200
+                //auto cable = new ParticleCable(this->particles[0], this->particles[k], 100);// cable de longueur 200
                 this->cables.push_back(cable);
 
                 // add ressort
-               // this->particleSpringGenerator->UpdateForce(this->particles[k], deltaTime);
+                //this->particleSpringGenerator->UpdateForce(this->particles[k], deltaTime);
             }
 
             //resolve contacts cables

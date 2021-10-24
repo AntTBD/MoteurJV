@@ -13,17 +13,20 @@ unsigned int ParticleRod::addContact(ParticleContact* contact, unsigned int limi
 	{
 		float currentLength = this->currentLength();
 
-		if (currentLength == this->length) return 0;
-
-		else if (currentLength > this->length)
+		if (currentLength > this->length+1)
 		{
-			*contact = ParticleContact(this->particle[0], this->particle[1], 0, (this->currentLength() - this->length));
+			*contact = ParticleContact(this->particle[0], this->particle[1], 1, (this->currentLength() - this->length));
 			return 1;
 		}
-		else if (currentLength < this->length)
+		else if (currentLength < this->length-1)
 		{
-			*contact = ParticleContact(this->particle[1], this->particle[0], 0, (this->length - this->currentLength()));
+			*contact = ParticleContact(this->particle[0], this->particle[1], -1, (this->currentLength() - this->length));
 			return 1;
+		}
+		else
+		{
+			return 0;
+
 		}
 	}
 	return 0;
