@@ -59,10 +59,10 @@ Vector3& Vector3::operator-=(const Vector3& vector)
 	return *this;
 }
 
-Vector3 Vector3::operator*(float value) const
+/*Vector3 Vector3::operator*(float value) const
 {
 	return Vector3(this->x * value, this->y * value, this->z * value);
-}
+}*/
 
 Vector3& Vector3::operator*=(float value)
 {
@@ -91,6 +91,16 @@ std::ostream& operator<<(std::ostream& os, const Vector3& vector)
 {
 	os << "(" << vector.GetX() << "," << vector.GetY() << "," << vector.GetZ() << ")";
 	return os;
+}
+
+Vector3 operator*(const Vector3& vec, const float value)
+{
+	return Vector3(vec.GetX() * value, vec.GetY() * value, vec.GetZ() * value);
+}
+
+Vector3 operator*(const float value, const Vector3& vec)
+{
+	return vec * value;
 }
 
 // Getters and Setters

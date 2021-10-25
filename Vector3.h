@@ -18,7 +18,7 @@ public:
 	Vector3& operator+=(const Vector3& vector);
 	Vector3 operator-(const Vector3& vector) const;
 	Vector3& operator-=(const Vector3& vector);
-	Vector3 operator*(float value) const;
+	//Vector3 operator*(float value) const; operator remplacé par operator globale non membre de la classe pour avoir les deux sens
 	Vector3& operator*=(float value);
 	Vector3 operator/(float value) const;
 	Vector3& operator/=(float value);
@@ -43,3 +43,7 @@ public:
 
 // << operator
 std::ostream& operator<< (std::ostream& os, const Vector3& vector);
+
+// * operator dans les 2 sens
+Vector3 operator*(const Vector3& vec, const float value);
+Vector3 operator*(const float value, const Vector3& vec);
