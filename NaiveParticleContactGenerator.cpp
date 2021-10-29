@@ -16,7 +16,7 @@ unsigned int NaiveParticleContactGenerator::addContact(std::vector<ParticleConta
 			}
 			if (i == j) continue;
 			float length = (this->particles->at(i)->GetPosition() - this->particles->at(j)->GetPosition()).Magnitude();
-			if (length < this->radius) {
+			if (length <= this->radius) {
 				contacts->push_back(new ParticleContact(this->particles->at(i), this->particles->at(j), 1, this->radius - length));
 				iteration++;
 			}
