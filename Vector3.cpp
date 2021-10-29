@@ -163,6 +163,13 @@ Vector3& Vector3::Normalize() // Make the vector length to 1
 	return *this;
 }
 
+Vector3 Vector3::Normalized() const // Make the vector length to 1 - without change original vector
+{
+	float length = this->Magnitude();
+	assert(length != 0);
+	return *this / length;
+}
+
 Vector3& Vector3::SetZero() // Set vector to (0, 0, 0)
 {
 	this->x = 0;

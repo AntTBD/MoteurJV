@@ -37,6 +37,7 @@ public:
 	float Magnitude() const;
 	float SquaredMagnitude() const;
 	Vector3& Normalize();
+	Vector3 Normalized() const;
 	Vector3& SetZero();
 
 };

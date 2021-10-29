@@ -24,7 +24,7 @@ ParticleContact::ParticleContact(Particle* particle1, Particle* particle2, float
 	this->m_particle[0] = particle1;
 	this->m_particle[1] = particle2;
 
-	this->m_contactNormal = (this->m_particle[1]->GetPosition() - this->m_particle[0]->GetPosition()).Normalize();
+	this->m_contactNormal = (this->m_particle[1]->GetPosition() - this->m_particle[0]->GetPosition()).Normalized();
 	if (inverseNormal) {
 		this->m_contactNormal *= -1;
 	}
@@ -76,10 +76,10 @@ void ParticleContact::resolveVelocity() // Application de l’impulsion diapo p12
 	// Comme les deux particules subiront la même magnitude d’impulsion 
 	// mais avec la normal inversé, on obtient :
 	// particule 1 : v' = v - k * n / m
-	this->m_particle[0]->SetSpeed(this->m_particle[0]->GetSpeed() - this->m_contactNormal * this->m_particle[0]->GetinvMass() * k);
+	this->m_particle[0]->SetSpeed(this->m_particle[0]->GetSpeed() - k * this->m_contactNormal * this->m_particle[0]->GetinvMass());
 	// particule 2 (if exist) : v' = v + k * n / m
 	if (this->m_particle[1] != nullptr) { 
-		this->m_particle[1]->SetSpeed(this->m_particle[1]->GetSpeed() + this->m_contactNormal * this->m_particle[1]->GetinvMass() * k);
+		this->m_particle[1]->SetSpeed(this->m_particle[1]->GetSpeed() + k * this->m_contactNormal * this->m_particle[1]->GetinvMass());
 	}
 }
 
@@ -93,10 +93,10 @@ void ParticleContact::resolveInterpenetration() // Résolution d’interpénétration
 		}
 
 		// particule 1 : p' = p + m2 / (m1+m2) * d * n
-		this->m_particle[0]->SetPosition(this->m_particle[0]->GetPosition() + this->m_contactNormal * (1.0f/this->m_particle[0]->GetinvMass()) * somInvMass * m_penetration);
+		this->m_particle[0]->SetPosition(this->m_particle[0]->GetPosition() + (1.0f/this->m_particle[0]->GetinvMass()) * somInvMass * m_penetration * this->m_contactNormal);
 		// particule 2 (if exist) : p' = p + (- m2 / (m1+m2)) * d * n
 		if (this->m_particle[1] != nullptr) {
-			this->m_particle[1]->SetPosition(this->m_particle[1]->GetPosition() + this->m_contactNormal * (-1.0f / this->m_particle[1]->GetinvMass()) * somInvMass * m_penetration);
+			this->m_particle[1]->SetPosition(this->m_particle[1]->GetPosition() - (1.0f / this->m_particle[1]->GetinvMass()) * somInvMass * m_penetration * this->m_contactNormal);
 		}
 	}
 }
