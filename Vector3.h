@@ -32,12 +32,55 @@ public:
 	void SetZ(float _z);
 
 	// Functions
+	
+	/// <summary>
+	/// xa * xb + ya * yb + za * zb
+	/// </summary>
+	/// <param name="vector"></param>
+	/// <returns></returns>
 	float DotProduct(const Vector3& vector) const;
+
+	/// <summary>
+	/// (ya * zb - za * yb, <para/>
+	/// za * xb - xa * zb, <para/>
+	/// xa * yb - ya * xb)
+	/// </summary>
+	/// <param name="vector"></param>
+	/// <returns></returns>
 	Vector3 CrossProduct(const Vector3& vector) const;
+
+	/// <summary>
+	/// |vector| = sqrt(x² + y² + z²)
+	/// </summary>
+	/// <returns></returns>
 	float Magnitude() const;
+
+	/// <summary>
+	/// Squared magnitude is less taxing to calculate and is often enough for what we want to do<para/>
+	/// sqrt(x² + y² + z²)² = x² + y² + z²
+	/// </summary>
+	/// <returns></returns>
 	float SquaredMagnitude() const;
+
+	/// <summary>
+	/// Make the vector length to 1 <para/>
+	/// vec^ = vec / |vec|
+	/// </summary>
+	/// <returns></returns>
 	Vector3& Normalize();
+
+	/// <summary>
+	/// Make the vector length to 1 <para/>
+	/// vec^ = vec / |vec| <para/>
+	/// Withou change original vector
+	/// </summary>
+	/// <returns></returns>
 	Vector3 Normalized() const;
+
+	/// <summary>
+	/// Set vector to (0, 0, 0)
+	/// </summary>
+	/// <returns></returns>
 	Vector3& SetZero();
 
 };
