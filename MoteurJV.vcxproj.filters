@@ -25,13 +25,7 @@
     <ClCompile Include="MoteurJV.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Particle.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="Simulator.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
@@ -85,15 +79,27 @@
     <ClCompile Include="ParticleGravity.cpp">
       <Filter>Sources\Forces</Filter>
     </ClCompile>
+    <ClCompile Include="Matrix33.cpp">
+      <Filter>Sources\Orientations</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix34.cpp">
+      <Filter>Sources\Orientations</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>Sources\Orientations</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Sources\Orientations</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Sources\Positions</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Sources\Positions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Particle.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Simulator.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
@@ -153,6 +159,24 @@
     <ClInclude Include="ParticleGravity.h">
       <Filter>Headers\Forces</Filter>
     </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Headers\Positions</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Headers\Positions</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix33.h">
+      <Filter>Headers\Orientations</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix34.h">
+      <Filter>Headers\Orientations</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>Headers\Orientations</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>Headers\Orientations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Includes">
@@ -184,6 +208,18 @@
     </Filter>
     <Filter Include="Sources\Contacts">
       <UniqueIdentifier>{faa6a7dc-aed6-4662-bea0-4975b79cffd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Orientations">
+      <UniqueIdentifier>{24f8ed13-afcb-41b0-aa4a-ec09e6f64290}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Orientations">
+      <UniqueIdentifier>{c7d045b2-52f4-4285-be06-7f36296ce0a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Positions">
+      <UniqueIdentifier>{36faea97-6b30-43da-a5e9-0650b70fd6bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Positions">
+      <UniqueIdentifier>{57f102d5-4d01-4cc4-bad6-368d434a01b9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -174,6 +174,8 @@
     <ClCompile Include="include\imgui-1.84.2\imgui_draw.cpp" />
     <ClCompile Include="include\imgui-1.84.2\imgui_tables.cpp" />
     <ClCompile Include="include\imgui-1.84.2\imgui_widgets.cpp" />
+    <ClCompile Include="Matrix33.cpp" />
+    <ClCompile Include="Matrix34.cpp" />
     <ClCompile Include="MoteurJV.cpp" />
     <ClCompile Include="NaiveParticleContactGenerator.cpp" />
     <ClCompile Include="OpenGL3.cpp" />
@@ -189,6 +191,8 @@
     <ClCompile Include="ParticleSpring.cpp" />
     <ClCompile Include="ParticleForceRegistry.cpp" />
     <ClCompile Include="ParticleGravity.cpp" />
+    <ClCompile Include="Quaternion.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Simulator.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="GroundContactGenerator.cpp" />
@@ -197,6 +201,8 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Formes.h" />
     <ClInclude Include="GUI.h" />
+    <ClInclude Include="Matrix33.h" />
+    <ClInclude Include="Matrix34.h" />
     <ClInclude Include="NaiveParticleContactGenerator.h" />
     <ClInclude Include="OpenGL3.h" />
     <ClInclude Include="Particle.h" />
@@ -213,6 +219,8 @@
     <ClInclude Include="ParticleSpring.h" />
     <ClInclude Include="ParticleForceRegistry.h" />
     <ClInclude Include="ParticleGravity.h" />
+    <ClInclude Include="Quaternion.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Simulator.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="GroundContactGenerator.h" />

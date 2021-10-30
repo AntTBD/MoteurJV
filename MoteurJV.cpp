@@ -6,6 +6,7 @@
 #include "Vector3.h"
 #include "GUI.h"
 #include "Simulator.h"
+//#include "Quaternion.h"
 
 /// <summary>
 /// Thread for 3D user interface face manager
@@ -25,6 +26,12 @@ int main(int, char**)
 {
     Simulator sim;
     std::thread threadUI(UI, &sim);     // spawn new ui thread
+
+    //Quaternion q = Quaternion(1, 2, 3, 4);
+    //std::cout << q.GetW() << ", " << q.GetI() << ", " << q.GetJ() << ", " << q.GetK() << std::endl;
+    //float val[] = { 5,6,7,8 };
+    //Quaternion q2 = Quaternion(val);
+    //std::cout << q2.GetW() << ", " << q2.GetI() << ", " << q2.GetJ() << ", " << q2.GetK() << std::endl;
 
     // synchronize threads:
     threadUI.join();               // pauses until second finishes
