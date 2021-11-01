@@ -60,8 +60,14 @@ void Simulator::Update(float deltaTime)
 
             isUpdateFinished = false;
 
+            for (int i = 0; i < this->particles.size(); i++)
+            {
+                std::cout << "Particule " << i + 1 << " : " << *this->particles[i] << std::endl;
+                this->particles[i]->Integrate(deltaTime);
+            }
+
             // add ressort ancré sur la 1ère particule
-            this->particleSpringGenerator = new ParticleSpring(*this->particles[0], 5, 50);
+            //this->particleSpringGenerator = new ParticleSpring(*this->particles[0], 5, 50);
 
             // parcours de la liste de particles
             for (int i = 0; i < this->particles.size(); i++)
@@ -134,11 +140,6 @@ void Simulator::Update(float deltaTime)
             // update force (gravity)
             this->particleForceRegistry.UpdateForce(deltaTime);
 
-            for (int i = 0; i < this->particles.size(); i++)
-            {
-                std::cout << "Particule " << i + 1 << " : " << *this->particles[i] << std::endl;
-                this->particles[i]->Integrate(deltaTime);
-            }
 
             this->particleForceRegistry.Clear();
             this->cables.clear();

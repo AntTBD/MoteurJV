@@ -20,7 +20,7 @@ unsigned int ParticleRod::addContact(ParticleContact* contact, unsigned int limi
 		}
 		else if (currentLength < this->length)
 		{
-			*contact = ParticleContact(this->particle[0], this->particle[1], 1, (currentLength - this->length), true);
+			*contact = ParticleContact(this->particle[0], this->particle[1], 1, (this->length - currentLength), true);
 			return 1;
 		}
 		else
