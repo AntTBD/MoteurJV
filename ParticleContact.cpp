@@ -24,7 +24,9 @@ ParticleContact::ParticleContact(Particle* particle1, Particle* particle2, float
 	this->m_particle[0] = particle1;
 	this->m_particle[1] = particle2;
 
-	this->m_contactNormal = (this->m_particle[1]->GetPosition() - this->m_particle[0]->GetPosition()).Normalized();
+	// normal = (pa-pb).normalized
+	this->m_contactNormal = (this->m_particle[0]->GetPosition() - this->m_particle[1]->GetPosition()).Normalized(); // diapo Gestion des collision - p5 
+	
 	if (inverseNormal) {
 		this->m_contactNormal *= -1;
 	}
@@ -68,19 +70,20 @@ void ParticleContact::resolveVelocity() // Application de l’impulsion diapo p12
 	}
 
 	//     (e + 1)  v_rel . n
-	// k = -------------------
+	// k = -------------------     avec n . n = 1 car n unitaire
 	//     (1/m1 + 1/m2) n . n
 	k = (float)k / somInvMass;
 
 	// ----- update velocity -----
 	// Comme les deux particules subiront la même magnitude d’impulsion 
 	// mais avec la normal inversé, on obtient :
-	// particule 1 : v' = v - k * n / m
+	// particule 1 : v1' = v1 - k * n / m1
 	this->m_particle[0]->SetSpeed(this->m_particle[0]->GetSpeed() - k * this->m_contactNormal * this->m_particle[0]->GetinvMass());
-	// particule 2 (if exist) : v' = v + k * n / m
+	// particule 2 (if exist) : v2' = v2 + k * n / m2
 	if (this->m_particle[1] != nullptr) { 
 		this->m_particle[1]->SetSpeed(this->m_particle[1]->GetSpeed() + k * this->m_contactNormal * this->m_particle[1]->GetinvMass());
 	}
+	std::cout << "k: " << k << std::endl;
 }
 
 void ParticleContact::resolveInterpenetration() // Résolution d’interpénétration diapo p15

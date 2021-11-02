@@ -307,11 +307,11 @@ void GUI::showConfigWindow()
             ImGui::Bullet(); ImGui::TextWrapped(u8"Zoomer grâce à la molette de la souris");
             ImGui::Bullet(); ImGui::TextWrapped(u8"Changer l'orientation de la camera en maintenant appuyé la molette et en déplaçant la souris.");
 
-            // ------------ Check mouse click & add particle -----------------------------
+            // -------------------- Check mouse click & add particle if not in simulation -----------------------------
             ImGuiIO& io = ImGui::GetIO();
             Vector3 offsetPosition = Vector3(-(float)io.DisplaySize.x / 2.0f, (float)io.DisplaySize.y, 0);
             float ratio = 4.0f;
-            if (ImGui::IsMouseClicked(1))// right click
+            if (this->isSimulating == false && ImGui::IsMouseClicked(1))// right click if not in simulation 
             {
                 if (mass == 0) mass = 0.000001f;
                 Vector3 pos = Vector3((offsetPosition.GetX() + (float)io.MousePos.x) / ratio, (offsetPosition.GetY() - (float)io.MousePos.y) / ratio, 0);
@@ -321,15 +321,23 @@ void GUI::showConfigWindow()
                 std::cout << "Add particle " << *p << std::endl;
             }
 
-            // ------------ Check mouse click & move first particle -----------------------------
+            // --------------------------- Check mouse click & move first particle -------------------------------------
             if (this->isSimulating && IsMouseOnWidgets() == false && ImGui::IsMouseDown(0)) // left click down
             {
                 Vector3 pos = Vector3((offsetPosition.GetX() + (float)io.MousePos.x) / ratio, (offsetPosition.GetY() - (float)io.MousePos.y) / ratio, 0);
 
                 Particle* p = this->sim->GetParticle(0);
-                if (p != nullptr) p->SetPosition(pos);
+                if (p != nullptr) {
+
+                    // d = xa - xb
+                    Vector3 d = (p->GetPosition() - pos);
+                    // f = - k * ( |d| - l0) * d.normalized
+                    p->AddForce(-1 * d.Magnitude() * d.Normalized() * (1.0f / p->GetinvMass()));
+                    //p->SetPosition(pos);
+                }
             }
 
+            // -------------- Display delta time ---------------
             ImGui::Spacing();
             ImGui::TextWrapped(u8"Simulator DeltaTime: %.2f ms", this->sim->dT * 1000.0f);
         }
@@ -355,6 +363,8 @@ void GUI::render3D()
 /// </summary>
 void GUI::Simulate()
 {
+    sim->Start();
+
     float deltaTimeTarget = 16.6f;
     float deltaTime = 0.0f;
     this->isSimulating = true;
@@ -370,7 +380,7 @@ void GUI::Simulate()
         deltaTime += deltaTimeDuration.count();
         time = now;
         
-        if (deltaTime >= deltaTimeTarget || sim->isUpdated())
+        if (deltaTime >= deltaTimeTarget && sim->isUpdated())
         {
             sim->Update(deltaTime / 1000.0f);
             deltaTime = 0.0f;

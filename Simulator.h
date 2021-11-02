@@ -39,6 +39,7 @@ public:
 	Particle* GetParticle(int id);
 	void Print(); // Print all the particules of the simulation to the console
 
+	void Start();
 	void Update(float deltaTime); // Update acceleration, speed and position of all particles in the simulator
 	void Pause();
 	void Resume();

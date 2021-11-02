@@ -97,21 +97,22 @@ void Particle:: AddForce(Vector3 force)
 
 void Particle::Integrate(float dTime)
 {
-	// Update acceleration
-	UpdateAcceleration();
-
-	// Update speed
-	this->speed = (this->speed + this->acceleration * dTime) * this->damping;
-
-	// Update position
+	// 1 - Update position : p' = p + v * t + 1/2 * a * t²
+	//                  OU   p' = p + v * t
 	this->position = this->position + this->speed * dTime;
 
+	// 2 - Update acceleration : a = 1/m * f
+	UpdateAcceleration();
+
+	// 3 - Update speed : v' = v * dt + a * t
+	this->speed = (this->speed + this->acceleration * dTime) * this->damping;
+	
 	// Put sumforces back to 0 because we work with impulsions
 	sumForces.SetZero();
 }
 
 void Particle::UpdateAcceleration()
 {
-	// Update acceleration with sumForces, invMass and add the gravityForce that is always there
+	// Update acceleration with sumForces, invMass
 	this->acceleration = this->sumForces;
 }

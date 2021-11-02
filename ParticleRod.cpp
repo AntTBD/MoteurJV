@@ -7,7 +7,7 @@ ParticleRod::ParticleRod(Particle* particle1, Particle* particle2, float length)
 
 ParticleRod::~ParticleRod() {}
 
-unsigned int ParticleRod::addContact(ParticleContact* contact, unsigned int limit)
+unsigned int ParticleRod::addContact(std::vector<ParticleContact*>* contacts, unsigned int limit) const
 {
 	if (limit > 0)
 	{
@@ -15,12 +15,12 @@ unsigned int ParticleRod::addContact(ParticleContact* contact, unsigned int limi
 
 		if (currentLength > this->length)
 		{
-			*contact = ParticleContact(this->particle[0], this->particle[1], 1, (currentLength - this->length));
+			contacts->push_back(new ParticleContact(this->particle[0], this->particle[1], 1, (currentLength - this->length), true));
 			return 1;
 		}
 		else if (currentLength < this->length)
 		{
-			*contact = ParticleContact(this->particle[0], this->particle[1], 1, (this->length - currentLength), true);
+			contacts->push_back(new ParticleContact(this->particle[0], this->particle[1], 1, (this->length - currentLength)));
 			return 1;
 		}
 		else

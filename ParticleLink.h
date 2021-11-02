@@ -16,6 +16,6 @@ public:
     float currentLength() const;
 
     // Take a pointer to an array of contact and the number of contact left to be generated
-    unsigned int addContact(ParticleContact* contact, unsigned int limit) = 0;
+    unsigned int addContact(std::vector<ParticleContact*>* contacts, unsigned int limit) const = 0;
 };
 

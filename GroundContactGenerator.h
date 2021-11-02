@@ -14,11 +14,6 @@ private:
 public: 
     GroundContactGenerator(std::vector<Particle*>* particles, float positionY = 0);
     ~GroundContactGenerator();
-    
-    // do not use
-    unsigned int addContact(ParticleContact* contact, unsigned int limit) {
-        return -1;
-    }
 
     // Fill ParticleContact with information form particles and contact generator.
     // Contact is different wether the disitance is shaorter or greater than the length

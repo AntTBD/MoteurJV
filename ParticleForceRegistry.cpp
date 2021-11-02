@@ -6,7 +6,6 @@ ParticleForceRegistry::ParticleForceEntry::ParticleForceEntry(Particle* particle
 void ParticleForceRegistry::Add(Particle* particle, ParticleForceGenerator* forceGenerator)
 {
 	this->m_registry.push_back(ParticleForceRegistry::ParticleForceEntry(particle, forceGenerator));
-
 }
 
 void ParticleForceRegistry::UpdateForce(float duration)
