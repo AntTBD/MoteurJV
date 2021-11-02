@@ -7,27 +7,27 @@ class Quaternion
 {
 private:
 	// w, i, j, k
-	//float value[4];
+	float value[4];
 
 	// union c++ exemple : https://stackoverflow.com/questions/6338645/named-structures-in-c-unions
-	union {
+	/*union {
 		struct { float w, i, j, k; };
 		float value[4];
 	};
-
+	*/
 public:
 	Quaternion();
-	Quaternion(float w, float i, float j, float k);
+	Quaternion(float i, float j, float k, float w);
 	Quaternion(float value[4]);
-	Quaternion(const Vector3& vector);
+	Quaternion(const Vector3& vector, float w);
 	Quaternion(const Quaternion& quaternion);
 	~Quaternion();
 
 	float* Get() const; // return tab[4] ???
-	float GetW() const;
 	float GetI() const;
 	float GetJ() const;
 	float GetK() const;
+	float GetW() const;
 	void Set(float value[4]);
 	void SetW(float w);
 	void SetI(float i);
