@@ -17,11 +17,14 @@ private:
 public:
 	Matrix34();
 	Matrix34(float value[12]);
+	Matrix34(float _l1[4], float _l2[4], float _l3[4]);
 	Matrix34(const Matrix34& matrix34);
-	~Matrix34();
+	~Matrix34() = default;
 
 	float* Get() const;
 	void Set(float value[12]);
+
+	Matrix34& operator=(const Matrix34& other);
 
 	// Combination of the linear transformation
 	Matrix34 operator*(const Matrix34& other) const;
@@ -41,4 +44,6 @@ public:
 	// Transform a direction by ignoring the translation
 	Vector3 TransformDirection(const Vector3& vector);
 };
+
+std::ostream& operator<< (std::ostream& os, const Matrix34& matrix34);
 
