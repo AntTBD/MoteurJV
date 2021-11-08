@@ -16,7 +16,7 @@ unsigned int GroundContactGenerator::addContact(std::vector<ParticleContact*>* c
 	if (limit > 0)
 	{
 		int iteration = 0;
-		for (Particle* particle : *particles) {
+		for (Particle* particle : *this->particles) {
 			if (iteration >= limit) {
 				return limit;
 			}
