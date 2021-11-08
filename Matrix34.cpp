@@ -87,10 +87,14 @@ Matrix34 Matrix34::operator*(const Matrix34& other) const
 	return resultMatrix;
 }
 
-//Vector3 Matrix34::operator*(const Vector3& vector) const
-//{
-//
-//}
+Vector3 Matrix34::operator*(const Vector3& vector) const
+{
+	Vector3 result = Vector3(values[0] * vector.GetX() + values[1] * vector.GetY() + values[2] * vector.GetZ() + values[3],
+		values[4] * vector.GetX() + values[5] * vector.GetY() + values[6] * vector.GetZ() + values[7],
+		values[8] * vector.GetX() + values[9] * vector.GetY() + values[10] * vector.GetZ() + values[11]);
+
+	return result;
+}
 
 // << operator
 std::ostream& operator<< (std::ostream& os, const Matrix34& matrix34)
@@ -101,4 +105,22 @@ std::ostream& operator<< (std::ostream& os, const Matrix34& matrix34)
 		<< " " << values[8] << ", " << values[9] << ", " << values[10] << ", " << values[11] << std::endl
 		<< " " << "0" << ", " << "0" << ", " << "0" << ", " << "1" << "}" << std::endl;
 	return os;
-} 
+}
+
+// product with a value
+Matrix34 operator*(const Matrix34& mat, const float value)
+{
+	float result[12];
+	float* matValue = mat.Get();
+	for (int i = 0; i < 12; i++)
+	{
+		result[i] = matValue[i] * value;
+	}
+	Matrix34 resultM = Matrix34(result);
+	return resultM;
+}
+
+Matrix34 operator*(const float value, const Matrix34& mat)
+{
+	return mat * value;
+}
