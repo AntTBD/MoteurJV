@@ -47,5 +47,5 @@ public:
 
 std::ostream& operator<< (std::ostream& os, const Matrix34& matrix34);
 
-Matrix33 operator*(const Matrix33& mat, const float value);
-Matrix33 operator*(const float value, const Matrix33& mat);
+Matrix34 operator*(const Matrix34& mat, const float value);
+Matrix34 operator*(const float value, const Matrix34& mat);
