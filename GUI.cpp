@@ -183,6 +183,9 @@ void GUI::end()
 void GUI::showConfigWindow()
 {
     if (this->show_config_window) {
+        ImGuiIO& io = ImGui::GetIO();
+        ImGui::SetNextWindowPos(ImVec2());
+        ImGui::SetNextWindowSize(ImVec2(250, io.DisplaySize.y));
         ImGui::Begin("Config Window", &this->show_config_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
         {
             // Variable needed to make a particle
@@ -297,18 +300,17 @@ void GUI::showConfigWindow()
             }
             ImGui::Spacing();
             ImGui::TextWrapped(u8"HowToPlay ?");
-            ImGui::Bullet(); ImGui::TextWrapped(u8"Choisir une velocité de départ + une masse.");
-            ImGui::Bullet(); ImGui::TextWrapped(u8"Ajouter des particules à la position que vous souhaitez sur l'axe Z avec le click droit de la souris.");
+            ImGui::Bullet(); ImGui::TextWrapped(u8"Choisir une velocitï¿½ de dï¿½part + une masse.");
+            ImGui::Bullet(); ImGui::TextWrapped(u8"Ajouter des particules ï¿½ la position que vous souhaitez sur l'axe Z avec le click droit de la souris.");
             ImGui::Bullet(); ImGui::TextWrapped(u8"Start Simulation.");
-            ImGui::Bullet(); ImGui::TextWrapped(u8"Bouger la première particule ajoutée via un click gauche sur la souris.");
-            ImGui::Bullet(); ImGui::TextWrapped(u8"Toutes les autres particules seront relié à cette première particule.");
+            ImGui::Bullet(); ImGui::TextWrapped(u8"Bouger la premiï¿½re particule ajoutï¿½e via un click gauche sur la souris.");
+            ImGui::Bullet(); ImGui::TextWrapped(u8"Toutes les autres particules seront reliï¿½ ï¿½ cette premiï¿½re particule.");
             ImGui::Spacing();
-            ImGui::TextWrapped(u8"Caméra Tips :");
-            ImGui::Bullet(); ImGui::TextWrapped(u8"Zoomer grâce à la molette de la souris");
-            ImGui::Bullet(); ImGui::TextWrapped(u8"Changer l'orientation de la camera en maintenant appuyé la molette et en déplaçant la souris.");
+            ImGui::TextWrapped(u8"Camï¿½ra Tips :");
+            ImGui::Bullet(); ImGui::TextWrapped(u8"Zoomer grï¿½ce ï¿½ la molette de la souris");
+            ImGui::Bullet(); ImGui::TextWrapped(u8"Changer l'orientation de la camera en maintenant appuyï¿½ la molette et en dï¿½plaï¿½ant la souris.");
 
             // -------------------- Check mouse click & add particle if not in simulation -----------------------------
-            ImGuiIO& io = ImGui::GetIO();
             Vector3 offsetPosition = Vector3(-(float)io.DisplaySize.x / 2.0f, (float)io.DisplaySize.y, 0);
             float ratio = 4.0f;
             if (this->isSimulating == false && ImGui::IsMouseClicked(1))// right click if not in simulation 
