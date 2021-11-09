@@ -1,7 +1,8 @@
 #pragma once
 
-class ImGuiWindowConfig: public ImGuiWindow
-{
+#include "ImGuiUIWindow.h"
+
+class ImGuiUIWindowConfig : public ImGuiUIWindow {
 private:
 	// Variable needed to make a particle
 	float px = 0.0f;
@@ -12,5 +13,8 @@ private:
 	float sz = 0.0f;
 	float mass = 10.0f;
 public:
-    void show() override;
+    ImGuiUIWindowConfig(bool show = true);
+    ~ImGuiUIWindowConfig();
+
+    void update() override;
 };

@@ -8,16 +8,21 @@
 #include "Simulator.h"
 //#include "Quaternion.h"
 
+#include "src/EngineManager.h"
+
 /// <summary>
 /// Thread for 3D user interface face manager
 /// </summary>
 /// <param name="sim">Pointer gathering all the characteristics of the particles of the scene</param>
 void UI(Simulator* sim)
 {
-    GUI gui(sim);
+    /*GUI gui(sim);
     gui.init();
     gui.update();
-    gui.end();
+    gui.end();*/
+
+    EngineManager* engine = new EngineManager();
+    engine->run();
 
     return;
 }

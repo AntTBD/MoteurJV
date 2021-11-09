@@ -15,16 +15,23 @@
 #include <string>
 
 // generic class for ImGui Windows
-class ImGuiWindow
+class ImGuiUIWindow
 {
 public:
-	ImGuiWindow();
-	~ImGuiWindow();
-    virtual void show();
+    ImGuiUIWindow(bool show = true);
+	~ImGuiUIWindow();
+    virtual void update();
 
 protected:
-    bool show;
 
 	bool begin(std::string name);
 	void end();
+
+    bool needShow();
+    void show();
+    void hide();
+    void toggle();
+
+private:
+    bool _show;
 };

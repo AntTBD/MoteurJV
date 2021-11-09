@@ -75,21 +75,25 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>include\SDL2-2.0.16\include;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;include\imgui-1.84.2;include\glm-0.9.9.8;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
     <LibraryPath>include\SDL2-2.0.16\lib\x86;include\imgui-1.84.2\examples\libs\glfw\lib-vc2010-32;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>include\SDL2-2.0.16\include;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;include\imgui-1.84.2;include\glm-0.9.9.8;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
     <LibraryPath>include\SDL2-2.0.16\lib\x86;include\imgui-1.84.2\examples\libs\glfw\lib-vc2010-32;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>include\SDL2-2.0.16\include;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;include\imgui-1.84.2;include\glm-0.9.9.8;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
     <LibraryPath>include\SDL2-2.0.16\lib\x64;include\imgui-1.84.2\examples\libs\glfw\lib-vc2010-64;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>include\SDL2-2.0.16\include;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;include\imgui-1.84.2;include\glm-0.9.9.8;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
     <LibraryPath>include\SDL2-2.0.16\lib\x64;include\imgui-1.84.2\examples\libs\glfw\lib-vc2010-64;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -195,6 +199,14 @@
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Simulator.cpp" />
+    <ClCompile Include="src\3DScene\OpenGLRendererManager.cpp" />
+    <ClCompile Include="src\EngineManager.cpp" />
+    <ClCompile Include="src\IO\InputManager.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIManager.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIWindow.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIWindowConfig.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIWindowRegistry.cpp" />
+    <ClCompile Include="src\UI\MainWindow.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="GroundContactGenerator.cpp" />
   </ItemGroup>
@@ -224,6 +236,14 @@
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Simulator.h" />
+    <ClInclude Include="src\3DScene\OpenGLRendererManager.h" />
+    <ClInclude Include="src\EngineManager.h" />
+    <ClInclude Include="src\IO\InputManager.h" />
+    <ClInclude Include="src\UI\ImGuiUIManager.h" />
+    <ClInclude Include="src\UI\ImGuiUIWindow.h" />
+    <ClInclude Include="src\UI\ImGuiUIWindowConfig.h" />
+    <ClInclude Include="src\UI\ImGuiUIWindowRegistry.h" />
+    <ClInclude Include="src\UI\MainWindow.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="GroundContactGenerator.h" />
   </ItemGroup>

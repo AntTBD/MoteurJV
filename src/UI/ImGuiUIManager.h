@@ -16,9 +16,10 @@
 
 
 
-#include "Window.h"
-
-#include "ImGuiWindow.h"
+#include "MainWindow.h"
+#include "ImGuiUIWindow.h"
+#include "ImGuiUIWindowRegistry.h"
+#include "ImGuiUIWindowConfig.h"
 
 /// <summary>
 /// User Interface Manager (ImGui + OpenGL)
@@ -26,17 +27,13 @@
 class ImGuiUIManager
 {
 public:
-    ImGuiUIManager(GLFWwindow* window, const char* glsl_version);
+    ImGuiUIManager(MainWindow* mainWindow);
 	~ImGuiUIManager();
 	void update();
 	void render();
-	void addWindow(ImGuiWindow newWin);
 private:
-    GLFWwindow* window;
-	std::vector<ImGuiWindow*> windows;
+    ImGuiUIWindowRegistry* imGuiUIWindowRegistry;
+	std::vector<ImGuiUIWindow*> windows;
 	void ShowDockSpace(bool* p_open);
 	void setStyle();
-
-	void showWindows();
-	void deleteWindows();
 };
