@@ -76,6 +76,11 @@ int GUI::init()
 
     // Setup Platform/Renderer backends
     ImGui_ImplGlfw_InitForOpenGL(this->window, true);
+    if (gladLoadGL() == 0)
+    {
+        fprintf(stderr, "Failed to initialize OpenGL loader!\n");
+        return 1;
+    }
     ImGui_ImplOpenGL3_Init(glsl_version);
 
     // Load Fonts
