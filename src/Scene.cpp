@@ -60,3 +60,12 @@ void Scene::drawObjects() {
         glPopMatrix();// draw cube and return to center
     }
 }
+
+void Scene::reset() {
+    // delete particles
+    for (auto object : *this->objects)
+    {
+        delete object;
+    }
+    this->objects->clear();
+}

@@ -6,7 +6,7 @@ PhysicEngine::PhysicEngine()
 {
     this->particleForceRegistry = new ParticleForceRegistry();
     this->particleContactRegistry = new ParticleContactRegistry();
-    this->particles = nullptr;
+    this->particles = new std::vector<Particle*>();
 
 }
 
@@ -161,14 +161,17 @@ void PhysicEngine::resume()
 void PhysicEngine::stop()
 {
     std::cout << "Stop" << std::endl;
-    this->isSimulating = false;
     this->dT = 0;
-    if (this->physicEngineThread.joinable())
-    {
-        this->physicEngineThread.join();
-    }
+    //if (this->isSimulating) {
+        this->isSimulating = false;
+
+        if (this->physicEngineThread.joinable()) {
+            this->physicEngineThread.join();
+        }
+    //}
     this->clearParticlesAndRegisters();
     this->resume(); // Set simulation back to unpaused if we cleared while it was paused
+
 
 }
 
@@ -186,8 +189,9 @@ void PhysicEngine::clearParticlesAndRegisters()
     // delete particles
     for (auto p : *this->particles)
     {
-        delete(p);
+        delete p;
     }
     this->particles->clear();
+    EngineManager::getInstance().getScene()->reset();
     std::cout << "Particles cleared" << std::endl;
 }

@@ -29,6 +29,9 @@ public:
 
     void draw();
 
+    // remove all objects
+    void reset();
+
 private:
     void drawObjects();
 };
