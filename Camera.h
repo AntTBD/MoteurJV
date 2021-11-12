@@ -21,7 +21,10 @@ private:
 	// ----- Projection -----
 	float fov; // field of view
 	float nearF; // minimum viewing distance
-	float far; // max viewing distance
+	float m_far; // max viewing distance
+
+    // ----- Size -------
+    float width, height;
 
 public:
 	Camera();
@@ -33,8 +36,13 @@ public:
 	void Add(float dist, float rotationX, float rotationY);
 	void Update();
 
-	float GetDistance();
+	float GetDistance() const;
 	void SetDistance(float distFromCenter);
+
+    void setSize(float width, float height);
+    ImVec2 getSize() const;
+    float getWidth() const;
+    float getHeight() const;
 
 	glm::mat4 SetProjection(float Translate, glm::vec2 const& Rotate);
 };

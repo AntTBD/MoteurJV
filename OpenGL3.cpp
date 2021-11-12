@@ -42,6 +42,9 @@ void OpenGL3::update() {
     }
 
     // Update Camera
+    if (this->cam->getWidth() != io.DisplaySize.x || this->cam->getHeight() != io.DisplaySize.y) {
+        this->cam->setSize(io.DisplaySize.x, io.DisplaySize.y);
+    }
     this->cam->Update();
     glTranslatef(/*-(float)io.DisplaySize.x / 4.f / 2.f */ 0, -(float)io.DisplaySize.y / 4.f / 2.f, 0);// move cam to be centered has screen
     
