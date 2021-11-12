@@ -6,6 +6,10 @@ ImGuiUIWindowRegistry::ImGuiUIWindowRegistry()
 
 ImGuiUIWindowRegistry::~ImGuiUIWindowRegistry()
 {
+    for (auto entry : this->m_registry )
+    {
+        entry.imGuiUIWindow->~ImGuiUIWindow();
+    }
     this->clear();
 }
 

@@ -10,10 +10,9 @@ OpenGLRendererManager::OpenGLRendererManager(MainWindow* mainWindow) :
     mainWindow(mainWindow)
 {
     // set clear color
-    this->clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+    //this->clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);               // bleuté
+    this->clear_color = ImVec4(0.1f, 0.1f, 0.1f, 1.00f);      // grisé
 
-    // add input manager /// TODO not shure if in good place
-    this->inputManager = new InputManager();
 
     // glfw: initialize and configure
     // ------------------------------
@@ -46,8 +45,8 @@ OpenGLRendererManager::OpenGLRendererManager(MainWindow* mainWindow) :
     //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
 #endif
 
-    // glfw window creation
-    // --------------------
+    // glfw main window creation (windowed)
+    // ------------------------------------
     this->mainWindow->setWindow(glfwCreateWindow(this->mainWindow->getWidth(), this->mainWindow->getHeight(),  this->mainWindow->getTitle(), NULL, NULL));
     if (!this->getWindow()) {
         fprintf(stderr, "Failed to create window with graphics context\n");
@@ -57,8 +56,11 @@ OpenGLRendererManager::OpenGLRendererManager(MainWindow* mainWindow) :
     glfwMakeContextCurrent(this->getWindow());
     glfwSwapInterval(1); // Enable vsync
 
-    /// TODO add shaders setup
-
+    if (gladLoadGL() == 0)
+    {
+        fprintf(stderr, "Failed to initialize OpenGL loader!\n");
+        return;
+    }
 
 
     // configure global opengl state to be used with 3D view mode
@@ -69,67 +71,18 @@ OpenGLRendererManager::~OpenGLRendererManager()
 {
     /// TODO: delete buffers
 
-
+    // destroy main window
     glfwDestroyWindow(this->getWindow());
     glfwTerminate();
 }
 
 void OpenGLRendererManager::render()
 {
-    if(!glfwWindowShouldClose(this->getWindow())){
-        // Poll and handle events (inputs, window resize, etc.)
-        // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
-        // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application.
-        // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application.
-        // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
-        glfwPollEvents();
-        // check inputs /// TODO not shure if it is in good place
-        this->inputManager->update(this->mainWindow);
-
-        // clear background
-        glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        /// TODO to be changed
-        {
-            // Set view mode
-            glMatrixMode(GL_MODELVIEW); // 3D Projection
-            glLoadIdentity();
-
-            // Update Camera
-//////////////////////////////////////////////
-            // from https://github.com/g-truc/glm (perspective var changed to use ours)
-            float translate = 10.0f; // camDist
-            float rotationOnY = -45.0f; // rotation angle autour du centre
-            float rotationOnX = 45.0f; // angle en hauteur
-            glm::vec2 const& rotate = glm::vec2(glm::radians(rotationOnY), glm::radians(rotationOnX));
-            float nearF = 0.2f;
-            float far = 10000.0f;
-            ImGuiIO& io = ImGui::GetIO();
-            glm::mat4 Projection = glm::perspective(glm::radians(45.0f), (float)io.DisplaySize.x / (float)io.DisplaySize.y, nearF, far);
-            glm::mat4 View = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -translate));
-            View = glm::rotate(View, rotate.y, glm::vec3(-1.0f, 0.0f, 0.0f));
-            View = glm::rotate(View, rotate.x, glm::vec3(0.0f, 1.0f, 0.0f));
-            glm::mat4 Model = glm::scale(glm::mat4(1.0f), glm::vec3(0.5f));
-
-            glLoadMatrixf(glm::value_ptr(Projection * View * Model));
-
-            // draw axis
-            glPushMatrix();
-            glBegin(GL_LINES);
-            glColor3ub(255, 0, 0); glVertex3f(0, 0, 0); glVertex3f(1, 0, 0); // x => rouge
-            glColor3ub(0, 255, 0); glVertex3f(0, 0, 0); glVertex3f(0, 1, 0); // y => green
-            glColor3ub(0, 0, 255); glVertex3f(0, 0, 0); glVertex3f(0, 0, 1); // z => bleu
-            glEnd();
-            glPopMatrix();
+    // clear background
+    glClearColor(this->clear_color.x * this->clear_color.w, this->clear_color.y * this->clear_color.w, this->clear_color.z * this->clear_color.w, this->clear_color.w);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-            // Flush drawing command buffer to make drawing happen as soon as possible.
-            //glFlush();
-/////////////////////////////////////////////
-
-        }
-    }
 }
 
 GLFWwindow* OpenGLRendererManager::getWindow()
@@ -137,7 +90,7 @@ GLFWwindow* OpenGLRendererManager::getWindow()
     return this->mainWindow->getWindow();
 }
 
-unsigned int OpenGLRendererManager::getFrame()
+GLuint OpenGLRendererManager::getFrame()
 {
     return this->textureColorbuffer;
 }

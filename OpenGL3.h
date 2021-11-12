@@ -8,6 +8,7 @@
 #include "Simulator.h"
 #include "Camera.h"
 #include "Formes.h"
+#include "ReadFile.h"
 
 /// <summary>
 /// 3D OpenGL Manager
@@ -41,6 +42,6 @@ public:
 
 	void DrawAllParticules();
 
-
+	GLuint LoadShader(const char* vertex_path, const char* fragment_path);
 };
 

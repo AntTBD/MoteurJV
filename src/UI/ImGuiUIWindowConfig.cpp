@@ -1,11 +1,11 @@
 #include "ImGuiUIWindowConfig.h"
 
-ImGuiUIWindowConfig::ImGuiUIWindowConfig(bool show)
+ImGuiUIWindowConfig::ImGuiUIWindowConfig(bool show) : ImGuiUIWindow(show)
 {
-	if (show)
-		this->show();
-	else
-		this->hide();
+//	if (show)
+//		this->show();
+//	else
+//		this->hide();
 }
 
 ImGuiUIWindowConfig::~ImGuiUIWindowConfig()

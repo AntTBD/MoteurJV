@@ -34,6 +34,7 @@ ImGuiUIManager::ImGuiUIManager(MainWindow* mainWindow)
     // set all imgui windows to the registry
     this->imGuiUIWindowRegistry = new ImGuiUIWindowRegistry();
     this->imGuiUIWindowRegistry->add(new ImGuiUIWindowConfig(true));
+    this->imGuiUIWindowRegistry->add(new ImGuiUIWindowRender(true));
 }
 
 ImGuiUIManager::~ImGuiUIManager()
@@ -54,6 +55,7 @@ void ImGuiUIManager::setStyle()
     ImGui::StyleColorsDark(); // dark mode
     //ImGui::StyleColorsClassic(); // classic
 
+    ImGuiIO& io = ImGui::GetIO();
     // Load Fonts
     // - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
     // - AddFontFromFileTTF() will return the ImFont* so you can store it if you need to select the font among multiple.
@@ -68,6 +70,18 @@ void ImGuiUIManager::setStyle()
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/ProggyTiny.ttf", 10.0f);
     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
     //IM_ASSERT(font != NULL);
+
+    io.Fonts->AddFontDefault();
+
+    // merge in icons from Font Awesome
+    static const ImWchar icons_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
+    ImFontConfig icons_config;
+    icons_config.MergeMode = true;
+    icons_config.PixelSnapH = true;
+    ImFont* font = io.Fonts->AddFontFromFileTTF( (std::string("../../fonts/") + FONT_ICON_FILE_NAME_FAS).c_str(), 10.0f, &icons_config, icons_ranges );
+    IM_ASSERT(font != NULL);
+    // use FONT_ICON_FILE_NAME_FAR if you want regular instead of solid
+
 }
 
 /// <summary>
@@ -83,7 +97,7 @@ void ImGuiUIManager::update()
     // ------------------------
 
     this->imGuiUIWindowRegistry->update();
-
+    ImGui::ShowDemoWindow();
     // ------------------------
 
     // Rendering
