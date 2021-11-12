@@ -169,7 +169,7 @@ const std::vector<Particle*>& Simulator::GetParticles() const
 /// 
 /// </summary>
 /// <returns>isUpdateFinished</returns>
-bool Simulator::isUpdated()
+bool Simulator::isUpdated() const
 {
     return isUpdateFinished;
 }

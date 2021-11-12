@@ -25,6 +25,7 @@ public:
     Camera* getCamera();
 
     void addObject(Object& object);
+    Object* GetObject(int id);
 
     void draw();
 

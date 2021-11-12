@@ -16,6 +16,9 @@ EngineManager::EngineManager()
     // scene
     this->scene = new Scene();
 
+    // physicEngine
+    this->physicEngine = new PhysicEngine();
+
 }
 
 EngineManager::~EngineManager()
@@ -33,7 +36,10 @@ void EngineManager::run()
     {
         // check inputs
         this->inputManager->update(this->mainWindow);
+        // update logic
+        // this->physicEngine start Simulation when we press on start (start thread)
 
+        // update outputs screen
         this->openGlRendererManager->render(); // clear + render 3D
         this->uiManager->update();// add windows to imgui
         this->uiManager->render();// render all imgui windows
@@ -61,4 +67,8 @@ MainWindow* EngineManager::getMainWindow()
 
 Scene *EngineManager::getScene() {
     return this->scene;
+}
+
+PhysicEngine *EngineManager::getPhysicEngine() {
+    return this->physicEngine;
 }

@@ -26,4 +26,5 @@ protected:
     void toggle();
 
     bool _show;
+
 };

@@ -20,4 +20,5 @@ public:
     void update() override;
     void newSize(float width, float height);
     void render3D();
+    void checkToAddParticles();
 };

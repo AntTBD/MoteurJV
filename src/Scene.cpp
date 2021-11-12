@@ -28,6 +28,14 @@ void Scene::addObject(Particle &object) {
     this->objects->push_back(&object);
 }
 
+Object *Scene::GetObject(int id) {
+    if (id >= 0 && id < this->objects->size())
+        return this->objects->at(id);
+    else
+        return nullptr;
+}
+
+
 void Scene::draw() {
     // Update Camera
     this->cam->Update();

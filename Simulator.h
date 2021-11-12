@@ -44,7 +44,7 @@ public:
 	void Resume();
 	void ClearParticles(); // Remove all particles from simulator
 	const std::vector<Particle*>& GetParticles() const;
-	bool isUpdated();
+	bool isUpdated() const;
 
 
 };

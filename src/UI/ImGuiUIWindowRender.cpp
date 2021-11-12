@@ -20,6 +20,8 @@ ImGuiUIWindowRender::~ImGuiUIWindowRender()
 {
     /// TODO: delete buffers
     //delete shader;
+    glDeleteFramebuffers(1, &this->framebuffer);
+    glDeleteTextures(1, &this->textureColorbuffer);
 }
 
 void ImGuiUIWindowRender::update()
@@ -39,33 +41,36 @@ void ImGuiUIWindowRender::update()
                                          ImGui::GetStyle().ItemInnerSpacing.y + ImGui::GetFontSize());
                 ImGui::SameLine(windowWidth / 2.f - spacing / 2.f * (nbrButtons - 1) - buttonSize.x * nbrButtons / 2.f);
                 // Start button
+                ImGui::BeginDisabled(this->play); // avoid create multiple simulation
                 if (ImGui::Button(ICON_FA_PLAY, buttonSize)) {
                     // Start the simulation
-                    std::cout << "Start" << std::endl;
+                    EngineManager::getInstance().getPhysicEngine()->startSimulation();
                     this->play = true;
+                    this->pause = false;
                 }
+                ImGui::EndDisabled();
                 if (ImGui::IsItemHovered())
                     ImGui::SetTooltip("Start");
-
-                // Stop button
-                ImGui::SameLine(0.0f, spacing);
-                if (ImGui::Button(ICON_FA_STOP, buttonSize)) {
-                    // Stop the simulation
-                    std::cout << "Stop" << std::endl;
-                    this->play = false;
-                }
-                if (ImGui::IsItemHovered())
-                    ImGui::SetTooltip("Stop");
 
                 // Pause button
                 ImGui::SameLine(0.0f, spacing);
                 if (ImGui::Button(ICON_FA_PAUSE, buttonSize)) {
                     // Pause the simulation
-                    std::cout << "Pause" << std::endl;
+                    EngineManager::getInstance().getPhysicEngine()->togglePause();
                     this->pause = !pause;
                 }
                 if (ImGui::IsItemHovered())
-                    ImGui::SetTooltip("Pause");
+                    ImGui::SetTooltip((this->pause ? "Resume": "Pause"));
+
+                // Stop button
+                ImGui::SameLine(0.0f, spacing);
+                if (ImGui::Button(ICON_FA_STOP, buttonSize)) {
+                    // Stop the simulation
+                    EngineManager::getInstance().getPhysicEngine()->stop();
+                    this->play = false;
+                }
+                if (ImGui::IsItemHovered())
+                    ImGui::SetTooltip("Stop");
 
                 ImGui::SetWindowFontScale(1.f);
             }
@@ -90,6 +95,9 @@ void ImGuiUIWindowRender::update()
                 if (EngineManager::getInstance().getScene()->getCamera()->getWidth() != wsize.x || EngineManager::getInstance().getScene()->getCamera()->getHeight() != wsize.y) {
                     this->newSize(wsize.x, wsize.y);
                 }
+
+                this->checkToAddParticles();
+
                 this->render3D();
 
                 // Because I use the texture from OpenGL, I need to invert the V from the UV.
@@ -127,7 +135,9 @@ void ImGuiUIWindowRender::newSize(float width, float height){
     // now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
         std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
-    */glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glDeleteBuffers(1, &rbo);
+    */
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 }
 
@@ -144,4 +154,50 @@ void ImGuiUIWindowRender::render3D() {
     //this->shader->unUse();
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+}
+
+void ImGuiUIWindowRender::checkToAddParticles()
+{
+    // Get the size of the child (i.e. the whole draw size of the windows).
+    ImVec2 wsize = ImGui::GetWindowSize();
+    ImGuiIO &io = ImGui::GetIO();
+
+    ImVec2 mousePositionInChild(io.MousePos.x - ImGui::GetWindowPos().x,io.MousePos.y - ImGui::GetWindowPos().y);
+
+    static float px = 0.0f;
+    static float py = 5.0f;
+    static float pz = 0.0f;
+    static float sx = 0.0f;
+    static float sy = 0.0f;
+    static float sz = 0.0f;
+    static float mass = 10.0f;
+
+    // -------------------- Check mouse click & add particle if not in simulation -----------------------------
+    Vector3 offsetPosition = Vector3(-(float)wsize.x / 2.0f, (float)wsize.y, 0);
+    float ratio = 4.0f;
+    if (this->play == false && ImGui::IsWindowHovered() && ImGui::IsMouseClicked(1))// right click if not in simulation
+    {
+        if (mass == 0) mass = 0.000001f;
+        Vector3 pos = Vector3((offsetPosition.GetX() + (float)mousePositionInChild.x) / ratio, (offsetPosition.GetY() - (float)mousePositionInChild.y) / ratio, 0);
+        std::cout << pos << std::endl;
+        Particle* p = new Particle(pos, Vector3(sx, sy, sz), 1.0f / mass);
+        EngineManager::getInstance().getScene()->addObject(*p);
+        std::cout << "Add particle " << *p << std::endl;
+    }
+
+    // --------------------------- Check mouse click & move first particle -------------------------------------
+    if (this->play && !this->pause && ImGui::IsWindowFocused() && ImGui::IsMouseDown(1)) // right click down
+    {
+        Vector3 pos = Vector3((offsetPosition.GetX() + (float)mousePositionInChild.x) / ratio, (offsetPosition.GetY() - (float)mousePositionInChild.y) / ratio, 0);
+
+        Particle* p = EngineManager::getInstance().getScene()->GetObject(0);
+        if (p != nullptr) {
+
+            // d = xa - xb
+            Vector3 d = (p->GetPosition() - pos);
+            // f = - k * ( |d| - l0) * d.normalized
+            p->AddForce(-1 * d.Magnitude() * d.Normalized() * (1.0f / p->GetinvMass()));
+            //p->SetPosition(pos);
+        }
+    }
 }

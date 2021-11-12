@@ -83,7 +83,7 @@ void ParticleContact::resolveVelocity() // Application de l’impulsion diapo p12
 	if (this->m_particle[1] != nullptr) { 
 		this->m_particle[1]->SetSpeed(this->m_particle[1]->GetSpeed() + k * this->m_contactNormal * this->m_particle[1]->GetinvMass());
 	}
-	std::cout << "k: " << k << std::endl;
+	//std::cout << "k: " << k << std::endl;
 }
 
 void ParticleContact::resolveInterpenetration() // Résolution d’interpénétration diapo p15
