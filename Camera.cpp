@@ -14,8 +14,12 @@ Camera::Camera()
 	this->m_far = 10000.0f;
 
     // ------ size ---------
-    this->width = 200;
-    this->height = 200;
+    this->width = 10;
+    this->height = 10;
+
+    // --- background ----
+    this->setBackground(0.1f, 0.1f, 0.1f, 1.0f); // dark
+
 }
 
 Camera::Camera(float dist, float rotationX, float rotationY)
@@ -29,8 +33,12 @@ Camera::Camera(float dist, float rotationX, float rotationY)
     this->m_far = 10000.0f;
 
     // ------ size ---------
-    this->width = 200;
-    this->height = 200;
+    this->width = 10;
+    this->height = 10;
+
+    // --- background ----
+    this->setBackground(0.1f, 0.1f, 0.1f, 1.0f); // dark
+
 }
 
 Camera::~Camera()
@@ -63,8 +71,14 @@ void Camera::Add(float dist, float rotationX, float rotationY)
 
 void Camera::Update()
 {
-	glMatrixMode(GL_MODELVIEW); // 3D Projection
+    // make sure we clear the framebuffer's content
+    glClearColor(this->background.x, this->background.y, this->background.z, this->background.w);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glMatrixMode(GL_MODELVIEW); // 3D Projection
 	glLoadIdentity();
+
+    // resize cam size
     glViewport(0, 0, this->width, this->height);
 
 	// --------
@@ -98,6 +112,14 @@ float Camera::getWidth() const {
 }
 float Camera::getHeight() const {
     return this->height;
+}
+
+ImVec4 Camera::getBackground() {
+    return this->background;
+}
+
+void Camera::setBackground(float r, float g, float b, float a) {
+    this->background = ImVec4(r, g, b, a);
 }
 
 glm::mat4 Camera::SetProjection(float Translate, glm::vec2 const& Rotate)

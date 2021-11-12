@@ -2,10 +2,6 @@
 
 ImGuiUIWindowRender::ImGuiUIWindowRender(bool show): ImGuiUIWindow(show)
 {
-    this->cam = new Camera(200, -35,0); // create main camera
-    // set clear color
-    this->clear_color = ImVec4(0.3f, 0.3f, 0.3f, 1.0f);
-
     //add shaders
     //shader = new Shader("../../shaders/default.vert", "../../shaders/default.frag");
 
@@ -14,8 +10,6 @@ ImGuiUIWindowRender::ImGuiUIWindowRender(bool show): ImGuiUIWindow(show)
     this->framebuffer = 0;
     glGenFramebuffers(1, &this->framebuffer);
     glGenTextures(1, &this->textureColorbuffer);
-
-    this->newSize(800, 600);
 
     // variables
     this->play = false;
@@ -83,16 +77,17 @@ void ImGuiUIWindowRender::update()
                 if (ImGui::IsWindowHovered()) {
                     // mouse wheel zoom
                     if (io.MouseWheel != 0)
-                        this->cam->SetDistance(this->cam->GetDistance() + (float) io.MouseWheel * 10.f);
+                        EngineManager::getInstance().getScene()->getCamera()->SetDistance(EngineManager::getInstance().getScene()->getCamera()->GetDistance() + (float) io.MouseWheel * 10.f);
                     //move cam on wheel clicked
                     if (ImGui::IsMouseDown(2)) {
-                        this->cam->Add(0, -(float) io.MouseDelta.y, (float) io.MouseDelta.x); // set default position
+                        EngineManager::getInstance().getScene()->getCamera()->Add(0, -(float) io.MouseDelta.y, (float) io.MouseDelta.x); // set default position
                     }
                 }
                 // Get the size of the child (i.e. the whole draw size of the windows).
                 ImVec2 wsize = ImGui::GetWindowSize();
 
-                if (this->cam->getWidth() != wsize.x || this->cam->getHeight() != wsize.y) {
+                // resize cam
+                if (EngineManager::getInstance().getScene()->getCamera()->getWidth() != wsize.x || EngineManager::getInstance().getScene()->getCamera()->getHeight() != wsize.y) {
                     this->newSize(wsize.x, wsize.y);
                 }
                 this->render3D();
@@ -110,7 +105,7 @@ void ImGuiUIWindowRender::update()
 
 void ImGuiUIWindowRender::newSize(float width, float height){
 
-    this->cam->setSize(width, height);
+    EngineManager::getInstance().getScene()->getCamera()->setSize(width, height);
     // https://learnopengl.com/code_viewer_gh.php?code=src/4.advanced_opengl/5.1.framebuffers/framebuffers.cpp
     // framebuffer configuration
     // -------------------------
@@ -138,90 +133,15 @@ void ImGuiUIWindowRender::newSize(float width, float height){
 
 void ImGuiUIWindowRender::render3D() {
 
-    ImVec2 wsize = ImGui::GetWindowSize();
 //https://learnopengl.com/Advanced-OpenGL/Framebuffers
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-    // make sure we clear the framebuffer's content
-    glClearColor(this->clear_color.x, this->clear_color.y, this->clear_color.z, this->clear_color.w);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     //this->shader->use();
 
-
-    // Update Camera
-    this->cam->Update();
-
-    this->drawPlan(10.0f, 10);
-    this->drawAxis(10);
-
-    glPushMatrix();
-    glScalef(10, 10, 10);
-    glBegin(GL_POLYGON);
-    glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(-0.6f, -0.75f, 0.5f);
-    glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(0.6f, -0.75f, 0.0f);
-    glColor3f(0.0f, 0.0f, 1.0f); glVertex3f(0.0f, 0.75f, 0.0f);
-    glEnd();
-    glScalef(10, 10, 10);
-    glPopMatrix();
-
-    glBindTexture(GL_TEXTURE_2D, this->textureColorbuffer);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    EngineManager::getInstance().getScene()->draw();
 
     // now bind back to default framebuffer and draw a quad plane with the attached framebuffer color texture
     //this->shader->unUse();
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-}
-void ImGuiUIWindowRender::drawPlan(float nbrUnits, float scale)
-{
-    int nbrLinesX = (int)(nbrUnits *2.0f);
-    int nbrLinesZ = (int)(nbrUnits *2.0f);
-    nbrUnits = (int)(nbrUnits*2.0f * scale);
-
-    glColor4f(1.0, 1.0, 1.0, 0.5); // white transparent
-    glPushMatrix();
-
-    // Create all X lines
-    for (int xc = 0; xc <= nbrLinesX; xc++)
-    {
-        glTranslatef(0.0, 0.0, -nbrUnits / 2.0 + xc / (float)(nbrLinesX)*nbrUnits);
-        glScalef(nbrUnits, 1.0, 1.0);
-        // ligne construite par rapport à son centre
-        glBegin(GL_LINES);
-        glVertex3f(-0.5f, 0, 0);
-        glVertex3f(0.5f, 0, 0);
-        glEnd();
-        glScalef(1.0f / nbrUnits, 1.0, 1.0);
-        glTranslatef(0.0, 0.0, -(-nbrUnits / 2.0 + xc / (float)(nbrLinesX)*nbrUnits));
-    }
-    // Create all Z lines
-    glRotatef(90.0f, 0,1,0);
-    for (int zc = 0; zc <= nbrLinesZ; zc++)
-    {
-        glTranslatef(0.0, 0.0, -nbrUnits / 2.0 + zc / (float)(nbrLinesZ)*nbrUnits);
-        glScalef(nbrUnits, 1.0, 1.0);
-        // ligne construite par rapport à son centre
-        glBegin(GL_LINES);
-        glVertex3f(-0.5f, 0, 0);
-        glVertex3f(0.5f, 0, 0);
-        glEnd();
-        glScalef(1.0f / nbrUnits, 1.0, 1.0);
-        glTranslatef(0.0, 0.0, -(-nbrUnits / 2.0 + zc / (float)(nbrLinesZ)*nbrUnits));
-    }
-    glRotatef(-90.0f, 0, 1, 0);
-
-    glPopMatrix();
-}
-
-void ImGuiUIWindowRender::drawAxis(float echelle)
-{
-    glPushMatrix();
-    glScalef(echelle, echelle, echelle);
-    glBegin(GL_LINES);
-    glColor3ub(255, 0, 0); glVertex3f(0, 0, 0); glVertex3f(1, 0, 0); // x => rouge
-    glColor3ub(0, 255, 0); glVertex3f(0, 0, 0); glVertex3f(0, 1, 0); // y => green
-    glColor3ub(0, 0, 255); glVertex3f(0, 0, 0); glVertex3f(0, 0, 1); // z => bleu
-    glEnd();
-    glScalef(1.0f / echelle, 1.0f / echelle, 1.0f / echelle);
-    glPopMatrix();
 }

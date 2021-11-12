@@ -1,5 +1,7 @@
 #include "OpenGLRendererManager.h"
 
+Formes* OpenGLRendererManager::formes = new Formes();
+
 // GLFW Callback error print messages as std error
 static void glfw_error_callback(int error, const char* description)
 {
@@ -61,10 +63,12 @@ OpenGLRendererManager::OpenGLRendererManager(MainWindow* mainWindow) :
         fprintf(stderr, "Failed to initialize OpenGL loader!\n");
         return;
     }
-
-
     // configure global opengl state to be used with 3D view mode
     glEnable(GL_DEPTH_TEST);
+
+    // init objects list callback
+    //OpenGLRendererManager::formes = new Formes();
+    OpenGLRendererManager::formes->Init();
 }
 
 OpenGLRendererManager::~OpenGLRendererManager()
@@ -93,4 +97,79 @@ GLFWwindow* OpenGLRendererManager::getWindow()
 GLuint OpenGLRendererManager::getFrame()
 {
     return this->textureColorbuffer;
+}
+
+
+void OpenGLRendererManager::drawTriangle()
+{
+    OpenGLRendererManager::formes->DrawTriangle();
+}
+
+void OpenGLRendererManager::drawPlan(float nbrUnits, float scale)
+{
+    int nbrLinesX = (int)(nbrUnits *2.0f);
+    int nbrLinesZ = (int)(nbrUnits *2.0f);
+    nbrUnits = (int)(nbrUnits*2.0f * scale);
+
+    glColor4f(1.0, 1.0, 1.0, 0.5); // white transparent
+    glPushMatrix();
+
+    // Create all X lines
+    for (int xc = 0; xc <= nbrLinesX; xc++)
+    {
+        glTranslatef(0.0, 0.0, -nbrUnits / 2.0 + xc / (float)(nbrLinesX)*nbrUnits);
+        glScalef(nbrUnits, 1.0, 1.0);
+        // ligne construite par rapport à son centre
+        OpenGLRendererManager::formes->DrawLine();
+        glScalef(1.0f / nbrUnits, 1.0, 1.0);
+        glTranslatef(0.0, 0.0, -(-nbrUnits / 2.0 + xc / (float)(nbrLinesX)*nbrUnits));
+    }
+    // Create all Z lines
+    glRotatef(90.0f, 0,1,0);
+    for (int zc = 0; zc <= nbrLinesZ; zc++)
+    {
+        glTranslatef(0.0, 0.0, -nbrUnits / 2.0 + zc / (float)(nbrLinesZ)*nbrUnits);
+        glScalef(nbrUnits, 1.0, 1.0);
+        // ligne construite par rapport à son centre
+        OpenGLRendererManager::formes->DrawLine();
+        glScalef(1.0f / nbrUnits, 1.0, 1.0);
+        glTranslatef(0.0, 0.0, -(-nbrUnits / 2.0 + zc / (float)(nbrLinesZ)*nbrUnits));
+    }
+    glRotatef(-90.0f, 0, 1, 0);
+
+    glPopMatrix();
+}
+
+void OpenGLRendererManager::drawAxis(float echelle)
+{
+    glPushMatrix();
+    glScalef(echelle, echelle, echelle);
+    OpenGLRendererManager::formes->DrawAxis();
+    glScalef(1.0f / echelle, 1.0f / echelle, 1.0f / echelle);
+    glPopMatrix();
+}
+
+void OpenGLRendererManager::drawRect2D(double largeur, double hauteur)
+{
+    glScalef(largeur, hauteur, 1.0);
+    OpenGLRendererManager::formes->DrawCarre();
+    glScalef(1.0f / largeur, 1.0f / hauteur, 1.0);
+}
+
+void OpenGLRendererManager::drawCube(double largeur, double hauteur) {
+
+    glPushMatrix();
+    glScalef(largeur, largeur, largeur);
+    OpenGLRendererManager::formes->DrawCube();
+    glScalef(1.0f / largeur, 1.0f / largeur, 1.0f / largeur);
+    glPopMatrix();
+}
+
+void OpenGLRendererManager::drawSphere(double diametre) {
+
+    glPushMatrix();
+    glScalef(diametre, diametre, diametre);
+    OpenGLRendererManager::formes->DrawSphere();
+    glScalef(1.0f / diametre, 1.0f / diametre, 1.0f / diametre);
+    glPopMatrix();
 }

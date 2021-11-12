@@ -106,6 +106,17 @@
     <ClCompile Include="glad.c">
       <Filter>glad</Filter>
     </ClCompile>
+    <ClCompile Include="src\EngineManager.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIManager.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIWindow.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIWindowConfig.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIWindowRegistry.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIWindowRender.cpp" />
+    <ClCompile Include="src\IO\InputManager.cpp" />
+    <ClCompile Include="src\UI\MainWindow.cpp" />
+    <ClCompile Include="src\3DScene\OpenGLRendererManager.cpp" />
+    <ClCompile Include="src\3DScene\Shader.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Simulator.h">
@@ -192,7 +203,6 @@
     <ClInclude Include="ParticleContactRegistry.h">
       <Filter>Headers\Contacts</Filter>
     </ClInclude>
-    <ClInclude Include="includesUI.h" />
     <ClInclude Include="include\imgui-1.84.2\imconfig.h">
       <Filter>imgui</Filter>
     </ClInclude>
@@ -217,6 +227,22 @@
     <ClInclude Include="include\glad\include\KHR\khrplatform.h">
       <Filter>glad</Filter>
     </ClInclude>
+    <ClInclude Include="src\EngineManager.h" />
+    <ClInclude Include="src\myIncludes.h" />
+    <ClInclude Include="src\UI\ImGuiUIManager.h" />
+    <ClInclude Include="src\UI\ImGuiUIWindow.h" />
+    <ClInclude Include="src\UI\ImGuiUIWindowConfig.h" />
+    <ClInclude Include="src\UI\ImGuiUIWindowRegistry.h" />
+    <ClInclude Include="src\UI\ImGuiUIWindowRender.h" />
+    <ClInclude Include="src\IO\InputManager.h" />
+    <ClInclude Include="src\UI\MainWindow.h" />
+    <ClInclude Include="src\3DScene\OpenGLRendererManager.h" />
+    <ClInclude Include="src\3DScene\Shader.h" />
+    <ClInclude Include="includesUI.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="fonts\IconsFontAwesome5.h" />
+    <ClInclude Include="src\Scene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="UserInterface">

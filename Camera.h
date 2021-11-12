@@ -26,6 +26,9 @@ private:
     // ----- Size -------
     float width, height;
 
+    // background
+    ImVec4 background;
+
 public:
 	Camera();
 	Camera(float dist, float rotationX, float rotationY);
@@ -34,6 +37,13 @@ public:
 	void AddOrbitalRotationY(float angleDelta);
 	void Set(float dist, float rotationX, float rotationY);
 	void Add(float dist, float rotationX, float rotationY);
+
+    // =======================
+    // Clear background
+    // 3D projection
+    // Set viewport
+    // Load projection matrix
+    // =======================
 	void Update();
 
 	float GetDistance() const;
@@ -43,6 +53,10 @@ public:
     ImVec2 getSize() const;
     float getWidth() const;
     float getHeight() const;
+
+    // color between 0-1
+    void setBackground(float r, float g, float b, float a);
+    ImVec4 getBackground();
 
 	glm::mat4 SetProjection(float Translate, glm::vec2 const& Rotate);
 };

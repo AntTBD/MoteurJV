@@ -23,8 +23,7 @@ int UI(Simulator* sim)
     gui.update();
     gui.end();*/
 
-    EngineManager* engine = new EngineManager();
-    engine->run();
+    EngineManager::getInstance().run();
 
     return 0;
 }

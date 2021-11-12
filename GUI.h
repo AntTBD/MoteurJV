@@ -60,7 +60,7 @@ private:
 	std::thread simThread;
 
 
-    //////////////////////////////////
+    /*//////////////////////////////////
     GLuint vertexShader, fragmentShader, shaderProgram;
     // Vertices coordinates
     GLfloat vertices[9] =
@@ -77,7 +77,7 @@ private:
     bool drawTriangle = true;
     float size = 1.0f;
     float color[4] = { 0.8f, 0.3f, 0.02f, 1.0f };
-    /////////////////////////
+    /////////////////////////*/
 public:
 
 

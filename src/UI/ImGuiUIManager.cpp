@@ -22,9 +22,9 @@ ImGuiUIManager::ImGuiUIManager(MainWindow* mainWindow)
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
     /// TODO add docking
-/*    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
-*/
+    //io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+    //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+
     this->setStyle();
 
     // Setup Platform/Renderer backends
@@ -96,8 +96,8 @@ void ImGuiUIManager::update()
 
     // ------------------------
 
-    this->imGuiUIWindowRegistry->update();
     ImGui::ShowDemoWindow();
+    this->imGuiUIWindowRegistry->update();
     // ------------------------
 
     // Rendering

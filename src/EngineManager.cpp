@@ -3,13 +3,19 @@
 
 EngineManager::EngineManager()
 {
+    // window
     this->mainWindow = new MainWindow(1280, 720, "Moteur physique de Jeux Video");
+    // render
     this->openGlRendererManager = new OpenGLRendererManager(this->mainWindow);
+    // ui
     this->uiManager = new ImGuiUIManager(this->mainWindow);
     this->running = true;
 
     // add input manager
     this->inputManager = new InputManager();
+    // scene
+    this->scene = new Scene();
+
 }
 
 EngineManager::~EngineManager()
@@ -18,6 +24,7 @@ EngineManager::~EngineManager()
     delete this->uiManager;
     delete this->openGlRendererManager;
     delete this->inputManager;
+    delete this->scene;
 }
 
 void EngineManager::run()
@@ -34,7 +41,7 @@ void EngineManager::run()
     }
 }
 
-void EngineManager::stop()
+void EngineManager::close()
 {
     this->running = false;
 }
@@ -42,7 +49,7 @@ void EngineManager::stop()
 bool EngineManager::isRunning()
 {
     if(glfwWindowShouldClose(this->mainWindow->getWindow()))
-        this->stop();// stop
+        this->close();// close mainWindow
 
     return this->running;
 }
@@ -50,4 +57,8 @@ bool EngineManager::isRunning()
 MainWindow* EngineManager::getMainWindow()
 {
     return this->mainWindow;
+}
+
+Scene *EngineManager::getScene() {
+    return this->scene;
 }

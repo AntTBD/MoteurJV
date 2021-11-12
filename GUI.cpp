@@ -18,7 +18,7 @@ GUI::GUI(Simulator* sim)
 
     this->opengl = new OpenGL3(this->sim);
 
-    vertexShader = fragmentShader = shaderProgram = VAO = VBO = GLuint();
+    //vertexShader = fragmentShader = shaderProgram = VAO = VBO = GLuint();
 }
 
 /// <summary>
@@ -103,7 +103,7 @@ int GUI::init()
     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
     //IM_ASSERT(font != NULL);
 
-    //////////////////////////////////
+    /*//////////////////////////////////
     //////////////////////////////////////////////////
     // Create Vertex Shader Object and get its reference
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -160,7 +160,7 @@ int GUI::init()
     glUseProgram(shaderProgram);
     glUniform1f(glGetUniformLocation(shaderProgram, "size"), size);
     glUniform4f(glGetUniformLocation(shaderProgram, "color"), color[0], color[1], color[2], color[3]);
-///////////////////////////////
+///////////////////////////////*/
 
     // configure global opengl state to be used with 3D view mode
     glEnable(GL_DEPTH_TEST);
@@ -240,10 +240,10 @@ void GUI::end()
         this->simThread.join();
     }
 // Delete all the objects we've created
-    glDeleteVertexArrays(1, &VAO);
+ /*   glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteProgram(shaderProgram);
-
+*/
     glfwDestroyWindow(this->window);
     glfwTerminate();
 }
@@ -269,7 +269,7 @@ void GUI::showRenderWindow() {
         ImGui::End();
     }*/
 
-    // Tell OpenGL which Shader Program we want to use
+    /*// Tell OpenGL which Shader Program we want to use
     glUseProgram(shaderProgram);
     // Bind the VAO so OpenGL knows to use it
     glBindVertexArray(VAO);
@@ -295,7 +295,7 @@ void GUI::showRenderWindow() {
     glUseProgram(shaderProgram);
     glUniform1f(glGetUniformLocation(shaderProgram, "size"), size);
     glUniform4f(glGetUniformLocation(shaderProgram, "color"), color[0], color[1], color[2], color[3]);
-
+*/
 }
 
 /// <summary>
