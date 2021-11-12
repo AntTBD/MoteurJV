@@ -48,6 +48,12 @@ float* Matrix33::Get() const
 	return valuesCopy;
 }
 
+float Matrix33::Get(int index) const
+{
+	float valueCopy = this->values[index];
+	return valueCopy;
+}
+
 void Matrix33::Set(float value[9])
 {
 	for (int i = 0; i < 9; i++)

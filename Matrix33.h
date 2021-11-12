@@ -19,6 +19,7 @@ public:
 	~Matrix33() = default;
 
 	float* Get() const;
+	float Get(int index) const;
 	void Set(float value[9]);
 
 	Matrix33& operator=(const Matrix33& other);

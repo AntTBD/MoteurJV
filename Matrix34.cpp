@@ -36,6 +36,25 @@ Matrix34::Matrix34(const Matrix34& matrix34)
 	}
 }
 
+Matrix34::Matrix34(const Matrix33& matrix33, const Vector3& vec)
+{
+	float* matrix33Value = matrix33.Get();
+
+	int j = 0;
+	for (int i = 0; i < 12; i++)
+	{
+		if (i != 3 && i != 7 && i != 11)
+		{
+			this->values[i] = matrix33Value[j];
+			j++;
+		}
+	}
+	
+	this->values[3] = vec.GetX();
+	this->values[7] = vec.GetY();
+	this->values[11] = vec.GetZ();
+}
+
 //Getter / Setter
 float* Matrix34::Get() const
 {
@@ -46,6 +65,33 @@ float* Matrix34::Get() const
 	}
 
 	return valuesCopy;
+}
+
+float Matrix34::Get(int index) const
+{
+	float valueCopy = this->values[index];
+	return valueCopy;
+}
+
+Matrix33 Matrix34::GetMatrix33() const
+{
+	float valuesCopy[9];
+	int j = 0;
+	for (int i = 0; i < 12; i++)
+	{
+		if (i != 3 && i != 7 && i != 11)
+		{
+			valuesCopy[j] = this->values[i];
+			j++;
+		}
+	}
+
+	return Matrix33(valuesCopy);
+}
+
+Vector3 Matrix34::GetVector() const
+{
+	return Vector3(this->Get(3), this->Get(7), this->Get(11));
 }
 
 void Matrix34::Set(float value[12])
@@ -96,6 +142,22 @@ Vector3 Matrix34::operator*(const Vector3& vector) const
 	return result;
 }
 
+float* Matrix34::operator[](int index)
+{
+	if (index == 0)
+	{
+		return l1;
+	}
+	else if (index == 1)
+	{
+		return l2;
+	}
+	else if (index == 2)
+	{
+		return l3;
+	}
+}
+
 // << operator
 std::ostream& operator<< (std::ostream& os, const Matrix34& matrix34)
 {
@@ -123,4 +185,43 @@ Matrix34 operator*(const Matrix34& mat, const float value)
 Matrix34 operator*(const float value, const Matrix34& mat)
 {
 	return mat * value;
+}
+
+Matrix34 Matrix34::Inverse()
+{
+	Matrix33 matrix33inv = this->GetMatrix33().Inverse();
+	Vector3 vec3 = -1*matrix33inv * this->GetVector();
+
+	return Matrix34(matrix33inv, vec3);
+}
+
+void Matrix34::SetOrientationAndPosition(const Quaternion& q, const Vector3& p)
+{
+	Matrix33 matrix33Quaternion;
+	matrix33Quaternion.SetOrientation(q);
+	float* matrix33QuaternionValues = matrix33Quaternion.Get();
+
+	int j = 0;
+	for (int i = 0; i < 12; i++)
+	{
+		if (i != 3 && i != 7 && i != 11)
+		{
+			this->values[i] = matrix33QuaternionValues[j];
+			j++;
+		}
+	}
+
+	this->values[3] = p.GetX();
+	this->values[7] = p.GetY();
+	this->values[11] = p.GetZ();
+}
+
+Vector3 Matrix34::TransformPosition(const Vector3& vector)
+{
+	return *this * vector;
+}
+
+Vector3 Matrix34::TransformDirection(const Vector3& vector)
+{
+	return this->GetMatrix33() * vector;
 }
