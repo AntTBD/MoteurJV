@@ -1,12 +1,11 @@
 #include "PhysicEngine.h"
 
-float PhysicEngine::dT = 0.f;
-
 PhysicEngine::PhysicEngine()
 {
     this->particleForceRegistry = new ParticleForceRegistry();
     this->particleContactRegistry = new ParticleContactRegistry();
     this->particles = new std::vector<Particle*>();
+    this->dT = 0;
 
 }
 
@@ -162,13 +161,11 @@ void PhysicEngine::stop()
 {
     std::cout << "Stop" << std::endl;
     this->dT = 0;
-    //if (this->isSimulating) {
-        this->isSimulating = false;
+    this->isSimulating = false;
 
-        if (this->physicEngineThread.joinable()) {
-            this->physicEngineThread.join();
-        }
-    //}
+    if (this->physicEngineThread.joinable()) {
+        this->physicEngineThread.join();
+    }
     this->clearParticlesAndRegisters();
     this->resume(); // Set simulation back to unpaused if we cleared while it was paused
 

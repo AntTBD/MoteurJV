@@ -32,7 +32,7 @@ private:
     bool isSimulating;
     std::thread physicEngineThread;
 public:
-    static float dT; // init at the beginning of .cpp
+    float dT; // init at the beginning of .cpp
 
     PhysicEngine();
     ~PhysicEngine();

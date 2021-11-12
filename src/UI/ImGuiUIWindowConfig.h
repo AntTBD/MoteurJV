@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ImGuiUIWindow.h"
+#include "../EngineManager.h"
 
 class ImGuiUIWindowConfig : public ImGuiUIWindow {
 private:
