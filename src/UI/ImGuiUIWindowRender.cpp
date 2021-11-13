@@ -32,6 +32,13 @@ void ImGuiUIWindowRender::update()
             ImGuiIO &io = ImGui::GetIO();
             // Top buttons
             {
+                this->HelpMarker(
+                        u8"- Click (Mouse left) on this window to interact wind objects.\n"
+                        "- Bouger la première particule ajoutée (Mouse right).\n"
+                        "Toutes les autres particules seront relié à cette première particule.\n"
+                        "Zoomer grâce à la molette de la souris\n"
+                        "Changer l'orientation de la camera en maintenant appuyé la molette et en déplaçant la souris.");
+
                 ImGui::SetWindowFontScale(1.2);
                 // espace pour centrer les boutons
                 int nbrButtons = 3;

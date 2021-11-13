@@ -48,7 +48,7 @@ void Scene::draw() {
 }
 
 void Scene::drawObjects() {
-    for (auto &object : *this->objects) // Browse particles
+    for (auto &object : this->getObjectsByCopy()) // Browse particles
     {
         Vector3 pos = object->GetPosition(); // Get position
         Vector3 rot = Vector3();

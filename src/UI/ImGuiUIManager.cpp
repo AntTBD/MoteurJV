@@ -36,6 +36,7 @@ ImGuiUIManager::ImGuiUIManager(MainWindow* mainWindow)
     this->imGuiUIWindowRegistry->add(new ImGuiUIWindowConfig(true));
     this->imGuiUIWindowRegistry->add(new ImGuiUIWindowRender(true));
     this->imGuiUIWindowRegistry->add(new ImGuiUIWindowConsole(true));
+    this->imGuiUIWindowRegistry->add(new ImGuiUIWindowInspector(true));
 }
 
 ImGuiUIManager::~ImGuiUIManager()

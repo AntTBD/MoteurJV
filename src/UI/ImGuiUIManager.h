@@ -11,6 +11,7 @@
 #include "ImGuiUIWindowConfig.h"
 #include "ImGuiUIWindowRender.h"
 #include "ImGuiUIWindowConsole.h"
+#include "ImGuiUIWindowInspector.h"
 
 #include <vector>
 

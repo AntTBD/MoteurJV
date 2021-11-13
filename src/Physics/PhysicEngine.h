@@ -46,6 +46,8 @@ public:
     void resume();
     void stop();
 
+    bool isRunning();
+
 private:
 
     void init();

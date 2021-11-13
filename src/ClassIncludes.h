@@ -15,6 +15,7 @@ class ImGuiUIManager;
 class ImGuiUIWindow;
 class ImGuiUIWindowConfig;
 class ImGuiUIWindowConsole;
+class ImGuiUIWindowInspector;
 class ImGuiUIWindowRegistry;
 class ImGuiUIWindowRender;
 class MainWindow;

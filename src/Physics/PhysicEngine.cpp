@@ -194,3 +194,7 @@ void PhysicEngine::clearParticlesAndRegisters()
     EngineManager::getInstance().getScene()->reset();
     std::cout << "Particles cleared" << std::endl;
 }
+
+bool PhysicEngine::isRunning() {
+    return this->isSimulating;
+}

@@ -28,6 +28,8 @@ protected:
 
     bool _show;
 
+    void HelpMarker(const char* desc);
+
 };
 
 
