@@ -183,7 +183,7 @@ void ImGuiUIWindowRender::checkToAddParticles()
         Particle* p = new Particle(pos, Vector3(sx, sy, sz), 1.0f / mass);
         EngineManager::getInstance().getScene()->addObject(*p);
         //std::cout << "Add particle " << *p << std::endl;
-        EngineManager::getInstance().console.log("Add particle %d: %s\n",EngineManager::getInstance().getScene()->getObjectsByCopy().size()-1,p->toString().c_str());
+        EngineManager::getInstance().console.logSuccess("Add particle %d: %s\n",EngineManager::getInstance().getScene()->getObjectsByCopy().size()-1,p->toString().c_str());
     }
 
     // --------------------------- Check mouse click & move first particle -------------------------------------
