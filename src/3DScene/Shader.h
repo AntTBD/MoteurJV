@@ -1,6 +1,7 @@
-#pragma once
-
-#include "../myIncludes.h"
+#ifndef Shader_H_
+#define Shader_H_
+#include "../ImGuiIncludes.h"
+#include "../ClassIncludes.h"
 
 #include <string>
 #include <fstream>
@@ -44,3 +45,5 @@ private:
     // utility function for checking shader compilation/linking errors.
     void checkCompileErrors(GLuint shader, std::string type);
 };
+
+#endif // Shader_H_

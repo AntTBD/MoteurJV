@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <sstream>
 #include "Vector3.h"
 
 class Particle
@@ -33,7 +34,10 @@ public:
 	void AddForce(Vector3 force); // Add a force to sumForces
 	void Integrate(float dTime); // Update acceleration, speed and position based on the time interval given
 	void UpdateAcceleration(); // Update acceleration based on sumForces
-};
 
-// << operator
-std::ostream& operator<< (std::ostream& os, const Particle& particle);
+    std::string toString() const;
+
+    // << operator
+    friend std::ostream& operator<< (std::ostream& os, const Particle& particle);
+
+};

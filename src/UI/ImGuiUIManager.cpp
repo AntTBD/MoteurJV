@@ -35,6 +35,7 @@ ImGuiUIManager::ImGuiUIManager(MainWindow* mainWindow)
     this->imGuiUIWindowRegistry = new ImGuiUIWindowRegistry();
     this->imGuiUIWindowRegistry->add(new ImGuiUIWindowConfig(true));
     this->imGuiUIWindowRegistry->add(new ImGuiUIWindowRender(true));
+    this->imGuiUIWindowRegistry->add(new ImGuiUIWindowConsole(true));
 }
 
 ImGuiUIManager::~ImGuiUIManager()
@@ -117,4 +118,13 @@ void ImGuiUIManager::update()
 void ImGuiUIManager::render()
 {
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+template <class T>
+T* ImGuiUIManager::FindWindow(){
+    for(auto window : this->windows) {
+        if(T *ptr = dynamic_cast<T*>(window))
+            return ptr;
+    }
+    return nullptr;
 }

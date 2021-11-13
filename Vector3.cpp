@@ -87,6 +87,13 @@ Vector3& Vector3::operator/=(float value)
 	return *this;
 }
 
+std::string Vector3::toString() const
+{
+    std::stringstream stream;
+    stream << *this;
+    return stream.str();
+}
+
 std::ostream& operator<<(std::ostream& os, const Vector3& vector)
 {
 	os << "(" << vector.GetX() << "," << vector.GetY() << "," << vector.GetZ() << ")";

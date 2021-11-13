@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ImGuiUIWindowRender_H_
+#define ImGuiUIWindowRender_H_
+#include "../ClassIncludes.h"
 
 
 #include "ImGuiUIWindow.h"
@@ -22,3 +24,5 @@ public:
     void render3D();
     void checkToAddParticles();
 };
+
+#endif // ImGuiUIWindowRender_H_

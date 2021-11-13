@@ -19,6 +19,7 @@ EngineManager::EngineManager()
     // physicEngine
     this->physicEngine = new PhysicEngine();
 
+
 }
 
 EngineManager::~EngineManager()
@@ -54,7 +55,7 @@ void EngineManager::close()
 
 bool EngineManager::isRunning()
 {
-    if(glfwWindowShouldClose(this->mainWindow->getWindow()))
+    if(this->openGlRendererManager->windowShouldClose())
         this->close();// close mainWindow
 
     return this->running;
@@ -71,4 +72,8 @@ Scene *EngineManager::getScene() {
 
 PhysicEngine *EngineManager::getPhysicEngine() {
     return this->physicEngine;
+}
+
+ImGuiUIManager* EngineManager::getUiManager(){
+    return this->uiManager;
 }

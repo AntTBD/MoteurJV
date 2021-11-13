@@ -1,4 +1,7 @@
-﻿#pragma once
+﻿#ifndef ImGuiUIWindowRegistry_H_
+#define ImGuiUIWindowRegistry_H_
+#include "../ClassIncludes.h"
+
 
 #include <vector>
 #include "ImGuiUIWindow.h"
@@ -24,3 +27,5 @@ public:
 	void clear();
     
 };
+
+#endif // ImGuiUIWindowRegistry_H_

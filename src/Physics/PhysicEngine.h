@@ -1,4 +1,6 @@
-#pragma once
+#ifndef PhysicEngine_H_
+#define PhysicEngine_H_
+#include "../ClassIncludes.h"
 
 #include "../../Particle.h"
 // forces
@@ -59,3 +61,5 @@ private:
 
 
 };
+
+#endif // PhysicEngine_H_

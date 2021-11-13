@@ -1,7 +1,10 @@
-#pragma once
+#ifndef ImGuiUIWindowConfig_H_
+#define ImGuiUIWindowConfig_H_
+#include "../ClassIncludes.h"
 
 #include "ImGuiUIWindow.h"
 #include "../EngineManager.h"
+
 
 class ImGuiUIWindowConfig : public ImGuiUIWindow {
 private:
@@ -19,3 +22,5 @@ public:
 
     void update() override;
 };
+
+#endif // ImGuiUIWindowConfig_H_

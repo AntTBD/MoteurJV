@@ -217,12 +217,15 @@
     <ClCompile Include="Simulator.cpp" />
     <ClCompile Include="src\3DScene\OpenGLRendererManager.cpp" />
     <ClCompile Include="src\3DScene\Shader.cpp" />
+    <ClCompile Include="src\Debug\Debug.cpp" />
     <ClCompile Include="src\EngineManager.cpp" />
     <ClCompile Include="src\IO\InputManager.cpp" />
+    <ClCompile Include="src\Physics\PhysicEngine.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\UI\ImGuiUIManager.cpp" />
     <ClCompile Include="src\UI\ImGuiUIWindow.cpp" />
     <ClCompile Include="src\UI\ImGuiUIWindowConfig.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIWindowConsole.cpp" />
     <ClCompile Include="src\UI\ImGuiUIWindowRegistry.cpp" />
     <ClCompile Include="src\UI\ImGuiUIWindowRender.cpp" />
     <ClCompile Include="src\UI\MainWindow.cpp" />
@@ -268,13 +271,18 @@
     <ClInclude Include="Simulator.h" />
     <ClInclude Include="src\3DScene\OpenGLRendererManager.h" />
     <ClInclude Include="src\3DScene\Shader.h" />
+    <ClInclude Include="src\ClassIncludes.h" />
+    <ClInclude Include="src\Debug\Debug.h" />
     <ClInclude Include="src\EngineManager.h" />
+    <ClInclude Include="src\ImGuiIncludes.h" />
     <ClInclude Include="src\IO\InputManager.h" />
     <ClInclude Include="src\myIncludes.h" />
+    <ClInclude Include="src\Physics\PhysicEngine.h" />
     <ClInclude Include="src\Scene.h" />
     <ClInclude Include="src\UI\ImGuiUIManager.h" />
     <ClInclude Include="src\UI\ImGuiUIWindow.h" />
     <ClInclude Include="src\UI\ImGuiUIWindowConfig.h" />
+    <ClInclude Include="src\UI\ImGuiUIWindowConsole.h" />
     <ClInclude Include="src\UI\ImGuiUIWindowRegistry.h" />
     <ClInclude Include="src\UI\ImGuiUIWindowRender.h" />
     <ClInclude Include="src\UI\MainWindow.h" />
@@ -283,6 +291,10 @@
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="include\imgui-1.84.2\misc\debuggers\imgui.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\fa-regular-400.ttf" />
+    <Font Include="fonts\fa-solid-900.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

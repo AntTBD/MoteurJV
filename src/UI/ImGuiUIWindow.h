@@ -1,11 +1,12 @@
-#pragma once
-
-
-#include "../myIncludes.h"
+#ifndef ImGuiUIWindow_H_
+#define ImGuiUIWindow_H_
+#include "../ImGuiIncludes.h"
+#include "../ClassIncludes.h"
 
 // string
 #include <cstdio>
 #include <string>
+
 
 // generic class for ImGui Windows
 class ImGuiUIWindow
@@ -28,3 +29,6 @@ protected:
     bool _show;
 
 };
+
+
+#endif // ImGuiUIWindow_H_

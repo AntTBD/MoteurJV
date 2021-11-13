@@ -1,6 +1,7 @@
-#pragma once
-
-#include "../myIncludes.h"
+#ifndef MainWindow_H_
+#define MainWindow_H_
+#include "../ImGuiIncludes.h"
+#include "../ClassIncludes.h"
 
 
 class MainWindow {
@@ -26,3 +27,5 @@ public:
     GLFWwindow* getWindow();
     void setWindow(GLFWwindow* window);
 };
+
+#endif // MainWindow_H_

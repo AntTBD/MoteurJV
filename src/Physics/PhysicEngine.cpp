@@ -6,6 +6,7 @@ PhysicEngine::PhysicEngine()
     this->particleContactRegistry = new ParticleContactRegistry();
     this->particles = new std::vector<Particle*>();
     this->dT = 0;
+    this->isSimulating = false;
 
 }
 
@@ -120,7 +121,8 @@ void PhysicEngine::update(float deltaTime)
         // 2 - Integrate particles
         for (int i = 0; i < this->particles->size(); i++)
         {
-            std::cout << "Particule " << i + 1 << " : " << *this->particles->at(i) << std::endl;
+            //std::cout << "Particule " << i + 1 << " : " << *this->particles->at(i) << std::endl;
+            EngineManager::getInstance().console.log("Particule %d : %s\n", i+1, this->particles->at(i)->toString().c_str());
             this->particles->at(i)->Integrate(deltaTime);
         }
 

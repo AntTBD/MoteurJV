@@ -165,11 +165,19 @@ void OpenGLRendererManager::drawCube(double largeur, double hauteur) {
     glPopMatrix();
 }
 
-void OpenGLRendererManager::drawSphere(double diametre) {
+void OpenGLRendererManager::drawSphere(double diametre, const Vector3& pos, const Vector3& rot) {
 
     glPushMatrix();
+    glTranslatef(pos.GetX(), pos.GetY(), pos.GetZ());              // translate to the positon
+    glRotatef(rot.GetX(), 1, 0, 0); // Rotation particle (if necessary)
+    glRotatef(rot.GetY(), 0, 1, 0); // Rotation particle (if necessary)
+    glRotatef(rot.GetZ(), 0, 0, 1); // Rotation particle (if necessary)
     glScalef(diametre, diametre, diametre);
     OpenGLRendererManager::formes->DrawSphere();
     glScalef(1.0f / diametre, 1.0f / diametre, 1.0f / diametre);
     glPopMatrix();
+}
+
+bool OpenGLRendererManager::windowShouldClose() {
+    return glfwWindowShouldClose(this->mainWindow->getWindow());
 }

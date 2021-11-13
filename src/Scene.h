@@ -1,4 +1,6 @@
-#pragma once
+#ifndef Scene_H_
+#define Scene_H_
+#include "ClassIncludes.h"
 
 #include <vector>
 #include "../Particle.h"
@@ -35,3 +37,6 @@ public:
 private:
     void drawObjects();
 };
+
+
+#endif // Scene_H_

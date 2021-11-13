@@ -1,10 +1,8 @@
-#pragma once
+#ifndef EngineManager_H_
+#define EngineManager_H_
+#include "ClassIncludes.h"
+#include "Debug/Debug.h"
 
-#ifndef ENGINEMANAGER_H
-#define ENGINEMANAGER_H
-
-class ImGuiUIManager;
-class PhysicEngine;
 
 #include "UI/MainWindow.h"
 #include "UI/ImGuiUIManager.h"
@@ -12,6 +10,7 @@ class PhysicEngine;
 #include "3DScene/OpenGLRendererManager.h"
 #include "Scene.h"
 #include "Physics/PhysicEngine.h"
+
 
 class EngineManager {
 private:
@@ -23,6 +22,7 @@ private:
     bool running;
     Scene* scene;
 public:
+    AppLog console;
     static EngineManager& getInstance()
     {
         static EngineManager engineManagerInstance;
@@ -34,8 +34,10 @@ public:
     MainWindow* getMainWindow();
     Scene* getScene();
     PhysicEngine* getPhysicEngine();
+    ImGuiUIManager* getUiManager();
     bool isRunning();
     void run();
 };
 
-#endif // ENGINEMANAGER_H
+
+#endif // EngineManager_H_

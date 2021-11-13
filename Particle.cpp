@@ -28,6 +28,13 @@ Particle::Particle(const Particle& particle)
 	this->acceleration = particle.GetAcceleration();
 }
 
+std::string Particle::toString() const
+{
+    std::stringstream stream;
+    stream << *this;
+    return stream.str();
+}
+
 // Operator
 std::ostream& operator<< (std::ostream& os, const Particle& particle)
 {
@@ -116,3 +123,7 @@ void Particle::UpdateAcceleration()
 	// Update acceleration with sumForces, invMass
 	this->acceleration = this->sumForces;
 }
+/*
+const char *Particle::toString() {
+    return "Mass : ", std::string(1.0f / this->GetinvMass()) , ", Acceleration : ", std::string(this->GetAcceleration()), ", Speed : ", std::string(this->GetSpeed()), ", Position : ", std::string(this->GetPosition()), ", SumForces : ", std::string(this->GetSumForces());
+}*/

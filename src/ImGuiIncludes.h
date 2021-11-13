@@ -1,4 +1,9 @@
-#pragma once
+#ifndef MYINCLUDES_H_
+#define MYINCLUDES_H_
+
+
+
+
 // https://github.com/juliettef/IconFontCppHeaders
 #include "../fonts/IconsFontAwesome5.h"
 
@@ -32,3 +37,6 @@
 #include <glm/mat4x4.hpp> // glm::mat4
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
+
+
+#endif // MYINCLUDES_H_

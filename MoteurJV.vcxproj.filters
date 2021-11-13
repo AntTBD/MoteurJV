@@ -117,6 +117,9 @@
     <ClCompile Include="src\3DScene\OpenGLRendererManager.cpp" />
     <ClCompile Include="src\3DScene\Shader.cpp" />
     <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\Physics\PhysicEngine.cpp" />
+    <ClCompile Include="src\Debug\Debug.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIWindowConsole.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Simulator.h">
@@ -243,6 +246,11 @@
     </ClInclude>
     <ClInclude Include="fonts\IconsFontAwesome5.h" />
     <ClInclude Include="src\Scene.h" />
+    <ClInclude Include="src\Physics\PhysicEngine.h" />
+    <ClInclude Include="src\Debug\Debug.h" />
+    <ClInclude Include="src\ClassIncludes.h" />
+    <ClInclude Include="src\ImGuiIncludes.h" />
+    <ClInclude Include="src\UI\ImGuiUIWindowConsole.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="UserInterface">
@@ -295,5 +303,9 @@
     <Natvis Include="include\imgui-1.84.2\misc\debuggers\imgui.natvis">
       <Filter>imgui</Filter>
     </Natvis>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\fa-regular-400.ttf" />
+    <Font Include="fonts\fa-solid-900.ttf" />
   </ItemGroup>
 </Project>
