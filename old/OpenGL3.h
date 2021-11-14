@@ -2,12 +2,12 @@
 
 
 
-#include "includesUI.h"
+#include "../src/ImGuiIncludes.h"
 
 // Include global simulator and camera
 #include "Simulator.h"
-#include "src/3DScene/Camera.h"
-#include "src/3DScene/Formes.h"
+#include "../src/3DScene/Camera.h"
+#include "../src/3DScene/Formes.h"
 #include "ReadFile.h"
 
 /// <summary>

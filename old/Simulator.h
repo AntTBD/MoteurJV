@@ -1,18 +1,18 @@
 #pragma once
 #include <vector>
 #include <thread>
-#include "src/Physic/Particle.h"
+#include "../src/Physic/Particle.h"
 // forces
-#include "src/Physic/Contacts/ParticleContactResolver.h"
-#include "src/Physic/Forces/ParticleForceRegistry.h"
-#include "src/Physic/Forces/ParticleGravity.h"
-#include "src/Physic/Forces/ParticleSpring.h"
+#include "../src/Physic/Contacts/ParticleContactResolver.h"
+#include "../src/Physic/Forces/ParticleForceRegistry.h"
+#include "../src/Physic/Forces/ParticleGravity.h"
+#include "../src/Physic/Forces/ParticleSpring.h"
 // contacts
-#include "src/Physic/Contacts/ParticleContactRegistry.h"
-#include "src/Physic/Contacts/NaiveParticleContactGenerator.h"
-#include "src/Physic/Contacts/GroundContactGenerator.h"
-#include "src/Physic/Contacts/ParticleCable.h"
-#include "src/Physic/Contacts/ParticleRod.h"
+#include "../src/Physic/Contacts/ParticleContactRegistry.h"
+#include "../src/Physic/Contacts/NaiveParticleContactGenerator.h"
+#include "../src/Physic/Contacts/GroundContactGenerator.h"
+#include "../src/Physic/Contacts/ParticleCable.h"
+#include "../src/Physic/Contacts/ParticleRod.h"
 
 /// <summary>
 /// Our World with multiple particles
