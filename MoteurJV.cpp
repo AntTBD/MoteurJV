@@ -32,18 +32,18 @@ int UI(Simulator* sim)
 
 int main(int, char**)
 {
-    //Simulator sim;
-    //std::thread threadUI(UI, &sim);     // spawn new ui thread
+    Simulator sim;
+    std::thread threadUI(UI, &sim);     // spawn new ui thread
 
-    float values[12] = { 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f };
+    /*float values[12] = { 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f };
     Matrix34 A = Matrix34(values);
     Vector3 vec = Vector3(0.0f, 0.0f, 1.0f);
     
     std::cout << A.TransformPosition(vec) << std::endl;
     std::cout << A.TransformDirection(vec) << std::endl;
-
+*/
     // synchronize threads:
-    //threadUI.join();               // pauses until second finishes
+    threadUI.join();               // pauses until second finishes
 
     return 0;
 }
