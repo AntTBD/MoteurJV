@@ -16,197 +16,129 @@
     <ClCompile Include="include\imgui-1.84.2\imgui_widgets.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="MoteurJV.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Simulator.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>UserInterface\Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI.cpp">
-      <Filter>UserInterface\Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="OpenGL3.cpp">
-      <Filter>UserInterface\Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Formes.cpp">
-      <Filter>UserInterface\Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleAnchoredSpring.cpp">
-      <Filter>Sources\Forces</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleBuoyancy.cpp">
-      <Filter>Sources\Forces</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleForceRegistry.cpp">
-      <Filter>Sources\Forces</Filter>
-    </ClCompile>
-    <ClCompile Include="NaiveParticleContactGenerator.cpp">
-      <Filter>Sources\Contacts</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleCable.cpp">
-      <Filter>Sources\Contacts</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleContact.cpp">
-      <Filter>Sources\Contacts</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleContactResolver.cpp">
-      <Filter>Sources\Contacts</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleLink.cpp">
-      <Filter>Sources\Contacts</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleRod.cpp">
-      <Filter>Sources\Contacts</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleSpring.cpp">
-      <Filter>Sources\Forces</Filter>
-    </ClCompile>
-    <ClCompile Include="GroundContactGenerator.cpp">
-      <Filter>Sources\Contacts</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleDrag.cpp">
-      <Filter>Sources\Forces</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleGravity.cpp">
-      <Filter>Sources\Forces</Filter>
-    </ClCompile>
-    <ClCompile Include="Matrix33.cpp">
-      <Filter>Sources\Orientations</Filter>
-    </ClCompile>
-    <ClCompile Include="Matrix34.cpp">
-      <Filter>Sources\Orientations</Filter>
-    </ClCompile>
-    <ClCompile Include="Quaternion.cpp">
-      <Filter>Sources\Orientations</Filter>
-    </ClCompile>
-    <ClCompile Include="RigidBody.cpp">
-      <Filter>Sources\Orientations</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.cpp">
-      <Filter>Sources\Positions</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle.cpp">
-      <Filter>Sources\Positions</Filter>
-    </ClCompile>
-    <ClCompile Include="ReadFile.cpp">
-      <Filter>UserInterface\Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleContactRegistry.cpp">
-      <Filter>Sources\Contacts</Filter>
-    </ClCompile>
     <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_opengl3.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_glfw.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="glad.c">
+    <ClCompile Include="src\EngineManager.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3DScene\Camera.cpp">
+      <Filter>Sources\3DScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3DScene\Formes.cpp">
+      <Filter>Sources\3DScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3DScene\OpenGLRendererManager.cpp">
+      <Filter>Sources\3DScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3DScene\Shader.cpp">
+      <Filter>Sources\3DScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Debug\Debug.cpp">
+      <Filter>Sources\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IO\InputManager.cpp">
+      <Filter>Sources\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Matrix33.cpp">
+      <Filter>Sources\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Matrix34.cpp">
+      <Filter>Sources\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Quaternion.cpp">
+      <Filter>Sources\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Vector3.cpp">
+      <Filter>Sources\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\ImGuiUIManager.cpp">
+      <Filter>Sources\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\ImGuiUIWindow.cpp">
+      <Filter>Sources\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\ImGuiUIWindowConfig.cpp">
+      <Filter>Sources\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\ImGuiUIWindowConsole.cpp">
+      <Filter>Sources\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\ImGuiUIWindowInspector.cpp">
+      <Filter>Sources\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\ImGuiUIWindowRegistry.cpp">
+      <Filter>Sources\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\ImGuiUIWindowRender.cpp">
+      <Filter>Sources\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\MainWindow.cpp">
+      <Filter>Sources\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Particle.cpp">
+      <Filter>Sources\Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\PhysicEngine.cpp">
+      <Filter>Sources\Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\RigidBody.cpp">
+      <Filter>Sources\Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Contacts\GroundContactGenerator.cpp">
+      <Filter>Sources\Physic\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Contacts\NaiveParticleContactGenerator.cpp">
+      <Filter>Sources\Physic\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Contacts\ParticleCable.cpp">
+      <Filter>Sources\Physic\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Contacts\ParticleContact.cpp">
+      <Filter>Sources\Physic\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Contacts\ParticleContactRegistry.cpp">
+      <Filter>Sources\Physic\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Contacts\ParticleContactResolver.cpp">
+      <Filter>Sources\Physic\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Contacts\ParticleLink.cpp">
+      <Filter>Sources\Physic\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Contacts\ParticleRod.cpp">
+      <Filter>Sources\Physic\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Forces\ParticleAnchoredSpring.cpp">
+      <Filter>Sources\Physic\Forces</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Forces\ParticleBuoyancy.cpp">
+      <Filter>Sources\Physic\Forces</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Forces\ParticleDrag.cpp">
+      <Filter>Sources\Physic\Forces</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Forces\ParticleForceRegistry.cpp">
+      <Filter>Sources\Physic\Forces</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Forces\ParticleGravity.cpp">
+      <Filter>Sources\Physic\Forces</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Forces\ParticleSpring.cpp">
+      <Filter>Sources\Physic\Forces</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glad.c">
       <Filter>glad</Filter>
     </ClCompile>
-    <ClCompile Include="src\EngineManager.cpp" />
-    <ClCompile Include="src\UI\ImGuiUIManager.cpp" />
-    <ClCompile Include="src\UI\ImGuiUIWindow.cpp" />
-    <ClCompile Include="src\UI\ImGuiUIWindowConfig.cpp" />
-    <ClCompile Include="src\UI\ImGuiUIWindowRegistry.cpp" />
-    <ClCompile Include="src\UI\ImGuiUIWindowRender.cpp" />
-    <ClCompile Include="src\IO\InputManager.cpp" />
-    <ClCompile Include="src\UI\MainWindow.cpp" />
-    <ClCompile Include="src\3DScene\OpenGLRendererManager.cpp" />
-    <ClCompile Include="src\3DScene\Shader.cpp" />
-    <ClCompile Include="src\Scene.cpp" />
-    <ClCompile Include="src\Physics\PhysicEngine.cpp" />
-    <ClCompile Include="src\Debug\Debug.cpp" />
-    <ClCompile Include="src\UI\ImGuiUIWindowConsole.cpp" />
-    <ClCompile Include="src\UI\ImGuiUIWindowInspector.cpp" />
+    <ClCompile Include="src\MoteurJV.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Simulator.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>UserInterface\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI.h">
-      <Filter>UserInterface\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenGL3.h">
-      <Filter>UserInterface\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Formes.h">
-      <Filter>UserInterface\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleContact.h">
-      <Filter>Headers\Contacts</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleContactGenerator.h">
-      <Filter>Headers\Contacts</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleContactResolver.h">
-      <Filter>Headers\Contacts</Filter>
-    </ClInclude>
-    <ClInclude Include="NaiveParticleContactGenerator.h">
-      <Filter>Headers\Contacts</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleRod.h">
-      <Filter>Headers\Contacts</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleCable.h">
-      <Filter>Headers\Contacts</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleLink.h">
-      <Filter>Headers\Contacts</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleAnchoredSpring.h">
-      <Filter>Headers\Forces</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleBuoyancy.h">
-      <Filter>Headers\Forces</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleForceGenerator.h">
-      <Filter>Headers\Forces</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleSpring.h">
-      <Filter>Headers\Forces</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleForceRegistry.h">
-      <Filter>Headers\Forces</Filter>
-    </ClInclude>
-    <ClInclude Include="GroundContactGenerator.h">
-      <Filter>Headers\Contacts</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleDrag.h">
-      <Filter>Headers\Forces</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleGravity.h">
-      <Filter>Headers\Forces</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>Headers\Positions</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>Headers\Positions</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix33.h">
-      <Filter>Headers\Orientations</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix34.h">
-      <Filter>Headers\Orientations</Filter>
-    </ClInclude>
-    <ClInclude Include="Quaternion.h">
-      <Filter>Headers\Orientations</Filter>
-    </ClInclude>
-    <ClInclude Include="RigidBody.h">
-      <Filter>Headers\Orientations</Filter>
-    </ClInclude>
-    <ClInclude Include="ReadFile.h">
-      <Filter>UserInterface\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleContactRegistry.h">
-      <Filter>Headers\Contacts</Filter>
-    </ClInclude>
     <ClInclude Include="include\imgui-1.84.2\imconfig.h">
       <Filter>imgui</Filter>
     </ClInclude>
@@ -231,68 +163,136 @@
     <ClInclude Include="include\glad\include\KHR\khrplatform.h">
       <Filter>glad</Filter>
     </ClInclude>
-    <ClInclude Include="src\EngineManager.h" />
-    <ClInclude Include="src\myIncludes.h" />
-    <ClInclude Include="src\UI\ImGuiUIManager.h" />
-    <ClInclude Include="src\UI\ImGuiUIWindow.h" />
-    <ClInclude Include="src\UI\ImGuiUIWindowConfig.h" />
-    <ClInclude Include="src\UI\ImGuiUIWindowRegistry.h" />
-    <ClInclude Include="src\UI\ImGuiUIWindowRender.h" />
-    <ClInclude Include="src\IO\InputManager.h" />
-    <ClInclude Include="src\UI\MainWindow.h" />
-    <ClInclude Include="src\3DScene\OpenGLRendererManager.h" />
-    <ClInclude Include="src\3DScene\Shader.h" />
-    <ClInclude Include="includesUI.h">
-      <Filter>Headers</Filter>
+    <ClInclude Include="src\3DScene\Camera.h">
+      <Filter>Sources\3DScene</Filter>
     </ClInclude>
-    <ClInclude Include="fonts\IconsFontAwesome5.h" />
-    <ClInclude Include="src\Scene.h" />
-    <ClInclude Include="src\Physics\PhysicEngine.h" />
-    <ClInclude Include="src\Debug\Debug.h" />
-    <ClInclude Include="src\ClassIncludes.h" />
-    <ClInclude Include="src\ImGuiIncludes.h" />
-    <ClInclude Include="src\UI\ImGuiUIWindowConsole.h" />
-    <ClInclude Include="src\UI\ImGuiUIWindowInspector.h" />
+    <ClInclude Include="src\3DScene\Formes.h">
+      <Filter>Sources\3DScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3DScene\OpenGLRendererManager.h">
+      <Filter>Sources\3DScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3DScene\Shader.h">
+      <Filter>Sources\3DScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IO\InputManager.h">
+      <Filter>Sources\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Debug\Debug.h">
+      <Filter>Sources\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Matrix33.h">
+      <Filter>Sources\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Matrix34.h">
+      <Filter>Sources\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Quaternion.h">
+      <Filter>Sources\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Vector3.h">
+      <Filter>Sources\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\ImGuiUIManager.h">
+      <Filter>Sources\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\ImGuiUIWindow.h">
+      <Filter>Sources\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\ImGuiUIWindowConfig.h">
+      <Filter>Sources\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\ImGuiUIWindowConsole.h">
+      <Filter>Sources\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\ImGuiUIWindowInspector.h">
+      <Filter>Sources\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\ImGuiUIWindowRegistry.h">
+      <Filter>Sources\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\ImGuiUIWindowRender.h">
+      <Filter>Sources\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\MainWindow.h">
+      <Filter>Sources\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Particle.h">
+      <Filter>Sources\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\PhysicEngine.h">
+      <Filter>Sources\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\RigidBody.h">
+      <Filter>Sources\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Forces\ParticleAnchoredSpring.h">
+      <Filter>Sources\Physic\Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Forces\ParticleBuoyancy.h">
+      <Filter>Sources\Physic\Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Forces\ParticleDrag.h">
+      <Filter>Sources\Physic\Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Forces\ParticleForceGenerator.h">
+      <Filter>Sources\Physic\Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Forces\ParticleForceRegistry.h">
+      <Filter>Sources\Physic\Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Forces\ParticleGravity.h">
+      <Filter>Sources\Physic\Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Forces\ParticleSpring.h">
+      <Filter>Sources\Physic\Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Contacts\GroundContactGenerator.h">
+      <Filter>Sources\Physic\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Contacts\NaiveParticleContactGenerator.h">
+      <Filter>Sources\Physic\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Contacts\ParticleCable.h">
+      <Filter>Sources\Physic\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Contacts\ParticleContact.h">
+      <Filter>Sources\Physic\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Contacts\ParticleContactGenerator.h">
+      <Filter>Sources\Physic\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Contacts\ParticleContactRegistry.h">
+      <Filter>Sources\Physic\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Contacts\ParticleContactResolver.h">
+      <Filter>Sources\Physic\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Contacts\ParticleLink.h">
+      <Filter>Sources\Physic\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Contacts\ParticleRod.h">
+      <Filter>Sources\Physic\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ClassIncludes.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineManager.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImGuiIncludes.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="UserInterface">
-      <UniqueIdentifier>{6cb80b8f-acfd-4f65-993b-94298804bc58}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Headers">
       <UniqueIdentifier>{84f4a744-92bf-466a-b068-c4869f78c31c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources">
       <UniqueIdentifier>{a8c1d71b-cb40-42a2-ad1b-82f48a534809}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="UserInterface\Headers">
-      <UniqueIdentifier>{d093a064-da1b-4164-9a86-05da69c96e19}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="UserInterface\Sources">
-      <UniqueIdentifier>{37750fb9-7dff-4a0b-a316-eb61c9bc89a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Forces">
-      <UniqueIdentifier>{31416223-5baa-4200-bc96-682e59a443b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Contacts">
-      <UniqueIdentifier>{eb39d0ae-85a5-47d9-884e-6d0764acbe71}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Forces">
-      <UniqueIdentifier>{79eaa008-7210-48fa-b21c-66c3f7f9506f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Contacts">
-      <UniqueIdentifier>{faa6a7dc-aed6-4662-bea0-4975b79cffd2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Orientations">
-      <UniqueIdentifier>{24f8ed13-afcb-41b0-aa4a-ec09e6f64290}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Orientations">
-      <UniqueIdentifier>{c7d045b2-52f4-4285-be06-7f36296ce0a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Positions">
-      <UniqueIdentifier>{36faea97-6b30-43da-a5e9-0650b70fd6bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Positions">
-      <UniqueIdentifier>{57f102d5-4d01-4cc4-bad6-368d434a01b9}</UniqueIdentifier>
     </Filter>
     <Filter Include="imgui">
       <UniqueIdentifier>{2956f14e-6009-4dcd-bdb3-db17b7bdb008}</UniqueIdentifier>
@@ -300,14 +300,34 @@
     <Filter Include="glad">
       <UniqueIdentifier>{a1937eda-1a8d-4590-a833-e07bf6eed382}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\3DScene">
+      <UniqueIdentifier>{163dd0a7-0215-460c-8178-c949fd96b071}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Debug">
+      <UniqueIdentifier>{3aa5acf3-c7a4-4473-8da7-46a0e01f5840}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\IO">
+      <UniqueIdentifier>{ac02ab2d-de8e-4f0f-8fb4-bb3c21193124}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Math">
+      <UniqueIdentifier>{eecfa1e5-1a23-4106-b856-0cf41f32cac0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Physic">
+      <UniqueIdentifier>{a8472c79-cb4b-4795-b5b0-cb458fcaa38c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Physic\Contacts">
+      <UniqueIdentifier>{eb481bba-f239-42c9-b431-1626745a65ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Physic\Forces">
+      <UniqueIdentifier>{e847abc6-89af-4cd9-8567-fae142561447}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\UI">
+      <UniqueIdentifier>{2f19231d-aaae-49a6-a686-0e407e0c28a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="include\imgui-1.84.2\misc\debuggers\imgui.natvis">
       <Filter>imgui</Filter>
     </Natvis>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="fonts\fa-regular-400.ttf" />
-    <Font Include="fonts\fa-solid-900.ttf" />
   </ItemGroup>
 </Project>

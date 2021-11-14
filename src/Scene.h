@@ -3,10 +3,10 @@
 #include "ClassIncludes.h"
 
 #include <vector>
-#include "../Particle.h"
-#include "../Camera.h"
+#include "Physic/Particle.h"
+#include "3DScene/Camera.h"
 #include "3DScene/OpenGLRendererManager.h"
-#include "../Vector3.h"
+#include "Math/Vector3.h"
 
 //////////////////////////////////////////
 //          change type of objects (Particle - RigidBody)

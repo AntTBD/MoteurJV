@@ -5,8 +5,8 @@
 
 #include "../UI/MainWindow.h"
 #include "Shader.h"
-#include "../../Formes.h"
-#include "../../Vector3.h"
+#include "Formes.h"
+#include "../Math/Vector3.h"
 
 
 class OpenGLRendererManager {

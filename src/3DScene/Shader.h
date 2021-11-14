@@ -12,7 +12,7 @@
 // https://learnopengl.com/Getting-started/Shaders
 // https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/shader.h
 // add set Vec3 + Mat4 functions
-#include "../../Vector3.h"
+#include "../Math/Vector3.h"
 
 class Shader {
 public:

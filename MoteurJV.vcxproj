@@ -73,7 +73,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
     <SourcePath>$(VC_SourcePath);</SourcePath>
     <OutDir>$(ProjectDir)\build\$(Configuration)\</OutDir>
@@ -82,7 +82,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>
     </LinkIncremental>
-    <IncludePath>$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
     <SourcePath>$(VC_SourcePath);</SourcePath>
     <OutDir>$(ProjectDir)\build\$(Configuration)\</OutDir>
@@ -90,7 +90,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
     <SourcePath>$(VC_SourcePath);</SourcePath>
     <OutDir>$(ProjectDir)\build\$(Configuration)\</OutDir>
@@ -99,7 +99,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>
     </LinkIncremental>
-    <IncludePath>$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
     <SourcePath>$(VC_SourcePath);</SourcePath>
     <OutDir>$(ProjectDir)\build\$(Configuration)\</OutDir>
@@ -111,7 +111,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>Default</ConformanceMode>
-      <AdditionalIncludeDirectories>include\glad\include;include\glm-0.9.9.8\;include\imgui-1.84.2;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;include\glad\include;include\glm-0.9.9.8\;include\imgui-1.84.2;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
@@ -130,7 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>Default</ConformanceMode>
-      <AdditionalIncludeDirectories>include\glad\include;include\glm-0.9.9.8\;include\imgui-1.84.2;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;include\glad\include;include\glm-0.9.9.8\;include\imgui-1.84.2;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
@@ -147,7 +147,7 @@
       <WarningLevel>Level4</WarningLevel>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>Default</ConformanceMode>
-      <AdditionalIncludeDirectories>include\glad\include;include\glm-0.9.9.8\;include\imgui-1.84.2;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;include\glad\include;include\glm-0.9.9.8\;include\imgui-1.84.2;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>true</SDLCheck>
       <Optimization>Disabled</Optimization>
       <IntrinsicFunctions>false</IntrinsicFunctions>
@@ -169,7 +169,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>Default</ConformanceMode>
-      <AdditionalIncludeDirectories>include\glad\include;include\glm-0.9.9.8\;include\imgui-1.84.2;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;include\glad\include;include\glm-0.9.9.8\;include\imgui-1.84.2;include\imgui-1.84.2\backends;include\imgui-1.84.2\examples\libs\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
@@ -182,10 +182,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Formes.cpp" />
-    <ClCompile Include="glad.c" />
-    <ClCompile Include="GUI.cpp" />
     <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="include\imgui-1.84.2\imgui.cpp" />
@@ -193,34 +189,36 @@
     <ClCompile Include="include\imgui-1.84.2\imgui_draw.cpp" />
     <ClCompile Include="include\imgui-1.84.2\imgui_tables.cpp" />
     <ClCompile Include="include\imgui-1.84.2\imgui_widgets.cpp" />
-    <ClCompile Include="Matrix33.cpp" />
-    <ClCompile Include="Matrix34.cpp" />
-    <ClCompile Include="MoteurJV.cpp" />
-    <ClCompile Include="NaiveParticleContactGenerator.cpp" />
-    <ClCompile Include="OpenGL3.cpp" />
-    <ClCompile Include="Particle.cpp" />
-    <ClCompile Include="ParticleBuoyancy.cpp" />
-    <ClCompile Include="ParticleAnchoredSpring.cpp" />
-    <ClCompile Include="ParticleCable.cpp" />
-    <ClCompile Include="ParticleContact.cpp" />
-    <ClCompile Include="ParticleContactRegistry.cpp" />
-    <ClCompile Include="ParticleContactResolver.cpp" />
-    <ClCompile Include="ParticleDrag.cpp" />
-    <ClCompile Include="ParticleLink.cpp" />
-    <ClCompile Include="ParticleRod.cpp" />
-    <ClCompile Include="ParticleSpring.cpp" />
-    <ClCompile Include="ParticleForceRegistry.cpp" />
-    <ClCompile Include="ParticleGravity.cpp" />
-    <ClCompile Include="Quaternion.cpp" />
-    <ClCompile Include="ReadFile.cpp" />
-    <ClCompile Include="RigidBody.cpp" />
-    <ClCompile Include="Simulator.cpp" />
+    <ClCompile Include="src\3DScene\Camera.cpp" />
+    <ClCompile Include="src\3DScene\Formes.cpp" />
     <ClCompile Include="src\3DScene\OpenGLRendererManager.cpp" />
     <ClCompile Include="src\3DScene\Shader.cpp" />
     <ClCompile Include="src\Debug\Debug.cpp" />
     <ClCompile Include="src\EngineManager.cpp" />
+    <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\IO\InputManager.cpp" />
-    <ClCompile Include="src\Physics\PhysicEngine.cpp" />
+    <ClCompile Include="src\Math\Matrix33.cpp" />
+    <ClCompile Include="src\Math\Matrix34.cpp" />
+    <ClCompile Include="src\Math\Quaternion.cpp" />
+    <ClCompile Include="src\Math\Vector3.cpp" />
+    <ClCompile Include="src\MoteurJV.cpp" />
+    <ClCompile Include="src\Physic\Contacts\GroundContactGenerator.cpp" />
+    <ClCompile Include="src\Physic\Contacts\NaiveParticleContactGenerator.cpp" />
+    <ClCompile Include="src\Physic\Contacts\ParticleCable.cpp" />
+    <ClCompile Include="src\Physic\Contacts\ParticleContact.cpp" />
+    <ClCompile Include="src\Physic\Contacts\ParticleContactRegistry.cpp" />
+    <ClCompile Include="src\Physic\Contacts\ParticleContactResolver.cpp" />
+    <ClCompile Include="src\Physic\Contacts\ParticleLink.cpp" />
+    <ClCompile Include="src\Physic\Contacts\ParticleRod.cpp" />
+    <ClCompile Include="src\Physic\Forces\ParticleAnchoredSpring.cpp" />
+    <ClCompile Include="src\Physic\Forces\ParticleBuoyancy.cpp" />
+    <ClCompile Include="src\Physic\Forces\ParticleDrag.cpp" />
+    <ClCompile Include="src\Physic\Forces\ParticleForceRegistry.cpp" />
+    <ClCompile Include="src\Physic\Forces\ParticleGravity.cpp" />
+    <ClCompile Include="src\Physic\Forces\ParticleSpring.cpp" />
+    <ClCompile Include="src\Physic\Particle.cpp" />
+    <ClCompile Include="src\Physic\PhysicEngine.cpp" />
+    <ClCompile Include="src\Physic\RigidBody.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\UI\ImGuiUIManager.cpp" />
     <ClCompile Include="src\UI\ImGuiUIWindow.cpp" />
@@ -230,15 +228,8 @@
     <ClCompile Include="src\UI\ImGuiUIWindowRegistry.cpp" />
     <ClCompile Include="src\UI\ImGuiUIWindowRender.cpp" />
     <ClCompile Include="src\UI\MainWindow.cpp" />
-    <ClCompile Include="Vector3.cpp" />
-    <ClCompile Include="GroundContactGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="fonts\IconsFontAwesome5.h" />
-    <ClInclude Include="Formes.h" />
-    <ClInclude Include="GUI.h" />
-    <ClInclude Include="includesUI.h" />
     <ClInclude Include="include\glad\include\glad\glad.h" />
     <ClInclude Include="include\glad\include\KHR\khrplatform.h" />
     <ClInclude Include="include\imgui-1.84.2\backends\imgui_impl_glfw.h" />
@@ -247,29 +238,8 @@
     <ClInclude Include="include\imgui-1.84.2\imconfig.h" />
     <ClInclude Include="include\imgui-1.84.2\imgui.h" />
     <ClInclude Include="include\imgui-1.84.2\imgui_internal.h" />
-    <ClInclude Include="Matrix33.h" />
-    <ClInclude Include="Matrix34.h" />
-    <ClInclude Include="NaiveParticleContactGenerator.h" />
-    <ClInclude Include="OpenGL3.h" />
-    <ClInclude Include="Particle.h" />
-    <ClInclude Include="ParticleBuoyancy.h" />
-    <ClInclude Include="ParticleAnchoredSpring.h" />
-    <ClInclude Include="ParticleCable.h" />
-    <ClInclude Include="ParticleContact.h" />
-    <ClInclude Include="ParticleContactGenerator.h" />
-    <ClInclude Include="ParticleContactRegistry.h" />
-    <ClInclude Include="ParticleContactResolver.h" />
-    <ClInclude Include="ParticleDrag.h" />
-    <ClInclude Include="ParticleForceGenerator.h" />
-    <ClInclude Include="ParticleLink.h" />
-    <ClInclude Include="ParticleRod.h" />
-    <ClInclude Include="ParticleSpring.h" />
-    <ClInclude Include="ParticleForceRegistry.h" />
-    <ClInclude Include="ParticleGravity.h" />
-    <ClInclude Include="Quaternion.h" />
-    <ClInclude Include="ReadFile.h" />
-    <ClInclude Include="RigidBody.h" />
-    <ClInclude Include="Simulator.h" />
+    <ClInclude Include="src\3DScene\Camera.h" />
+    <ClInclude Include="src\3DScene\Formes.h" />
     <ClInclude Include="src\3DScene\OpenGLRendererManager.h" />
     <ClInclude Include="src\3DScene\Shader.h" />
     <ClInclude Include="src\ClassIncludes.h" />
@@ -277,8 +247,29 @@
     <ClInclude Include="src\EngineManager.h" />
     <ClInclude Include="src\ImGuiIncludes.h" />
     <ClInclude Include="src\IO\InputManager.h" />
-    <ClInclude Include="src\myIncludes.h" />
-    <ClInclude Include="src\Physics\PhysicEngine.h" />
+    <ClInclude Include="src\Math\Matrix33.h" />
+    <ClInclude Include="src\Math\Matrix34.h" />
+    <ClInclude Include="src\Math\Quaternion.h" />
+    <ClInclude Include="src\Math\Vector3.h" />
+    <ClInclude Include="src\Physic\Contacts\GroundContactGenerator.h" />
+    <ClInclude Include="src\Physic\Contacts\NaiveParticleContactGenerator.h" />
+    <ClInclude Include="src\Physic\Contacts\ParticleCable.h" />
+    <ClInclude Include="src\Physic\Contacts\ParticleContact.h" />
+    <ClInclude Include="src\Physic\Contacts\ParticleContactGenerator.h" />
+    <ClInclude Include="src\Physic\Contacts\ParticleContactRegistry.h" />
+    <ClInclude Include="src\Physic\Contacts\ParticleContactResolver.h" />
+    <ClInclude Include="src\Physic\Contacts\ParticleLink.h" />
+    <ClInclude Include="src\Physic\Contacts\ParticleRod.h" />
+    <ClInclude Include="src\Physic\Forces\ParticleAnchoredSpring.h" />
+    <ClInclude Include="src\Physic\Forces\ParticleBuoyancy.h" />
+    <ClInclude Include="src\Physic\Forces\ParticleDrag.h" />
+    <ClInclude Include="src\Physic\Forces\ParticleForceGenerator.h" />
+    <ClInclude Include="src\Physic\Forces\ParticleForceRegistry.h" />
+    <ClInclude Include="src\Physic\Forces\ParticleGravity.h" />
+    <ClInclude Include="src\Physic\Forces\ParticleSpring.h" />
+    <ClInclude Include="src\Physic\Particle.h" />
+    <ClInclude Include="src\Physic\PhysicEngine.h" />
+    <ClInclude Include="src\Physic\RigidBody.h" />
     <ClInclude Include="src\Scene.h" />
     <ClInclude Include="src\UI\ImGuiUIManager.h" />
     <ClInclude Include="src\UI\ImGuiUIWindow.h" />
@@ -288,15 +279,9 @@
     <ClInclude Include="src\UI\ImGuiUIWindowRegistry.h" />
     <ClInclude Include="src\UI\ImGuiUIWindowRender.h" />
     <ClInclude Include="src\UI\MainWindow.h" />
-    <ClInclude Include="Vector3.h" />
-    <ClInclude Include="GroundContactGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="include\imgui-1.84.2\misc\debuggers\imgui.natvis" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="fonts\fa-regular-400.ttf" />
-    <Font Include="fonts\fa-solid-900.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

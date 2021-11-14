@@ -9,7 +9,7 @@
 #include "IO/InputManager.h"
 #include "3DScene/OpenGLRendererManager.h"
 #include "Scene.h"
-#include "Physics/PhysicEngine.h"
+#include "Physic/PhysicEngine.h"
 
 
 class EngineManager {
