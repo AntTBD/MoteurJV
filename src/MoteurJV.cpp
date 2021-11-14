@@ -2,13 +2,13 @@
 #include <chrono>
 #include <thread>
 #include <vector>
-#include "src/Physic/Particle.h"
-#include "src/Math/Vector3.h"
-#include "src/Math/Matrix33.h"
-#include "src/Math/Matrix34.h"
-#include "src/Math/Quaternion.h"
+#include "Physic/Particle.h"
+#include "Math/Vector3.h"
+#include "Math/Matrix33.h"
+#include "Math/Matrix34.h"
+#include "Math/Quaternion.h"
 
-#include "src/EngineManager.h"
+#include "EngineManager.h"
 
 int main(int, char**)
 {
