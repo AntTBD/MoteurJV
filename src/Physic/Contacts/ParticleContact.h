@@ -1,6 +1,6 @@
 #pragma once
 
-#include "src/Physics/Particle.h"
+#include "../Particle.h"
 
 class ParticleContact
 {

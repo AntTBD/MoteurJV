@@ -220,7 +220,7 @@
     <ClCompile Include="src\Debug\Debug.cpp" />
     <ClCompile Include="src\EngineManager.cpp" />
     <ClCompile Include="src\IO\InputManager.cpp" />
-    <ClCompile Include="src\Physics\PhysicEngine.cpp" />
+    <ClCompile Include="src\Physic\PhysicEngine.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\UI\ImGuiUIManager.cpp" />
     <ClCompile Include="src\UI\ImGuiUIWindow.cpp" />
@@ -278,7 +278,7 @@
     <ClInclude Include="src\ImGuiIncludes.h" />
     <ClInclude Include="src\IO\InputManager.h" />
     <ClInclude Include="src\myIncludes.h" />
-    <ClInclude Include="src\Physics\PhysicEngine.h" />
+    <ClInclude Include="src\Physic\PhysicEngine.h" />
     <ClInclude Include="src\Scene.h" />
     <ClInclude Include="src\UI\ImGuiUIManager.h" />
     <ClInclude Include="src\UI\ImGuiUIWindow.h" />
