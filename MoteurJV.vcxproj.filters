@@ -22,9 +22,6 @@
     <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_glfw.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="glad.c">
-      <Filter>glad</Filter>
-    </ClCompile>
     <ClCompile Include="src\EngineManager.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -136,7 +133,10 @@
     <ClCompile Include="src\Physic\Forces\ParticleSpring.cpp">
       <Filter>Sources\Physic\Forces</Filter>
     </ClCompile>
-    <ClCompile Include="MoteurJV.cpp" />
+    <ClCompile Include="src\glad.c">
+      <Filter>glad</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MoteurJV.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\imgui-1.84.2\imconfig.h">
