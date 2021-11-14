@@ -4,9 +4,9 @@
 
 #include "Particle.h"
 // forces
-#include "../../ParticleForceRegistry.h"
-#include "../../ParticleGravity.h"
-#include "../../ParticleSpring.h"
+#include "Forces/ParticleForceRegistry.h"
+#include "Forces/ParticleGravity.h"
+#include "Forces/ParticleSpring.h"
 // contacts
 #include "../../ParticleContactRegistry.h"
 #include "../../NaiveParticleContactGenerator.h"
