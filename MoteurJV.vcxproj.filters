@@ -2,25 +2,19 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="include\imgui-1.84.2\imgui.cpp">
-      <Filter>Includes</Filter>
+      <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="include\imgui-1.84.2\imgui_demo.cpp">
-      <Filter>Includes</Filter>
+      <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="include\imgui-1.84.2\imgui_draw.cpp">
-      <Filter>Includes</Filter>
-    </ClCompile>
-    <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_glfw.cpp">
-      <Filter>Includes</Filter>
-    </ClCompile>
-    <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_opengl3.cpp">
-      <Filter>Includes</Filter>
+      <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="include\imgui-1.84.2\imgui_tables.cpp">
-      <Filter>Includes</Filter>
+      <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="include\imgui-1.84.2\imgui_widgets.cpp">
-      <Filter>Includes</Filter>
+      <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="MoteurJV.cpp">
       <Filter>Sources</Filter>
@@ -97,6 +91,36 @@
     <ClCompile Include="Particle.cpp">
       <Filter>Sources\Positions</Filter>
     </ClCompile>
+    <ClCompile Include="ReadFile.cpp">
+      <Filter>UserInterface\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleContactRegistry.cpp">
+      <Filter>Sources\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_opengl3.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui-1.84.2\backends\imgui_impl_glfw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>glad</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineManager.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIManager.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIWindow.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIWindowConfig.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIWindowRegistry.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIWindowRender.cpp" />
+    <ClCompile Include="src\IO\InputManager.cpp" />
+    <ClCompile Include="src\UI\MainWindow.cpp" />
+    <ClCompile Include="src\3DScene\OpenGLRendererManager.cpp" />
+    <ClCompile Include="src\3DScene\Shader.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\Physics\PhysicEngine.cpp" />
+    <ClCompile Include="src\Debug\Debug.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIWindowConsole.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIWindowInspector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Simulator.h">
@@ -177,11 +201,60 @@
     <ClInclude Include="RigidBody.h">
       <Filter>Headers\Orientations</Filter>
     </ClInclude>
+    <ClInclude Include="ReadFile.h">
+      <Filter>UserInterface\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleContactRegistry.h">
+      <Filter>Headers\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui-1.84.2\imconfig.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui-1.84.2\imgui.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui-1.84.2\imgui_internal.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui-1.84.2\backends\imgui_impl_opengl3.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui-1.84.2\backends\imgui_impl_opengl3_loader.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui-1.84.2\backends\imgui_impl_glfw.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\glad\include\glad\glad.h">
+      <Filter>glad</Filter>
+    </ClInclude>
+    <ClInclude Include="include\glad\include\KHR\khrplatform.h">
+      <Filter>glad</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineManager.h" />
+    <ClInclude Include="src\myIncludes.h" />
+    <ClInclude Include="src\UI\ImGuiUIManager.h" />
+    <ClInclude Include="src\UI\ImGuiUIWindow.h" />
+    <ClInclude Include="src\UI\ImGuiUIWindowConfig.h" />
+    <ClInclude Include="src\UI\ImGuiUIWindowRegistry.h" />
+    <ClInclude Include="src\UI\ImGuiUIWindowRender.h" />
+    <ClInclude Include="src\IO\InputManager.h" />
+    <ClInclude Include="src\UI\MainWindow.h" />
+    <ClInclude Include="src\3DScene\OpenGLRendererManager.h" />
+    <ClInclude Include="src\3DScene\Shader.h" />
+    <ClInclude Include="includesUI.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="fonts\IconsFontAwesome5.h" />
+    <ClInclude Include="src\Scene.h" />
+    <ClInclude Include="src\Physics\PhysicEngine.h" />
+    <ClInclude Include="src\Debug\Debug.h" />
+    <ClInclude Include="src\ClassIncludes.h" />
+    <ClInclude Include="src\ImGuiIncludes.h" />
+    <ClInclude Include="src\UI\ImGuiUIWindowConsole.h" />
+    <ClInclude Include="src\UI\ImGuiUIWindowInspector.h" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Includes">
-      <UniqueIdentifier>{2956f14e-6009-4dcd-bdb3-db17b7bdb008}</UniqueIdentifier>
-    </Filter>
     <Filter Include="UserInterface">
       <UniqueIdentifier>{6cb80b8f-acfd-4f65-993b-94298804bc58}</UniqueIdentifier>
     </Filter>
@@ -221,5 +294,20 @@
     <Filter Include="Sources\Positions">
       <UniqueIdentifier>{57f102d5-4d01-4cc4-bad6-368d434a01b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{2956f14e-6009-4dcd-bdb3-db17b7bdb008}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glad">
+      <UniqueIdentifier>{a1937eda-1a8d-4590-a833-e07bf6eed382}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="include\imgui-1.84.2\misc\debuggers\imgui.natvis">
+      <Filter>imgui</Filter>
+    </Natvis>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\fa-regular-400.ttf" />
+    <Font Include="fonts\fa-solid-900.ttf" />
   </ItemGroup>
 </Project>

@@ -87,6 +87,13 @@ Vector3& Vector3::operator/=(float value)
 	return *this;
 }
 
+std::string Vector3::toString() const
+{
+    std::stringstream stream;
+    stream << *this;
+    return stream.str();
+}
+
 std::ostream& operator<<(std::ostream& os, const Vector3& vector)
 {
 	os << "(" << vector.GetX() << "," << vector.GetY() << "," << vector.GetZ() << ")";
@@ -158,7 +165,7 @@ float Vector3::SquaredMagnitude() const // Squared magnitude is less taxing to c
 Vector3& Vector3::Normalize() // Make the vector length to 1
 {
 	float length = this->Magnitude();
-	assert(length != 0);
+	assert(length != 0 && "Division par 0 ! : Vector3::Normalize() : Magnitude = 0");
 	*this /= length;
 	return *this;
 }
@@ -166,7 +173,7 @@ Vector3& Vector3::Normalize() // Make the vector length to 1
 Vector3 Vector3::Normalized() const // Make the vector length to 1 - without change original vector
 {
 	float length = this->Magnitude();
-	assert(length != 0);
+    assert(length != 0 && "Division par 0 ! : Vector3::Normalized() : Magnitude = 0");
 	return *this / length;
 }
 

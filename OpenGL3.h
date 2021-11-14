@@ -1,21 +1,14 @@
 #pragma once
 
-// Include ImGui with OpenGL and GLFW
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
-#include <stdio.h>
 
-// Include GLFW
-#if defined(IMGUI_IMPL_OPENGL_ES2)
-#include <GLES2/gl2.h>
-#endif
-#include <GLFW/glfw3.h> // Will drag system OpenGL headers
+
+#include "includesUI.h"
 
 // Include global simulator and camera
 #include "Simulator.h"
 #include "Camera.h"
 #include "Formes.h"
+#include "ReadFile.h"
 
 /// <summary>
 /// 3D OpenGL Manager
@@ -49,6 +42,6 @@ public:
 
 	void DrawAllParticules();
 
-
+	GLuint LoadShader(const char* vertex_path, const char* fragment_path);
 };
 

@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <sstream>
 
 class Vector3
 {
@@ -83,11 +84,14 @@ public:
 	/// <returns></returns>
 	Vector3& SetZero();
 
+
+    std::string toString() const;
+
+    // << operator
+    friend std::ostream& operator<< (std::ostream& os, const Vector3& vector);
+
+    // * operator dans les 2 sens
+    friend Vector3 operator*(const Vector3& vec, const float value);
+    friend Vector3 operator*(const float value, const Vector3& vec);
+
 };
-
-// << operator
-std::ostream& operator<< (std::ostream& os, const Vector3& vector);
-
-// * operator dans les 2 sens
-Vector3 operator*(const Vector3& vec, const float value);
-Vector3 operator*(const float value, const Vector3& vec);

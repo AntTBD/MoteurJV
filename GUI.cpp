@@ -1,4 +1,3 @@
-#include <iostream>
 #include "GUI.h"
 
 /// <summary>
@@ -10,6 +9,7 @@ GUI::GUI(Simulator* sim)
     this->window = nullptr;
 
     this->show_config_window = true;
+    this->show_render_window = true;
     this->clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     this->sim = sim;
@@ -17,6 +17,8 @@ GUI::GUI(Simulator* sim)
     this->isThreadActive = false;
 
     this->opengl = new OpenGL3(this->sim);
+
+    //vertexShader = fragmentShader = shaderProgram = VAO = VBO = GLuint();
 }
 
 /// <summary>
@@ -56,12 +58,15 @@ int GUI::init()
 
     // Create window with graphics context
     this->window = glfwCreateWindow(1280, 720, "Moteur physique de Jeux Video", NULL, NULL);
-    if (!this->window) {
+    if (this->window == NULL) {
         fprintf(stderr, "Failed to create window with graphics context\n");
         return -1;
     }
     glfwMakeContextCurrent(this->window);
     glfwSwapInterval(1); // Enable vsync
+
+
+    
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -76,6 +81,11 @@ int GUI::init()
 
     // Setup Platform/Renderer backends
     ImGui_ImplGlfw_InitForOpenGL(this->window, true);
+    if (gladLoadGL() == 0)
+    {
+        fprintf(stderr, "Failed to initialize OpenGL loader!\n");
+        return 1;
+    }
     ImGui_ImplOpenGL3_Init(glsl_version);
 
     // Load Fonts
@@ -92,6 +102,65 @@ int GUI::init()
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/ProggyTiny.ttf", 10.0f);
     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
     //IM_ASSERT(font != NULL);
+
+    /*//////////////////////////////////
+    //////////////////////////////////////////////////
+    // Create Vertex Shader Object and get its reference
+    vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    // Attach Vertex Shader source to the Vertex Shader Object
+    glShaderSource(vertexShader, 1, &vertexShaderSourceCustom, NULL);
+    // Compile the Vertex Shader into machine code
+    glCompileShader(vertexShader);
+
+    // Create Fragment Shader Object and get its reference
+    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    // Attach Fragment Shader source to the Fragment Shader Object
+    glShaderSource(fragmentShader, 1, &fragmentShaderSourceCustom, NULL);
+    // Compile the Vertex Shader into machine code
+    glCompileShader(fragmentShader);
+
+    // Create Shader Program Object and get its reference
+    shaderProgram = glCreateProgram();
+    // Attach the Vertex and Fragment Shaders to the Shader Program
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    // Wrap-up/Link all the shaders together into the Shader Program
+    glLinkProgram(shaderProgram);
+
+    // Delete the now useless Vertex and Fragment Shader objects
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
+
+
+
+
+
+    // Generate the VAO and VBO with only 1 object each
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+
+    // Make the VAO the current Vertex Array Object by binding it
+    glBindVertexArray(VAO);
+
+    // Bind the VBO specifying it's a GL_ARRAY_BUFFER
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    // Introduce the vertices into the VBO
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    // Configure the Vertex Attribute so that OpenGL knows how to read the VBO
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    // Enable the Vertex Attribute so that OpenGL knows to use it
+    glEnableVertexAttribArray(0);
+
+    // Bind both the VBO and VAO to 0 so that we don't accidentally modify the VAO and VBO we created
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+    /////////////////////////////////////////////
+    // Exporting variables to shaders
+    glUseProgram(shaderProgram);
+    glUniform1f(glGetUniformLocation(shaderProgram, "size"), size);
+    glUniform4f(glGetUniformLocation(shaderProgram, "color"), color[0], color[1], color[2], color[3]);
+///////////////////////////////*/
 
     // configure global opengl state to be used with 3D view mode
     glEnable(GL_DEPTH_TEST);
@@ -124,9 +193,10 @@ void GUI::update()
 
 
         // ---- Show config window to add particles to simulator and manage the simulation ----
+        this->showRenderWindow();
         this->showConfigWindow();
         // -------------------------------
-        //ImGui::ShowDemoWindow();
+        ImGui::ShowDemoWindow();
 
 
         // ------------------------
@@ -150,9 +220,7 @@ void GUI::update()
         glViewport(0, 0, display_w, display_h);
         glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
 
-
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
         glfwSwapBuffers(this->window);
     }
 }
@@ -162,7 +230,6 @@ void GUI::update()
 /// </summary>
 void GUI::end()
 {
-
     // Cleanup
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
@@ -172,9 +239,63 @@ void GUI::end()
     {
         this->simThread.join();
     }
-
+// Delete all the objects we've created
+ /*   glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteProgram(shaderProgram);
+*/
     glfwDestroyWindow(this->window);
     glfwTerminate();
+}
+
+void GUI::showRenderWindow() {
+
+    /*if (this->show_render_window) {
+        ImGuiIO& io = ImGui::GetIO();
+        ImGui::SetNextWindowPos(ImVec2(250, 0));
+        ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x - 250, io.DisplaySize.y));
+        // https://gamedev.stackexchange.com/questions/140693/how-can-i-render-an-opengl-scene-into-an-imgui-window
+        ImGui::Begin("Render Window", &this->show_render_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+        {
+            // Using a Child allow to fill all the space of the window.
+              // It also alows customization
+            ImGui::BeginChild("GameRender");
+            // Get the size of the child (i.e. the whole draw size of the windows).
+            ImVec2 wsize = ImGui::GetWindowSize();
+            // Because I use the texture from OpenGL, I need to invert the V from the UV.
+            ImGui::Image((ImTextureID)this->window.getRenderTexture(), wsize, ImVec2(0, 1), ImVec2(1, 0));
+            ImGui::EndChild();
+        }
+        ImGui::End();
+    }*/
+
+    /*// Tell OpenGL which Shader Program we want to use
+    glUseProgram(shaderProgram);
+    // Bind the VAO so OpenGL knows to use it
+    glBindVertexArray(VAO);
+    // Only draw the triangle if the ImGUI checkbox is ticked
+    if (drawTriangle)
+        // Draw the triangle using the GL_TRIANGLES primitive
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
+    // ImGUI window creation
+    ImGui::Begin("My name is window, ImGUI window");
+    // Text that appears in the window
+    ImGui::Text("Hello there adventurer!");
+    // Checkbox that appears in the window
+    ImGui::Checkbox("Draw Triangle", &drawTriangle);
+    // Slider that appears in the window
+    ImGui::SliderFloat("Size", &size, 0.5f, 2.0f);
+    // Fancy color editor that appears in the window
+    ImGui::ColorEdit4("Color", color);
+    // Ends the window
+    ImGui::End();
+
+    // Export variables to shader
+    glUseProgram(shaderProgram);
+    glUniform1f(glGetUniformLocation(shaderProgram, "size"), size);
+    glUniform4f(glGetUniformLocation(shaderProgram, "color"), color[0], color[1], color[2], color[3]);
+*/
 }
 
 /// <summary>
@@ -183,6 +304,9 @@ void GUI::end()
 void GUI::showConfigWindow()
 {
     if (this->show_config_window) {
+        ImGuiIO& io = ImGui::GetIO();
+        ImGui::SetNextWindowPos(ImVec2());
+        ImGui::SetNextWindowSize(ImVec2(250, io.DisplaySize.y));
         ImGui::Begin("Config Window", &this->show_config_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
         {
             // Variable needed to make a particle
@@ -308,7 +432,6 @@ void GUI::showConfigWindow()
             ImGui::Bullet(); ImGui::TextWrapped(u8"Changer l'orientation de la camera en maintenant appuyé la molette et en déplaçant la souris.");
 
             // -------------------- Check mouse click & add particle if not in simulation -----------------------------
-            ImGuiIO& io = ImGui::GetIO();
             Vector3 offsetPosition = Vector3(-(float)io.DisplaySize.x / 2.0f, (float)io.DisplaySize.y, 0);
             float ratio = 4.0f;
             if (this->isSimulating == false && ImGui::IsMouseClicked(1))// right click if not in simulation 

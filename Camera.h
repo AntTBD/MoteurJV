@@ -5,25 +5,7 @@
 
 #include <math.h>
 
-// Include ImGui with OpenGL and GLFW
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
-#include <stdio.h>
-
-// Include GLFW
-#if defined(IMGUI_IMPL_OPENGL_ES2)
-#include <GLES2/gl2.h>
-#endif
-#include <GLFW/glfw3.h> // Will drag system OpenGL headers
-
-// Include GLM
-#include <glm/glm.hpp>
-#include <glm/vec3.hpp> // glm::vec3
-#include <glm/vec4.hpp> // glm::vec4
-#include <glm/mat4x4.hpp> // glm::mat4
-#include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
-#include <glm/gtc/type_ptr.hpp> // glm::value_ptr
+#include "includesUI.h"
 
 /// <summary>
 /// Orbital Camera
@@ -39,7 +21,13 @@ private:
 	// ----- Projection -----
 	float fov; // field of view
 	float nearF; // minimum viewing distance
-	float far; // max viewing distance
+	float m_far; // max viewing distance
+
+    // ----- Size -------
+    float width, height;
+
+    // background
+    ImVec4 background;
 
 public:
 	Camera();
@@ -49,10 +37,26 @@ public:
 	void AddOrbitalRotationY(float angleDelta);
 	void Set(float dist, float rotationX, float rotationY);
 	void Add(float dist, float rotationX, float rotationY);
+
+    // =======================
+    // Clear background
+    // 3D projection
+    // Set viewport
+    // Load projection matrix
+    // =======================
 	void Update();
 
-	float GetDistance();
+	float GetDistance() const;
 	void SetDistance(float distFromCenter);
+
+    void setSize(float width, float height);
+    ImVec2 getSize() const;
+    float getWidth() const;
+    float getHeight() const;
+
+    // color between 0-1
+    void setBackground(float r, float g, float b, float a);
+    ImVec4 getBackground();
 
 	glm::mat4 SetProjection(float Translate, glm::vec2 const& Rotate);
 };

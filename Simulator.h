@@ -2,14 +2,17 @@
 #include <vector>
 #include <thread>
 #include "Particle.h"
+// forces
 #include "ParticleContactResolver.h"
 #include "ParticleForceRegistry.h"
+#include "ParticleGravity.h"
+#include "ParticleSpring.h"
+// contacts
+#include "ParticleContactRegistry.h"
 #include "NaiveParticleContactGenerator.h"
+#include "GroundContactGenerator.h"
 #include "ParticleCable.h"
 #include "ParticleRod.h"
-#include "ParticleGravity.h"
-#include "GroundContactGenerator.h"
-#include "ParticleSpring.h"
 
 /// <summary>
 /// Our World with multiple particles
@@ -23,11 +26,7 @@ private:
 	ParticleGravity particleGravityGenerator;
 	ParticleSpring* particleSpringGenerator;
 
-	NaiveParticleContactGenerator* particleContactGenerator;
-	std::vector<ParticleRod*> tiges;
-	std::vector<ParticleCable*> cables;
-	GroundContactGenerator* groundContactGenerator;
-	ParticleContactResolver* particleContactResolver;
+	ParticleContactRegistry particleContactRegistry;
 
 	bool isPaused = false;
 	bool isUpdateFinished = false;
@@ -45,7 +44,7 @@ public:
 	void Resume();
 	void ClearParticles(); // Remove all particles from simulator
 	const std::vector<Particle*>& GetParticles() const;
-	bool isUpdated();
+	bool isUpdated() const;
 
 
 };
