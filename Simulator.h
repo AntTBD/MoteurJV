@@ -3,16 +3,16 @@
 #include <thread>
 #include "src/Physics/Particle.h"
 // forces
-#include "ParticleContactResolver.h"
+#include "src/Physic/Contacts/ParticleContactResolver.h"
 #include "src/Physic/Forces/ParticleForceRegistry.h"
 #include "src/Physic/Forces/ParticleGravity.h"
 #include "src/Physic/Forces/ParticleSpring.h"
 // contacts
-#include "ParticleContactRegistry.h"
-#include "NaiveParticleContactGenerator.h"
-#include "GroundContactGenerator.h"
-#include "ParticleCable.h"
-#include "ParticleRod.h"
+#include "src/Physic/Contacts/ParticleContactRegistry.h"
+#include "src/Physic/Contacts/NaiveParticleContactGenerator.h"
+#include "src/Physic/Contacts/GroundContactGenerator.h"
+#include "src/Physic/Contacts/ParticleCable.h"
+#include "src/Physic/Contacts/ParticleRod.h"
 
 /// <summary>
 /// Our World with multiple particles

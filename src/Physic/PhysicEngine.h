@@ -8,11 +8,11 @@
 #include "Forces/ParticleGravity.h"
 #include "Forces/ParticleSpring.h"
 // contacts
-#include "../../ParticleContactRegistry.h"
-#include "../../NaiveParticleContactGenerator.h"
-#include "../../GroundContactGenerator.h"
-#include "../../ParticleCable.h"
-#include "../../ParticleRod.h"
+#include "Contacts/ParticleContactRegistry.h"
+#include "Contacts/NaiveParticleContactGenerator.h"
+#include "Contacts/GroundContactGenerator.h"
+#include "Contacts/ParticleCable.h"
+#include "Contacts/ParticleRod.h"
 // include threads
 #include <thread>
 
