@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Vector3.h"
-#include "Quaternion.h"
-#include "Matrix34.h"
+#include "src/Math/Vector3.h"
+#include "src/Math/Quaternion.h"
+#include "src/Math/Matrix34.h"
 
 class RigidBody
 {

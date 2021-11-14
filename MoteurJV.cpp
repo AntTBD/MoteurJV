@@ -3,12 +3,12 @@
 #include <thread>
 #include <vector>
 #include "Particle.h"
-#include "Vector3.h"
+#include "src/Math/Vector3.h"
 #include "GUI.h"
 #include "Simulator.h"
-#include "Matrix33.h"
-#include "Matrix34.h"
-#include "Quaternion.h"
+#include "src/Math/Matrix33.h"
+#include "src/Math/Matrix34.h"
+#include "src/Math/Quaternion.h"
 
 #include "src/EngineManager.h"
 

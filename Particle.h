@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <sstream>
-#include "Vector3.h"
+#include "src/Math/Vector3.h"
 
 class Particle
 {
