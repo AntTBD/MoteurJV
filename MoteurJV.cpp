@@ -6,7 +6,9 @@
 #include "Vector3.h"
 #include "GUI.h"
 #include "Simulator.h"
-//#include "Quaternion.h"
+#include "Matrix33.h"
+#include "Matrix34.h"
+#include "Quaternion.h"
 
 /// <summary>
 /// Thread for 3D user interface face manager
@@ -24,17 +26,18 @@ void UI(Simulator* sim)
 
 int main(int, char**)
 {
-    Simulator sim;
-    std::thread threadUI(UI, &sim);     // spawn new ui thread
+    //Simulator sim;
+    //std::thread threadUI(UI, &sim);     // spawn new ui thread
 
-    //Quaternion q = Quaternion(1, 2, 3, 4);
-    //std::cout << q.GetW() << ", " << q.GetI() << ", " << q.GetJ() << ", " << q.GetK() << std::endl;
-    //float val[] = { 5,6,7,8 };
-    //Quaternion q2 = Quaternion(val);
-    //std::cout << q2.GetW() << ", " << q2.GetI() << ", " << q2.GetJ() << ", " << q2.GetK() << std::endl;
+    float values[12] = { 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f };
+    Matrix34 A = Matrix34(values);
+    Vector3 vec = Vector3(0.0f, 0.0f, 1.0f);
+    
+    std::cout << A.TransformPosition(vec) << std::endl;
+    std::cout << A.TransformDirection(vec) << std::endl;
 
     // synchronize threads:
-    threadUI.join();               // pauses until second finishes
+    //threadUI.join();               // pauses until second finishes
 
     return 0;
 }
