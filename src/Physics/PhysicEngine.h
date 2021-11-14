@@ -2,7 +2,7 @@
 #define PhysicEngine_H_
 #include "../ClassIncludes.h"
 
-#include "../../Particle.h"
+#include "Particle.h"
 // forces
 #include "../../ParticleForceRegistry.h"
 #include "../../ParticleGravity.h"

@@ -3,7 +3,7 @@
 #include "ClassIncludes.h"
 
 #include <vector>
-#include "../Particle.h"
+#include "Physics/Particle.h"
 #include "../Camera.h"
 #include "3DScene/OpenGLRendererManager.h"
 #include "Math/Vector3.h"

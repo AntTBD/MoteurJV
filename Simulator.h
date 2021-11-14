@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <thread>
-#include "Particle.h"
+#include "src/Physics/Particle.h"
 // forces
 #include "ParticleContactResolver.h"
 #include "ParticleForceRegistry.h"

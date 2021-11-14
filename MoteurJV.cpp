@@ -2,7 +2,7 @@
 #include <chrono>
 #include <thread>
 #include <vector>
-#include "Particle.h"
+#include "src/Physics/Particle.h"
 #include "src/Math/Vector3.h"
 #include "GUI.h"
 #include "Simulator.h"
