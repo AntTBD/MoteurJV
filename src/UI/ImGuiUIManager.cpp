@@ -80,7 +80,7 @@ void ImGuiUIManager::setStyle()
     ImFontConfig icons_config;
     icons_config.MergeMode = true;
     icons_config.PixelSnapH = true;
-    ImFont* font = io.Fonts->AddFontFromFileTTF( (std::string("../../fonts/") + FONT_ICON_FILE_NAME_FAS).c_str(), 10.0f, &icons_config, icons_ranges );
+    ImFont* font = io.Fonts->AddFontFromFileTTF( (std::string("./data/fonts/") + FONT_ICON_FILE_NAME_FAS).c_str(), 10.0f, &icons_config, icons_ranges );
     IM_ASSERT(font != NULL);
     // use FONT_ICON_FILE_NAME_FAR if you want regular instead of solid
 

@@ -140,3 +140,11 @@ elseif("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
         "${CMAKE_CURRENT_SOURCE_DIR}/include/imgui-${IMGUI_VERSION}/examples/libs/glfw/lib-vc2010-64"
     )
 endif()
+
+################################################################################
+# Copy data directory
+################################################################################
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E create_symlink
+        ${CMAKE_SOURCE_DIR}/data $<TARGET_FILE_DIR:${PROJECT_NAME}>/data)
+

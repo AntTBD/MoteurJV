@@ -5,7 +5,7 @@
 
 
 // https://github.com/juliettef/IconFontCppHeaders
-#include "../fonts/IconsFontAwesome5.h"
+#include "../data/fonts/IconsFontAwesome5.h"
 
 // Include ImGui with OpenGL and GLFW using custom loader glad
 // => add gladLoadGL() before ImGui_ImplOpenGL3_Init

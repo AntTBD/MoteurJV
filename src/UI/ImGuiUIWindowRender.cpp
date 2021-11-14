@@ -3,7 +3,7 @@
 ImGuiUIWindowRender::ImGuiUIWindowRender(bool show): ImGuiUIWindow(show)
 {
     //add shaders
-    //shader = new Shader("../../shaders/default.vert", "../../shaders/default.frag");
+    //this->shader = new Shader("./data/shaders/default.vert", "./data/shaders/default.frag");
 
 
     // first framebuffer configuration
@@ -19,7 +19,7 @@ ImGuiUIWindowRender::ImGuiUIWindowRender(bool show): ImGuiUIWindow(show)
 ImGuiUIWindowRender::~ImGuiUIWindowRender()
 {
     /// TODO: delete buffers
-    //delete shader;
+    //delete this->shader;
     glDeleteFramebuffers(1, &this->framebuffer);
     glDeleteTextures(1, &this->textureColorbuffer);
 }

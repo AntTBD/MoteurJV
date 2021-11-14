@@ -120,6 +120,7 @@
     <ClCompile Include="src\Physics\PhysicEngine.cpp" />
     <ClCompile Include="src\Debug\Debug.cpp" />
     <ClCompile Include="src\UI\ImGuiUIWindowConsole.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIWindowInspector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Simulator.h">
@@ -251,6 +252,7 @@
     <ClInclude Include="src\ClassIncludes.h" />
     <ClInclude Include="src\ImGuiIncludes.h" />
     <ClInclude Include="src\UI\ImGuiUIWindowConsole.h" />
+    <ClInclude Include="src\UI\ImGuiUIWindowInspector.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="UserInterface">

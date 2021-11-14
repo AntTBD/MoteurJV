@@ -226,6 +226,7 @@
     <ClCompile Include="src\UI\ImGuiUIWindow.cpp" />
     <ClCompile Include="src\UI\ImGuiUIWindowConfig.cpp" />
     <ClCompile Include="src\UI\ImGuiUIWindowConsole.cpp" />
+    <ClCompile Include="src\UI\ImGuiUIWindowInspector.cpp" />
     <ClCompile Include="src\UI\ImGuiUIWindowRegistry.cpp" />
     <ClCompile Include="src\UI\ImGuiUIWindowRender.cpp" />
     <ClCompile Include="src\UI\MainWindow.cpp" />
@@ -283,6 +284,7 @@
     <ClInclude Include="src\UI\ImGuiUIWindow.h" />
     <ClInclude Include="src\UI\ImGuiUIWindowConfig.h" />
     <ClInclude Include="src\UI\ImGuiUIWindowConsole.h" />
+    <ClInclude Include="src\UI\ImGuiUIWindowInspector.h" />
     <ClInclude Include="src\UI\ImGuiUIWindowRegistry.h" />
     <ClInclude Include="src\UI\ImGuiUIWindowRender.h" />
     <ClInclude Include="src\UI\MainWindow.h" />
