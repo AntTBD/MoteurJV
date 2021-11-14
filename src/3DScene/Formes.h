@@ -1,8 +1,8 @@
 #pragma once
 
-#include "includesUI.h"
+#include "../../includesUI.h"
 
-#include "src/Math/Vector3.h"
+#include "../Math/Vector3.h"
 // get pi
 #define _USE_MATH_DEFINES
 #include <math.h>

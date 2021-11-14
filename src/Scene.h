@@ -4,7 +4,7 @@
 
 #include <vector>
 #include "Physics/Particle.h"
-#include "../Camera.h"
+#include "3DScene/Camera.h"
 #include "3DScene/OpenGLRendererManager.h"
 #include "Math/Vector3.h"
 
