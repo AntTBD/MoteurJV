@@ -7,14 +7,15 @@ class Quaternion
 {
 private:
 	// w, i, j, k
-	float value[4];
+	//float value[4];
 
 	// union c++ exemple : https://stackoverflow.com/questions/6338645/named-structures-in-c-unions
-	/*union {
-		struct { float w, i, j, k; };
+	union {
+		struct { float  i, j, k, w; };
 		float value[4];
 	};
-	*/
+
+
 public:
 	Quaternion();
 	Quaternion(float i, float j, float k, float w);
@@ -48,6 +49,6 @@ public:
 	void UpdateByAngularVelocity(const Vector3& rotation, float duration);
 
 	// Convert Euler Vector3 to Quaternion
-	Quaternion EulerToQuaternion(const Vector3& vector);
+	Quaternion EulerToQuaternion(const Vector3& euler);
 };
 

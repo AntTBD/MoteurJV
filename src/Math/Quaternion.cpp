@@ -3,24 +3,24 @@
 // Constructors
 Quaternion::Quaternion()
 {
-	this->value[0] = this->value[1] = this->value[2] = 0; // i, j, k
-	this->value[3] = 1;  // w
+	this->i = this->j = this->k = 0; // i, j, k
+	this->w = 1;  // w
 }
 
 Quaternion::Quaternion(float i, float j, float k, float w)
 {
-	this->value[0] = i;
-	this->value[1] = j;
-	this->value[2] = k;
-	this->value[3] = w;
+	this->i = i;
+	this->j = j;
+	this->k = k;
+	this->w = w;
 }
 
 Quaternion::Quaternion(const Vector3& vector, float w)
 {
-	this->value[0] = vector.GetX();
-	this->value[1] = vector.GetY();
-	this->value[2] = vector.GetZ();
-	this->value[3] = w;
+	this->i = vector.GetX();
+	this->j = vector.GetY();
+	this->k = vector.GetZ();
+	this->w = w;
 
 }
 
@@ -33,10 +33,10 @@ Quaternion::~Quaternion()
 // Getters
 
 
-float Quaternion::GetI() const { return this->value[0]; }
-float Quaternion::GetJ() const { return this->value[1]; }
-float Quaternion::GetK() const { return this->value[2]; }
-float Quaternion::GetW() const { return this->value[3]; }
+float Quaternion::GetI() const { return this->i; }
+float Quaternion::GetJ() const { return this->j; }
+float Quaternion::GetK() const { return this->k; }
+float Quaternion::GetW() const { return this->w; }
 
 
 // Setters
@@ -48,22 +48,22 @@ void Quaternion::Set(float value[4])
 
 void Quaternion::SetI(float i)
 {
-	this->value[0] = i;
+	this->i = i;
 }
 
 void Quaternion::SetJ(float j)
 {
-	this->value[1] = j;
+	this->j = j;
 }
 
 void Quaternion::SetK(float k)
 {
-	this->value[2] = k;
+	this->k = k;
 }
 
 void Quaternion::SetW(float w)
 {
-	this->value[3] = w;
+	this->w = w;
 }
 
 
@@ -98,9 +98,21 @@ void Quaternion::UpdateByAngularVelocity(const Vector3& rotation, float duration
 }
 
 // Convert Euler Vector3 to Quaternion
-Quaternion Quaternion::EulerToQuaternion(const Vector3& vector)
+Quaternion Quaternion::EulerToQuaternion(const Vector3& euler)
 {
-	return Quaternion();
+	float c1 = cos(euler.GetZ() * 0.5);
+	float c2 = cos(euler.GetY() * 0.5);
+	float c3 = cos(euler.GetX() * 0.5);
+	float s1 = sin(euler.GetZ() * 0.5);
+	float s2 = sin(euler.GetY() * 0.5);
+	float s3 = sin(euler.GetX() * 0.5);
+
+
+	return Quaternion(c1 * c2 * s3 - s1 * s2 * c3,
+					  c1 * s2 * c3 + s1 * c2 * s3,
+					  s1 * c2 * c3 - c1 * s2 * s3,
+					  c1 * c2 * c3 + s1 * s2 * s3);
+
 }
 
 
