@@ -33,6 +33,9 @@ public:
 	// Assign operator
 	float* operator[](int index);
 
+	// Transform a position
+	Vector3 TransformPosition(const Vector3& vector);
+
 	// Get the Transpose matrix
 	Matrix33 Transpose();
 

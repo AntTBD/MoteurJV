@@ -220,5 +220,9 @@ Vector3 Matrix34::TransformPosition(const Vector3& vector)
 
 Vector3 Matrix34::TransformDirection(const Vector3& vector)
 {
-	return this->GetMatrix33() * vector;
+	Vector3 result = Vector3(values[0] * vector.GetX() + values[1] * vector.GetY() + values[2] * vector.GetZ(),
+		values[4] * vector.GetX() + values[5] * vector.GetY() + values[6] * vector.GetZ(),
+		values[8] * vector.GetX() + values[9] * vector.GetY() + values[10] * vector.GetZ());
+
+	return result;
 }

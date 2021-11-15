@@ -140,6 +140,11 @@ Matrix33 operator*(const float value, const Matrix33& mat)
 	return mat * value;
 }
 
+Vector3 Matrix33::TransformPosition(const Vector3& vector)
+{
+	return *this * vector;
+}
+
 Matrix33 Matrix33::Transpose()
 {
 	float matrixTValues[9];

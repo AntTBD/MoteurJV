@@ -13,14 +13,18 @@
 int main(int, char**)
 {
     // Engine
-    EngineManager::getInstance().run();
+    //EngineManager::getInstance().run();
 
-    float values[12] = { 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f };
-    Matrix34 A = Matrix34(values);
-    Vector3 vec = Vector3(0.0f, 0.0f, 1.0f);
-    
-    std::cout << A.TransformPosition(vec) << std::endl;
+    float values12[12] = { 1.0f, 2.0f, 3.0f, 10.0f, 4.0f, 5.0f, 6.0f, 10.0f, 7.0f, 8.0f, 9.0f, 10.0f };
+    float values9[9] = { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f };
+    Matrix34 A = Matrix34(values12);
+    Matrix33 B = Matrix33(values9);
+    Vector3 vec = Vector3(2.0f, 4.0f, 7.0f);
+    std::cout << A << std::endl;
+    std::cout << B << std::endl;
+
     std::cout << A.TransformDirection(vec) << std::endl;
+    std::cout << B.TransformPosition(vec) << std::endl;
 
 
     return 0;
