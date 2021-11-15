@@ -19,6 +19,7 @@ public:
 
     void ShowPlaceholderObject(const char* prefix, int uid);
     Vector3 ShowVector3PlaceHolder(Vector3 vector3, int uid, const char* type);
+    float ShowVector3PlaceHolder(float val, int uid, const char* type);
 };
 
 #endif // ImGuiUIWindowInspector_H_
