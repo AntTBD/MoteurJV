@@ -50,8 +50,7 @@ float* Matrix33::Get() const
 
 float Matrix33::Get(int index) const
 {
-	float valueCopy = this->values[index];
-	return valueCopy;
+	return this->values[index];
 }
 
 void Matrix33::Set(float value[9])
@@ -86,8 +85,7 @@ Matrix33 Matrix33::operator*(const Matrix33& other) const
 	result[6] = values[6] * otherValue[0] + values[7] * otherValue[3] + values[8] * otherValue[6];
 	result[7] = values[6] * otherValue[1] + values[7] * otherValue[4] + values[8] * otherValue[7];
 	result[8] = values[6] * otherValue[2] + values[7] * otherValue[5] + values[8] * otherValue[8];
-	Matrix33 resultMatrix = Matrix33(result);
-	return resultMatrix;
+	return { Matrix33(result) };
 }
 
 Vector3 Matrix33::operator*(const Vector3& vector) const
@@ -134,8 +132,7 @@ Matrix33 operator*(const Matrix33& mat, const float value)
 	{
 		result[i] = matValue[i] * value;
 	}
-	Matrix33 resultM = Matrix33(result);
-	return resultM;
+	return { Matrix33(result) };
 }
 
 Matrix33 operator*(const float value, const Matrix33& mat)
@@ -155,10 +152,8 @@ Matrix33 Matrix33::Transpose()
 	matrixTValues[6] = values[2];
 	matrixTValues[7] = values[5];
 	matrixTValues[8] = values[8];
-	
-	Matrix33 matrixT = Matrix33(matrixTValues);
 
-	return matrixT;
+	return { Matrix33(matrixTValues) };
 }
 
 Matrix33 Matrix33::Inverse()
@@ -182,10 +177,7 @@ Matrix33 Matrix33::Inverse()
 	
 	Matrix33 intermediateMatrix = Matrix33(intermediateValue);
 
-	Matrix33 invMatrix;
-	invMatrix = 1 / detM * intermediateMatrix;
-
-	return invMatrix;
+	return { 1 / detM * intermediateMatrix };
 }
 
 void Matrix33::SetOrientation(const Quaternion& q)

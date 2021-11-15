@@ -85,7 +85,7 @@ Quaternion Quaternion::operator*(const Quaternion& other)
 }
 
 
-// Rotate the quaternion by a vector - multiply this by q = (0, dx, dy, dz)
+// Rotate the quaternion by a vector : multiply this by q = (0, dx, dy, dz)
 void Quaternion::RotateByVector(const Vector3& vector)
 {
 

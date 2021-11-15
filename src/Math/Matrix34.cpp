@@ -69,8 +69,7 @@ float* Matrix34::Get() const
 
 float Matrix34::Get(int index) const
 {
-	float valueCopy = this->values[index];
-	return valueCopy;
+	return this->values[index];
 }
 
 Matrix33 Matrix34::GetMatrix33() const
@@ -86,12 +85,12 @@ Matrix33 Matrix34::GetMatrix33() const
 		}
 	}
 
-	return Matrix33(valuesCopy);
+	return { valuesCopy };
 }
 
 Vector3 Matrix34::GetVector() const
 {
-	return Vector3(this->Get(3), this->Get(7), this->Get(11));
+	return { this->Get(3), this->Get(7), this->Get(11) };
 }
 
 void Matrix34::Set(float value[12])
@@ -129,8 +128,7 @@ Matrix34 Matrix34::operator*(const Matrix34& other) const
 	result[9] = values[8] * otherValue[1] + values[9] * otherValue[5] + values[10] * otherValue[9];
 	result[10] = values[8] * otherValue[2] + values[9] * otherValue[6] + values[10] * otherValue[10];
 	result[11] = values[8] * otherValue[3] + values[9] * otherValue[7] + values[10] * otherValue[11] + values[11];
-	Matrix34 resultMatrix = Matrix34(result);
-	return resultMatrix;
+	return { result };
 }
 
 Vector3 Matrix34::operator*(const Vector3& vector) const
@@ -178,8 +176,7 @@ Matrix34 operator*(const Matrix34& mat, const float value)
 	{
 		result[i] = matValue[i] * value;
 	}
-	Matrix34 resultM = Matrix34(result);
-	return resultM;
+	return  { result };
 }
 
 Matrix34 operator*(const float value, const Matrix34& mat)
@@ -192,7 +189,7 @@ Matrix34 Matrix34::Inverse()
 	Matrix33 matrix33inv = this->GetMatrix33().Inverse();
 	Vector3 vec3 = -1*matrix33inv * this->GetVector();
 
-	return Matrix34(matrix33inv, vec3);
+	return { matrix33inv, vec3 };
 }
 
 void Matrix34::SetOrientationAndPosition(const Quaternion& q, const Vector3& p)
