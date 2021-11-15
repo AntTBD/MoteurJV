@@ -78,10 +78,10 @@ void Quaternion::Normalized()
 // Quaternion multiplication
 Quaternion Quaternion::operator*(const Quaternion& other)
 {
-	return Quaternion(	GetJ() * other.GetK() - GetK() * other.GetJ() + GetI() * other.GetW() + GetW() * other.GetI(),
+	return {	GetJ() * other.GetK() - GetK() * other.GetJ() + GetI() * other.GetW() + GetW() * other.GetI(),
 						GetK() * other.GetI() - GetI() * other.GetK() + GetJ() * other.GetW() + GetW() * other.GetJ(),
 						GetI() * other.GetJ() - GetJ() * other.GetI() + GetK() * other.GetW() + GetW() * other.GetK(),
-						GetW() * other.GetW() - GetI() * other.GetI() - GetJ() * other.GetJ() - GetK() * other.GetK()	);
+						GetW() * other.GetW() - GetI() * other.GetI() - GetJ() * other.GetJ() - GetK() * other.GetK()	};
 }
 
 
@@ -100,18 +100,18 @@ void Quaternion::UpdateByAngularVelocity(const Vector3& rotation, float duration
 // Convert Euler Vector3 to Quaternion
 Quaternion Quaternion::EulerToQuaternion(const Vector3& euler)
 {
-	float c1 = cos(euler.GetZ() * 0.5);
-	float c2 = cos(euler.GetY() * 0.5);
-	float c3 = cos(euler.GetX() * 0.5);
-	float s1 = sin(euler.GetZ() * 0.5);
-	float s2 = sin(euler.GetY() * 0.5);
-	float s3 = sin(euler.GetX() * 0.5);
+	float c1 = cos(euler.GetZ() * 0.5f);
+	float c2 = cos(euler.GetY() * 0.5f);
+	float c3 = cos(euler.GetX() * 0.5f);
+	float s1 = sin(euler.GetZ() * 0.5f);
+	float s2 = sin(euler.GetY() * 0.5f);
+	float s3 = sin(euler.GetX() * 0.5f);
 
 
-	return Quaternion(c1 * c2 * s3 - s1 * s2 * c3,
+	return {c1 * c2 * s3 - s1 * s2 * c3,
 					  c1 * s2 * c3 + s1 * c2 * s3,
 					  s1 * c2 * c3 - c1 * s2 * s3,
-					  c1 * c2 * c3 + s1 * s2 * s3);
+					  c1 * c2 * c3 + s1 * s2 * s3};
 
 }
 
