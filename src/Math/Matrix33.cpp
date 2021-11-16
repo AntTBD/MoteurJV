@@ -3,80 +3,75 @@
 // Constructor
 Matrix33::Matrix33()
 {
+	this->values = std::vector<float>(9);
 	for (int i = 0; i < 9; i++)
 	{
 		this->values[i] = 0;
 	}
 }
 
-Matrix33::Matrix33(float value[9])
+Matrix33::Matrix33(std::vector<float> value)
 {
+	this->values = std::vector<float>(9);
+	for (int i = 0; i < 9; i++)
+	{
+		this->values[i] = 0;
+	}
+
+	assert(value.size() == 9 && "Size != 9");
+	this->values = std::vector<float>(9);
 	for (int i = 0; i < 9; i++)
 	{
 		this->values[i] = value[i];
 	}
 }
 
-Matrix33::Matrix33(float _l1[3], float _l2[3], float _l3[3])
-{
-	for (int i = 0; i < 3; i++)
-	{
-		this->l1[i] = _l1[i];
-		this->l2[i] = _l2[i];
-		this->l3[i] = _l3[i];
-	}
-}
-
 Matrix33::Matrix33(const Matrix33& matrix33)
 {
-	float* otherValue = matrix33.Get();
-	for (int i = 0; i < 9; i++)
-	{
-		this->values[i] = otherValue[i];
-	}
+	this->values = matrix33.Get();
+
+}
+
+Matrix33::~Matrix33()
+{
+
 }
 
 // Getter / Setter
-float* Matrix33::Get() const
+std::vector<float> Matrix33::Get() const
 {
-	float valuesCopy[9];
-	for (int i = 0; i < 9; i++)
-	{
-		valuesCopy[i] = this->values[i];
-	}
+	std::vector<float> valuesCopy(this->values);
 
 	return valuesCopy;
 }
 
 float Matrix33::Get(int index) const
 {
-	float valueCopy = this->values[index];
-	return valueCopy;
+	return this->values[index];
 }
 
-void Matrix33::Set(float value[9])
+void Matrix33::Set(std::vector<float> value)
 {
-	for (int i = 0; i < 9; i++)
-	{
-		this->values[i] = value[i];
-	}
+	assert(value.size() == 9 && "Size != 9");
+	this->values = value;
 }
 
 // operators
 Matrix33& Matrix33::operator=(const Matrix33& other)
 {
-	float* otherValue = other.Get();
+	std::vector<float> value = other.Get();
 	for (int i = 0; i < 9; i++)
 	{
-		this->values[i] = otherValue[i];
+		this->values[i] = value[i];
 	}
 	return *this;
 }
 
 Matrix33 Matrix33::operator*(const Matrix33& other) const
 {
-	float result[9];
-	float* otherValue = other.Get();
+	std::vector<float> result;
+	std::vector<float> otherValue = other.Get();
+
 	result[0] = values[0] * otherValue[0] + values[1] * otherValue[3] + values[2] * otherValue[6];
 	result[1] = values[0] * otherValue[1] + values[1] * otherValue[4] + values[2] * otherValue[7];
 	result[2] = values[0] * otherValue[2] + values[1] * otherValue[5] + values[2] * otherValue[8];
@@ -86,8 +81,7 @@ Matrix33 Matrix33::operator*(const Matrix33& other) const
 	result[6] = values[6] * otherValue[0] + values[7] * otherValue[3] + values[8] * otherValue[6];
 	result[7] = values[6] * otherValue[1] + values[7] * otherValue[4] + values[8] * otherValue[7];
 	result[8] = values[6] * otherValue[2] + values[7] * otherValue[5] + values[8] * otherValue[8];
-	Matrix33 resultMatrix = Matrix33(result);
-	return resultMatrix;
+	return { result };
 }
 
 Vector3 Matrix33::operator*(const Vector3& vector) const
@@ -99,26 +93,29 @@ Vector3 Matrix33::operator*(const Vector3& vector) const
 	return result;
 }
 
-float* Matrix33::operator[](int index)
+std::vector<float> Matrix33::operator[](int index)
 {
 	if (index == 0)
 	{
-		return l1;
+		std::vector<float> v = { this->values[0], this->values[1], this->values[2] };
+		return v;
 	}
 	else if (index == 1)
 	{
-		return l2;
+		std::vector<float> v = { this->values[3], this->values[4], this->values[5] };
+		return v;
 	}
 	else if (index == 2)
 	{
-		return l3;
+		std::vector<float> v = { this->values[6], this->values[7], this->values[8] };
+		return v;
 	}
 }
 
 // << operator
 std::ostream& operator<< (std::ostream& os, const Matrix33& matrix33)
 {
-	float* values =  matrix33.Get();
+	std::vector<float> values =  matrix33.Get();
 	os << "{" << values[0] << ", " << values[1] << ", " << values[2] << std::endl
 		<< " " << values[3] << ", " << values[4] << ", " << values[5] << std::endl
 		<< " " << values[6] << ", " << values[7] << ", " << values[8] << "}" << std::endl;
@@ -128,14 +125,13 @@ std::ostream& operator<< (std::ostream& os, const Matrix33& matrix33)
 // product with a value
 Matrix33 operator*(const Matrix33& mat, const float value)
 {
-	float result[9];
-	float* matValue = mat.Get();
+	std::vector<float> result;
+	std::vector<float> matValue = mat.Get();
 	for (int i = 0; i < 9; i++)
 	{
 		result[i] = matValue[i] * value;
 	}
-	Matrix33 resultM = Matrix33(result);
-	return resultM;
+	return { result };
 }
 
 Matrix33 operator*(const float value, const Matrix33& mat)
@@ -143,9 +139,14 @@ Matrix33 operator*(const float value, const Matrix33& mat)
 	return mat * value;
 }
 
+Vector3 Matrix33::TransformPosition(const Vector3& vector)
+{
+	return *this * vector;
+}
+
 Matrix33 Matrix33::Transpose()
 {
-	float matrixTValues[9];
+	std::vector<float> matrixTValues;
 	matrixTValues[0] = values[0];
 	matrixTValues[1] = values[3];
 	matrixTValues[2] = values[6];
@@ -155,10 +156,8 @@ Matrix33 Matrix33::Transpose()
 	matrixTValues[6] = values[2];
 	matrixTValues[7] = values[5];
 	matrixTValues[8] = values[8];
-	
-	Matrix33 matrixT = Matrix33(matrixTValues);
 
-	return matrixT;
+	return { matrixTValues };
 }
 
 Matrix33 Matrix33::Inverse()
@@ -169,7 +168,7 @@ Matrix33 Matrix33::Inverse()
 				- values[0] * values[7] * values[5]
 				- values[6] * values[4] * values[2]
 				- values[3] * values[1] * values[8];
-	float intermediateValue[9];
+	std::vector<float> intermediateValue;
 	intermediateValue[0] = values[4] * values[8] - values[5] * values[7];
 	intermediateValue[1] = values[2] * values[7] - values[1] * values[8];
 	intermediateValue[2] = values[1] * values[5] - values[2] * values[4];
@@ -182,10 +181,7 @@ Matrix33 Matrix33::Inverse()
 	
 	Matrix33 intermediateMatrix = Matrix33(intermediateValue);
 
-	Matrix33 invMatrix;
-	invMatrix = 1 / detM * intermediateMatrix;
-
-	return invMatrix;
+	return { 1 / detM * intermediateMatrix };
 }
 
 void Matrix33::SetOrientation(const Quaternion& q)

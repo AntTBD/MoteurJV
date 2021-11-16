@@ -3,32 +3,28 @@
 #include "Vector3.h"
 #include "Quaternion.h"
 #include "Matrix33.h"
+#include <vector>
+#include <assert.h>
 
 class Matrix34
 {
 private:
 	// value of the Matrix 3X4
-	//float values[12];
-
-	union {
-		struct { float l1[4], l2[4], l3[4]; };
-		float values[12];
-	};
+	std::vector<float> values;
 
 public:
 	Matrix34();
-	Matrix34(float value[12]);
-	Matrix34(float _l1[4], float _l2[4], float _l3[4]);
+	Matrix34(std::vector<float> value);
 	Matrix34(const Matrix34& matrix34);
 	Matrix34(const Matrix33& matrix33, const Vector3& vec);
 	~Matrix34() = default;
 
-	float* Get() const;
+	std::vector<float> Get() const;
 	float Get(int index) const;
 	Matrix33 GetMatrix33() const;
 	Vector3 GetVector() const;
 
-	void Set(float value[12]);
+	void Set(std::vector<float> value);
 
 	Matrix34& operator=(const Matrix34& other);
 
@@ -39,7 +35,7 @@ public:
 	Vector3 operator*(const Vector3& vector) const;
 
 	// Assign operator
-	float* operator[](int index);
+	std::vector<float> operator[](int index);
 
 	// Get the Inverse matrix
 	Matrix34 Inverse();
