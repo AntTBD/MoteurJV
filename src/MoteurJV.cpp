@@ -20,8 +20,10 @@ int main(int, char**)
     Vector3 vec = Vector3(0.0f, 0.0f, 1.0f);
     
     Quaternion test = Quaternion(1.0f, 1.0f, 1.0f, 0.0f);
-
-    std::cout<<test.RotateByVector(vec) << std::endl;
+    
+    //test.RotateByVector(vec);
+    test.UpdateByAngularVelocity(vec, 5);
+    std::cout<< test << std::endl;
 
     //std::cout << A.TransformPosition(vec) << std::endl;
     

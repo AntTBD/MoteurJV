@@ -45,14 +45,17 @@ public:
 
 
 	// Quaternion multiplication
-	Quaternion operator*(const Quaternion& other);
+	Quaternion operator*(const Quaternion& other) const;
 	Quaternion& operator*=(const Quaternion& other);
+
+	Quaternion& operator*=(float val);
+
 
 
 	Quaternion operator*(float duration) const;
 
 	// Rotate the quaternion by a vector - multiply this by q = (0, dx, dy, dz)
-	Quaternion& RotateByVector(const Vector3& vector);
+	void RotateByVector(const Vector3& vector);
 
 	// Apply the quaternion update by the angular velocity
 	void UpdateByAngularVelocity(const Vector3& rotation, float duration);

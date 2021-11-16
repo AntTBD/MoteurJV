@@ -1,5 +1,6 @@
 #include "Quaternion.h"
 
+
 // Constructors
 Quaternion::Quaternion()
 {
@@ -88,6 +89,8 @@ Quaternion Quaternion::operator+(const Quaternion& other) const
 						  GetJ() + other.GetJ(),
 					      GetK() + other.GetK(),
 					      GetW() + other.GetW()    );
+
+	
 }
 
 Quaternion& Quaternion::operator+=(const Quaternion& other)
@@ -97,7 +100,7 @@ Quaternion& Quaternion::operator+=(const Quaternion& other)
 }
 
 // Quaternion multiplication
-Quaternion Quaternion::operator*(const Quaternion& other)
+Quaternion Quaternion::operator*(const Quaternion& other) const
 {
 	return {			GetJ() * other.GetK() - GetK() * other.GetJ() + GetI() * other.GetW() + GetW() * other.GetI(),
 						GetK() * other.GetI() - GetI() * other.GetK() + GetJ() * other.GetW() + GetW() * other.GetJ(),
@@ -108,9 +111,10 @@ Quaternion Quaternion::operator*(const Quaternion& other)
 Quaternion& Quaternion::operator*=(const Quaternion& other)
 {
 	*this = *this * other;
-
-	return *this;
+	return  *this;
 }
+
+
 
 Quaternion Quaternion::operator*(float duration) const
 {
@@ -120,20 +124,29 @@ Quaternion Quaternion::operator*(float duration) const
 					   GetW() * duration    );
 }
 
+Quaternion& Quaternion::operator*=(float val) 
+{
+	*this = *this * val;
+	return *this;
+}
+
 
 // Rotate the quaternion by a vector - multiply this by q = (dx, dy, dz, 0)
- Quaternion& Quaternion::RotateByVector(const Vector3& vector)
+ void Quaternion::RotateByVector(const Vector3& vector)
 {
-	Quaternion vector_bis = Quaternion(vector.GetX(), vector.GetY(), vector.GetZ(), 0);
+	Quaternion vector_bis = Quaternion(vector, 0);
 
 	*this *= vector_bis;
-	return *this;
+	
 }
 
 // Apply the quaternion update by the angular velocity
 void Quaternion::UpdateByAngularVelocity(const Vector3& rotation, float duration)
 {
-	*this += RotateByVector(rotation) * duration;
+	Quaternion temp = *this;
+	this->RotateByVector(rotation);
+	*this *= duration ;
+	*this += temp;
 
 }
 
@@ -148,10 +161,11 @@ Quaternion Quaternion::EulerToQuaternion(const Vector3& euler)
 	float s3 = sin(euler.GetX() * 0.5f);
 
 
-	return {c1 * c2 * s3 - s1 * s2 * c3,
+	return {		  c1 * c2 * s3 - s1 * s2 * c3,
 					  c1 * s2 * c3 + s1 * c2 * s3,
 					  s1 * c2 * c3 - c1 * s2 * s3,
-					  c1 * c2 * c3 + s1 * s2 * s3};
+					  c1 * c2 * c3 + s1 * s2 * s3       };
+
 
 }
 
@@ -161,6 +175,7 @@ std::string Quaternion::toString() const
 	stream << *this;
 	return stream.str();
 }
+
 
 std::ostream& operator<<(std::ostream& os, const Quaternion& quaternion)
 {
