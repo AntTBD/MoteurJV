@@ -13,15 +13,26 @@
 int main(int, char**)
 {
 
-    Vector3 vec = Vector3(0.0f, 0.0f, 1.0f);
+    Vector3 vec = Vector3(0.0f, -1.0f, 0.0f);
 
-    Quaternion testQuaternion(1.0f, 1.0f, 1.0f, 0.0f);
+    Quaternion testQuaternion(vec,0);
     
     //test.RotateByVector(vec);
-    testQuaternion.UpdateByAngularVelocity(vec, 5);
+    testQuaternion.RotateByVector(vec);
     std::cout<< testQuaternion << std::endl;
 
-    std::cout<< testQuaternion.EulerToQuaternion(vec) << std::endl;
+
+
+
+
+
+
+    //std::cout<< testQuaternion.EulerToQuaternion(vec) << std::endl;
+
+
+
+
+
 
     std::cout<< "--------------------------------" << std::endl;
   

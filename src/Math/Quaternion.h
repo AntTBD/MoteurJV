@@ -41,24 +41,24 @@ public:
 	void SetK(float k);
 
 
+	
+// Operators
+    Quaternion& operator=(const Quaternion& other);
+	Quaternion operator+(const Quaternion& other) const;
+	Quaternion& operator+=(const Quaternion& other);
+	Quaternion operator*(const Quaternion& other) const;
+	Quaternion& operator*=(const Quaternion& other);
+	Quaternion& operator*=(float val);
+	Quaternion operator*(float duration) const;
+
+
+
+
+
 	// normalize by multipling the quaternion by the inverse of its magnitude
 	void Normalized();
 
-    Quaternion& operator=(const Quaternion& other);
-
-	Quaternion operator+(const Quaternion& other) const;
-	Quaternion& operator+=(const Quaternion& other);
-
-
-	// Quaternion multiplication
-	Quaternion operator*(const Quaternion& other) const;
-	Quaternion& operator*=(const Quaternion& other);
-
-	Quaternion& operator*=(float val);
-
-
-
-	Quaternion operator*(float duration) const;
+	Quaternion conjugate() const;
 
 	// Rotate the quaternion by a vector - multiply this by q = (0, dx, dy, dz)
 	void RotateByVector(const Vector3& vector);
