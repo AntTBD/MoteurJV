@@ -19,12 +19,12 @@ private:
 public:
 	Quaternion();
 	Quaternion(float i, float j, float k, float w);
-	Quaternion(float value[4]);
+	//Quaternion(float value[4]);
 	Quaternion(const Vector3& vector, float w);
-	Quaternion(const Quaternion& quaternion);
+	//Quaternion(const Quaternion& quaternion);
 	~Quaternion();
 
-	float* Get() const; // return tab[4] ???
+	//float* Get() const; // return tab[4] ???
 	float GetI() const;
 	float GetJ() const;
 	float GetK() const;

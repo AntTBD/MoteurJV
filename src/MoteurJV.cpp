@@ -13,7 +13,7 @@
 int main(int, char**)
 {
     // Engine
-    EngineManager::getInstance().run();
+    //EngineManager::getInstance().run();
 
     float values[12] = { 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f };
     Matrix34 A = Matrix34(values);

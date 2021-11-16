@@ -24,9 +24,9 @@ Quaternion::Quaternion(const Vector3& vector, float w)
 
 }
 
+
 Quaternion::~Quaternion()
 {
-	delete[] value;
 }
 
 
