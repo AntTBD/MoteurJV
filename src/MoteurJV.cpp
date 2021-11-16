@@ -19,9 +19,15 @@ int main(int, char**)
     Matrix34 A = Matrix34(values);
     Vector3 vec = Vector3(0.0f, 0.0f, 1.0f);
     
-    std::cout << A.TransformPosition(vec) << std::endl;
-    std::cout << A.TransformDirection(vec) << std::endl;
+    Quaternion test = Quaternion(1.0f, 1.0f, 1.0f, 0.0f);
 
+    std::cout<<test.RotateByVector(vec) << std::endl;
+
+    //std::cout << A.TransformPosition(vec) << std::endl;
+    
+    //std::cout << A.TransformPosition(vec) << std::endl;
+    //std::cout << A.TransformDirection(vec) << std::endl;
+    
 
     return 0;
 }

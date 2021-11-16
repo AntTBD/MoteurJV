@@ -72,28 +72,68 @@ void Quaternion::SetW(float w)
 // normalize by multipling the quaternion by the inverse of its magnitude
 void Quaternion::Normalized()
 {
+	float magnitude = float(sqrt(pow(this->i, 2) + pow(this->j, 2) + pow(this->k, 2) + pow(this->w, 2)));
+	//assert(magnitude != 0 && "Division par 0 ! : Quaternion::Normalized() : magnitude = 0");
 
+	this->i = this->i / magnitude;
+	this->j = this->j / magnitude;
+	this->k = this->k / magnitude;
+	this->w = this->w / magnitude;
+
+}
+
+Quaternion Quaternion::operator+(const Quaternion& other) const
+{
+	return Quaternion(    GetI() + other.GetI(),
+						  GetJ() + other.GetJ(),
+					      GetK() + other.GetK(),
+					      GetW() + other.GetW()    );
+}
+
+Quaternion& Quaternion::operator+=(const Quaternion& other)
+{
+	*this = *this + other;
+	return  *this;
 }
 
 // Quaternion multiplication
 Quaternion Quaternion::operator*(const Quaternion& other)
 {
-	return {	GetJ() * other.GetK() - GetK() * other.GetJ() + GetI() * other.GetW() + GetW() * other.GetI(),
+	return {			GetJ() * other.GetK() - GetK() * other.GetJ() + GetI() * other.GetW() + GetW() * other.GetI(),
 						GetK() * other.GetI() - GetI() * other.GetK() + GetJ() * other.GetW() + GetW() * other.GetJ(),
 						GetI() * other.GetJ() - GetJ() * other.GetI() + GetK() * other.GetW() + GetW() * other.GetK(),
 						GetW() * other.GetW() - GetI() * other.GetI() - GetJ() * other.GetJ() - GetK() * other.GetK()	};
 }
 
-
-// Rotate the quaternion by a vector - multiply this by q = (0, dx, dy, dz)
-void Quaternion::RotateByVector(const Vector3& vector)
+Quaternion& Quaternion::operator*=(const Quaternion& other)
 {
+	*this = *this * other;
 
+	return *this;
+}
+
+Quaternion Quaternion::operator*(float duration) const
+{
+	return Quaternion( GetI() * duration,
+					   GetJ() * duration,
+					   GetK() * duration,
+					   GetW() * duration    );
+}
+
+
+// Rotate the quaternion by a vector - multiply this by q = (dx, dy, dz, 0)
+ Quaternion& Quaternion::RotateByVector(const Vector3& vector)
+{
+	Quaternion vector_bis = Quaternion(vector.GetX(), vector.GetY(), vector.GetZ(), 0);
+
+	*this *= vector_bis;
+	return *this;
 }
 
 // Apply the quaternion update by the angular velocity
 void Quaternion::UpdateByAngularVelocity(const Vector3& rotation, float duration)
 {
+	*this += RotateByVector(rotation) * duration;
 
 }
 
@@ -115,6 +155,15 @@ Quaternion Quaternion::EulerToQuaternion(const Vector3& euler)
 
 }
 
+std::string Quaternion::toString() const
+{
+	std::stringstream stream;
+	stream << *this;
+	return stream.str();
+}
 
-
-
+std::ostream& operator<<(std::ostream& os, const Quaternion& quaternion)
+{
+	os << "(" << quaternion.GetI() << "," << quaternion.GetJ() << "," << quaternion.GetK() << "," << quaternion.GetW() << ")";
+	return os;
+}

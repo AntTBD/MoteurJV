@@ -39,16 +39,32 @@ public:
 	// normalize by multipling the quaternion by the inverse of its magnitude
 	void Normalized();
 
+
+	Quaternion operator+(const Quaternion& other) const;
+	Quaternion& operator+=(const Quaternion& other);
+
+
 	// Quaternion multiplication
 	Quaternion operator*(const Quaternion& other);
+	Quaternion& operator*=(const Quaternion& other);
+
+
+	Quaternion operator*(float duration) const;
 
 	// Rotate the quaternion by a vector - multiply this by q = (0, dx, dy, dz)
-	void RotateByVector(const Vector3& vector);
+	Quaternion& RotateByVector(const Vector3& vector);
 
 	// Apply the quaternion update by the angular velocity
 	void UpdateByAngularVelocity(const Vector3& rotation, float duration);
 
 	// Convert Euler Vector3 to Quaternion
 	Quaternion EulerToQuaternion(const Vector3& euler);
+
+
+
+
+	std::string toString() const;
+
+	friend std::ostream& operator<< (std::ostream& os, const Quaternion& quaternion);
 };
 
