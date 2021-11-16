@@ -7,23 +7,24 @@ class Quaternion
 {
 private:
 	// w, i, j, k
-	float value[4];
+	//float value[4];
 
 	// union c++ exemple : https://stackoverflow.com/questions/6338645/named-structures-in-c-unions
-	/*union {
-		struct { float w, i, j, k; };
+	union {
+		struct { float  i, j, k, w; };
 		float value[4];
 	};
-	*/
+
+
 public:
 	Quaternion();
 	Quaternion(float i, float j, float k, float w);
-	Quaternion(float value[4]);
+	//Quaternion(float value[4]);
 	Quaternion(const Vector3& vector, float w);
-	Quaternion(const Quaternion& quaternion);
+	//Quaternion(const Quaternion& quaternion);
 	~Quaternion();
 
-	float* Get() const; // return tab[4] ???
+	//float* Get() const; // return tab[4] ???
 	float GetI() const;
 	float GetJ() const;
 	float GetK() const;
@@ -38,8 +39,20 @@ public:
 	// normalize by multipling the quaternion by the inverse of its magnitude
 	void Normalized();
 
+
+	Quaternion operator+(const Quaternion& other) const;
+	Quaternion& operator+=(const Quaternion& other);
+
+
 	// Quaternion multiplication
-	Quaternion operator*(const Quaternion& other);
+	Quaternion operator*(const Quaternion& other) const;
+	Quaternion& operator*=(const Quaternion& other);
+
+	Quaternion& operator*=(float val);
+
+
+
+	Quaternion operator*(float duration) const;
 
 	// Rotate the quaternion by a vector - multiply this by q = (0, dx, dy, dz)
 	void RotateByVector(const Vector3& vector);
@@ -48,6 +61,13 @@ public:
 	void UpdateByAngularVelocity(const Vector3& rotation, float duration);
 
 	// Convert Euler Vector3 to Quaternion
-	Quaternion EulerToQuaternion(const Vector3& vector);
+	Quaternion EulerToQuaternion(const Vector3& euler);
+
+
+
+
+	std::string toString() const;
+
+	friend std::ostream& operator<< (std::ostream& os, const Quaternion& quaternion);
 };
 
