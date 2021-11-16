@@ -13,7 +13,7 @@ class ImGuiUIWindow
 {
 public:
     ImGuiUIWindow(bool show = true);
-	~ImGuiUIWindow();
+	virtual ~ImGuiUIWindow();
     virtual void update();
 
 protected:
