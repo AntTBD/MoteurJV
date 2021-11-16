@@ -2,25 +2,22 @@
 
 #include "Vector3.h"
 #include "Quaternion.h"
+#include <vector>
 
 class Matrix33
 {
 private:
 	// value of the Matrix 3X3
-	union {
-		struct { float l1[3], l2[3], l3[3]; };
-		float values[9];
-	};
+	std::vector<float> values;
 public:
 	Matrix33();
-	Matrix33(float value[9]);
-	Matrix33(float _l1[3], float _l2[3], float _l3[3]);
+	Matrix33(std::vector<float> value);
 	Matrix33(const Matrix33& matrix33);
-	~Matrix33() = default;
+	~Matrix33();
 
-	float* Get() const;
+	std::vector<float> Get() const;
 	float Get(int index) const;
-	void Set(float value[9]);
+	void Set(std::vector<float> value);
 
 	Matrix33& operator=(const Matrix33& other);
 
@@ -31,7 +28,7 @@ public:
 	Vector3 operator*(const Vector3& vector) const;
 
 	// Assign operator
-	float* operator[](int index);
+	std::vector<float> operator[](int index);
 
 	// Transform a position
 	Vector3 TransformPosition(const Vector3& vector);
