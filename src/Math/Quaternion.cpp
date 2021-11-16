@@ -131,8 +131,9 @@ Quaternion& Quaternion::operator*=(float val)
 }
 
 
-// Rotate the quaternion by a vector - multiply this by q = (dx, dy, dz, 0)
- void Quaternion::RotateByVector(const Vector3& vector)
+
+// Rotate the quaternion by a vector : multiply this by q = (0, dx, dy, dz)
+void Quaternion::RotateByVector(const Vector3& vector)
 {
 	Quaternion vector_bis = Quaternion(vector, 0);
 

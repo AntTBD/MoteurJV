@@ -74,13 +74,13 @@ Vector3& Vector3::operator*=(float value)
 
 Vector3 Vector3::operator/(float value) const
 {
-	assert(value != 0);
+	assert(value != 0 && "Vector3: Division by 0");
 	return Vector3(this->x / value, this->y / value, this->z / value);
 }
 
 Vector3& Vector3::operator/=(float value)
 {
-	assert(value != 0);
+	assert(value != 0 && "Vector3: Division by 0");
 	this->x /= value;
 	this->y /= value;
 	this->z /= value;

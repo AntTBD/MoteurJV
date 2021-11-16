@@ -24,6 +24,7 @@ ImGuiUIManager::ImGuiUIManager(MainWindow* mainWindow)
     /// TODO add docking
     //io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
     //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+    io.ConfigWindowsMoveFromTitleBarOnly = true;                // disable move window (just with title bar)
 
     this->setStyle();
 

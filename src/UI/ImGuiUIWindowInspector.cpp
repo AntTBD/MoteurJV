@@ -53,7 +53,7 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
 
         Vector3 objectPos = EngineManager::getInstance().getScene()->GetObject(uid)->GetPosition();
         Vector3 objectSpeed = EngineManager::getInstance().getScene()->GetObject(uid)->GetSpeed();
-
+        float objectMass = 1.f/EngineManager::getInstance().getScene()->GetObject(uid)->GetinvMass();
 
 
         ImGui::PushID(0); // Use field index as identifier.
@@ -74,6 +74,16 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
         ImGui::EndDisabled();
         ImGui::PopID();
 
+
+        ImGui::PushID(2); // Use field index as identifier.
+        //this->ShowVector3PlaceHolder(objectPos, uid, "Position");
+        float newValuesMass = this->ShowVector3PlaceHolder(objectMass, uid, "Mass");
+        newValuesMass==0 ? newValuesMass = 0.00000000001 : newValuesMass=newValuesMass; // hard code to avoide invMass = 1/0 = inf
+        if(newValuesMass != objectMass){
+            EngineManager::getInstance().getScene()->GetObject(uid)->SetInvMass(1.f/newValuesMass);
+        }
+        ImGui::PopID();
+
         ImGui::TreePop();
     }
     ImGui::PopID();
@@ -89,6 +99,8 @@ Vector3 ImGuiUIWindowInspector::ShowVector3PlaceHolder(Vector3 vector3, int uid,
     vx = vector3.GetX();
     vy = vector3.GetY();
     vz = vector3.GetZ();
+    
+    auto spacing = ImGui::GetStyle().ItemInnerSpacing.x;
 
     // Here we use a TreeNode to highlight on hover (we could use e.g. Selectable as well)
     ImGui::TableNextRow();
@@ -96,10 +108,10 @@ Vector3 ImGuiUIWindowInspector::ShowVector3PlaceHolder(Vector3 vector3, int uid,
     ImGui::AlignTextToFramePadding();
     ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_Bullet;
     ImGui::TreeNodeEx(type, flags, "%s", type);//_%d", uid);
+    ImGui::SameLine(0.0f, spacing);
+    this->HelpMarker("(x, y, z)");
 
     ImGui::TableSetColumnIndex(1);
-
-    auto spacing = ImGui::GetStyle().ItemInnerSpacing.x;
 
     ImGui::SetNextItemWidth(-FLT_MIN);
     ImGui::PushItemWidth((ImGui::GetColumnWidth(1)-2*spacing) / 3.f);
@@ -122,4 +134,29 @@ Vector3 ImGuiUIWindowInspector::ShowVector3PlaceHolder(Vector3 vector3, int uid,
     ImGui::NextColumn();
 
     return Vector3(vx, vy, vz);
+}
+
+float ImGuiUIWindowInspector::ShowVector3PlaceHolder(float val, int uid, const char* type)
+{
+    static float v = 0.0f;
+
+    v = val;
+
+    // Here we use a TreeNode to highlight on hover (we could use e.g. Selectable as well)
+    ImGui::TableNextRow();
+    ImGui::TableSetColumnIndex(0);
+    ImGui::AlignTextToFramePadding();
+    ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_Bullet;
+    ImGui::TreeNodeEx(type, flags, "%s", type);//_%d", uid);
+
+    ImGui::TableSetColumnIndex(1);
+
+    auto spacing = ImGui::GetStyle().ItemInnerSpacing.x;
+
+    ImGui::SetNextItemWidth(-FLT_MIN);
+    ImGui::DragFloat("##vx", &v, 0.1f);
+
+    ImGui::NextColumn();
+
+    return v;
 }

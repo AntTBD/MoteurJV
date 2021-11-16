@@ -24,11 +24,11 @@ EngineManager::EngineManager()
 
 EngineManager::~EngineManager()
 {
-    delete this->mainWindow;
     delete this->uiManager;
-    delete this->openGlRendererManager;
     delete this->inputManager;
     delete this->scene;
+    delete this->openGlRendererManager;
+    delete this->mainWindow;
 }
 
 void EngineManager::run()
