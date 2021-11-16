@@ -4,6 +4,7 @@
 #include "Quaternion.h"
 #include "Matrix33.h"
 #include <vector>
+#include <assert.h>
 
 class Matrix34
 {

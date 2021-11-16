@@ -3,6 +3,7 @@
 #include "Vector3.h"
 #include "Quaternion.h"
 #include <vector>
+#include <assert.h>
 
 class Matrix33
 {

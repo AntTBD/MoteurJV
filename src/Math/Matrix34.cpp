@@ -1,5 +1,4 @@
 #include "Matrix34.h"
-#include <assert.h>
 
 // Constructors
 Matrix34::Matrix34()

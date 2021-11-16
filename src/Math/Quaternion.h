@@ -1,6 +1,9 @@
 #pragma once
 
 #include "Vector3.h"
+#include <vector>
+#include <assert.h>
+#include <algorithm>
 
 
 class Quaternion
@@ -11,7 +14,8 @@ private:
 
 	// union c++ exemple : https://stackoverflow.com/questions/6338645/named-structures-in-c-unions
 	union {
-		struct { float  i, j, k, w; };
+		struct {float  i, j, k, w; };
+
 		float value[4];
 	};
 
@@ -19,17 +23,18 @@ private:
 public:
 	Quaternion();
 	Quaternion(float i, float j, float k, float w);
-	//Quaternion(float value[4]);
+	Quaternion(std::vector<float> value);
+    Quaternion(float value[4]);
 	Quaternion(const Vector3& vector, float w);
-	//Quaternion(const Quaternion& quaternion);
+	Quaternion(const Quaternion& quaternion);
 	~Quaternion();
 
-	//float* Get() const; // return tab[4] ???
+	std::vector<float> Get() const; // return tab[4] ???
 	float GetI() const;
 	float GetJ() const;
 	float GetK() const;
 	float GetW() const;
-	void Set(float value[4]);
+	void Set(std::vector<float> value);
 	void SetW(float w);
 	void SetI(float i);
 	void SetJ(float j);
@@ -39,6 +44,7 @@ public:
 	// normalize by multipling the quaternion by the inverse of its magnitude
 	void Normalized();
 
+    Quaternion& operator=(const Quaternion& other);
 
 	Quaternion operator+(const Quaternion& other) const;
 	Quaternion& operator+=(const Quaternion& other);
@@ -58,6 +64,7 @@ public:
 	void RotateByVector(const Vector3& vector);
 
 	// Apply the quaternion update by the angular velocity
+    // this += this->RotateByVector(rotation) * duration
 	void UpdateByAngularVelocity(const Vector3& rotation, float duration);
 
 	// Convert Euler Vector3 to Quaternion
