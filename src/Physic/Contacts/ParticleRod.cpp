@@ -15,12 +15,14 @@ unsigned int ParticleRod::addContact(std::vector<ParticleContact*>* contacts, un
 
 		if (currentLength > this->length)
 		{
-			contacts->push_back(new ParticleContact(this->particle[0], this->particle[1], 1, (currentLength - this->length), true));
+            // Always use zero restitution (no bounciness).
+			contacts->push_back(new ParticleContact(this->particle[0], this->particle[1], 0, (currentLength - this->length), true));
 			return 1;
 		}
 		else if (currentLength < this->length)
 		{
-			contacts->push_back(new ParticleContact(this->particle[0], this->particle[1], 1, (this->length - currentLength)));
+            // Always use zero restitution (no bounciness).
+			contacts->push_back(new ParticleContact(this->particle[0], this->particle[1], 0, (this->length - currentLength)));
 			return 1;
 		}
 		else

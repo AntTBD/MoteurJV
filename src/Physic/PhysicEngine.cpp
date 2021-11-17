@@ -82,7 +82,7 @@ void PhysicEngine::init()
             for (int k = i + 1; k < this->particles->size(); k++) {
                 // ------ contacts -------
                 // add contacts cables
-                //auto tige = new ParticleRod(this->particles->at(i), this->particles>at(k), 100);// tige de longueur 200
+                //auto tige = new ParticleRod(this->particles->at(i), this->particles->at(k), 100);// tige de longueur 200
                 //this->particleContactRegistry->Add(tige, 1);
 
                 // add contacts tiges
