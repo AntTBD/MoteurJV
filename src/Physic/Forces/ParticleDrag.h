@@ -15,6 +15,6 @@ public:
     ~ParticleDrag();
 
     // apply simplified drag base on particle's velocity
-    void updateForce(Particle* particle, float duration);
+    void UpdateForce(Particle* particle, float duration) override;
 };
 

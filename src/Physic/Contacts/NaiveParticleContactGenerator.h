@@ -17,6 +17,6 @@ public:
     ~NaiveParticleContactGenerator();
 
     // iterate throught every pair of particles to check their penetration
-    unsigned int addContact(std::vector<ParticleContact*>* contacts, unsigned int limit) const;
+    unsigned int addContact(std::vector<ParticleContact*>* contacts, unsigned int limit) const override;
 };
 

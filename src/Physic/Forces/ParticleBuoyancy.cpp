@@ -1,6 +1,6 @@
 #include "ParticleBuoyancy.h"
 
-ParticleBuoyancy::ParticleBuoyancy(double maxDepth, double volume, double waterHeight, double liquidDensity) :
+ParticleBuoyancy::ParticleBuoyancy(float maxDepth, float volume, float waterHeight, float liquidDensity) :
 	m_maxDepth(maxDepth), m_volume(volume), m_waterHeight(waterHeight), m_liquidDensity(liquidDensity) {}
 
 ParticleBuoyancy::~ParticleBuoyancy() {}
