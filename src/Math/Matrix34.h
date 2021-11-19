@@ -36,18 +36,21 @@ public:
 
 	// Assign operator
 	std::vector<float> operator[](int index);
+    std::vector<float> operator[](int index) const;
 
 	// Get the Inverse matrix
-	Matrix34 Inverse();
+	Matrix34 Inverse() const;
 
 	// Set the matrix base on a quaternion and a position
 	void SetOrientationAndPosition(const Quaternion& q, const Vector3& p);
 
 	// Transform a position
-	Vector3 TransformPosition(const Vector3& vector);
+	Vector3 TransformPosition(const Vector3& vector) const;
+    Vector3 TransformInversePosition(const Vector3& vector) const;
 
 	// Transform a direction by ignoring the translation
-	Vector3 TransformDirection(const Vector3& vector);
+	Vector3 TransformDirection(const Vector3& vector) const;
+    Vector3 TransformInverseDirection(const Vector3& vector) const;
 };
 
 std::ostream& operator<< (std::ostream& os, const Matrix34& matrix34);

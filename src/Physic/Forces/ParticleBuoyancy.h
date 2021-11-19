@@ -14,10 +14,10 @@ private:
     float m_liquidDensity;
 
 public:
-    ParticleBuoyancy(double maxDepth, double volume, double waterHeight, double liquidDensity);
+    ParticleBuoyancy(float maxDepth, float volume, float waterHeight, float liquidDensity = 1000.0f);
     ~ParticleBuoyancy();
 
     // apply Buoyancy based on particle position
-    void UpdateForce(Particle* particle, float duration);
+    void UpdateForce(Particle* particle, float duration) override;
 };
 

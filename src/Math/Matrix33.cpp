@@ -1,3 +1,4 @@
+#include <gl/GL.h>
 #include "Matrix33.h"
 
 // Constructor
@@ -82,6 +83,11 @@ Matrix33 Matrix33::operator*(const Matrix33& other) const
 	result[7] = values[6] * otherValue[1] + values[7] * otherValue[4] + values[8] * otherValue[7];
 	result[8] = values[6] * otherValue[2] + values[7] * otherValue[5] + values[8] * otherValue[8];
 	return { result };
+}
+
+void Matrix33::operator*=(const Matrix33& other)
+{
+    *this = *this * other;
 }
 
 Vector3 Matrix33::operator*(const Vector3& vector) const
@@ -195,4 +201,21 @@ void Matrix33::SetOrientation(const Quaternion& q)
 	values[6] = 2 * q.GetI() * q.GetK() + 2 * q.GetJ() * q.GetW();
 	values[7] = 2 * q.GetJ() * q.GetK() - 2 * q.GetI() * q.GetW();
 	values[8] = 1 - (2 * pow(q.GetI(), 2) + 2 * pow(q.GetJ(), 2));
+}
+
+
+Matrix33 Matrix33::Transform(const Matrix34& transformMatrix) {
+
+    // multiplication des 2 matrices en enlevant la dernière colonne
+    Matrix33 transformMatrix33Original({
+                                       transformMatrix[0][0], transformMatrix[0][1], transformMatrix[0][2],
+                                       transformMatrix[1][0], transformMatrix[1][1], transformMatrix[1][2],
+                                       transformMatrix[2][0], transformMatrix[2][1], transformMatrix[2][2]
+                               });
+    Matrix33 transformMatrix33 = transformMatrix33Original * values;
+
+    // mutiplication par la tansposée
+    Matrix33 matrixInWorld = transformMatrix33 * transformMatrix33Original.Transpose();
+
+    return matrixInWorld;
 }

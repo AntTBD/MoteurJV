@@ -19,7 +19,7 @@ public:
     ~ParticleSpring();
 
     // apply Hooke's law based on particles positions
-    void UpdateForce(Particle* particle, float duration);
+    void UpdateForce(Particle* particle, float duration) override;
 
 };
 

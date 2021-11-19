@@ -2,30 +2,45 @@
 
 #include "../Math/Vector3.h"
 #include "../Math/Quaternion.h"
+#include "../Math/Matrix33.h"
 #include "../Math/Matrix34.h"
+#include <vector>
 
 class RigidBody
 {
 private:
+    // ------------- Mass -------------
 	// same as for Particle
-	float inverseMasse;
+	float invMass;
+
+    // ------------- Position -------------
+    // same as for Particle
 	float linearDamping;
 	Vector3 position;
 	Vector3 velocity;
+    Vector3 acceleration;
+
+    // ------------- Rotation -------------
+    // same as linear damping
+    // but for rotation
+    float m_angularDamping;
 
 	// Quaternion of the rigid body
 	Quaternion orientation;
 
 	// Angular velocity of the rigid body
-	Vector3 rotation;
+    // <=> rotation
+	Vector3 angularVelocity;
 
+    // Angular acceleration of the rigid body
+    Vector3 angularAcceleration;
+
+    // ------------- Transform -------------
 	// Calculates transform matrix from orientation and  rotation
 	Matrix34 transformMatrix;
 
-	// same as linear damping
-	// but for rotation
-	float m_angularDamping;
 
+    // ------------- Force -------------
 	// Accumulated force
 	// added by ForceGenerator
 	Vector3 m_forceAccum;
@@ -34,35 +49,79 @@ private:
 	// added by ForceGenerator
 	Vector3 m_torqueAccum;
 
+    // ------------- Tenseurs d'inertie -------------
+    // Sphère de densité constante
+    Matrix33 inertiaTensor;
+    Matrix33 inverseInertiaTensor;
+    Matrix33 inverseInertiaTensorWorld;
+
+    // ------------- Dimensions ---------------------
+    // 0 = Sphere
+    // 1 = Cube
+    // 2 = Cylindre
+    Vector3 dimensions;
+
 public:
+    enum FormType{
+        Sphere,
+        Cube,
+        Cylindre
+    } formType;
+
 	RigidBody();
-	RigidBody(float inverseMasse, float linearDamping, const Vector3& position, const Vector3& velocity);
-	RigidBody(float inverseMasse, float linearDamping, const Vector3& position, const Vector3& velocity, const Quaternion& orientation, const Vector3& rotation, const Matrix34& transformMatrix);
+	RigidBody(float invMass, float linearDamping, const Vector3& position, const Vector3& velocity);
+	RigidBody(float invMass, float linearDamping, const Vector3& position, const Vector3& velocity, const Quaternion& orientation, const Vector3& rotation, const Matrix34& transformMatrix);
 	RigidBody(const RigidBody& rigidBody);
 	~RigidBody();
 
-	float GetInverseMasse() const;
+    // ------------- Mass -------------
+	float GetInvMass() const;
+    float GetMass() const;
+    // ------------- Position -------------
 	float GetLinearDamping() const;
 	Vector3 GetPosition() const;
 	Vector3 GetVelocity() const;
+    Vector3 GetAcceleration() const;
+    // ------------- Rotation -------------
+    float GetAngularDamping() const;
 	Quaternion GetOrientation() const;
-	Vector3 GetRotation() const;
-	Matrix34 GetTransformMatrix() const;
+	Vector3 GetAngularVelocity() const;
+    Vector3 GetAngularAcceleration() const;
+    // ------------- Transform -------------
+    Matrix34 GetTransform() const;
+    // ------------- Dimensions ---------------------
+    Vector3 GetDimensions() const;
 
-	void SetInverseMasse(float inverseMasse);
+    // ------------- Mass -------------
+	void SetInvMass(float inverseMass);
+    void SetMass(float mass);
+    // ------------- Position -------------
 	void SetLinearDamping(float linearDamping);
 	void SetPosition(const Vector3& position);
 	void SetVelocity(const Vector3& velocity);
+    void SetAcceleration(const Vector3& acceleration);
+    // ------------- Rotation -------------
+    void SetAngularDamping(float angularDamping);
 	void SetOrientation(const Quaternion& orientation);
-	void SetRotation(const Vector3& rotation);
-	void SetTransformMatrix(const Matrix34& transformMatrix);
+	void SetAngularVelocity(const Vector3& rotation);
+    void SetAngularAcceleration(const Vector3& angularAcceleration);
+    // ------------- Transform -------------
+	void SetTransform(const Matrix34& transformMatrix);
+    // ------------- Dimensions ---------------------
+    void SetDimensions(const Vector3& dimensions);
 
 
+
+    // ------------- Update -------------
 	// Integrate the rigid body by modifying position, orientation and velocities
 	void Integrate(float duration);
 
-	// Add force on the Center of mass (no torque generated)
-	void AddForce(const Vector3& force);
+    // Update acceleration based on sumForces
+    void UpdateAcceleration();
+
+    // ------------- Force -------------
+    // Add force on the Center of mass (no torque generated)
+    void AddForce(const Vector3& force);
 
 	// Add force at a point in world coordinate.
 	// Generate force and torque
@@ -76,9 +135,24 @@ public:
 	// called each frame to reset m_forceAccum and m_torqueAccum
 	void ClearAccumulator();
 
+
+    // ------------- Local <=> World -------------
+    Vector3 GetPointInLocalSpace(const Vector3 &point) const;
+    Vector3 GetPointInWorldSpace(const Vector3 &point) const;
+
+    Vector3 GetDirectionInLocalSpace(const Vector3 &direction) const;
+    Vector3 GetDirectionInWorldSpace(const Vector3 &direction) const;
+
 private:
 	// call each frame to calculate the transformMatrix and normalize the orientation
 	void CalculateDerivedData();
+
+    // Get tenseur d'inertie en fonction du type du rigidbody
+    // 0 = Sphere de densité constante (default)
+    // 1 = Cube de densité constante
+    // 2 = Cylindre de densité constante
+    void SetInertiaTensorByType(FormType type = FormType::Sphere);
+
 
 };
 

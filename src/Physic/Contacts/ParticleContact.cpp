@@ -60,7 +60,15 @@ void ParticleContact::resolveVelocity() // Application de l’impulsion diapo p12
 
 	// calcul du numerator
 	float v_rel_Dot_n = calculateSeparatingVelocity(); // on utilise le calcul de la velocite
-	float e = this->m_restitution;
+
+    // Check if it needs to be resolved.
+    if (v_rel_Dot_n > 0) {
+        // The contact is either separating, or stationary; there’s
+        // no impulse required.
+        return;
+    }
+
+    float e = this->m_restitution;
 	k = (e + 1) * v_rel_Dot_n;
 
 	// calcul du denominator
@@ -68,6 +76,8 @@ void ParticleContact::resolveVelocity() // Application de l’impulsion diapo p12
 	if (this->m_particle[1] != nullptr) {
 		somInvMass += this->m_particle[1]->GetinvMass();
 	}
+    // If all particles have infinite mass, then impulses have no effect.
+    if (somInvMass <= 0) return;
 
 	//     (e + 1)  v_rel . n
 	// k = -------------------     avec n . n = 1 car n unitaire
@@ -94,6 +104,8 @@ void ParticleContact::resolveInterpenetration() // Résolution d’interpénétration
 		if (this->m_particle[1] != nullptr) {
 			somInvMass += this->m_particle[1]->GetinvMass();
 		}
+        // If all particles have infinite mass, then we do nothing.
+        if (somInvMass <= 0) return;
 
 		// particule 1 : p' = p + m2 / (m1+m2) * d * n
 		this->m_particle[0]->SetPosition(this->m_particle[0]->GetPosition() + (1.0f/this->m_particle[0]->GetinvMass()) * somInvMass * m_penetration * this->m_contactNormal);

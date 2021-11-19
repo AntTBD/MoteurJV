@@ -18,6 +18,6 @@ public:
     ~ParticleCable();
 
     // Fill ParticleContact ith information from particles and contact generator
-    unsigned int addContact(std::vector<ParticleContact*>* contacts, unsigned int limit) const;
+    unsigned int addContact(std::vector<ParticleContact*>* contacts, unsigned int limit) const override;
 };
 
