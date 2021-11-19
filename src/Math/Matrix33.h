@@ -2,6 +2,7 @@
 
 #include "Vector3.h"
 #include "Quaternion.h"
+#include "Matrix34.h"
 #include <vector>
 #include <assert.h>
 
@@ -24,6 +25,7 @@ public:
 
 	// Combination of the linear transformation
 	Matrix33 operator*(const Matrix33& other) const;
+    void operator*=(const Matrix33& other);
 
 	// Transform of a vector
 	Vector3 operator*(const Vector3& vector) const;
@@ -42,6 +44,10 @@ public:
 
 	// Set the matrix base on a quaternion
 	void SetOrientation(const Quaternion& q);
+
+    // Transform local in world
+    // from Millington book page 210
+    Matrix33 Transform(const Matrix34& transformMatrix);
 };
 
 std::ostream& operator<< (std::ostream& os, const Matrix33& matrix33);

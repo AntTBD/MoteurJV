@@ -126,14 +126,35 @@ Matrix34 Matrix34::operator*(const Matrix34& other) const
 
 Vector3 Matrix34::operator*(const Vector3& vector) const
 {
-	Vector3 result = Vector3(values[0] * vector.GetX() + values[1] * vector.GetY() + values[2] * vector.GetZ() + values[3],
-							values[4] * vector.GetX() + values[5] * vector.GetY() + values[6] * vector.GetZ() + values[7],
-							values[8] * vector.GetX() + values[9] * vector.GetY() + values[10] * vector.GetZ() + values[11]);
+	Vector3 result = Vector3(
+			values[0] * vector.GetX() + values[1] * vector.GetY() + values[2] * vector.GetZ() + values[3],
+			values[4] * vector.GetX() + values[5] * vector.GetY() + values[6] * vector.GetZ() + values[7],
+			values[8] * vector.GetX() + values[9] * vector.GetY() + values[10] * vector.GetZ() + values[11]
+			);
 
 	return result;
 }
 
 std::vector<float> Matrix34::operator[](int index)
+{
+	if (index == 0)
+	{
+		std::vector<float> v = { this->values[0], this->values[1], this->values[2], this->values[3] };
+		return v;
+	}
+	else if (index == 1)
+	{
+		std::vector<float> v = { this->values[4], this->values[5], this->values[6], this->values[7] };
+		return v;
+	}
+	else if (index == 2)
+	{
+		std::vector<float> v = { this->values[8], this->values[9], this->values[10], this->values[11] };
+		return v;
+	}
+}
+
+std::vector<float> Matrix34::operator[](int index) const
 {
 	if (index == 0)
 	{
@@ -180,7 +201,7 @@ Matrix34 operator*(const float value, const Matrix34& mat)
 	return mat * value;
 }
 
-Matrix34 Matrix34::Inverse()
+Matrix34 Matrix34::Inverse() const
 {
 	Matrix33 matrix33inv = this->GetMatrix33().Inverse();
 	Vector3 vec3 = -1*matrix33inv * this->GetVector();
@@ -209,16 +230,42 @@ void Matrix34::SetOrientationAndPosition(const Quaternion& q, const Vector3& p)
 	this->values[11] = p.GetZ();
 }
 
-Vector3 Matrix34::TransformPosition(const Vector3& vector)
+Vector3 Matrix34::TransformPosition(const Vector3& vector) const
 {
 	return *this * vector;
 }
 
-Vector3 Matrix34::TransformDirection(const Vector3& vector)
+Vector3 Matrix34::TransformInversePosition(const Vector3& vector) const
 {
-	Vector3 result = Vector3(values[0] * vector.GetX() + values[1] * vector.GetY() + values[2] * vector.GetZ(),
-		values[4] * vector.GetX() + values[5] * vector.GetY() + values[6] * vector.GetZ(),
-		values[8] * vector.GetX() + values[9] * vector.GetY() + values[10] * vector.GetZ());
+	Vector3 tmp = vector;
+	tmp.SetX(tmp.GetX() - values[3]);
+	tmp.SetY(tmp.GetY() - values[7]);
+	tmp.SetZ(tmp.GetZ() - values[11]);
+	return {
+		tmp.GetX() * values[0] + tmp.GetY() * values[4] + tmp.GetZ() * values[8],
+		tmp.GetX() * values[1] + tmp.GetY() * values[5] + tmp.GetZ() * values[9],
+		tmp.GetX() * values[2] + tmp.GetY() * values[6] + tmp.GetZ() * values[10]
+	};
+}
+
+Vector3 Matrix34::TransformDirection(const Vector3& vector) const
+{
+	Vector3 result(
+			values[0] * vector.GetX() + values[1] * vector.GetY() + values[2] * vector.GetZ(),
+			values[4] * vector.GetX() + values[5] * vector.GetY() + values[6] * vector.GetZ(),
+			values[8] * vector.GetX() + values[9] * vector.GetY() + values[10] * vector.GetZ()
+			);
+
+	return result;
+}
+
+Vector3 Matrix34::TransformInverseDirection(const Vector3& vector) const
+{
+	Vector3 result(
+			values[0] * vector.GetX() + values[4] * vector.GetY() + values[8] * vector.GetZ(),
+			values[1] * vector.GetX() + values[5] * vector.GetY() + values[9] * vector.GetZ(),
+			values[2] * vector.GetX() + values[6] * vector.GetY() + values[10] * vector.GetZ()
+	);
 
 	return result;
 }
