@@ -52,8 +52,8 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
     {
 
         Vector3 objectPos = EngineManager::getInstance().getScene()->GetObject(uid)->GetPosition();
-        Vector3 objectSpeed = EngineManager::getInstance().getScene()->GetObject(uid)->GetSpeed();
-        float objectMass = 1.f/EngineManager::getInstance().getScene()->GetObject(uid)->GetinvMass();
+        Vector3 objectSpeed = EngineManager::getInstance().getScene()->GetObject(uid)->GetVelocity();
+        float objectMass = EngineManager::getInstance().getScene()->GetObject(uid)->GetMass();
 
 
         ImGui::PushID(0); // Use field index as identifier.
@@ -78,9 +78,8 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
         ImGui::PushID(2); // Use field index as identifier.
         //this->ShowVector3PlaceHolder(objectPos, uid, "Position");
         float newValuesMass = this->ShowVector3PlaceHolder(objectMass, uid, "Mass");
-        newValuesMass==0 ? newValuesMass = 0.00000000001 : newValuesMass=newValuesMass; // hard code to avoide invMass = 1/0 = inf
         if(newValuesMass != objectMass){
-            EngineManager::getInstance().getScene()->GetObject(uid)->SetInvMass(1.f/newValuesMass);
+            EngineManager::getInstance().getScene()->GetObject(uid)->SetMass(newValuesMass);
         }
         ImGui::PopID();
 

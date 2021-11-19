@@ -7,9 +7,9 @@ class ParticleLink :
 {
 protected:
     // Linked particles
-    Particle* particle[2];
+    RigidBody* rigidBody[2];
 public:
-    ParticleLink(Particle* particle1, Particle* particle2);
+    ParticleLink(RigidBody* rigidBody1, RigidBody* rigidBody2);
     ~ParticleLink();
 
     // return the length of the link

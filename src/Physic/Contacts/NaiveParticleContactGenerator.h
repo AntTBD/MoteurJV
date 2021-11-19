@@ -11,9 +11,9 @@ public:
     float radius;
 
     // particles that could collide together
-    std::vector<Particle*>* particles;
+    std::vector<RigidBody*>* rigidBodies;
 
-    NaiveParticleContactGenerator(std::vector<Particle*>* particles, float radius);
+    NaiveParticleContactGenerator(std::vector<RigidBody*>* RigidBodies, float radius);
     ~NaiveParticleContactGenerator();
 
     // iterate throught every pair of particles to check their penetration

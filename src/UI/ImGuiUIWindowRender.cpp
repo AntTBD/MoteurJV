@@ -184,13 +184,12 @@ void ImGuiUIWindowRender::checkToAddParticles()
     float ratio = 4.0f;
     if (this->play == false && ImGui::IsWindowHovered() && ImGui::IsMouseClicked(1))// right click if not in simulation
     {
-        if (mass == 0) mass = 0.000001f;
         Vector3 pos = Vector3((offsetPosition.GetX() + (float)mousePositionInChild.x) / ratio, (offsetPosition.GetY() - (float)mousePositionInChild.y) / ratio, 0);
         std::cout << pos << std::endl;
-        Particle* p = new Particle(pos, Vector3(sx, sy, sz), 1.0f / mass);
-        EngineManager::getInstance().getScene()->addObject(*p);
+        auto obj = new RigidBody(mass, pos);
+        EngineManager::getInstance().getScene()->addObject(*obj);
         //std::cout << "Add particle " << *p << std::endl;
-        EngineManager::getInstance().console.logSuccess("Add particle %d: %s\n",EngineManager::getInstance().getScene()->getObjectsByCopy().size()-1,p->toString().c_str());
+        EngineManager::getInstance().console.logSuccess("Add particle %d: %s\n",EngineManager::getInstance().getScene()->getObjectsByCopy().size()-1,obj->toString().c_str());
     }
 
     // --------------------------- Check mouse click & move first particle -------------------------------------
@@ -198,13 +197,13 @@ void ImGuiUIWindowRender::checkToAddParticles()
     {
         Vector3 pos = Vector3((offsetPosition.GetX() + (float)mousePositionInChild.x) / ratio, (offsetPosition.GetY() - (float)mousePositionInChild.y) / ratio, 0);
 
-        Particle* p = EngineManager::getInstance().getScene()->GetObject(0);
-        if (p != nullptr) {
+        auto obj = EngineManager::getInstance().getScene()->GetObject(0);
+        if (obj != nullptr) {
 
             // d = xa - xb
-            Vector3 d = (p->GetPosition() - pos);
+            Vector3 d = (obj->GetPosition() - pos);
             // f = - k * ( |d| - l0) * d.normalized
-            p->AddForce(-1 * d.Magnitude() * d.Normalized() * (1.0f / p->GetinvMass()));
+            obj->AddForce(-1 * d.Magnitude() * d.Normalized() * (1.0f / obj->GetInvMass()));
             //p->SetPosition(pos);
         }
     }

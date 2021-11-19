@@ -166,6 +166,14 @@ Matrix34 RigidBody::GetTransform() const {
     return this->transformMatrix;
 }
 
+Vector3 RigidBody::GetForceAccum() const {
+    return this->m_forceAccum;
+}
+
+Vector3 RigidBody::GetTorqueAccum() const {
+    return this->m_torqueAccum;
+}
+
 Vector3 RigidBody::GetDimensions() const {
     return this->dimensions;
 }
@@ -382,4 +390,15 @@ Vector3 RigidBody::GetDirectionInLocalSpace(const Vector3 &direction) const
 Vector3 RigidBody::GetDirectionInWorldSpace(const Vector3 &direction) const
 {
     return this->transformMatrix.TransformDirection(direction);
+}
+
+std::string RigidBody::toString() const {
+    std::stringstream stream;
+    stream << *this;
+    return stream.str();
+}
+
+std::ostream &operator<<(std::ostream &os, const RigidBody &rigidBody) {
+    os << "Mass : " << rigidBody.GetMass() << ", Acceleration : " << rigidBody.GetAcceleration() << ", Velocity : " << rigidBody.GetVelocity() << ", Position : " << rigidBody.GetPosition() << ", SumForces : " << rigidBody.GetForceAccum();
+    return os;
 }

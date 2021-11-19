@@ -1,8 +1,8 @@
 #include "ParticleCable.h"
 
 
-ParticleCable::ParticleCable(Particle* particle1, Particle* particle2, float maxLength) :
-	ParticleLink(particle1, particle2), 
+ParticleCable::ParticleCable(RigidBody* rigidBody1, RigidBody* rigidBody2, float maxLength) :
+	ParticleLink(rigidBody1, rigidBody2),
 	maxLength(maxLength), restitution(1.0f)
 {}
 
@@ -14,7 +14,7 @@ unsigned int ParticleCable::addContact(std::vector<ParticleContact*>* contacts, 
 	{
 		if (this->currentLength() >= this->maxLength)
 		{
-			contacts->push_back(new ParticleContact(this->particle[0], this->particle[1], this->restitution, (this->currentLength() - this->maxLength), true));
+			contacts->push_back(new ParticleContact(this->rigidBody[0], this->rigidBody[1], this->restitution, (this->currentLength() - this->maxLength), true));
 			return 1;
 		}
 	}

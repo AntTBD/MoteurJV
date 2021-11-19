@@ -1,7 +1,7 @@
 #include "ParticleRod.h"
 
-ParticleRod::ParticleRod(Particle* particle1, Particle* particle2, float length) :
-	ParticleLink(particle1, particle2),
+ParticleRod::ParticleRod(RigidBody* rigidBody1, RigidBody* rigidBody2, float length) :
+	ParticleLink(rigidBody1, rigidBody2),
 	length(length)
 {}
 
@@ -16,13 +16,13 @@ unsigned int ParticleRod::addContact(std::vector<ParticleContact*>* contacts, un
 		if (currentLength > this->length)
 		{
             // Always use zero restitution (no bounciness).
-			contacts->push_back(new ParticleContact(this->particle[0], this->particle[1], 0, (currentLength - this->length), true));
+			contacts->push_back(new ParticleContact(this->rigidBody[0], this->rigidBody[1], 0, (currentLength - this->length), true));
 			return 1;
 		}
 		else if (currentLength < this->length)
 		{
             // Always use zero restitution (no bounciness).
-			contacts->push_back(new ParticleContact(this->particle[0], this->particle[1], 0, (this->length - currentLength)));
+			contacts->push_back(new ParticleContact(this->rigidBody[0], this->rigidBody[1], 0, (this->length - currentLength)));
 			return 1;
 		}
 		else

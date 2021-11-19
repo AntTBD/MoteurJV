@@ -1,15 +1,17 @@
 #include "ParticleAnchoredSpring.h"
 
-ParticleAnchoredSpring::ParticleAnchoredSpring(Vector3& anchor, double k, double restLenght) :
+ParticleAnchoredSpring::ParticleAnchoredSpring(Vector3& anchor, float k, float restLenght) :
 	m_anchor(&anchor), m_k(k), m_restLenght(restLenght) {}
 
-ParticleAnchoredSpring::~ParticleAnchoredSpring() {}
+ParticleAnchoredSpring::~ParticleAnchoredSpring() {
+    delete m_anchor;
+}
 
-void ParticleAnchoredSpring::UpdateForce(Particle* particle, float duration)
+void ParticleAnchoredSpring::UpdateForce(RigidBody* rigidBody, float duration)
 {
 	// d = xa - xb
-	Vector3 d = (particle->GetPosition() - *this->m_anchor);
+	Vector3 d = (rigidBody->GetPosition() - *this->m_anchor);
 
 	// f = - k * ( |d| - l0) * d.normalized
-	particle->AddForce(-this->m_k * (d.Magnitude() - this->m_restLenght) * d.Normalized());
+    rigidBody->AddForce(-this->m_k * (d.Magnitude() - this->m_restLenght) * d.Normalized());
 }

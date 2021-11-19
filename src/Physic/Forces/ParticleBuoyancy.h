@@ -18,6 +18,6 @@ public:
     ~ParticleBuoyancy();
 
     // apply Buoyancy based on particle position
-    void UpdateForce(Particle* particle, float duration) override;
+    void UpdateForce(RigidBody* rigidBody, float duration) override;
 };
 

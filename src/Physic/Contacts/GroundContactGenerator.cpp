@@ -1,7 +1,7 @@
 #include "GroundContactGenerator.h"
 
-GroundContactGenerator::GroundContactGenerator(std::vector<Particle*>* particles, float positionY):
-	particles(particles), positionY(positionY)
+GroundContactGenerator::GroundContactGenerator(std::vector<RigidBody*>* rigidBodies, float positionY):
+	rigidBodies(rigidBodies), positionY(positionY)
 {
 }
 
@@ -9,6 +9,11 @@ GroundContactGenerator::GroundContactGenerator(std::vector<Particle*>* particles
 
 GroundContactGenerator::~GroundContactGenerator()
 {
+	for (auto rigidBody : *this->rigidBodies) {
+		delete rigidBody;
+	}
+	this->rigidBodies->clear();
+	delete this->rigidBodies;
 }
 
 unsigned int GroundContactGenerator::addContact(std::vector<ParticleContact*>* contacts, unsigned int limit) const
@@ -16,12 +21,12 @@ unsigned int GroundContactGenerator::addContact(std::vector<ParticleContact*>* c
 	if (limit > 0)
 	{
 		int iteration = 0;
-		for (Particle* particle : *this->particles) {
+		for (auto rigidBody : *this->rigidBodies) {
 			if (iteration >= limit) {
 				return limit;
 			}
-			if (particle->GetPosition().GetY() < this->positionY) {
-				contacts->push_back(new ParticleContact(particle, 1, this->positionY - particle->GetPosition().GetY()));
+			if (rigidBody->GetPosition().GetY() < this->positionY) {
+				contacts->push_back(new ParticleContact(rigidBody, 1, this->positionY - rigidBody->GetPosition().GetY()));
 				iteration++;
 			}
 		}

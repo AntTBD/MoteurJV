@@ -4,7 +4,7 @@ PhysicEngine::PhysicEngine()
 {
     this->particleForceRegistry = new ParticleForceRegistry();
     this->particleContactRegistry = new ParticleContactRegistry();
-    this->particles = new std::vector<Particle*>();
+    this->objects = new std::vector<Object*>();
     this->dT = 0;
     this->isSimulating = false;
 
@@ -14,7 +14,7 @@ PhysicEngine::~PhysicEngine()
 {
     delete this->particleForceRegistry;
     delete this->particleContactRegistry;
-    delete this->particles;
+    delete this->objects;
 }
 
 void PhysicEngine::startSimulation()
@@ -57,47 +57,47 @@ void PhysicEngine::simulate()
 void PhysicEngine::init()
 {
     // copy objects
-    this->particles = EngineManager::getInstance().getScene()->getObjects();
+    this->objects = EngineManager::getInstance().getScene()->getObjects();
 
-    if (!particles->empty()) {
+    if (!this->objects->empty()) {
 
 
 
         // ------ add contacts -------
         // add contacts naive entre particules (=colision entre 2 particules)
-        NaiveParticleContactGenerator* naiveParticleContactGenerator = new NaiveParticleContactGenerator(particles, 10);// contacts entre particules de rayon 10
-        this->particleContactRegistry->Add(naiveParticleContactGenerator, 2 * this->particles->size());
+        NaiveParticleContactGenerator* naiveParticleContactGenerator = new NaiveParticleContactGenerator(this->objects, 10);// contacts entre particules de rayon 10
+        this->particleContactRegistry->Add(naiveParticleContactGenerator, 2 * this->objects->size());
         // contact avec le sol
-        GroundContactGenerator* groundContactGenerator = new GroundContactGenerator(particles, 0.0f);// contact avec le sol à une hauteur de 0
-        this->particleContactRegistry->Add(groundContactGenerator, this->particles->size());
+        GroundContactGenerator* groundContactGenerator = new GroundContactGenerator(this->objects, 0.0f);// contact avec le sol à une hauteur de 0
+        this->particleContactRegistry->Add(groundContactGenerator, this->objects->size());
 
 
-        for (int i = 0; i < this->particles->size(); i++)
+        for (int i = 0; i < this->objects->size(); i++)
         {
             // ------ force -------
             // add ressort ancré sur la particule actuelle
-            ParticleSpring* particleSpringGenerator = new ParticleSpring(*this->particles->at(i), 5, 50);
+            ParticleSpring* particleSpringGenerator = new ParticleSpring(*this->objects->at(i), 5, 50);
 
             // add tiges or cables between each particles + spring force anchored on actual particle
-            for (int k = i + 1; k < this->particles->size(); k++) {
+            for (int k = i + 1; k < this->objects->size(); k++) {
                 // ------ contacts -------
                 // add contacts cables
-                //auto tige = new ParticleRod(this->particles->at(i), this->particles->at(k), 100);// tige de longueur 200
+                //auto tige = new ParticleRod(this->objects->at(i), this->objects->at(k), 100);// tige de longueur 200
                 //this->particleContactRegistry->Add(tige, 1);
 
                 // add contacts tiges
-                auto cable = new ParticleCable(this->particles->at(i), this->particles->at(k), 100);// cable de longueur 200
+                auto cable = new ParticleCable(this->objects->at(i), this->objects->at(k), 100);// cable de longueur 200
                 this->particleContactRegistry->Add(cable, 1);
 
                 // ------ force -------
                 // Add spring force
-                this->particleForceRegistry->Add(this->particles->at(k), particleSpringGenerator);
+                this->particleForceRegistry->Add(this->objects->at(k), particleSpringGenerator);
             }
 
             // ------ force -------
             // Add gravity force
             ParticleGravity* particleGravityGenerator = new ParticleGravity();
-            this->particleForceRegistry->Add(this->particles->at(i), particleGravityGenerator);
+            this->particleForceRegistry->Add(this->objects->at(i), particleGravityGenerator);
         }
 
 
@@ -111,7 +111,7 @@ void PhysicEngine::init()
 void PhysicEngine::update(float deltaTime)
 {
     this->dT = deltaTime;
-    if (!particles->empty())
+    if (!objects->empty())
     {
         isUpdateFinished = false;
 
@@ -119,11 +119,11 @@ void PhysicEngine::update(float deltaTime)
         this->particleForceRegistry->UpdateForce(deltaTime);
 
         // 2 - Integrate particles
-        for (int i = 0; i < this->particles->size(); i++)
+        for (int i = 0; i < this->objects->size(); i++)
         {
             //std::cout << "Particule " << i + 1 << " : " << *this->particles->at(i) << std::endl;
-            EngineManager::getInstance().console.log("Particule %d : %s\n", i+1, this->particles->at(i)->toString().c_str());
-            this->particles->at(i)->Integrate(deltaTime);
+            EngineManager::getInstance().console.log("Particule %d : %s\n", i+1, this->objects->at(i)->toString().c_str());
+            this->objects->at(i)->Integrate(deltaTime);
         }
 
         // 3 - Add contacts
@@ -186,11 +186,11 @@ void PhysicEngine::clearParticlesAndRegisters()
     this->particleContactRegistry->Clear();
 
     // delete particles
-    for (auto p : *this->particles)
+    for (auto p : *this->objects)
     {
         delete p;
     }
-    this->particles->clear();
+    this->objects->clear();
     EngineManager::getInstance().getScene()->reset();
     std::cout << "Particles cleared" << std::endl;
 }

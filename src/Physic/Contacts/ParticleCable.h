@@ -14,7 +14,7 @@ public:
     // float bounciness of the cable
     float restitution;
 
-    ParticleCable(Particle* particle1, Particle* particle2, float maxLength);
+    ParticleCable(RigidBody* rigidBody1, RigidBody* rigidBody2, float maxLength);
     ~ParticleCable();
 
     // Fill ParticleContact ith information from particles and contact generator

@@ -8,16 +8,16 @@ class ParticleForceRegistry
 private:
 	struct ParticleForceEntry
 	{
-		Particle* particle;
+        RigidBody* rigidBody;
 		ParticleForceGenerator* forceGenerator;
-		ParticleForceEntry(Particle* particle, ParticleForceGenerator* forceGenerator);
+		ParticleForceEntry(RigidBody* rigidBody, ParticleForceGenerator* forceGenerator);
 
 	};
 	using Registry = std::vector<ParticleForceEntry>;
 	Registry  m_registry;
 public:
 	// ... Registry Accessors
-	void Add(Particle* particle, ParticleForceGenerator* forceGenerator);
+	void Add(RigidBody* rigidBody, ParticleForceGenerator* forceGenerator);
 	void UpdateForce(float duration);
 	void Clear();
 };

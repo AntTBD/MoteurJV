@@ -92,6 +92,9 @@ public:
     Vector3 GetAngularAcceleration() const;
     // ------------- Transform -------------
     Matrix34 GetTransform() const;
+    // ------------- Force -------------
+    Vector3 GetForceAccum() const;
+    Vector3 GetTorqueAccum() const;
     // ------------- Dimensions ---------------------
     Vector3 GetDimensions() const;
 
@@ -147,6 +150,11 @@ public:
 
     Vector3 GetDirectionInLocalSpace(const Vector3 &direction) const;
     Vector3 GetDirectionInWorldSpace(const Vector3 &direction) const;
+
+    std::string toString() const;
+
+    // << operator
+    friend std::ostream& operator<< (std::ostream& os, const RigidBody& rigidBody);
 
 private:
 	// call each frame to calculate the transformMatrix and normalize the orientation

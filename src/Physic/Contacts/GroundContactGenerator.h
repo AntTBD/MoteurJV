@@ -8,11 +8,11 @@ class GroundContactGenerator :
 {
 private:
     // particles that could collide the wall
-    std::vector<Particle*>* particles;
+    std::vector<RigidBody*>* rigidBodies;
 
     float positionY;
 public: 
-    GroundContactGenerator(std::vector<Particle*>* particles, float positionY = 0);
+    GroundContactGenerator(std::vector<RigidBody*>* rigidBodies, float positionY = 0);
     ~GroundContactGenerator();
 
     // Fill ParticleContact with information form particles and contact generator.

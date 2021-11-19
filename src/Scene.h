@@ -4,13 +4,14 @@
 
 #include <vector>
 #include "Physic/Particle.h"
+#include "Physic/RigidBody.h"
 #include "3DScene/Camera.h"
 #include "3DScene/OpenGLRendererManager.h"
 #include "Math/Vector3.h"
 
 //////////////////////////////////////////
 //          change type of objects (Particle - RigidBody)
-#define Object Particle
+#define Object RigidBody
 //////////////////////////////////////////
 
 class Scene {

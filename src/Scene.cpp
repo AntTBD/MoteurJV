@@ -24,7 +24,7 @@ Camera *Scene::getCamera() {
     return this->cam;
 }
 
-void Scene::addObject(Particle &object) {
+void Scene::addObject(Object &object) {
     this->objects->push_back(&object);
 }
 
@@ -53,7 +53,7 @@ void Scene::drawObjects() {
         Vector3 pos = object->GetPosition(); // Get position
         Vector3 rot = Vector3();
 
-        OpenGLRendererManager::drawSphere(10, pos, rot); // create a small sphere to simulate particle in 3D
+        OpenGLRendererManager::drawSphere(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small sphere to simulate particle in 3D
 
     }
 }

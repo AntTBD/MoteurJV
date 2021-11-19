@@ -14,12 +14,12 @@ private:
     float m_restLenght;
 
 public:
-    ParticleAnchoredSpring(Vector3& anchor, double k, double restLenght);
+    ParticleAnchoredSpring(Vector3& anchor, float k, float restLenght);
 
     ~ParticleAnchoredSpring();
 
     // apply Hooke's law based on particles positions
-    void UpdateForce(Particle* particle, float duration) override;
+    void UpdateForce(RigidBody* rigidBody, float duration) override;
 
 };
 
