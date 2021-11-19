@@ -1,4 +1,3 @@
-#include <gl/GL.h>
 #include "Matrix33.h"
 
 // Constructor
