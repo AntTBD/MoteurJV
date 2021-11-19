@@ -1,5 +1,9 @@
 #pragma once
 
+// pour eviter les problèmes d'includes recursifs
+class Matrix33;
+class Matrix34;
+
 #include "Vector3.h"
 #include "Quaternion.h"
 #include "Matrix33.h"
