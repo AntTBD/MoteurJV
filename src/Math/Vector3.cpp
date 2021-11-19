@@ -1,5 +1,3 @@
-#include <math.h>
-#include <assert.h>
 #include "Vector3.h"
 
 // Constructors

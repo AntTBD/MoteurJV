@@ -130,13 +130,13 @@ Quaternion& Quaternion::operator*=(const Quaternion& other)
 
 
 
-Quaternion Quaternion::operator*(float duration) const
+Quaternion Quaternion::operator*(float val) const
 {
 	return {
-		this->GetI() * duration,
-		this->GetJ() * duration,
-		this->GetK() * duration,
-		this->GetW() * duration
+		this->GetI() * val,
+		this->GetJ() * val,
+		this->GetK() * val,
+		this->GetW() * val
 	};
 }
 
@@ -150,7 +150,7 @@ Quaternion& Quaternion::operator*=(float val)
 // Functions 
 
 // normalize by multipling the quaternion by the inverse of its magnitude
-void Quaternion::Normalized()
+void Quaternion::Normalize()
 {
 	float magnitude = float(sqrt(pow(this->i, 2.f) + pow(this->j, 2.f) + pow(this->k, 2.f) + pow(this->w, 2.f)));
 	assert(magnitude != 0 && "Division par 0 ! : Quaternion::Normalized() : magnitude = 0");
@@ -161,8 +161,21 @@ void Quaternion::Normalized()
 	this->w /= magnitude;
 
 }
+Quaternion Quaternion::Normalized() const
+{
+	float magnitude = float(sqrt(pow(this->i, 2.f) + pow(this->j, 2.f) + pow(this->k, 2.f) + pow(this->w, 2.f)));
+	assert(magnitude != 0 && "Division par 0 ! : Quaternion::Normalized() : magnitude = 0");
 
-Quaternion Quaternion::conjugate() const
+	return { 
+		this->i / magnitude,
+		this->j / magnitude,
+		this->k / magnitude,
+		this->w / magnitude 
+	};
+
+}
+
+Quaternion Quaternion::Conjugate() const
 {
 	return {-this->i, -this->j, -this->k, this->w };
 }
@@ -175,11 +188,19 @@ Quaternion Quaternion::conjugate() const
 void Quaternion::RotateByVector(const Vector3& vector)
 {
 	Quaternion vector_bis(vector, 0);
-	this->Normalized();
-	vector_bis.Normalized();
+	this->Normalize();
+	vector_bis.Normalize();
 
-	*this *= vector_bis * this->conjugate();
+	*this *= vector_bis * this->Conjugate();
 	
+}
+// Rotate the quaternion by a vector : multiply this by q = (0, dx, dy, dz)
+Quaternion Quaternion::RotatedByVector(const Vector3& vector) const
+{
+	Quaternion vector_bis(vector, 0);
+
+	return this->Normalized() * vector_bis.Normalized() * this->Normalized().Conjugate();
+
 }
 
 // Apply the quaternion update by the angular velocity

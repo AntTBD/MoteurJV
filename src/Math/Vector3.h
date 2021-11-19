@@ -1,4 +1,7 @@
 #pragma once
+
+#include <math.h>
+#include <assert.h>
 #include <iostream>
 #include <sstream>
 
@@ -19,7 +22,7 @@ public:
 	Vector3& operator+=(const Vector3& vector);
 	Vector3 operator-(const Vector3& vector) const;
 	Vector3& operator-=(const Vector3& vector);
-	//Vector3 operator*(float value) const; operator remplacé par operator globale non membre de la classe pour avoir les deux sens
+	//Vector3 operator*(float value) const; operator remplacï¿½ par operator globale non membre de la classe pour avoir les deux sens
 	Vector3& operator*=(float value);
 	Vector3 operator/(float value) const;
 	Vector3& operator/=(float value);
@@ -51,14 +54,14 @@ public:
 	Vector3 CrossProduct(const Vector3& vector) const;
 
 	/// <summary>
-	/// |vector| = sqrt(x² + y² + z²)
+	/// |vector| = sqrt(xï¿½ + yï¿½ + zï¿½)
 	/// </summary>
 	/// <returns></returns>
 	float Magnitude() const;
 
 	/// <summary>
 	/// Squared magnitude is less taxing to calculate and is often enough for what we want to do<para/>
-	/// sqrt(x² + y² + z²)² = x² + y² + z²
+	/// sqrt(xï¿½ + yï¿½ + zï¿½)ï¿½ = xï¿½ + yï¿½ + zï¿½
 	/// </summary>
 	/// <returns></returns>
 	float SquaredMagnitude() const;

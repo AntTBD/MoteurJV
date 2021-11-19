@@ -5,6 +5,7 @@
 #include "../Math/Matrix33.h"
 #include "../Math/Matrix34.h"
 #include <vector>
+#include <math.h>
 
 class RigidBody
 {
@@ -59,7 +60,7 @@ private:
 	Vector3 m_torqueAccum;
 
     // ------------- Tenseurs d'inertie -------------
-    // Sphère de densité constante
+    // Sphï¿½re de densitï¿½ constante
     Matrix33 inertiaTensor;
     Matrix33 inverseInertiaTensor;
     Matrix33 inverseInertiaTensorWorld;
@@ -125,6 +126,7 @@ public:
     // ------------- Force -------------
     // Add force on the Center of mass (no torque generated)
     void AddForce(const Vector3& force);
+    void AddTorque(const Vector3& torque);
 
 	// Add force at a point in world coordinate.
 	// Generate force and torque
@@ -151,9 +153,9 @@ private:
 	void CalculateDerivedData();
 
     // Get tenseur d'inertie en fonction du type du rigidbody
-    // 0 = Sphere de densité constante (default)
-    // 1 = Cube de densité constante
-    // 2 = Cylindre de densité constante
+    // 0 = Sphere de densitï¿½ constante (default)
+    // 1 = Cube de densitï¿½ constante
+    // 2 = Cylindre de densitï¿½ constante
     void SetInertiaTensorByType(FormType type = FormType::Sphere);
 
 
