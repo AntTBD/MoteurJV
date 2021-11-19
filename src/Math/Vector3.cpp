@@ -1,5 +1,3 @@
-#include <math.h>
-#include <assert.h>
 #include "Vector3.h"
 
 // Constructors
@@ -102,7 +100,7 @@ std::ostream& operator<<(std::ostream& os, const Vector3& vector)
 
 Vector3 operator*(const Vector3& vec, const float value)
 {
-	return Vector3(vec.GetX() * value, vec.GetY() * value, vec.GetZ() * value);
+	return {vec.GetX() * value, vec.GetY() * value, vec.GetZ() * value};
 }
 
 Vector3 operator*(const float value, const Vector3& vec)

@@ -1,5 +1,9 @@
 #pragma once
 
+// pour eviter les problèmes d'includes recursifs
+class Matrix33;
+class Matrix34;
+
 #include "Vector3.h"
 #include "Quaternion.h"
 #include "Matrix33.h"
@@ -51,9 +55,11 @@ public:
 	// Transform a direction by ignoring the translation
 	Vector3 TransformDirection(const Vector3& vector) const;
     Vector3 TransformInverseDirection(const Vector3& vector) const;
+
+
+    std::string toString() const;
+    friend std::ostream& operator<< (std::ostream& os, const Matrix34& matrix34);
+
+    friend Matrix34 operator*(const Matrix34& mat, float value);
+    friend Matrix34 operator*(float value, const Matrix34& mat);
 };
-
-std::ostream& operator<< (std::ostream& os, const Matrix34& matrix34);
-
-Matrix34 operator*(const Matrix34& mat, const float value);
-Matrix34 operator*(const float value, const Matrix34& mat);

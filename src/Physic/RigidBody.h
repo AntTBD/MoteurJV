@@ -5,9 +5,19 @@
 #include "../Math/Matrix33.h"
 #include "../Math/Matrix34.h"
 #include <vector>
+#include <math.h>
 
 class RigidBody
 {
+public:
+    // 0 = Sphere
+    // 1 = Cube
+    // 2 = Cylindre
+    enum FormType{
+        Sphere,
+        Cube,
+        Cylindre
+    };
 private:
     // ------------- Mass -------------
 	// same as for Particle
@@ -50,27 +60,20 @@ private:
 	Vector3 m_torqueAccum;
 
     // ------------- Tenseurs d'inertie -------------
-    // Sphère de densité constante
+    // Sphï¿½re de densitï¿½ constante
     Matrix33 inertiaTensor;
     Matrix33 inverseInertiaTensor;
     Matrix33 inverseInertiaTensorWorld;
 
     // ------------- Dimensions ---------------------
-    // 0 = Sphere
-    // 1 = Cube
-    // 2 = Cylindre
     Vector3 dimensions;
+    FormType formType;
 
 public:
-    enum FormType{
-        Sphere,
-        Cube,
-        Cylindre
-    } formType;
-
 	RigidBody();
-	RigidBody(float invMass, float linearDamping, const Vector3& position, const Vector3& velocity);
-	RigidBody(float invMass, float linearDamping, const Vector3& position, const Vector3& velocity, const Quaternion& orientation, const Vector3& rotation, const Matrix34& transformMatrix);
+    RigidBody(float mass, const Vector3 &position, const RigidBody::FormType &type = RigidBody::FormType::Sphere, const Vector3 &dimensions = Vector3(1,1,1));
+    RigidBody(float mass, const Vector3 &position, const Quaternion& orientation, const RigidBody::FormType &type = RigidBody::FormType::Sphere, const Vector3 &dimensions = Vector3(1,1,1));
+	RigidBody(float mass, const Vector3& position, const Vector3& velocity, const Quaternion& orientation, const Vector3& angularVelocity, const RigidBody::FormType &type = RigidBody::FormType::Sphere, const Vector3 &dimensions = Vector3(1,1,1));
 	RigidBody(const RigidBody& rigidBody);
 	~RigidBody();
 
@@ -103,12 +106,13 @@ public:
     // ------------- Rotation -------------
     void SetAngularDamping(float angularDamping);
 	void SetOrientation(const Quaternion& orientation);
-	void SetAngularVelocity(const Vector3& rotation);
+	void SetAngularVelocity(const Vector3& angularVelocity);
     void SetAngularAcceleration(const Vector3& angularAcceleration);
     // ------------- Transform -------------
 	void SetTransform(const Matrix34& transformMatrix);
     // ------------- Dimensions ---------------------
     void SetDimensions(const Vector3& dimensions);
+    void SetType(RigidBody::FormType type);
 
 
 
@@ -122,6 +126,7 @@ public:
     // ------------- Force -------------
     // Add force on the Center of mass (no torque generated)
     void AddForce(const Vector3& force);
+    void AddTorque(const Vector3& torque);
 
 	// Add force at a point in world coordinate.
 	// Generate force and torque
@@ -148,9 +153,9 @@ private:
 	void CalculateDerivedData();
 
     // Get tenseur d'inertie en fonction du type du rigidbody
-    // 0 = Sphere de densité constante (default)
-    // 1 = Cube de densité constante
-    // 2 = Cylindre de densité constante
+    // 0 = Sphere de densitï¿½ constante (default)
+    // 1 = Cube de densitï¿½ constante
+    // 2 = Cylindre de densitï¿½ constante
     void SetInertiaTensorByType(FormType type = FormType::Sphere);
 
 

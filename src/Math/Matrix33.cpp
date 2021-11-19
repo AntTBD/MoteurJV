@@ -1,4 +1,3 @@
-#include <gl/GL.h>
 #include "Matrix33.h"
 
 // Constructor
@@ -118,6 +117,11 @@ std::vector<float> Matrix33::operator[](int index)
 	}
 }
 
+std::string Matrix33::toString() const {
+    std::stringstream stream;
+    stream << *this;
+    return stream.str();
+}
 // << operator
 std::ostream& operator<< (std::ostream& os, const Matrix33& matrix33)
 {

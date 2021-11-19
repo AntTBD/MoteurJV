@@ -43,14 +43,17 @@ public:
 	Matrix33 Inverse();
 
 	// Set the matrix base on a quaternion
-	void SetOrientation(const Quaternion& q);
+    void SetOrientation(const Quaternion& q);
 
     // Transform local in world
     // from Millington book page 210
     Matrix33 Transform(const Matrix34& transformMatrix);
+
+
+
+    std::string toString() const;
+    friend std::ostream& operator<< (std::ostream& os, const Matrix33& matrix33);
+
+    friend Matrix33 operator*(const Matrix33& mat, float value);
+    friend Matrix33 operator*(float value, const Matrix33& mat);
 };
-
-std::ostream& operator<< (std::ostream& os, const Matrix33& matrix33);
-
-Matrix33 operator*(const Matrix33& mat, const float value);
-Matrix33 operator*(const float value, const Matrix33& mat);

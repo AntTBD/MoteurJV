@@ -4,6 +4,7 @@
 #include <vector>
 #include <assert.h>
 #include <algorithm>
+#include <math.h>
 
 
 class Quaternion
@@ -49,19 +50,23 @@ public:
 	Quaternion operator*(const Quaternion& other) const;
 	Quaternion& operator*=(const Quaternion& other);
 	Quaternion& operator*=(float val);
-	Quaternion operator*(float duration) const;
+	Quaternion operator*(float val) const;
 
+    // * operator dans les 2 sens
+    friend Quaternion operator*(float value, const Quaternion& quaternion);
 
 
 
 
 	// normalize by multipling the quaternion by the inverse of its magnitude
-	void Normalized();
+	void Normalize();
+	Quaternion Normalized() const;
 
-	Quaternion conjugate() const;
+	Quaternion Conjugate() const;
 
 	// Rotate the quaternion by a vector - multiply this by q = (0, dx, dy, dz)
 	void RotateByVector(const Vector3& vector);
+	Quaternion RotatedByVector(const Vector3& vector) const;
 
 	// Apply the quaternion update by the angular velocity
     // this += this->RotateByVector(rotation) * duration

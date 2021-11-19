@@ -2,7 +2,120 @@
 
 
 RigidBody::RigidBody() {
-    this->SetInertiaTensorByType(RigidBody::FormType::Sphere);
+
+    this->invMass = 1.0f;
+
+    this->linearDamping = 0.99f;
+    this->position = Vector3();
+    this->velocity = Vector3();
+    this->acceleration = Vector3();
+
+    this->m_angularDamping = 0.99f;
+    this->orientation = Quaternion();
+    this->angularVelocity = Vector3();
+    this->angularAcceleration = Vector3();
+
+    this->transformMatrix = Matrix34();
+
+    this->m_forceAccum = Vector3();
+    this->m_torqueAccum = Vector3();
+
+    this->inertiaTensor = Matrix33();
+    this->inverseInertiaTensor = Matrix33();
+    this->inverseInertiaTensorWorld = Matrix33();
+
+
+    this->dimensions = Vector3(1,1,1);
+    this->formType = RigidBody::FormType::Sphere;
+
+    // init tenseur d'inertie
+    this->SetInertiaTensorByType(this->formType);
+}
+
+RigidBody::RigidBody(float mass, const Vector3 &position, const RigidBody::FormType &type, const Vector3 &dimensions):
+    position(position), formType(type), dimensions(dimensions)
+{
+    this->SetMass(mass);
+
+    this->linearDamping = 0.99f;
+    this->velocity = Vector3();
+    this->acceleration = Vector3();
+
+    this->m_angularDamping = 0.99f;
+    this->orientation = Quaternion();
+    this->angularVelocity = Vector3();
+    this->angularAcceleration = Vector3();
+
+    this->transformMatrix = Matrix34();
+
+    this->m_forceAccum = Vector3();
+    this->m_torqueAccum = Vector3();
+
+    this->inertiaTensor = Matrix33();
+    this->inverseInertiaTensor = Matrix33();
+    this->inverseInertiaTensorWorld = Matrix33();
+
+    // init tenseur d'inertie
+    this->SetInertiaTensorByType(this->formType);
+}
+
+
+RigidBody::RigidBody(float mass, const Vector3 &position, const Quaternion& orientation, const RigidBody::FormType &type, const Vector3 &dimensions):
+    position(position), orientation(orientation), formType(type), dimensions(dimensions)
+{
+    this->SetMass(mass);
+
+    this->linearDamping = 0.99f;
+    this->velocity = Vector3();
+    this->acceleration = Vector3();
+
+    this->m_angularDamping = 0.99f;
+    this->angularVelocity = Vector3();
+    this->angularAcceleration = Vector3();
+
+    this->transformMatrix = Matrix34();
+
+    this->m_forceAccum = Vector3();
+    this->m_torqueAccum = Vector3();
+
+    this->inertiaTensor = Matrix33();
+    this->inverseInertiaTensor = Matrix33();
+    this->inverseInertiaTensorWorld = Matrix33();
+
+    // init tenseur d'inertie
+    this->SetInertiaTensorByType(this->formType);
+}
+
+RigidBody::RigidBody(float mass, const Vector3 &position, const Vector3 &velocity, const Quaternion &orientation, const Vector3 &angularVelocity, const RigidBody::FormType &type, const Vector3 &dimensions) :
+        position(position), velocity(velocity), orientation(orientation), angularVelocity(angularVelocity), formType(type), dimensions(dimensions)
+{
+    this->SetMass(mass);
+
+    this->linearDamping = 0.99f;
+    this->acceleration = Vector3();
+
+    this->m_angularDamping = 0.99f;
+    this->angularAcceleration = Vector3();
+
+    this->transformMatrix = Matrix34();
+
+    this->m_forceAccum = Vector3();
+    this->m_torqueAccum = Vector3();
+
+    this->inertiaTensor = Matrix33();
+    this->inverseInertiaTensor = Matrix33();
+    this->inverseInertiaTensorWorld = Matrix33();
+
+    // init tenseur d'inertie
+    this->SetInertiaTensorByType(this->formType);
+
+}
+
+RigidBody::RigidBody(const RigidBody &rigidBody) {
+    *this = rigidBody;
+
+    // init tenseur d'inertie
+    this->SetInertiaTensorByType(this->formType);
 }
 
 RigidBody::~RigidBody() {
@@ -93,8 +206,8 @@ void RigidBody::SetOrientation(const Quaternion &orientation) {
     this->orientation = orientation;
 }
 
-void RigidBody::SetAngularVelocity(const Vector3 &rotation) {
-    this->angularVelocity = rotation;
+void RigidBody::SetAngularVelocity(const Vector3 &angularVelocity) {
+    this->angularVelocity = angularVelocity;
 }
 
 void RigidBody::SetAngularAcceleration(const Vector3 &angularAcceleration) {
@@ -109,44 +222,48 @@ void RigidBody::SetDimensions(const Vector3 &dimensions) {
     this->dimensions = dimensions;
 }
 
-void RigidBody::Integrate(float duration) {
-    // 1. Calculer l’accélération linéaire : a = 1/m * f
-    // 2. Calculer l’accélération angulaire : aa = I(^-1)' * torq
-    // 3. Mettre à jour la vélocité linéaire : v' = v * (damp)(^t)) + a * t;
-    // 4. Mettre à jour la vélocité angulaire : av' = av * (damp)(^t) + aa * t;
-    // 5. Mettre à jour la position : p' = p + a * t
-    // 6. Mettre à jour l’orientation : o = o + dt / 2 * w * o
-    // 7. Calculer les valeurs dérivées (matrice de transformation et I(^-1)')
-    // 8. Remettre à zéro les accumulateurs (forces et couples).
+void RigidBody::SetType(RigidBody::FormType type) {
+    this->formType = type;
+}
 
-    // 1. Calculer l’accélération linéaire : a= 1/m * f
+void RigidBody::Integrate(float duration) {
+    // 1. Calculer lï¿½accï¿½lï¿½ration linï¿½aire : a = 1/m * f
+    // 2. Calculer lï¿½accï¿½lï¿½ration angulaire : aa = I(^-1)' * torq
+    // 3. Mettre ï¿½ jour la vï¿½locitï¿½ linï¿½aire : v' = v * (damp)(^t)) + a * t;
+    // 4. Mettre ï¿½ jour la vï¿½locitï¿½ angulaire : av' = av * (damp)(^t) + aa * t;
+    // 5. Mettre ï¿½ jour la position : p' = p + a * t
+    // 6. Mettre ï¿½ jour lï¿½orientation : o = o + dt / 2 * w * o
+    // 7. Calculer les valeurs dï¿½rivï¿½es (matrice de transformation et I(^-1)')
+    // 8. Remettre ï¿½ zï¿½ro les accumulateurs (forces et couples).
+
+    // 1. Calculer lï¿½accï¿½lï¿½ration linï¿½aire : a= 1/m * f
     this->UpdateAcceleration();
 
-    // 2. Calculer l’accélération angulaire : av=I(^-1)' * torq;
+    // 2. Calculer lï¿½accï¿½lï¿½ration angulaire : av=I(^-1)' * torq;
     this->angularAcceleration = this->inverseInertiaTensorWorld * this->m_torqueAccum;
 
-    // 3. Mettre à jour la vélocité linéaire : v' = v(damp)(^t)) + a * t;
+    // 3. Mettre ï¿½ jour la vï¿½locitï¿½ linï¿½aire : v' = v(damp)(^t)) + a * t;
     this->velocity *= pow(this->linearDamping, duration);
     this->velocity += this->acceleration * duration;
 
-    // 4. Mettre à jour la vélocité angulaire : av' = av * (damp)(^t) + aa * t;
+    // 4. Mettre ï¿½ jour la vï¿½locitï¿½ angulaire : av' = av * (damp)(^t) + aa * t;
     this->angularVelocity *= pow(this->m_angularDamping, duration);
     this->angularVelocity += this->angularAcceleration * duration;
 
-    // 5. Mettre à jour la position : p' = p + a * t
+    // 5. Mettre ï¿½ jour la position : p' = p + a * t
     this->position += this->velocity * duration;
 
-    // 6. Mettre à jour l’orientation : o = o + dt / 2 * w * o
+    // 6. Mettre ï¿½ jour lï¿½orientation : o = o + dt / 2 * w * o
     // w = [0, av.x, av.y, av.z]
-    Quaternion w(0, this->angularVelocity.GetX(), this->angularVelocity.GetY(), this->angularVelocity.GetZ());
-    this->orientation += (duration / 2.f) * w * this->orientation;
+    //Quaternion w(this->angularVelocity.GetX(), this->angularVelocity.GetY(), this->angularVelocity.GetZ(), 0);
+    this->orientation += (duration / 2.f) * this->orientation.RotatedByVector(this->angularVelocity);
 
-    // 7. Calculer les valeurs dérivées (matrice de transformation et I(^-1)')
+    // 7. Calculer les valeurs dï¿½rivï¿½es (matrice de transformation et I(^-1)')
     // Normalize the orientation, and update the matrices with the new
     // position and orientation.
     this->CalculateDerivedData();
 
-    // 8. Remettre à zéro les accumulateurs (forces et couples).
+    // 8. Remettre ï¿½ zï¿½ro les accumulateurs (forces et couples).
     this->ClearAccumulator();
 }
 
@@ -171,11 +288,12 @@ void RigidBody::CalculateDerivedData() {
 
 void RigidBody::SetInertiaTensorByType(FormType type) {
     this->formType = type;
+
     switch (this->formType) {
         case 0: // sphere
-            //  I = [ 1/5 * m * (r.y² + r.z²),            0            ,           0             ,
-            //                  0             , 1/5 * m * (r.x² + r.z²),           0             ,
-            //                  0             ,            0            , 1/5 * m * (r.x² + r.y²) ]
+            //  I = [ 1/5 * m * (r.yï¿½ + r.zï¿½),            0            ,           0             ,
+            //                  0             , 1/5 * m * (r.xï¿½ + r.zï¿½),           0             ,
+            //                  0             ,            0            , 1/5 * m * (r.xï¿½ + r.yï¿½) ]
             //  where m is the mass and r.x, r.y and r.z are radii along respective axes.
             // You can see by inspection that this reduces to the sphere inertia tensor when the radii are all equal
             this->inertiaTensor = Matrix33({
@@ -183,46 +301,51 @@ void RigidBody::SetInertiaTensorByType(FormType type) {
                0.f, 1.f / 5.f * this->GetMass() * (pow(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetZ(), 2.f)), 0.f,
                0.f, 0.f, 1.f / 5.f * this->GetMass() * (pow(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetY(), 2.f))
             });
-            this->inverseInertiaTensor = this->inertiaTensor.Inverse();
             break;
         case 1: // cube
-            //  I = [ 1/12 * m * (d.y² + d.z²),            0            ,           0             ,
-            //                  0             , 1/12 * m * (d.x² + d.z²),           0             ,
-            //                  0             ,            0            , 1/12 * m * (d.x² + d.y²) ]
+            //  I = [ 1/12 * m * (d.yï¿½ + d.zï¿½),            0            ,           0             ,
+            //                  0             , 1/12 * m * (d.xï¿½ + d.zï¿½),           0             ,
+            //                  0             ,            0            , 1/12 * m * (d.xï¿½ + d.yï¿½) ]
             //  where m is the mass and d.x, d.y and d.z are the extent of the cuboid along each axis.
             this->inertiaTensor = Matrix33({
                 1.f / 12.f * this->GetMass() * (pow(this->dimensions.GetY(), 2.f) + pow(this->dimensions.GetZ(), 2.f)), 0.f, 0.f,
                 0.f, 1.f / 12.f * this->GetMass() * (pow(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetZ(), 2.f)), 0.f,
                 0.f, 0.f, 1.f / 12.f * this->GetMass() * (pow(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetY(), 2.f))
             });
-            this->inverseInertiaTensor = this->inertiaTensor.Inverse();
             break;
         case 2: // cylindre
             // d.x = r.o
             // d.y = h
             // d.z = r.i
-            //  I = [ 1/12 * m * h² + 1/4 * m * (r.o² + r.i²),            0            ,           0             ,
-            //                  0             , 1/12 * m * h² + 1/4 * m * (r.o² + r.i²),           0             ,
-            //                  0             ,            0            , 1/12 * m * h² + 1/4 * m * (r.o² + r.i²) ]
+            //  I = [ 1/12 * m * hï¿½ + 1/4 * m * (r.oï¿½ + r.iï¿½),            0            ,           0             ,
+            //                  0             , 1/12 * m * hï¿½ + 1/4 * m * (r.oï¿½ + r.iï¿½),           0             ,
+            //                  0             ,            0            , 1/12 * m * hï¿½ + 1/4 * m * (r.oï¿½ + r.iï¿½) ]
             //  where m is the mass and d.x, d.y and d.z are the extent of the cuboid along each axis.
             this->inertiaTensor = Matrix33({
                1.f / 12.f * this->GetMass() * pow(this->dimensions.GetZ(), 2.f) + 1.f/4.f * this->GetMass() * (pow(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetZ(), 2.f)), 0.f, 0.f,
                0.f, 1.f / 12.f * this->GetMass() * pow(this->dimensions.GetZ(), 2.f) + 1.f/4.f * this->GetMass() * (pow(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetZ(), 2.f)), 0.f,
                0.f, 0.f, 1.f / 12.f * this->GetMass() * pow(this->dimensions.GetZ(), 2.f) + 1.f/4.f * this->GetMass() * (pow(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetZ(), 2.f))
             });
-            this->inverseInertiaTensor = this->inertiaTensor.Inverse();
             break;
     }
+
+    this->inverseInertiaTensor = this->inertiaTensor.Inverse();
+    this->inverseInertiaTensorWorld = this->inverseInertiaTensor.Transform(this->transformMatrix);
 }
 
 void RigidBody::AddForce(const Vector3 &force) {
     this->m_forceAccum += force;
 }
 
+void RigidBody::AddTorque(const Vector3& torque)
+{
+    this->m_torqueAccum += torque;
+}
+
 void RigidBody::AddForceAtPoint(const Vector3 &force, const Vector3 &worldPoint) {
     // Convert to coordinates relative to center of mass.
-    Vector3 pt = this->position;
-    pt -= position;
+    Vector3 pt = worldPoint;
+    pt -= this->position;
     this->m_forceAccum += force;
     this->m_torqueAccum += pt.CrossProduct(force);
 }
