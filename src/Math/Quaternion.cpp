@@ -84,6 +84,69 @@ void Quaternion::SetW(float w)
 }
 
 
+// Operators
+Quaternion& Quaternion::operator=(const Quaternion& other) {
+
+	this->i = other.GetI();
+	this->j = other.GetJ();
+	this->k = other.GetK();
+	this->w = other.GetW();
+	return *this;
+}
+
+Quaternion Quaternion::operator+(const Quaternion& other) const
+{
+	return {
+		this->GetI() + other.GetI(),
+		this->GetJ() + other.GetJ(),
+		this->GetK() + other.GetK(),
+		this->GetW() + other.GetW()
+	};
+
+
+}
+
+Quaternion& Quaternion::operator+=(const Quaternion& other)
+{
+	*this = *this + other;
+	return  *this;
+}
+
+Quaternion Quaternion::operator*(const Quaternion& other) const
+{
+	return {
+		this->GetJ() * other.GetK() - this->GetK() * other.GetJ() + this->GetI() * other.GetW() + this->GetW() * other.GetI(),
+		this->GetK() * other.GetI() - this->GetI() * other.GetK() + this->GetJ() * other.GetW() + this->GetW() * other.GetJ(),
+		this->GetI() * other.GetJ() - this->GetJ() * other.GetI() + this->GetK() * other.GetW() + this->GetW() * other.GetK(),
+		this->GetW() * other.GetW() - this->GetI() * other.GetI() - this->GetJ() * other.GetJ() - this->GetK() * other.GetK()
+	};
+}
+
+Quaternion& Quaternion::operator*=(const Quaternion& other)
+{
+	*this = *this * other;
+	return  *this;
+}
+
+
+
+Quaternion Quaternion::operator*(float duration) const
+{
+	return {
+		this->GetI() * duration,
+		this->GetJ() * duration,
+		this->GetK() * duration,
+		this->GetW() * duration
+	};
+}
+
+Quaternion& Quaternion::operator*=(float val)
+{
+	*this = *this * val;
+	return *this;
+}
+
+
 // Functions 
 
 // normalize by multipling the quaternion by the inverse of its magnitude
@@ -99,67 +162,12 @@ void Quaternion::Normalized()
 
 }
 
-Quaternion& Quaternion::operator=(const Quaternion &other) {
-
-    this->i = other.GetI();
-    this->j = other.GetJ();
-    this->k = other.GetK();
-    this->w = other.GetW();
-    return *this;
-}
-
-Quaternion Quaternion::operator+(const Quaternion& other) const
+Quaternion Quaternion::conjugate() const
 {
-	return {
-        this->GetI() + other.GetI(),
-        this->GetJ() + other.GetJ(),
-        this->GetK() + other.GetK(),
-        this->GetW() + other.GetW()
-    };
-
-	
-}
-
-Quaternion& Quaternion::operator+=(const Quaternion& other)
-{
-	*this = *this + other;
-	return  *this;
-}
-
-// Quaternion multiplication
-Quaternion Quaternion::operator*(const Quaternion& other) const
-{
-	return {
-        this->GetJ() * other.GetK() - this->GetK() * other.GetJ() + this->GetI() * other.GetW() + this->GetW() * other.GetI(),
-        this->GetK() * other.GetI() - this->GetI() * other.GetK() + this->GetJ() * other.GetW() + this->GetW() * other.GetJ(),
-        this->GetI() * other.GetJ() - this->GetJ() * other.GetI() + this->GetK() * other.GetW() + this->GetW() * other.GetK(),
-        this->GetW() * other.GetW() - this->GetI() * other.GetI() - this->GetJ() * other.GetJ() - this->GetK() * other.GetK()
-    };
-}
-
-Quaternion& Quaternion::operator*=(const Quaternion& other)
-{
-	*this = *this * other;
-	return  *this;
+	return Quaternion(-this->i, -this->j, -this->k, this->w );
 }
 
 
-
-Quaternion Quaternion::operator*(float duration) const
-{
-	return {
-        this->GetI() * duration,
-        this->GetJ() * duration,
-        this->GetK() * duration,
-        this->GetW() * duration
-    };
-}
-
-Quaternion& Quaternion::operator*=(float val) 
-{
-	*this = *this * val;
-	return *this;
-}
 
 
 
@@ -167,8 +175,10 @@ Quaternion& Quaternion::operator*=(float val)
 void Quaternion::RotateByVector(const Vector3& vector)
 {
 	Quaternion vector_bis(vector, 0);
+	this->Normalized();
+	vector_bis.Normalized();
 
-	*this *= vector_bis;
+	*this *= vector_bis * this->conjugate();
 	
 }
 
