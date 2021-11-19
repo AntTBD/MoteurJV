@@ -46,7 +46,7 @@ Quaternion::~Quaternion()
 // Getters
 
 std::vector<float> Quaternion::Get() const {
-    return {*this->value};
+    return { *this->value };
 }
 
 float Quaternion::GetI() const { return this->i; }
@@ -152,7 +152,7 @@ Quaternion& Quaternion::operator*=(float val)
 // normalize by multipling the quaternion by the inverse of its magnitude
 void Quaternion::Normalized()
 {
-	float magnitude = float(sqrt(pow(this->i, 2) + pow(this->j, 2) + pow(this->k, 2) + pow(this->w, 2)));
+	float magnitude = float(sqrt(pow(this->i, 2.f) + pow(this->j, 2.f) + pow(this->k, 2.f) + pow(this->w, 2.f)));
 	assert(magnitude != 0 && "Division par 0 ! : Quaternion::Normalized() : magnitude = 0");
 
 	this->i /= magnitude;
@@ -164,7 +164,7 @@ void Quaternion::Normalized()
 
 Quaternion Quaternion::conjugate() const
 {
-	return Quaternion(-this->i, -this->j, -this->k, this->w );
+	return {-this->i, -this->j, -this->k, this->w };
 }
 
 
@@ -226,4 +226,8 @@ std::ostream& operator<<(std::ostream& os, const Quaternion& quaternion)
 {
 	os << "(" << quaternion.GetI() << ", " << quaternion.GetJ() << ", " << quaternion.GetK() << ", " << quaternion.GetW() << ")";
 	return os;
+}
+
+Quaternion operator*(float value, const Quaternion &quaternion) {
+	return quaternion * value;
 }

@@ -8,6 +8,15 @@
 
 class RigidBody
 {
+public:
+    // 0 = Sphere
+    // 1 = Cube
+    // 2 = Cylindre
+    enum FormType{
+        Sphere,
+        Cube,
+        Cylindre
+    };
 private:
     // ------------- Mass -------------
 	// same as for Particle
@@ -56,21 +65,14 @@ private:
     Matrix33 inverseInertiaTensorWorld;
 
     // ------------- Dimensions ---------------------
-    // 0 = Sphere
-    // 1 = Cube
-    // 2 = Cylindre
     Vector3 dimensions;
+    FormType formType;
 
 public:
-    enum FormType{
-        Sphere,
-        Cube,
-        Cylindre
-    } formType;
-
 	RigidBody();
-	RigidBody(float invMass, float linearDamping, const Vector3& position, const Vector3& velocity);
-	RigidBody(float invMass, float linearDamping, const Vector3& position, const Vector3& velocity, const Quaternion& orientation, const Vector3& rotation, const Matrix34& transformMatrix);
+    RigidBody(float mass, const Vector3 &position, const RigidBody::FormType &type = RigidBody::FormType::Sphere, const Vector3 &dimensions = Vector3(1,1,1));
+    RigidBody(float mass, const Vector3 &position, const Quaternion& orientation, const RigidBody::FormType &type = RigidBody::FormType::Sphere, const Vector3 &dimensions = Vector3(1,1,1));
+	RigidBody(float mass, const Vector3& position, const Vector3& velocity, const Quaternion& orientation, const Vector3& angularVelocity, const RigidBody::FormType &type = RigidBody::FormType::Sphere, const Vector3 &dimensions = Vector3(1,1,1));
 	RigidBody(const RigidBody& rigidBody);
 	~RigidBody();
 
@@ -103,12 +105,13 @@ public:
     // ------------- Rotation -------------
     void SetAngularDamping(float angularDamping);
 	void SetOrientation(const Quaternion& orientation);
-	void SetAngularVelocity(const Vector3& rotation);
+	void SetAngularVelocity(const Vector3& angularVelocity);
     void SetAngularAcceleration(const Vector3& angularAcceleration);
     // ------------- Transform -------------
 	void SetTransform(const Matrix34& transformMatrix);
     // ------------- Dimensions ---------------------
     void SetDimensions(const Vector3& dimensions);
+    void SetType(RigidBody::FormType type);
 
 
 

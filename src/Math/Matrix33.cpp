@@ -118,6 +118,11 @@ std::vector<float> Matrix33::operator[](int index)
 	}
 }
 
+std::string Matrix33::toString() const {
+    std::stringstream stream;
+    stream << *this;
+    return stream.str();
+}
 // << operator
 std::ostream& operator<< (std::ostream& os, const Matrix33& matrix33)
 {

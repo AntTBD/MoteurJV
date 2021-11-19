@@ -51,6 +51,8 @@ public:
 	Quaternion& operator*=(float val);
 	Quaternion operator*(float duration) const;
 
+    // * operator dans les 2 sens
+    friend Quaternion operator*(float value, const Quaternion& quaternion);
 
 
 

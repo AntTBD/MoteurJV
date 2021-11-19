@@ -91,7 +91,7 @@ public:
     friend std::ostream& operator<< (std::ostream& os, const Vector3& vector);
 
     // * operator dans les 2 sens
-    friend Vector3 operator*(const Vector3& vec, const float value);
-    friend Vector3 operator*(const float value, const Vector3& vec);
+    friend Vector3 operator*(const Vector3& vec, float value);
+    friend Vector3 operator*(float value, const Vector3& vec);
 
 };
