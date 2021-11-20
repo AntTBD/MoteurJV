@@ -4,19 +4,11 @@
 Matrix34::Matrix34()
 {
 	this->values = std::vector<float>(12);
-	for (int i = 0; i < 12; i++)
-	{
-		this->values[i] = 0;
-	}
 }
 
 Matrix34::Matrix34(std::vector<float> value)
 {
 	this->values = std::vector<float>(12);
-	for (int i = 0; i < 12; i++)
-	{
-		this->values[i] = 0;
-	}
 	assert(value.size() == 12 && "Size != 12");
 	for (int i = 0; i < 12; i++)
 	{
@@ -32,18 +24,13 @@ Matrix34::Matrix34(const Matrix34& matrix34)
 Matrix34::Matrix34(const Matrix33& matrix33, const Vector3& vec)
 {
 	this->values = std::vector<float>(12);
-	for (int i = 0; i < 12; i++)
-	{
-		this->values[i] = 0;
-	}
-	std::vector<float> matrix33Value = matrix33.Get();
 
 	int j = 0;
 	for (int i = 0; i < 12; i++)
 	{
 		if (i != 3 && i != 7 && i != 11)
 		{
-			this->values[i] = matrix33Value[j];
+			this->values[i] = matrix33.Get(j);
 			j++;
 		}
 	}
@@ -56,9 +43,7 @@ Matrix34::Matrix34(const Matrix33& matrix33, const Vector3& vec)
 //Getter / Setter
 std::vector<float> Matrix34::Get() const
 {
-	std::vector<float> valuesCopy(this->values);
-
-	return valuesCopy;
+	return this->values;
 }
 
 float Matrix34::Get(int index) const
@@ -68,7 +53,7 @@ float Matrix34::Get(int index) const
 
 Matrix33 Matrix34::GetMatrix33() const
 {
-	std::vector<float> valuesCopy;
+	std::vector<float> valuesCopy(9);
 	int j = 0;
 	for (int i = 0; i < 12; i++)
 	{
@@ -85,6 +70,30 @@ Matrix33 Matrix34::GetMatrix33() const
 Vector3 Matrix34::GetVector() const
 {
 	return { this->Get(3), this->Get(7), this->Get(11) };
+}
+
+// return transform matrix to be used with opengl (with transpose)
+std::vector<float> Matrix34::GetMatrix44ForGL() const {
+
+	std::vector<float> matrix44(16);
+	matrix44[0] = values[0];
+	matrix44[1] = values[4];
+	matrix44[2] = values[8];
+	matrix44[3] = 0.f;
+	matrix44[4] = values[1];
+	matrix44[5] = values[5];
+	matrix44[6] = values[9];
+	matrix44[7] = 0.f;
+	matrix44[8] = values[2];
+	matrix44[9] = values[6];
+	matrix44[10] = values[10];
+	matrix44[11] = 0.f;
+	matrix44[12] = values[3];
+	matrix44[13] = values[7];
+	matrix44[14] = values[11];
+	matrix44[15] = 1.f;
+
+	return matrix44;
 }
 
 void Matrix34::Set(std::vector<float> value)
@@ -106,7 +115,7 @@ Matrix34& Matrix34::operator=(const Matrix34& other)
 
 Matrix34 Matrix34::operator*(const Matrix34& other) const
 {
-	std::vector<float> result;
+	std::vector<float> result(other.Get().size());
 	std::vector<float> otherValue = other.Get();
 
 	result[0] = values[0] * otherValue[0] + values[1] * otherValue[4] + values[2] * otherValue[8];
@@ -181,10 +190,9 @@ std::string Matrix34::toString() const {
 // << operator
 std::ostream& operator<< (std::ostream& os, const Matrix34& matrix34)
 {
-	std::vector<float> values = matrix34.Get();
-	os << "{" << matrix34.Get()[0] << ", " << matrix34.Get()[1] << ", " << matrix34.Get()[2] << ", " << matrix34.Get()[3] << std::endl
-		<< " " << matrix34.Get()[4] << ", " << matrix34.Get()[5] << ", " << matrix34.Get()[6] << ", " << matrix34.Get()[7] << std::endl
-		<< " " << matrix34.Get()[8] << ", " << matrix34.Get()[9] << ", " << matrix34.Get()[10] << ", " << matrix34.Get()[11] << std::endl
+	os << "{" << matrix34[0][0] << ", " << matrix34[0][1] << ", " << matrix34[0][2] << ", " << matrix34[0][3] << std::endl
+		<< " " << matrix34[1][0] << ", " << matrix34[1][1] << ", " << matrix34[1][2] << ", " << matrix34[1][3] << std::endl
+		<< " " << matrix34[2][0] << ", " << matrix34[2][1] << ", " << matrix34[2][2] << ", " << matrix34[2][3] << std::endl
 		<< " " << "0" << ", " << "0" << ", " << "0" << ", " << "1" << "}" << std::endl;
 	return os;
 }
@@ -193,10 +201,9 @@ std::ostream& operator<< (std::ostream& os, const Matrix34& matrix34)
 Matrix34 operator*(const Matrix34& mat, const float value)
 {
 	std::vector<float> result;
-	std::vector<float> matValue = mat.Get();
 	for (int i = 0; i < 12; i++)
 	{
-		result[i] = matValue[i] * value;
+		result[i] = mat.Get(i) * value;
 	}
 	return  { result };
 }
@@ -209,7 +216,7 @@ Matrix34 operator*(const float value, const Matrix34& mat)
 Matrix34 Matrix34::Inverse() const
 {
 	Matrix33 matrix33inv = this->GetMatrix33().Inverse();
-	Vector3 vec3 = -1*matrix33inv * this->GetVector();
+	Vector3 vec3 = -1.f * matrix33inv * this->GetVector();
 
 	return { matrix33inv, vec3 };
 }
@@ -218,21 +225,8 @@ void Matrix34::SetOrientationAndPosition(const Quaternion& q, const Vector3& p)
 {
 	Matrix33 matrix33Quaternion;
 	matrix33Quaternion.SetOrientation(q);
-	std::vector<float> matrix33QuaternionValues = matrix33Quaternion.Get();
 
-	int j = 0;
-	for (int i = 0; i < 12; i++)
-	{
-		if (i != 3 && i != 7 && i != 11)
-		{
-			this->values[i] = matrix33QuaternionValues[j];
-			j++;
-		}
-	}
-
-	this->values[3] = p.GetX();
-	this->values[7] = p.GetY();
-	this->values[11] = p.GetZ();
+	*this = Matrix34(matrix33Quaternion, p);
 }
 
 Vector3 Matrix34::TransformPosition(const Vector3& vector) const
@@ -274,3 +268,4 @@ Vector3 Matrix34::TransformInverseDirection(const Vector3& vector) const
 
 	return result;
 }
+

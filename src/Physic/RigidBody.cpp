@@ -119,6 +119,7 @@ RigidBody::RigidBody(const RigidBody &rigidBody) {
 
     // init tenseur d'inertie
     this->SetInertiaTensorByType(this->shapeType);
+    this->Integrate(0);
 }
 
 RigidBody::~RigidBody() {
@@ -188,6 +189,8 @@ RigidBody::ShapeType RigidBody::GetShapeType() const {
 
 void RigidBody::SetInvMass(float inverseMass) {
     this->invMass = inverseMass;
+    this->SetInertiaTensorByType(this->shapeType);
+    this->Integrate(0);
 }
 
 void RigidBody::SetMass(float mass) {
@@ -196,6 +199,8 @@ void RigidBody::SetMass(float mass) {
     assert(mass != 0 && "Mass = 0 and division by 0 is not possible");
 
     this->invMass = 1.f / mass;
+    this->SetInertiaTensorByType(this->shapeType);
+    this->Integrate(0);
 }
 
 void RigidBody::SetLinearDamping(float linearDamping) {
@@ -220,6 +225,7 @@ void RigidBody::SetAngularDamping(float angularDamping) {
 
 void RigidBody::SetOrientation(const Quaternion &orientation) {
     this->orientation = orientation;
+    this->Integrate(0);
 }
 
 void RigidBody::SetAngularVelocity(const Vector3 &angularVelocity) {
@@ -237,11 +243,13 @@ void RigidBody::SetTransform(const Matrix34 &transformMatrix) {
 void RigidBody::SetDimensions(const Vector3 &dimensions) {
     this->dimensions = dimensions;
     this->SetInertiaTensorByType(this->shapeType);
+    this->Integrate(0);
 }
 
 void RigidBody::SetShapeType(RigidBody::ShapeType type) {
     this->shapeType = type;
     this->SetInertiaTensorByType(this->shapeType);
+    this->Integrate(0);
 }
 
 void RigidBody::Integrate(float duration) {
@@ -274,7 +282,8 @@ void RigidBody::Integrate(float duration) {
     // 6. Mettre � jour l�orientation : o = o + dt / 2 * w * o
     // w = [0, av.x, av.y, av.z]
     //Quaternion w(this->angularVelocity.GetX(), this->angularVelocity.GetY(), this->angularVelocity.GetZ(), 0);
-    this->orientation += (duration / 2.f) * this->orientation.RotatedByVector(this->angularVelocity);
+    //this->orientation += (duration / 2.f) * this->orientation.RotatedByVector(this->angularVelocity);
+    this->orientation.UpdateByAngularVelocity(this->angularVelocity, duration);
 
     // 7. Calculer les valeurs d�riv�es (matrice de transformation et I(^-1)')
     // Normalize the orientation, and update the matrices with the new
@@ -292,7 +301,7 @@ void RigidBody::UpdateAcceleration()
 }
 
 void RigidBody::CalculateDerivedData() {
-    this->orientation.Normalized();
+    this->orientation.Normalize();
 
     // Matrice de transformation
     // Calculate the transform matrix for the body.

@@ -28,6 +28,9 @@ public:
 	Matrix33 GetMatrix33() const;
 	Vector3 GetVector() const;
 
+    // return transform matrix to be used with opengl (with transpose)
+    std::vector<float> GetMatrix44ForGL() const;
+
 	void Set(std::vector<float> value);
 
 	Matrix34& operator=(const Matrix34& other);

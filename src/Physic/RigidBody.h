@@ -72,9 +72,9 @@ private:
 
 public:
 	RigidBody();
-    RigidBody(float mass, const Vector3 &position, const RigidBody::ShapeType &type = RigidBody::ShapeType::Sphere, const Vector3 &dimensions = Vector3(1, 1, 1));
-    RigidBody(float mass, const Vector3 &position, const Quaternion& orientation, const RigidBody::ShapeType &type = RigidBody::ShapeType::Sphere, const Vector3 &dimensions = Vector3(1, 1, 1));
-	RigidBody(float mass, const Vector3& position, const Vector3& velocity, const Quaternion& orientation, const Vector3& angularVelocity, const RigidBody::ShapeType &type = RigidBody::ShapeType::Sphere, const Vector3 &dimensions = Vector3(1, 1, 1));
+    RigidBody(float mass, const Vector3 &position, const RigidBody::ShapeType &type = RigidBody::ShapeType::Sphere, const Vector3 &dimensions = Vector3(5, 5, 5));
+    RigidBody(float mass, const Vector3 &position, const Quaternion& orientation, const RigidBody::ShapeType &type = RigidBody::ShapeType::Sphere, const Vector3 &dimensions = Vector3(5, 5, 5));
+	RigidBody(float mass, const Vector3& position, const Vector3& velocity, const Quaternion& orientation, const Vector3& angularVelocity, const RigidBody::ShapeType &type = RigidBody::ShapeType::Sphere, const Vector3 &dimensions = Vector3(5, 5, 5));
 	RigidBody(const RigidBody& rigidBody);
 	~RigidBody();
 
