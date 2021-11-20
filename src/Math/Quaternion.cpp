@@ -262,7 +262,7 @@ Vector3 Quaternion::ToEuler() const {
     float cosy_cosp = 1.f - 2.f * (this->j * this->j + this->k * this->k);
     angles.SetZ(std::atan2f(siny_cosp, cosy_cosp));
 
-    return angles * 180.f / M_PI;
+    return angles;
 }
 
 Vector3 Quaternion::ToEulerInDegrees() const {

@@ -13,13 +13,25 @@
 int main(int, char**)
 {
 
-    Vector3 vec = Vector3(0.0f, -1.0f, 0.0f);
+    /*Vector3 vec = Vector3(0.0f, -1.0f, 0.0f);
 
     Quaternion testQuaternion(vec,0);
     
     //test.RotateByVector(vec);
     testQuaternion.RotateByVector(vec);
-    std::cout<< testQuaternion << std::endl;
+    std::cout<< testQuaternion << std::endl;*/
+
+
+    //Quaternion testQuaternion2(0,0.707107,0,0.707107);
+    //std::cout<< testQuaternion2.ToEuler() << std::endl;
+    //std::cout<< testQuaternion2.ToEulerInDegrees() << std::endl;
+
+    std::cout<< Vector3(90,90,90) << std::endl;
+    std::cout<< Quaternion::EulerInDegreesToQuaternion(Vector3(90,90,90)) << std::endl;
+    std::cout<< Quaternion::EulerInDegreesToQuaternion(Vector3(90,90,90)).ToEulerInDegrees() << std::endl;
+    std::cout<< Vector3(M_PI/2.f,M_PI/2.f,M_PI/2.f) << std::endl;
+    std::cout<< Quaternion::EulerToQuaternion(Vector3(M_PI/2.f,M_PI/2.f,M_PI/2.f)) << std::endl;
+    std::cout<< Quaternion::EulerToQuaternion(Vector3(M_PI/2.f,M_PI/2.f,M_PI/2.f)).ToEuler() << std::endl;
 
 
 
