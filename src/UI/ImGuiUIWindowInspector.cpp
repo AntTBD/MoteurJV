@@ -50,40 +50,98 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
 
     if (node_open)
     {
+        int i = 0;
 
         Vector3 objectPos = EngineManager::getInstance().getScene()->GetObject(uid)->GetPosition();
-        Vector3 objectSpeed = EngineManager::getInstance().getScene()->GetObject(uid)->GetSpeed();
-        float objectMass = 1.f/EngineManager::getInstance().getScene()->GetObject(uid)->GetinvMass();
+        Vector3 objectVelocity = EngineManager::getInstance().getScene()->GetObject(uid)->GetVelocity();
+        Vector3 objectAngularVelocity = EngineManager::getInstance().getScene()->GetObject(uid)->GetAngularVelocity();
+        Vector3 objectOrientation = EngineManager::getInstance().getScene()->GetObject(uid)->GetOrientation().ToEulerInDegrees();
+        float objectMass = EngineManager::getInstance().getScene()->GetObject(uid)->GetMass();
+        Vector3 objectDimensions = EngineManager::getInstance().getScene()->GetObject(uid)->GetDimensions();
+        RigidBody::ShapeType objectShapeType = EngineManager::getInstance().getScene()->GetObject(uid)->GetShapeType();
 
 
-        ImGui::PushID(0); // Use field index as identifier.
+        // ============================= Position =================================
+        ImGui::PushID(i); // Use field index as identifier.
         //this->ShowVector3PlaceHolder(objectPos, uid, "Position");
         Vector3 newValuesPosition = this->ShowVector3PlaceHolder(objectPos, uid, "Position");
         if(newValuesPosition.GetX() != objectPos.GetX() || newValuesPosition.GetY() != objectPos.GetY() || newValuesPosition.GetZ() != objectPos.GetZ()){
             EngineManager::getInstance().getScene()->GetObject(uid)->SetPosition(newValuesPosition);
         }
         ImGui::PopID();
+        i++;
 
-        ImGui::PushID(1); // Use field index as identifier.
-        ImGui::BeginDisabled(EngineManager::getInstance().getPhysicEngine()->isRunning()); // avoid create multiple simulation
-        //this->ShowVector3PlaceHolder(objectSpeed, uid, "Velocity");
-        Vector3 newValuesVelocity = this->ShowVector3PlaceHolder(objectSpeed, uid, "Velocity");
-        if(newValuesVelocity.GetX() != objectSpeed.GetX() || newValuesVelocity.GetY() != objectSpeed.GetY() || newValuesVelocity.GetZ() != objectSpeed.GetZ()){
-            EngineManager::getInstance().getScene()->GetObject(uid)->SetPosition(newValuesVelocity);
+        // ============================= Orientation =================================
+        ImGui::PushID(i); // Use field index as identifier.
+        ImGui::BeginDisabled(true); // avoid change during simulation
+        //this->ShowVector3PlaceHolder(objectOrientation, uid, "Orientation");
+        Vector3 newValuesOrientation = this->ShowVector3PlaceHolder(objectOrientation, uid, u8"Orientation °");
+        if(newValuesOrientation.GetX() != objectOrientation.GetX() || newValuesOrientation.GetY() != objectOrientation.GetY() || newValuesOrientation.GetZ() != objectOrientation.GetZ()){
+            EngineManager::getInstance().getScene()->GetObject(uid)->SetOrientation(Quaternion::EulerInDegreesToQuaternion(newValuesOrientation));
         }
         ImGui::EndDisabled();
         ImGui::PopID();
+        i++;
 
+        // ============================= Velocity =================================
+        ImGui::PushID(i); // Use field index as identifier.
+        ImGui::BeginDisabled(EngineManager::getInstance().getPhysicEngine()->isRunning()); // avoid change during simulation
+        //this->ShowVector3PlaceHolder(objectVelocity, uid, "Velocity");
+        Vector3 newValuesVelocity = this->ShowVector3PlaceHolder(objectVelocity, uid, "Velocity");
+        if(newValuesVelocity.GetX() != objectVelocity.GetX() || newValuesVelocity.GetY() != objectVelocity.GetY() || newValuesVelocity.GetZ() != objectVelocity.GetZ()){
+            EngineManager::getInstance().getScene()->GetObject(uid)->SetVelocity(newValuesVelocity);
+        }
+        ImGui::EndDisabled();
+        ImGui::PopID();
+        i++;
 
-        ImGui::PushID(2); // Use field index as identifier.
-        //this->ShowVector3PlaceHolder(objectPos, uid, "Position");
+        // ============================= Angular Velocity =================================
+        ImGui::PushID(i); // Use field index as identifier.
+        ImGui::BeginDisabled(EngineManager::getInstance().getPhysicEngine()->isRunning()); // avoid change during simulation
+        //this->ShowVector3PlaceHolder(objectAngularVelocity, uid, "Angular Velocity");
+        Vector3 newValuesAngularVelocity = this->ShowVector3PlaceHolder(objectAngularVelocity, uid, "Angular Velocity");
+        if(newValuesAngularVelocity.GetX() != objectAngularVelocity.GetX() || newValuesAngularVelocity.GetY() != objectAngularVelocity.GetY() || newValuesAngularVelocity.GetZ() != objectAngularVelocity.GetZ()){
+            EngineManager::getInstance().getScene()->GetObject(uid)->SetAngularVelocity(newValuesAngularVelocity);
+        }
+        ImGui::EndDisabled();
+        ImGui::PopID();
+        i++;
+
+        // ============================= Mass =================================
+        ImGui::PushID(i); // Use field index as identifier.
+        //this->ShowVector3PlaceHolder(objectMass, uid, "Position");
         float newValuesMass = this->ShowVector3PlaceHolder(objectMass, uid, "Mass");
-        newValuesMass==0 ? newValuesMass = 0.00000000001 : newValuesMass=newValuesMass; // hard code to avoide invMass = 1/0 = inf
         if(newValuesMass != objectMass){
-            EngineManager::getInstance().getScene()->GetObject(uid)->SetInvMass(1.f/newValuesMass);
+            EngineManager::getInstance().getScene()->GetObject(uid)->SetMass(newValuesMass);
         }
         ImGui::PopID();
+        i++;
 
+        // ============================= Dimensions =================================
+        ImGui::PushID(i); // Use field index as identifier.
+        ImGui::BeginDisabled(EngineManager::getInstance().getPhysicEngine()->isRunning()); // avoid change during simulation
+        //this->ShowVector3PlaceHolder(objectDimensions, uid, "Dimensions");
+        Vector3 newValuesDimensions = this->ShowVector3PlaceHolder(objectDimensions, uid, "Dimensions\nfrom center\nto exterior");
+        if(newValuesDimensions.GetX() != objectDimensions.GetX() || newValuesDimensions.GetY() != objectDimensions.GetY() || newValuesDimensions.GetZ() != objectDimensions.GetZ()){
+            EngineManager::getInstance().getScene()->GetObject(uid)->SetDimensions(newValuesDimensions);
+        }
+        ImGui::EndDisabled();
+        ImGui::PopID();
+        i++;
+
+        // ============================= Shape =================================
+        ImGui::PushID(i); // Use field index as identifier.
+        ImGui::BeginDisabled(EngineManager::getInstance().getPhysicEngine()->isRunning()); // avoid change during simulation
+        //this->ShowVector3PlaceHolder(objectShapeType, uid, "Shape");
+        auto newValuesShapeType = this->ShowDropdownPlaceHolder<RigidBody::ShapeType>(objectShapeType, {"Sphere", "Cube", "Cylinder"}, uid, "Shape");
+        if(int(newValuesShapeType) != int(objectShapeType)){
+            EngineManager::getInstance().getScene()->GetObject(uid)->SetShapeType(newValuesShapeType);
+        }
+        ImGui::EndDisabled();
+        ImGui::PopID();
+        i++;
+
+        // =====================================================================
         ImGui::TreePop();
     }
     ImGui::PopID();
@@ -159,4 +217,45 @@ float ImGuiUIWindowInspector::ShowVector3PlaceHolder(float val, int uid, const c
     ImGui::NextColumn();
 
     return v;
+}
+
+template<typename T>
+T ImGuiUIWindowInspector::ShowDropdownPlaceHolder(T enumeration, std::vector<const char *> enumerationList, int uid, const char* type){
+
+    static T _enum;
+    static std::vector<const char *> enumList = {};
+    enumList = enumerationList;
+    _enum = enumeration;
+
+    // Here we use a TreeNode to highlight on hover (we could use e.g. Selectable as well)
+    ImGui::TableNextRow();
+    ImGui::TableSetColumnIndex(0);
+    ImGui::AlignTextToFramePadding();
+    ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_Bullet;
+    ImGui::TreeNodeEx(type, flags, "%s", type);//_%d", uid);
+
+    ImGui::TableSetColumnIndex(1);
+
+
+    static const char* current_enum = NULL;
+    current_enum = enumList.at(enumeration);
+    ImGui::SetNextItemWidth(-FLT_MIN);
+    if (ImGui::BeginCombo("", current_enum))
+    {
+        for(int i=0; i < enumList.size(); i++)
+        {
+            bool is_selected = (current_enum == enumList[i]); // You can store your selection however you want, outside or inside your objects
+            if (ImGui::Selectable(enumList[i], is_selected)) {
+                current_enum = enumList[i];
+                _enum = (T) i;
+            }
+            if (is_selected)
+                ImGui::SetItemDefaultFocus();   // You may set the initial focus when opening the combo (scrolling + for keyboard navigation support)
+        }
+        ImGui::EndCombo();
+    }
+
+    ImGui::NextColumn();
+
+    return _enum;
 }

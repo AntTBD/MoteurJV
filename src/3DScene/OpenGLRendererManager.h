@@ -7,6 +7,7 @@
 #include "Shader.h"
 #include "Formes.h"
 #include "../Math/Vector3.h"
+#include "../Math/Matrix34.h"
 
 
 class OpenGLRendererManager {
@@ -42,9 +43,9 @@ public:
     // Create 2D rectangle with the middle of the left side as a reference point
     static void drawRect2D(double largeur, double hauteur);
     // Create 3D parallelepiped with the center as a reference point
-    static void drawCube(double largeur, double hauteur);
+    static void drawCube(const Vector3& dimensions = Vector3(1.f,1.f,1.f), const Vector3& pos = Vector3(0,0,0), const Matrix34& transformMatrix = Matrix34(), const Vector3& rot = Vector3(0,0,0));
     // Create 3D sphere with the center as a reference point (with specific diametre)
-    static void drawSphere(double diametre = 1.0, const Vector3& pos = Vector3(0,0,0), const Vector3& rot = Vector3(0,0,0));
+    static void drawSphere(const Vector3& dimensions = Vector3(1.f,1.f,1.f), const Vector3& pos = Vector3(0,0,0), const Matrix34& transformMatrix = Matrix34(), const Vector3& rot = Vector3(0,0,0));
 
 
 };

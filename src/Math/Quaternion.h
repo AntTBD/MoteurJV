@@ -1,10 +1,12 @@
 #pragma once
 
+#define _USE_MATH_DEFINES // include M_PI
 #include "Vector3.h"
 #include <vector>
 #include <assert.h>
 #include <algorithm>
-#include <math.h>
+#include <cmath>
+
 
 
 class Quaternion
@@ -73,7 +75,13 @@ public:
 	void UpdateByAngularVelocity(const Vector3& rotation, float duration);
 
 	// Convert Euler Vector3 to Quaternion
-	Quaternion EulerToQuaternion(const Vector3& euler);
+	static Quaternion EulerToQuaternion(const Vector3& euler);
+    static Quaternion EulerInDegreesToQuaternion(const Vector3& euler);
+
+    // Convert Quaternion to Euler Vector3
+    // https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+    Vector3 ToEuler() const;
+    Vector3 ToEulerInDegrees() const;
 
 
 
@@ -81,5 +89,6 @@ public:
 	std::string toString() const;
 
 	friend std::ostream& operator<< (std::ostream& os, const Quaternion& quaternion);
+
 };
 

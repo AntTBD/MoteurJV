@@ -19,9 +19,15 @@
 // engine to get scene and objects
 #include "../EngineManager.h"
 
+
+//////////////////////////////////////////
+//          change type of objects (Particle - RigidBody)
+#define Object RigidBody
+//////////////////////////////////////////
+
 class PhysicEngine {
 private:
-    std::vector<Particle*>* particles; // copy of objects in the scene for simulation
+    std::vector<Object*>* objects; // copy of objects in the scene for simulation
 
     ParticleForceRegistry* particleForceRegistry;
     ParticleContactRegistry* particleContactRegistry;

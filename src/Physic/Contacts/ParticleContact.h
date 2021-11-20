@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../Particle.h"
+#include "../RigidBody.h"
 
 class ParticleContact
 {
 public:
 	// Particle[0] => Particle A
 	// Particle[1] => Particle B - Could be nullptr
-	Particle* m_particle[2];
+    RigidBody* m_rigidBody[2];
 
 	// value between 0 - 1
 	// defining the elasticness of the collision
@@ -20,8 +20,8 @@ public:
 	Vector3 m_contactNormal;
 
 	ParticleContact();
-	ParticleContact(Particle* particle1, float restitution, float penetration);
-	ParticleContact(Particle* particle1, Particle* particle2, float restitution, float penetration, bool inverseNormal = false);
+	ParticleContact(RigidBody* rigidBody1, float restitution, float penetration);
+	ParticleContact(RigidBody* rigidBody1, RigidBody* rigidBody2, float restitution, float penetration, bool inverseNormal = false);
 	~ParticleContact();
 
 	// Resolve velocity and interpenetration

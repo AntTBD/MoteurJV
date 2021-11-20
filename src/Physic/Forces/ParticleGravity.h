@@ -17,6 +17,6 @@ public:
 
 	//Functions
 	// F = particule->GetMass() * m_gravity
-	void UpdateForce(Particle* particle, float duration) override;
+	void UpdateForce(RigidBody* rigidBody, float duration) override;
 };
 

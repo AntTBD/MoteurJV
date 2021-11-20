@@ -1,18 +1,18 @@
 #include "ParticleLink.h"
 
-ParticleLink::ParticleLink(Particle* particle1, Particle* particle2)
+ParticleLink::ParticleLink(RigidBody* rigidBody1, RigidBody* rigidBody2)
 {
-	this->particle[0] = particle1;
-	this->particle[1] = particle2;
+	this->rigidBody[0] = rigidBody1;
+	this->rigidBody[1] = rigidBody2;
 }
 
 ParticleLink::~ParticleLink()
 {
-	this->particle[0] = nullptr;
-	this->particle[1] = nullptr;
+	this->rigidBody[0] = nullptr;
+	this->rigidBody[1] = nullptr;
 }
 
 float ParticleLink::currentLength() const
 {
-	return (this->particle[1]->GetPosition() - this->particle[0]->GetPosition()).Magnitude();
+	return (this->rigidBody[1]->GetPosition() - this->rigidBody[0]->GetPosition()).Magnitude();
 }

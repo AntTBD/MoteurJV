@@ -24,7 +24,7 @@ Camera *Scene::getCamera() {
     return this->cam;
 }
 
-void Scene::addObject(Particle &object) {
+void Scene::addObject(Object &object) {
     this->objects->push_back(&object);
 }
 
@@ -51,10 +51,18 @@ void Scene::drawObjects() {
     for (auto &object : this->getObjectsByCopy()) // Browse particles
     {
         Vector3 pos = object->GetPosition(); // Get position
-        Vector3 rot = Vector3();
-
-        OpenGLRendererManager::drawSphere(10, pos, rot); // create a small sphere to simulate particle in 3D
-
+        Vector3 rot = object->GetOrientation().ToEuler();
+        switch(object->GetShapeType()){
+            case RigidBody::ShapeType::Sphere :
+                OpenGLRendererManager::drawSphere(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small sphere to simulate particle in 3D
+                break;
+            case RigidBody::ShapeType::Cube:
+                OpenGLRendererManager::drawCube(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small sphere to simulate particle in 3D
+                break;
+            default:// draw sphere by default
+                OpenGLRendererManager::drawSphere(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small sphere to simulate particle in 3D
+                break;
+        }
     }
 }
 

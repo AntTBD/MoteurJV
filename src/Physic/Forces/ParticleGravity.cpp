@@ -24,8 +24,8 @@ void ParticleGravity::SetGravity(Vector3 gravity)
 	this->m_gravity = gravity;
 }
 
-void ParticleGravity::UpdateForce(Particle* particle, float duration)
+void ParticleGravity::UpdateForce(RigidBody* rigidBody, float duration)
 {
-	particle->AddForce(this->m_gravity * 1.0f / particle->GetinvMass());
+    rigidBody->AddForce(this->m_gravity * 1.0f / rigidBody->GetInvMass());
 
 }

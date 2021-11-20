@@ -23,7 +23,7 @@ Particle::Particle(const Particle& particle)
 {
 	this->position = particle.GetPosition();
 	this->speed = particle.GetSpeed();
-	this->invMass = particle.GetinvMass();
+	this->invMass = particle.GetInvMass();
 	this->sumForces = particle.GetSumForces();
 	this->acceleration = particle.GetAcceleration();
 }
@@ -39,7 +39,7 @@ std::string Particle::toString() const
 std::ostream& operator<< (std::ostream& os, const Particle& particle)
 {
 	try {
-		os << "Mass : " << 1.0f / particle.GetinvMass() << ", Acceleration : " << particle.GetAcceleration() << ", Speed : " << particle.GetSpeed() << ", Position : " << particle.GetPosition() << ", SumForces : " << particle.GetSumForces();
+		os << "Mass : " << 1.0f / particle.GetInvMass() << ", Acceleration : " << particle.GetAcceleration() << ", Speed : " << particle.GetSpeed() << ", Position : " << particle.GetPosition() << ", SumForces : " << particle.GetSumForces();
 
 	}
 	catch (std::exception ex)
@@ -66,7 +66,7 @@ Vector3 Particle::GetAcceleration() const
 	return this->acceleration;
 }
 
-float Particle::GetinvMass() const
+float Particle::GetInvMass() const
 {
 	return this->invMass;
 }

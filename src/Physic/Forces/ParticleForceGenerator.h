@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../Particle.h"
+#include "../RigidBody.h"
 
 class ParticleForceGenerator
 {
 public:
-	virtual void UpdateForce(Particle* particle, float duration) = 0;
+	virtual void UpdateForce(RigidBody* rigidBody, float duration) = 0;
 };
 

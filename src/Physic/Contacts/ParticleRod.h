@@ -11,7 +11,7 @@ public:
     // between particles is not equal to the length
     float length;
 
-    ParticleRod(Particle* particle1, Particle* particle2, float length);
+    ParticleRod(RigidBody* rigidBody1, RigidBody* rigidBody2, float length);
     ~ParticleRod();
 
     // Fill ParticleContact with information form particles and contact generator.

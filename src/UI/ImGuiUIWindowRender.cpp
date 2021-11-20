@@ -134,7 +134,7 @@ void ImGuiUIWindowRender::newSize(float width, float height){
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->textureColorbuffer, 0);
 
     // create a renderbuffer object for depth and stencil attachment (we won't be sampling these)
-    /*unsigned int rbo;
+    unsigned int rbo;
     glGenRenderbuffers(1, &rbo);
     glBindRenderbuffer(GL_RENDERBUFFER, rbo);
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height); // use a single renderbuffer object for both a depth AND stencil buffer.
@@ -143,7 +143,7 @@ void ImGuiUIWindowRender::newSize(float width, float height){
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
         std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
     glDeleteBuffers(1, &rbo);
-    */
+
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 }
@@ -184,13 +184,12 @@ void ImGuiUIWindowRender::checkToAddParticles()
     float ratio = 4.0f;
     if (this->play == false && ImGui::IsWindowHovered() && ImGui::IsMouseClicked(1))// right click if not in simulation
     {
-        if (mass == 0) mass = 0.000001f;
         Vector3 pos = Vector3((offsetPosition.GetX() + (float)mousePositionInChild.x) / ratio, (offsetPosition.GetY() - (float)mousePositionInChild.y) / ratio, 0);
         std::cout << pos << std::endl;
-        Particle* p = new Particle(pos, Vector3(sx, sy, sz), 1.0f / mass);
-        EngineManager::getInstance().getScene()->addObject(*p);
+        auto obj = new RigidBody(mass, pos);
+        EngineManager::getInstance().getScene()->addObject(*obj);
         //std::cout << "Add particle " << *p << std::endl;
-        EngineManager::getInstance().console.logSuccess("Add particle %d: %s\n",EngineManager::getInstance().getScene()->getObjectsByCopy().size()-1,p->toString().c_str());
+        EngineManager::getInstance().console.logSuccess("Add %s %d: %s\n", typeid(*obj).name(), EngineManager::getInstance().getScene()->getObjectsByCopy().size(),obj->toString().c_str());
     }
 
     // --------------------------- Check mouse click & move first particle -------------------------------------
@@ -198,13 +197,13 @@ void ImGuiUIWindowRender::checkToAddParticles()
     {
         Vector3 pos = Vector3((offsetPosition.GetX() + (float)mousePositionInChild.x) / ratio, (offsetPosition.GetY() - (float)mousePositionInChild.y) / ratio, 0);
 
-        Particle* p = EngineManager::getInstance().getScene()->GetObject(0);
-        if (p != nullptr) {
+        auto obj = EngineManager::getInstance().getScene()->GetObject(0);
+        if (obj != nullptr) {
 
             // d = xa - xb
-            Vector3 d = (p->GetPosition() - pos);
+            Vector3 d = (obj->GetPosition() - pos);
             // f = - k * ( |d| - l0) * d.normalized
-            p->AddForce(-1 * d.Magnitude() * d.Normalized() * (1.0f / p->GetinvMass()));
+            obj->AddForce(-1 * d.Magnitude() * d.Normalized() * (1.0f / obj->GetInvMass()));
             //p->SetPosition(pos);
         }
     }

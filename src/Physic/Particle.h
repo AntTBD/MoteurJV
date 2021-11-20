@@ -23,7 +23,7 @@ public:
 	Vector3 GetPosition() const;
 	Vector3 GetSpeed() const;
 	Vector3 GetAcceleration() const;
-	float GetinvMass() const;
+	float GetInvMass() const;
 	Vector3 GetSumForces() const;
 	void SetPosition(Vector3 pos);
 	void SetSpeed(Vector3 sp);
