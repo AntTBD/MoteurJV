@@ -65,7 +65,7 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
         ImGui::PushID(i); // Use field index as identifier.
         //this->ShowVector3PlaceHolder(objectPos, uid, "Position");
         Vector3 newValuesPosition = this->ShowVector3PlaceHolder(objectPos, uid, "Position");
-        if(newValuesPosition.GetX() != objectPos.GetX() || newValuesPosition.GetY() != objectPos.GetY() || newValuesPosition.GetZ() != objectPos.GetZ()){
+        if(newValuesPosition != objectPos){
             EngineManager::getInstance().getScene()->GetObject(uid)->SetPosition(newValuesPosition);
         }
         ImGui::PopID();
@@ -76,7 +76,7 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
         ImGui::BeginDisabled(true); // avoid change during simulation
         //this->ShowVector3PlaceHolder(objectOrientation, uid, "Orientation");
         Vector3 newValuesOrientation = this->ShowVector3PlaceHolder(objectOrientation, uid, u8"Orientation °");
-        if(newValuesOrientation.GetX() != objectOrientation.GetX() || newValuesOrientation.GetY() != objectOrientation.GetY() || newValuesOrientation.GetZ() != objectOrientation.GetZ()){
+        if(newValuesOrientation != objectOrientation){
             EngineManager::getInstance().getScene()->GetObject(uid)->SetOrientation(Quaternion::EulerInDegreesToQuaternion(newValuesOrientation));
         }
         ImGui::EndDisabled();
@@ -88,7 +88,7 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
         ImGui::BeginDisabled(EngineManager::getInstance().getPhysicEngine()->isRunning()); // avoid change during simulation
         //this->ShowVector3PlaceHolder(objectVelocity, uid, "Velocity");
         Vector3 newValuesVelocity = this->ShowVector3PlaceHolder(objectVelocity, uid, "Velocity");
-        if(newValuesVelocity.GetX() != objectVelocity.GetX() || newValuesVelocity.GetY() != objectVelocity.GetY() || newValuesVelocity.GetZ() != objectVelocity.GetZ()){
+        if(newValuesVelocity != objectVelocity){
             EngineManager::getInstance().getScene()->GetObject(uid)->SetVelocity(newValuesVelocity);
         }
         ImGui::EndDisabled();
@@ -100,7 +100,7 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
         ImGui::BeginDisabled(EngineManager::getInstance().getPhysicEngine()->isRunning()); // avoid change during simulation
         //this->ShowVector3PlaceHolder(objectAngularVelocity, uid, "Angular Velocity");
         Vector3 newValuesAngularVelocity = this->ShowVector3PlaceHolder(objectAngularVelocity, uid, "Angular Velocity");
-        if(newValuesAngularVelocity.GetX() != objectAngularVelocity.GetX() || newValuesAngularVelocity.GetY() != objectAngularVelocity.GetY() || newValuesAngularVelocity.GetZ() != objectAngularVelocity.GetZ()){
+        if(newValuesAngularVelocity != objectAngularVelocity){
             EngineManager::getInstance().getScene()->GetObject(uid)->SetAngularVelocity(newValuesAngularVelocity);
         }
         ImGui::EndDisabled();
@@ -122,7 +122,7 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
         ImGui::BeginDisabled(EngineManager::getInstance().getPhysicEngine()->isRunning()); // avoid change during simulation
         //this->ShowVector3PlaceHolder(objectDimensions, uid, "Dimensions");
         Vector3 newValuesDimensions = this->ShowVector3PlaceHolder(objectDimensions, uid, "Dimensions\nfrom center\nto exterior");
-        if(newValuesDimensions.GetX() != objectDimensions.GetX() || newValuesDimensions.GetY() != objectDimensions.GetY() || newValuesDimensions.GetZ() != objectDimensions.GetZ()){
+        if(newValuesDimensions != objectDimensions){
             EngineManager::getInstance().getScene()->GetObject(uid)->SetDimensions(newValuesDimensions);
         }
         ImGui::EndDisabled();

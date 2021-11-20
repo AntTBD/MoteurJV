@@ -26,6 +26,8 @@ public:
 	Vector3& operator*=(float value);
 	Vector3 operator/(float value) const;
 	Vector3& operator/=(float value);
+    bool operator==(const Vector3& vector) const;
+    bool operator!=(const Vector3& vector) const;
 
 	// Getters / Setters
 	float GetX() const;
