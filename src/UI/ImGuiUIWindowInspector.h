@@ -20,6 +20,9 @@ public:
     void ShowPlaceholderObject(const char* prefix, int uid);
     Vector3 ShowVector3PlaceHolder(Vector3 vector3, int uid, const char* type);
     float ShowVector3PlaceHolder(float val, int uid, const char* type);
+
+    template<typename T>
+    T ShowDropdownPlaceHolder(T enumeration, std::vector<const char *> enumerationList, int uid, const char* type);
 };
 
 #endif // ImGuiUIWindowInspector_H_

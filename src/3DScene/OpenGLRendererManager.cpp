@@ -83,6 +83,7 @@ OpenGLRendererManager::~OpenGLRendererManager()
 void OpenGLRendererManager::render()
 {
     // clear background
+    glClearDepth( 1.0 );
     glClearColor(this->clear_color.x * this->clear_color.w, this->clear_color.y * this->clear_color.w, this->clear_color.z * this->clear_color.w, this->clear_color.w);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -156,12 +157,18 @@ void OpenGLRendererManager::drawRect2D(double largeur, double hauteur)
     glScalef(1.0f / largeur, 1.0f / hauteur, 1.0);
 }
 
-void OpenGLRendererManager::drawCube(double largeur, double hauteur) {
+void OpenGLRendererManager::drawCube(const Vector3& dimensions, const Vector3& pos, const Matrix34& transformMatrix, const Vector3& rot) {
 
     glPushMatrix();
-    glScalef(largeur, largeur, largeur);
+    glTranslatef(pos.GetX(), pos.GetY(), pos.GetZ());              // translate to the positon
+    glRotatef(rot.GetX(), 1, 0, 0); // Rotation particle (if necessary)
+    glRotatef(rot.GetY(), 0, 1, 0); // Rotation particle (if necessary)
+    glRotatef(rot.GetZ(), 0, 0, 1); // Rotation particle (if necessary)
+    //glMultMatrixf(transformMatrix.Get().data());
+    //glLoadMatrixf(transformMatrix.Get().data());
+    glScalef(2.f * dimensions.GetX(), 2.f * dimensions.GetY(), 2.f * dimensions.GetZ());
     OpenGLRendererManager::formes->DrawCube();
-    glScalef(1.0f / largeur, 1.0f / largeur, 1.0f / largeur);
+    glScalef(1.0f / (2.f * dimensions.GetX()), 1.0f / (2.f * dimensions.GetY()), 1.0f / (2.f * dimensions.GetZ()));
     glPopMatrix();
 }
 
@@ -169,10 +176,11 @@ void OpenGLRendererManager::drawSphere(const Vector3& dimensions, const Vector3&
 
     glPushMatrix();
     glTranslatef(pos.GetX(), pos.GetY(), pos.GetZ());              // translate to the positon
-    //glRotatef(rot.GetX(), 1, 0, 0); // Rotation particle (if necessary)
-    //glRotatef(rot.GetY(), 0, 1, 0); // Rotation particle (if necessary)
-    //glRotatef(rot.GetZ(), 0, 0, 1); // Rotation particle (if necessary)
-    glMultMatrixf(transformMatrix.Get().data());
+    glRotatef(rot.GetX(), 1, 0, 0); // Rotation particle (if necessary)
+    glRotatef(rot.GetY(), 0, 1, 0); // Rotation particle (if necessary)
+    glRotatef(rot.GetZ(), 0, 0, 1); // Rotation particle (if necessary)
+    //glMultMatrixf(transformMatrix.Get().data());
+    //glLoadMatrixf(transformMatrix.Get().data());
     glScalef(2.f * dimensions.GetX(), 2.f * dimensions.GetY(), 2.f * dimensions.GetZ());
 
     OpenGLRendererManager::formes->DrawSphere();

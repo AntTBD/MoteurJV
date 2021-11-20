@@ -26,14 +26,15 @@ RigidBody::RigidBody() {
 
 
     this->dimensions = Vector3(1,1,1);
-    this->formType = RigidBody::FormType::Sphere;
+    this->shapeType = RigidBody::ShapeType::Sphere;
 
     // init tenseur d'inertie
-    this->SetInertiaTensorByType(this->formType);
+    this->SetInertiaTensorByType(this->shapeType);
+    this->Integrate(0);
 }
 
-RigidBody::RigidBody(float mass, const Vector3 &position, const RigidBody::FormType &type, const Vector3 &dimensions):
-    position(position), formType(type), dimensions(dimensions)
+RigidBody::RigidBody(float mass, const Vector3 &position, const RigidBody::ShapeType &type, const Vector3 &dimensions):
+        position(position), shapeType(type), dimensions(dimensions)
 {
     this->SetMass(mass);
 
@@ -56,12 +57,13 @@ RigidBody::RigidBody(float mass, const Vector3 &position, const RigidBody::FormT
     this->inverseInertiaTensorWorld = Matrix33();
 
     // init tenseur d'inertie
-    this->SetInertiaTensorByType(this->formType);
+    this->SetInertiaTensorByType(this->shapeType);
+    this->Integrate(0);
 }
 
 
-RigidBody::RigidBody(float mass, const Vector3 &position, const Quaternion& orientation, const RigidBody::FormType &type, const Vector3 &dimensions):
-    position(position), orientation(orientation), formType(type), dimensions(dimensions)
+RigidBody::RigidBody(float mass, const Vector3 &position, const Quaternion& orientation, const RigidBody::ShapeType &type, const Vector3 &dimensions):
+        position(position), orientation(orientation), shapeType(type), dimensions(dimensions)
 {
     this->SetMass(mass);
 
@@ -83,11 +85,12 @@ RigidBody::RigidBody(float mass, const Vector3 &position, const Quaternion& orie
     this->inverseInertiaTensorWorld = Matrix33();
 
     // init tenseur d'inertie
-    this->SetInertiaTensorByType(this->formType);
+    this->SetInertiaTensorByType(this->shapeType);
+    this->Integrate(0);
 }
 
-RigidBody::RigidBody(float mass, const Vector3 &position, const Vector3 &velocity, const Quaternion &orientation, const Vector3 &angularVelocity, const RigidBody::FormType &type, const Vector3 &dimensions) :
-        position(position), velocity(velocity), orientation(orientation), angularVelocity(angularVelocity), formType(type), dimensions(dimensions)
+RigidBody::RigidBody(float mass, const Vector3 &position, const Vector3 &velocity, const Quaternion &orientation, const Vector3 &angularVelocity, const RigidBody::ShapeType &type, const Vector3 &dimensions) :
+        position(position), velocity(velocity), orientation(orientation), angularVelocity(angularVelocity), shapeType(type), dimensions(dimensions)
 {
     this->SetMass(mass);
 
@@ -107,15 +110,15 @@ RigidBody::RigidBody(float mass, const Vector3 &position, const Vector3 &velocit
     this->inverseInertiaTensorWorld = Matrix33();
 
     // init tenseur d'inertie
-    this->SetInertiaTensorByType(this->formType);
-
+    this->SetInertiaTensorByType(this->shapeType);
+    this->Integrate(0);
 }
 
 RigidBody::RigidBody(const RigidBody &rigidBody) {
     *this = rigidBody;
 
     // init tenseur d'inertie
-    this->SetInertiaTensorByType(this->formType);
+    this->SetInertiaTensorByType(this->shapeType);
 }
 
 RigidBody::~RigidBody() {
@@ -178,6 +181,11 @@ Vector3 RigidBody::GetDimensions() const {
     return this->dimensions;
 }
 
+RigidBody::ShapeType RigidBody::GetShapeType() const {
+    return this->shapeType;
+}
+
+
 void RigidBody::SetInvMass(float inverseMass) {
     this->invMass = inverseMass;
 }
@@ -228,10 +236,12 @@ void RigidBody::SetTransform(const Matrix34 &transformMatrix) {
 
 void RigidBody::SetDimensions(const Vector3 &dimensions) {
     this->dimensions = dimensions;
+    this->SetInertiaTensorByType(this->shapeType);
 }
 
-void RigidBody::SetType(RigidBody::FormType type) {
-    this->formType = type;
+void RigidBody::SetShapeType(RigidBody::ShapeType type) {
+    this->shapeType = type;
+    this->SetInertiaTensorByType(this->shapeType);
 }
 
 void RigidBody::Integrate(float duration) {
@@ -294,10 +304,10 @@ void RigidBody::CalculateDerivedData() {
     this->inverseInertiaTensorWorld = this->inverseInertiaTensor.Transform(this->transformMatrix);
 }
 
-void RigidBody::SetInertiaTensorByType(FormType type) {
-    this->formType = type;
+void RigidBody::SetInertiaTensorByType(ShapeType type) {
+    this->shapeType = type;
 
-    switch (this->formType) {
+    switch (this->shapeType) {
         case 0: // sphere
             //  I = [ 1/5 * m * (r.y� + r.z�),            0            ,           0             ,
             //                  0             , 1/5 * m * (r.x� + r.z�),           0             ,

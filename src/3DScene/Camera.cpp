@@ -72,6 +72,7 @@ void Camera::Add(float dist, float rotationX, float rotationY)
 void Camera::Update()
 {
     // make sure we clear the framebuffer's content
+    glClearDepth( 1.0 );
     glClearColor(this->background.x, this->background.y, this->background.z, this->background.w);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

@@ -13,10 +13,11 @@ public:
     // 0 = Sphere
     // 1 = Cube
     // 2 = Cylindre
-    enum FormType{
+    enum ShapeType{
         Sphere,
         Cube,
-        Cylindre
+        Cylindre,
+        _enumEnd // used to loop on this enum
     };
 private:
     // ------------- Mass -------------
@@ -67,13 +68,13 @@ private:
 
     // ------------- Dimensions ---------------------
     Vector3 dimensions;
-    FormType formType;
+    ShapeType shapeType;
 
 public:
 	RigidBody();
-    RigidBody(float mass, const Vector3 &position, const RigidBody::FormType &type = RigidBody::FormType::Sphere, const Vector3 &dimensions = Vector3(1,1,1));
-    RigidBody(float mass, const Vector3 &position, const Quaternion& orientation, const RigidBody::FormType &type = RigidBody::FormType::Sphere, const Vector3 &dimensions = Vector3(1,1,1));
-	RigidBody(float mass, const Vector3& position, const Vector3& velocity, const Quaternion& orientation, const Vector3& angularVelocity, const RigidBody::FormType &type = RigidBody::FormType::Sphere, const Vector3 &dimensions = Vector3(1,1,1));
+    RigidBody(float mass, const Vector3 &position, const RigidBody::ShapeType &type = RigidBody::ShapeType::Sphere, const Vector3 &dimensions = Vector3(1, 1, 1));
+    RigidBody(float mass, const Vector3 &position, const Quaternion& orientation, const RigidBody::ShapeType &type = RigidBody::ShapeType::Sphere, const Vector3 &dimensions = Vector3(1, 1, 1));
+	RigidBody(float mass, const Vector3& position, const Vector3& velocity, const Quaternion& orientation, const Vector3& angularVelocity, const RigidBody::ShapeType &type = RigidBody::ShapeType::Sphere, const Vector3 &dimensions = Vector3(1, 1, 1));
 	RigidBody(const RigidBody& rigidBody);
 	~RigidBody();
 
@@ -97,6 +98,7 @@ public:
     Vector3 GetTorqueAccum() const;
     // ------------- Dimensions ---------------------
     Vector3 GetDimensions() const;
+    RigidBody::ShapeType GetShapeType() const;
 
     // ------------- Mass -------------
 	void SetInvMass(float inverseMass);
@@ -115,7 +117,7 @@ public:
 	void SetTransform(const Matrix34& transformMatrix);
     // ------------- Dimensions ---------------------
     void SetDimensions(const Vector3& dimensions);
-    void SetType(RigidBody::FormType type);
+    void SetShapeType(RigidBody::ShapeType type);
 
 
 
@@ -164,7 +166,7 @@ private:
     // 0 = Sphere de densit� constante (default)
     // 1 = Cube de densit� constante
     // 2 = Cylindre de densit� constante
-    void SetInertiaTensorByType(FormType type = FormType::Sphere);
+    void SetInertiaTensorByType(ShapeType type = ShapeType::Sphere);
 
 
 };

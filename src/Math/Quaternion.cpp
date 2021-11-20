@@ -153,19 +153,21 @@ Quaternion& Quaternion::operator*=(float val)
 void Quaternion::Normalize()
 {
 	float magnitude = float(sqrt(pow(this->i, 2.f) + pow(this->j, 2.f) + pow(this->k, 2.f) + pow(this->w, 2.f)));
-	assert(magnitude != 0 && "Division par 0 ! : Quaternion::Normalized() : magnitude = 0");
+	//assert(magnitude != 0 && "Division par 0 ! : Quaternion::Normalized() : magnitude = 0");
 
-	this->i /= magnitude;
-	this->j /= magnitude;
-	this->k /= magnitude;
-	this->w /= magnitude;
-
+    if(magnitude != 0) {
+        this->i /= magnitude;
+        this->j /= magnitude;
+        this->k /= magnitude;
+        this->w /= magnitude;
+    }
 }
 Quaternion Quaternion::Normalized() const
 {
 	float magnitude = float(sqrt(pow(this->i, 2.f) + pow(this->j, 2.f) + pow(this->k, 2.f) + pow(this->w, 2.f)));
-	assert(magnitude != 0 && "Division par 0 ! : Quaternion::Normalized() : magnitude = 0");
+	//assert(magnitude != 0 && "Division par 0 ! : Quaternion::Normalized() : magnitude = 0");
 
+    if(magnitude == 0) return *this;
 	return { 
 		this->i / magnitude,
 		this->j / magnitude,
@@ -199,7 +201,7 @@ Quaternion Quaternion::RotatedByVector(const Vector3& vector) const
 {
 	Quaternion vector_bis(vector, 0);
 
-	return this->Normalized() * vector_bis.Normalized() * this->Normalized().Conjugate();
+	return this->Normalized() * vector_bis * this->Normalized().Conjugate();
 
 }
 
@@ -234,6 +236,40 @@ Quaternion Quaternion::EulerToQuaternion(const Vector3& euler)
 
 
 }
+
+Quaternion Quaternion::EulerInDegreesToQuaternion(const Vector3 &euler) {
+    return EulerToQuaternion(euler * M_PI / 180.f);
+}
+
+// https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+Vector3 Quaternion::ToEuler() const {
+    Vector3 angles;
+
+    // roll (x-axis rotation)
+    float sinr_cosp = 2.f * (this->w * this->i + this->j * this->k);
+    float cosr_cosp = 1.f - 2.f * (this->i * this->i + this->j * this->j);
+    angles.SetX(std::atan2f(sinr_cosp, cosr_cosp));
+
+    // pitch (y-axis rotation)
+    float sinp = 2.f * (this->w * this->j - this->k * this->i);
+    if (std::abs(sinp) >= 1)
+        angles.SetY(std::copysignf(M_PI / 2.f, sinp)); // use 90 degrees if out of range
+    else
+        angles.SetY(std::asinf(sinp));
+
+    // yaw (z-axis rotation)
+    float siny_cosp = 2.f * (this->w * this->k + this->i * this->j);
+    float cosy_cosp = 1.f - 2.f * (this->j * this->j + this->k * this->k);
+    angles.SetZ(std::atan2f(siny_cosp, cosy_cosp));
+
+    return angles * 180.f / M_PI;
+}
+
+Vector3 Quaternion::ToEulerInDegrees() const {
+
+    return this->ToEuler() * 180.f / M_PI;
+}
+
 
 std::string Quaternion::toString() const
 {

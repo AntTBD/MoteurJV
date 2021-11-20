@@ -69,7 +69,7 @@ Matrix33& Matrix33::operator=(const Matrix33& other)
 
 Matrix33 Matrix33::operator*(const Matrix33& other) const
 {
-	std::vector<float> result;
+	std::vector<float> result(other.Get().size());
 	std::vector<float> otherValue = other.Get();
 
 	result[0] = values[0] * otherValue[0] + values[1] * otherValue[3] + values[2] * otherValue[6];
@@ -135,7 +135,7 @@ std::ostream& operator<< (std::ostream& os, const Matrix33& matrix33)
 // product with a value
 Matrix33 operator*(const Matrix33& mat, const float value)
 {
-	std::vector<float> result;
+	std::vector<float> result(mat.Get().size());
 	std::vector<float> matValue = mat.Get();
 	for (int i = 0; i < 9; i++)
 	{
@@ -156,7 +156,7 @@ Vector3 Matrix33::TransformPosition(const Vector3& vector)
 
 Matrix33 Matrix33::Transpose()
 {
-	std::vector<float> matrixTValues;
+	std::vector<float> matrixTValues(this->Get().size());
 	matrixTValues[0] = values[0];
 	matrixTValues[1] = values[3];
 	matrixTValues[2] = values[6];
@@ -178,7 +178,7 @@ Matrix33 Matrix33::Inverse()
 				- values[0] * values[7] * values[5]
 				- values[6] * values[4] * values[2]
 				- values[3] * values[1] * values[8];
-	std::vector<float> intermediateValue;
+	std::vector<float> intermediateValue(this->Get().size());
 	intermediateValue[0] = values[4] * values[8] - values[5] * values[7];
 	intermediateValue[1] = values[2] * values[7] - values[1] * values[8];
 	intermediateValue[2] = values[1] * values[5] - values[2] * values[4];
@@ -189,7 +189,7 @@ Matrix33 Matrix33::Inverse()
 	intermediateValue[7] = values[1] * values[6] - values[0] * values[7];
 	intermediateValue[8] = values[0] * values[4] - values[1] * values[3];
 	
-	Matrix33 intermediateMatrix = Matrix33(intermediateValue);
+	Matrix33 intermediateMatrix(intermediateValue);
 
 	return { 1 / detM * intermediateMatrix };
 }
