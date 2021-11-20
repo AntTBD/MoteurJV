@@ -121,7 +121,7 @@ Quaternion& Quaternion::operator+=(const Quaternion& other)
 Quaternion Quaternion::operator*(const Quaternion& other) const
 {
 	return {
-		this->GetW()* other.GetW() - this->GetI() * other.GetI() - this->GetJ() * other.GetJ() - this->GetK() * other.GetK(),
+		this->GetW() * other.GetW() - this->GetI() * other.GetI() - this->GetJ() * other.GetJ() - this->GetK() * other.GetK(),
 		this->GetJ() * other.GetK() - this->GetK() * other.GetJ() + this->GetI() * other.GetW() + this->GetW() * other.GetI(),
 		this->GetK() * other.GetI() - this->GetI() * other.GetK() + this->GetJ() * other.GetW() + this->GetW() * other.GetJ(),
 		this->GetI() * other.GetJ() - this->GetJ() * other.GetI() + this->GetK() * other.GetW() + this->GetW() * other.GetK()
@@ -161,14 +161,15 @@ Quaternion& Quaternion::operator*=(float val)
 void Quaternion::Normalize()
 {
 	float magnitude = float(sqrt(pow(this->i, 2.f) + pow(this->j, 2.f) + pow(this->k, 2.f) + pow(this->w, 2.f)));
-	//assert(magnitude != 0 && "Division par 0 ! : Quaternion::Normalized() : magnitude = 0");
+	//assert(magnitude != 0 && "Division par 0 ! : Quaternion::Normalize() : magnitude = 0");
 
-    if(magnitude != 0) {
-		this->w /= magnitude;
+    if(magnitude == 0) {
+        this->w = 1;
+    } else {
+        this->w /= magnitude;
         this->i /= magnitude;
         this->j /= magnitude;
         this->k /= magnitude;
-        
     }
 }
 Quaternion Quaternion::Normalized() const
@@ -176,13 +177,19 @@ Quaternion Quaternion::Normalized() const
 	float magnitude = float(sqrt(pow(this->i, 2.f) + pow(this->j, 2.f) + pow(this->k, 2.f) + pow(this->w, 2.f)));
 	//assert(magnitude != 0 && "Division par 0 ! : Quaternion::Normalized() : magnitude = 0");
 
-    if(magnitude == 0) return *this;
-	return { 
+    if(magnitude == 0) {
+        return {
+                1,
+                this->i,
+                this->j,
+                this->k
+        };
+    }
+	return {
 		this->w / magnitude,
 		this->i / magnitude,
 		this->j / magnitude,
 		this->k / magnitude
-		
 	};
 
 }
@@ -201,9 +208,9 @@ void Quaternion::RotateByVector(const Vector3& vector)
 {
 	Quaternion vector_bis(vector, 0);
 	this->Normalize();
-	vector_bis.Normalize();
+	//vector_bis.Normalize();
 
-	*this *= vector_bis * this->Conjugate();
+	*this *= vector_bis;// * this->Conjugate();
 	
 }
 // Rotate the quaternion by a vector : multiply this by q = (0, dx, dy, dz)
@@ -211,7 +218,7 @@ Quaternion Quaternion::RotatedByVector(const Vector3& vector) const
 {
 	Quaternion vector_bis(vector, 0);
 
-	return this->Normalized() * vector_bis * this->Normalized().Conjugate();
+    return this->Normalized() * vector_bis;// * this->Normalized().Conjugate();
 
 }
 

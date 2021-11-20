@@ -13,10 +13,6 @@ Matrix33::Matrix33()
 Matrix33::Matrix33(std::vector<float> value)
 {
 	this->values = std::vector<float>(9);
-	for (int i = 0; i < 9; i++)
-	{
-		this->values[i] = 0;
-	}
 
 	assert(value.size() == 9 && "Size != 9");
 	this->values = std::vector<float>(9);
@@ -136,10 +132,9 @@ std::ostream& operator<< (std::ostream& os, const Matrix33& matrix33)
 Matrix33 operator*(const Matrix33& mat, const float value)
 {
 	std::vector<float> result(mat.Get().size());
-	std::vector<float> matValue = mat.Get();
 	for (int i = 0; i < 9; i++)
 	{
-		result[i] = matValue[i] * value;
+		result[i] = mat.Get(i) * value;
 	}
 	return { result };
 }

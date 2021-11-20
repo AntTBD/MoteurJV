@@ -119,6 +119,7 @@ RigidBody::RigidBody(const RigidBody &rigidBody) {
 
     // init tenseur d'inertie
     this->SetInertiaTensorByType(this->shapeType);
+    this->Integrate(0);
 }
 
 RigidBody::~RigidBody() {
@@ -188,6 +189,8 @@ RigidBody::ShapeType RigidBody::GetShapeType() const {
 
 void RigidBody::SetInvMass(float inverseMass) {
     this->invMass = inverseMass;
+    this->SetInertiaTensorByType(this->shapeType);
+    this->Integrate(0);
 }
 
 void RigidBody::SetMass(float mass) {
@@ -196,6 +199,8 @@ void RigidBody::SetMass(float mass) {
     assert(mass != 0 && "Mass = 0 and division by 0 is not possible");
 
     this->invMass = 1.f / mass;
+    this->SetInertiaTensorByType(this->shapeType);
+    this->Integrate(0);
 }
 
 void RigidBody::SetLinearDamping(float linearDamping) {
@@ -220,6 +225,7 @@ void RigidBody::SetAngularDamping(float angularDamping) {
 
 void RigidBody::SetOrientation(const Quaternion &orientation) {
     this->orientation = orientation;
+    this->Integrate(0);
 }
 
 void RigidBody::SetAngularVelocity(const Vector3 &angularVelocity) {
@@ -237,11 +243,13 @@ void RigidBody::SetTransform(const Matrix34 &transformMatrix) {
 void RigidBody::SetDimensions(const Vector3 &dimensions) {
     this->dimensions = dimensions;
     this->SetInertiaTensorByType(this->shapeType);
+    this->Integrate(0);
 }
 
 void RigidBody::SetShapeType(RigidBody::ShapeType type) {
     this->shapeType = type;
     this->SetInertiaTensorByType(this->shapeType);
+    this->Integrate(0);
 }
 
 void RigidBody::Integrate(float duration) {
