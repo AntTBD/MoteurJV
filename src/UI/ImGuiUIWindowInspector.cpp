@@ -73,7 +73,7 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
 
         // ============================= Orientation =================================
         ImGui::PushID(i); // Use field index as identifier.
-        ImGui::BeginDisabled(true); // avoid change during simulation
+        ImGui::BeginDisabled(EngineManager::getInstance().getPhysicEngine()->isRunning()); // avoid change during simulation
         //this->ShowVector3PlaceHolder(objectOrientation, uid, "Orientation");
         Vector3 newValuesOrientation = this->ShowVector3PlaceHolder(objectOrientation, uid, u8"Orientation °");
         if(newValuesOrientation != objectOrientation){
