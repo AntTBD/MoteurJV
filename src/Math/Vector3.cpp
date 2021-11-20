@@ -108,6 +108,14 @@ Vector3 operator*(const float value, const Vector3& vec)
 	return vec * value;
 }
 
+bool Vector3::operator==(const Vector3 &vector) const {
+    return this->GetX() == vector.GetX() && this->GetY() == vector.GetY() && this->GetZ() == vector.GetZ();
+}
+
+bool Vector3::operator!=(const Vector3 &vector) const {
+    return this->GetX() != vector.GetX() || this->GetY() != vector.GetY() || this->GetZ() != vector.GetZ();
+}
+
 // Getters and Setters
 float Vector3::GetX() const
 {

@@ -51,7 +51,7 @@ void Scene::drawObjects() {
     for (auto &object : this->getObjectsByCopy()) // Browse particles
     {
         Vector3 pos = object->GetPosition(); // Get position
-        Vector3 rot = object->GetOrientation().ToEuler();
+        Vector3 rot = object->GetOrientation().ToEulerInDegrees();
         switch(object->GetShapeType()){
             case RigidBody::ShapeType::Sphere :
                 OpenGLRendererManager::drawSphere(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small sphere to simulate particle in 3D
