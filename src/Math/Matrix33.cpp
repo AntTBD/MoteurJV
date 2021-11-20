@@ -191,32 +191,28 @@ Matrix33 Matrix33::Inverse()
 	
 	Matrix33 intermediateMatrix(intermediateValue);
 
-	return { 1 / detM * intermediateMatrix };
+	return { 1.f / detM * intermediateMatrix };
 }
 
 void Matrix33::SetOrientation(const Quaternion& q)
 {
-	values[0] = 1 - (2*pow(q.GetJ(), 2) + 2*pow(q.GetK(), 2));
-	values[1] = 2 * q.GetI() * q.GetJ() + 2 * q.GetK() * q.GetW();
-	values[2] = 2 * q.GetI() * q.GetK() - 2 * q.GetJ() * q.GetW();
-	values[3] = 2 * q.GetI() * q.GetJ() - 2 * q.GetK() * q.GetW();
-	values[4] = 1 - (2 * pow(q.GetI(), 2) + 2 * pow(q.GetK(), 2));
-	values[5] = 2 * q.GetJ() * q.GetK() + 2 * q.GetI() * q.GetW();
-	values[6] = 2 * q.GetI() * q.GetK() + 2 * q.GetJ() * q.GetW();
-	values[7] = 2 * q.GetJ() * q.GetK() - 2 * q.GetI() * q.GetW();
-	values[8] = 1 - (2 * pow(q.GetI(), 2) + 2 * pow(q.GetJ(), 2));
+    values[0] = 1.f - (2.f * pow(q.GetJ(), 2.f) + 2.f * pow(q.GetK(), 2.f));
+    values[1] = 2.f * q.GetI() * q.GetJ() + 2.f * q.GetK() * q.GetW();
+    values[2] = 2.f * q.GetI() * q.GetK() - 2.f * q.GetJ() * q.GetW();
+    values[3] = 2.f * q.GetI() * q.GetJ() - 2.f * q.GetK() * q.GetW();
+    values[4] = 1.f - (2.f * pow(q.GetI(), 2.f) + 2.f * pow(q.GetK(), 2.f));
+    values[5] = 2.f * q.GetJ() * q.GetK() + 2.f * q.GetI() * q.GetW();
+    values[6] = 2.f * q.GetI() * q.GetK() + 2.f * q.GetJ() * q.GetW();
+    values[7] = 2.f * q.GetJ() * q.GetK() - 2.f * q.GetI() * q.GetW();
+    values[8] = 1.f - (2.f * pow(q.GetI(), 2.f) + 2.f * pow(q.GetJ(), 2.f));
 }
 
 
 Matrix33 Matrix33::Transform(const Matrix34& transformMatrix) {
 
     // multiplication des 2 matrices en enlevant la dernière colonne
-    Matrix33 transformMatrix33Original({
-                                       transformMatrix[0][0], transformMatrix[0][1], transformMatrix[0][2],
-                                       transformMatrix[1][0], transformMatrix[1][1], transformMatrix[1][2],
-                                       transformMatrix[2][0], transformMatrix[2][1], transformMatrix[2][2]
-                               });
-    Matrix33 transformMatrix33 = transformMatrix33Original * values;
+    Matrix33 transformMatrix33Original(transformMatrix.GetMatrix33());
+    Matrix33 transformMatrix33 = transformMatrix33Original * this->values;
 
     // mutiplication par la tansposée
     Matrix33 matrixInWorld = transformMatrix33 * transformMatrix33Original.Transpose();

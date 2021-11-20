@@ -140,8 +140,8 @@ Quaternion& Quaternion::operator*=(const Quaternion& other)
 Quaternion Quaternion::operator*(float val) const
 {
 	return {
-		this->GetW()* val,
-		this->GetI() * val,
+        this->GetW() * val,
+        this->GetI() * val,
 		this->GetJ() * val,
 		this->GetK() * val
 		
@@ -229,12 +229,15 @@ void Quaternion::UpdateByAngularVelocity(const Vector3& rotation, float duration
 // Convert Euler Vector3 to Quaternion
 Quaternion Quaternion::EulerToQuaternion(const Vector3& euler)
 {
+    // yaw
 	float cy = cos(euler.GetZ() * 0.5f);
 	float sy = sin(euler.GetZ() * 0.5f);
 
+    // pitch
 	float cp = cos(euler.GetY() * 0.5f);
 	float sp = sin(euler.GetY() * 0.5f);
 
+    // roll
 	float cr = cos(euler.GetX() * 0.5f);
 	float sr = sin(euler.GetX() * 0.5f);
 
