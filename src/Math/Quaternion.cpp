@@ -4,16 +4,18 @@
 // Constructors
 Quaternion::Quaternion()
 {
+	this->w = 1;      // w
 	this->i = this->j = this->k = 0; // i, j, k
-	this->w = 1;  // w
+	  
 }
 
-Quaternion::Quaternion(float i, float j, float k, float w)
+Quaternion::Quaternion(float w, float i, float j, float k )
 {
+	this->w = w;
 	this->i = i;
 	this->j = j;
 	this->k = k;
-	this->w = w;
+	
 }
 
 Quaternion::Quaternion(std::vector<float> value){
@@ -27,10 +29,11 @@ Quaternion::Quaternion(float *value) {
 
 Quaternion::Quaternion(const Vector3& vector, float w)
 {
+	this->w = w;
 	this->i = vector.GetX();
 	this->j = vector.GetY();
 	this->k = vector.GetZ();
-	this->w = w;
+	
 
 }
 
@@ -49,10 +52,11 @@ std::vector<float> Quaternion::Get() const {
     return { *this->value };
 }
 
+float Quaternion::GetW() const { return this->w; }
 float Quaternion::GetI() const { return this->i; }
 float Quaternion::GetJ() const { return this->j; }
 float Quaternion::GetK() const { return this->k; }
-float Quaternion::GetW() const { return this->w; }
+
 
 
 // Setters
@@ -63,6 +67,10 @@ void Quaternion::Set(std::vector<float> value)
 }
 
 
+void Quaternion::SetW(float w)
+{
+	this->w = w;
+}
 void Quaternion::SetI(float i)
 {
 	this->i = i;
@@ -78,30 +86,28 @@ void Quaternion::SetK(float k)
 	this->k = k;
 }
 
-void Quaternion::SetW(float w)
-{
-	this->w = w;
-}
+
 
 
 // Operators
 Quaternion& Quaternion::operator=(const Quaternion& other) {
 
+	this->w = other.GetW();
 	this->i = other.GetI();
 	this->j = other.GetJ();
 	this->k = other.GetK();
-	this->w = other.GetW();
+	
 	return *this;
 }
 
 Quaternion Quaternion::operator+(const Quaternion& other) const
 {
 	return {
+		this->GetW() + other.GetW(),
 		this->GetI() + other.GetI(),
 		this->GetJ() + other.GetJ(),
-		this->GetK() + other.GetK(),
-		this->GetW() + other.GetW()
-	};
+		this->GetK() + other.GetK()
+};
 
 
 }
@@ -115,10 +121,11 @@ Quaternion& Quaternion::operator+=(const Quaternion& other)
 Quaternion Quaternion::operator*(const Quaternion& other) const
 {
 	return {
+		this->GetW()* other.GetW() - this->GetI() * other.GetI() - this->GetJ() * other.GetJ() - this->GetK() * other.GetK(),
 		this->GetJ() * other.GetK() - this->GetK() * other.GetJ() + this->GetI() * other.GetW() + this->GetW() * other.GetI(),
 		this->GetK() * other.GetI() - this->GetI() * other.GetK() + this->GetJ() * other.GetW() + this->GetW() * other.GetJ(),
-		this->GetI() * other.GetJ() - this->GetJ() * other.GetI() + this->GetK() * other.GetW() + this->GetW() * other.GetK(),
-		this->GetW() * other.GetW() - this->GetI() * other.GetI() - this->GetJ() * other.GetJ() - this->GetK() * other.GetK()
+		this->GetI() * other.GetJ() - this->GetJ() * other.GetI() + this->GetK() * other.GetW() + this->GetW() * other.GetK()
+		
 	};
 }
 
@@ -133,10 +140,11 @@ Quaternion& Quaternion::operator*=(const Quaternion& other)
 Quaternion Quaternion::operator*(float val) const
 {
 	return {
+		this->GetW()* val,
 		this->GetI() * val,
 		this->GetJ() * val,
-		this->GetK() * val,
-		this->GetW() * val
+		this->GetK() * val
+		
 	};
 }
 
@@ -156,10 +164,11 @@ void Quaternion::Normalize()
 	//assert(magnitude != 0 && "Division par 0 ! : Quaternion::Normalized() : magnitude = 0");
 
     if(magnitude != 0) {
+		this->w /= magnitude;
         this->i /= magnitude;
         this->j /= magnitude;
         this->k /= magnitude;
-        this->w /= magnitude;
+        
     }
 }
 Quaternion Quaternion::Normalized() const
@@ -169,17 +178,18 @@ Quaternion Quaternion::Normalized() const
 
     if(magnitude == 0) return *this;
 	return { 
+		this->w / magnitude,
 		this->i / magnitude,
 		this->j / magnitude,
-		this->k / magnitude,
-		this->w / magnitude 
+		this->k / magnitude
+		
 	};
 
 }
 
 Quaternion Quaternion::Conjugate() const
 {
-	return {-this->i, -this->j, -this->k, this->w };
+	return { this->w , -this->i, -this->j, -this->k};
 }
 
 
@@ -219,19 +229,22 @@ void Quaternion::UpdateByAngularVelocity(const Vector3& rotation, float duration
 // Convert Euler Vector3 to Quaternion
 Quaternion Quaternion::EulerToQuaternion(const Vector3& euler)
 {
-	float c1 = cos(euler.GetZ() * 0.5f);
-	float c2 = cos(euler.GetY() * 0.5f);
-	float c3 = cos(euler.GetX() * 0.5f);
-	float s1 = sin(euler.GetZ() * 0.5f);
-	float s2 = sin(euler.GetY() * 0.5f);
-	float s3 = sin(euler.GetX() * 0.5f);
+	float cy = cos(euler.GetZ() * 0.5f);
+	float sy = sin(euler.GetZ() * 0.5f);
+
+	float cp = cos(euler.GetY() * 0.5f);
+	float sp = sin(euler.GetY() * 0.5f);
+
+	float cr = cos(euler.GetX() * 0.5f);
+	float sr = sin(euler.GetX() * 0.5f);
 
 
 	return {
-        c1 * c2 * s3 - s1 * s2 * c3,
-        c1 * s2 * c3 + s1 * c2 * s3,
-        s1 * c2 * c3 - c1 * s2 * s3,
-        c1 * c2 * c3 + s1 * s2 * s3
+        
+		cr* cp* cy + sr * sp * sy,
+		sr* cp* cy - cr * sp * sy,
+		cr* sp* cy + sr * cp * sy,
+		cr* cp* sy - sr * sp * cy
     };
 
 
@@ -281,7 +294,7 @@ std::string Quaternion::toString() const
 
 std::ostream& operator<<(std::ostream& os, const Quaternion& quaternion)
 {
-	os << "(" << quaternion.GetI() << ", " << quaternion.GetJ() << ", " << quaternion.GetK() << ", " << quaternion.GetW() << ")";
+	os << "(" << quaternion.GetW() << ", " << quaternion.GetI() << ", " << quaternion.GetJ() << ", " << quaternion.GetK() << ")";
 	return os;
 }
 

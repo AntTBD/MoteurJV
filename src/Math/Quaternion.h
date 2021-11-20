@@ -17,7 +17,7 @@ private:
 
 	// union c++ exemple : https://stackoverflow.com/questions/6338645/named-structures-in-c-unions
 	union {
-		struct {float  i, j, k, w; };
+		struct {float  w, i, j, k ; };
 
 		float value[4];
 	};
@@ -25,7 +25,7 @@ private:
 
 public:
 	Quaternion();
-	Quaternion(float i, float j, float k, float w);
+	Quaternion(float w, float i, float j, float k);
 	Quaternion(std::vector<float> value);
     Quaternion(float value[4]);
 	Quaternion(const Vector3& vector, float w);
@@ -33,10 +33,11 @@ public:
 	~Quaternion();
 
 	std::vector<float> Get() const; // return tab[4] ???
+	float GetW() const;
 	float GetI() const;
 	float GetJ() const;
 	float GetK() const;
-	float GetW() const;
+	
 	void Set(std::vector<float> value);
 	void SetW(float w);
 	void SetI(float i);

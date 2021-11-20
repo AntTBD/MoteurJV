@@ -26,12 +26,17 @@ int main(int, char**)
     //std::cout<< testQuaternion2.ToEuler() << std::endl;
     //std::cout<< testQuaternion2.ToEulerInDegrees() << std::endl;
 
-    std::cout<< Vector3(90,90,90) << std::endl;
-    std::cout<< Quaternion::EulerInDegreesToQuaternion(Vector3(90,90,90)) << std::endl;
-    std::cout<< Quaternion::EulerInDegreesToQuaternion(Vector3(90,90,90)).ToEulerInDegrees() << std::endl;
-    std::cout<< Vector3(M_PI/2.f,M_PI/2.f,M_PI/2.f) << std::endl;
-    std::cout<< Quaternion::EulerToQuaternion(Vector3(M_PI/2.f,M_PI/2.f,M_PI/2.f)) << std::endl;
-    std::cout<< Quaternion::EulerToQuaternion(Vector3(M_PI/2.f,M_PI/2.f,M_PI/2.f)).ToEuler() << std::endl;
+    std::cout<< Vector3(0, 90 , 0 ) << std::endl;
+    std::cout<< Quaternion::EulerInDegreesToQuaternion(Vector3(0, 90, 0)) << std::endl;
+    std::cout<< Quaternion::EulerInDegreesToQuaternion(Vector3(0, 90, 0)).ToEulerInDegrees() << std::endl;
+
+    std::cout << "--------------------------------" << std::endl;
+
+
+    std::cout << Vector3(0, M_PI / 2, 0) << std::endl;
+    std::cout<< Quaternion::EulerToQuaternion(Vector3(0,M_PI/2,0)) << std::endl;
+    std::cout << Quaternion::EulerToQuaternion(Vector3(0, M_PI / 2, 0)).ToEuler() << std::endl;
+   
 
 
 
