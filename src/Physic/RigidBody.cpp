@@ -438,5 +438,9 @@ std::string RigidBody::toString() const {
 
 std::ostream &operator<<(std::ostream &os, const RigidBody &rigidBody) {
     os << "Mass : " << rigidBody.GetMass() << ", Acceleration : " << rigidBody.GetAcceleration() << ", Velocity : " << rigidBody.GetVelocity() << ", Position : " << rigidBody.GetPosition() << ", SumForces : " << rigidBody.GetForceAccum();
+
+    if(rigidBody.GetName() != nullptr){
+        os << ", Name : " << rigidBody.GetName();
+    }
     return os;
 }

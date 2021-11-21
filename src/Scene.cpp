@@ -26,6 +26,8 @@ Camera *Scene::getCamera() {
 
 void Scene::addObject(Object &object) {
     this->objects->push_back(&object);
+    EngineManager::getInstance().console.logSuccess("Add %s %d: %s\n", typeid(object).name(), this->objects->size(),object.toString().c_str());
+
 }
 
 Object *Scene::GetObject(int id) {

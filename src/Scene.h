@@ -8,6 +8,7 @@
 #include "3DScene/Camera.h"
 #include "3DScene/OpenGLRendererManager.h"
 #include "Math/Vector3.h"
+#include "EngineManager.h"
 
 //////////////////////////////////////////
 //          change type of objects (Particle - RigidBody)
