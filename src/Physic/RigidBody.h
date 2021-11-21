@@ -71,6 +71,9 @@ private:
     Vector3 dimensions;
     ShapeType shapeType;
 
+    // ------------ name ---------------
+    const char * name;
+
 public:
 	RigidBody();
     RigidBody(float mass, const Vector3 &position, const RigidBody::ShapeType &type = RigidBody::ShapeType::Sphere, const Vector3 &dimensions = Vector3(5, 5, 5));
@@ -100,6 +103,8 @@ public:
     // ------------- Dimensions ---------------------
     Vector3 GetDimensions() const;
     RigidBody::ShapeType GetShapeType() const;
+    // ------------ name ---------------
+    const char *GetName() const;
 
     // ------------- Mass -------------
 	void SetInvMass(float inverseMass);
@@ -119,6 +124,8 @@ public:
     // ------------- Dimensions ---------------------
     void SetDimensions(const Vector3& dimensions);
     void SetShapeType(RigidBody::ShapeType type);
+    // ------------ name ---------------
+    void SetName(const char *name);
 
 
 

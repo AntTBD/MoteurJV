@@ -28,6 +28,8 @@ RigidBody::RigidBody() {
     this->dimensions = Vector3(1,1,1);
     this->shapeType = RigidBody::ShapeType::Sphere;
 
+    this->name = nullptr;
+
     // init tenseur d'inertie
     this->SetInertiaTensorByType(this->shapeType);
     this->Integrate(0);
@@ -55,6 +57,8 @@ RigidBody::RigidBody(float mass, const Vector3 &position, const RigidBody::Shape
     this->inertiaTensor = Matrix33();
     this->inverseInertiaTensor = Matrix33();
     this->inverseInertiaTensorWorld = Matrix33();
+
+    this->name = nullptr;
 
     // init tenseur d'inertie
     this->SetInertiaTensorByType(this->shapeType);
@@ -84,6 +88,8 @@ RigidBody::RigidBody(float mass, const Vector3 &position, const Quaternion& orie
     this->inverseInertiaTensor = Matrix33();
     this->inverseInertiaTensorWorld = Matrix33();
 
+    this->name = nullptr;
+
     // init tenseur d'inertie
     this->SetInertiaTensorByType(this->shapeType);
     this->Integrate(0);
@@ -108,6 +114,8 @@ RigidBody::RigidBody(float mass, const Vector3 &position, const Vector3 &velocit
     this->inertiaTensor = Matrix33();
     this->inverseInertiaTensor = Matrix33();
     this->inverseInertiaTensorWorld = Matrix33();
+
+    this->name = nullptr;
 
     // init tenseur d'inertie
     this->SetInertiaTensorByType(this->shapeType);
@@ -186,6 +194,10 @@ RigidBody::ShapeType RigidBody::GetShapeType() const {
     return this->shapeType;
 }
 
+const char *RigidBody::GetName() const {
+    return this->name;
+}
+
 
 void RigidBody::SetInvMass(float inverseMass) {
     this->invMass = inverseMass;
@@ -252,6 +264,10 @@ void RigidBody::SetShapeType(RigidBody::ShapeType type) {
     this->shapeType = type;
     this->SetInertiaTensorByType(this->shapeType);
     this->Integrate(0);
+}
+
+void RigidBody::SetName(const char *name) {
+    this->name = name;
 }
 
 void RigidBody::Integrate(float duration) {

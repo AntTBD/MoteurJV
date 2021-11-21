@@ -13,50 +13,58 @@ void CarCollision::GenerateScene()
     Vector3 eulerRotationCar1(0, 20, 0);
     Vector3 angularRotationCar1(0.5f, 0.2f, 0.3f);
     cars->push_back(new RigidBody(mass, positionCar1,Vector3(), Quaternion::EulerInDegreesToQuaternion(eulerRotationCar1),angularRotationCar1, RigidBody::ShapeType::Cube, carDimension));
+    cars->at(0)->SetName("Car1");
     EngineManager::getInstance().getScene()->addObject(*cars->at(0));
 
     // car2
     Vector3 positionCar2(65, carDimension.GetY(), 0);
     cars->push_back(new RigidBody(mass, positionCar2, RigidBody::ShapeType::Cube, carDimension));
+    cars->at(1)->SetName("Car2");
     EngineManager::getInstance().getScene()->addObject(*cars->at(1));
     // ================ =======================
 
     // ================ walls =================
-    // ground
+    // Ground
     Vector3 groundDimension(100, 0, 100);
     Vector3 groundPosition(0, -100, 0);
     Vector3 groundEulerRotation(0, 0, 0);
     auto ground = new RigidBody(mass, groundPosition, Quaternion::EulerInDegreesToQuaternion(groundEulerRotation), RigidBody::ShapeType::Plan, groundDimension);
+    ground->SetName("Ground");
     EngineManager::getInstance().getScene()->addObject(*ground);
-    // top
+    // Top
     Vector3 topDimension = groundDimension;
     Vector3 topPosition(0, 100, 0);
     Vector3 topEulerRotation(180, 0, 0);
     auto top = new RigidBody(mass, topPosition, Quaternion::EulerInDegreesToQuaternion(topEulerRotation), RigidBody::ShapeType::Plan, topDimension);
+    top->SetName("Top");
     EngineManager::getInstance().getScene()->addObject(*top);
-    // left
+    // Left
     Vector3 leftDimension = groundDimension;
     Vector3 leftPosition(-100, 0, 0);
     Vector3 leftEulerRotation(90, 0, 90);
     auto left = new RigidBody(mass, leftPosition, Quaternion::EulerInDegreesToQuaternion(leftEulerRotation), RigidBody::ShapeType::Plan, leftDimension);
+    left->SetName("Left");
     EngineManager::getInstance().getScene()->addObject(*left);
-    // right
+    // Right
     Vector3 rightDimension = groundDimension;
     Vector3 rightPosition(100, 0, 0);
     Vector3 rightEulerRotation(90, 0, -90);
     auto right = new RigidBody(mass, rightPosition, Quaternion::EulerInDegreesToQuaternion(rightEulerRotation), RigidBody::ShapeType::Plan, rightDimension);
+    right->SetName("Right");
     EngineManager::getInstance().getScene()->addObject(*right);
-    // front
+    // Front
     Vector3 frontDimension = groundDimension;
     Vector3 frontPosition(0, 0, -100);
     Vector3 frontEulerRotation(-90, 0, 0);
     auto front = new RigidBody(mass, frontPosition, Quaternion::EulerInDegreesToQuaternion(frontEulerRotation), RigidBody::ShapeType::Plan, frontDimension);
+    front->SetName("Front");
     EngineManager::getInstance().getScene()->addObject(*front);
-    // back (without draw)
+    // Back (without draw)
     Vector3 backDimension = groundDimension;
     Vector3 backPosition(0, 0, 100);
     Vector3 backEulerRotation(90, 0, 0);
     auto back = new RigidBody(mass, backPosition, Quaternion::EulerInDegreesToQuaternion(backEulerRotation), RigidBody::ShapeType::Plan, backDimension);
+    back->SetName("Back");
     EngineManager::getInstance().getScene()->addObject(*back);
     // ===========================================
 

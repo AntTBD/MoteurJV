@@ -24,7 +24,7 @@ void ImGuiUIWindowInspector::update()
                 // Iterate placeholder objects (all the same data)
                 for (int obj_i = 0; obj_i < listOfObectsInScene.size(); obj_i++)
                 {
-                    this->ShowPlaceholderObject("Object", obj_i);
+                    this->ShowPlaceholderObject((listOfObectsInScene.at(obj_i)->GetName() == nullptr ? "Object" : listOfObectsInScene.at(obj_i)->GetName()), obj_i);
                     //ImGui::Separator();
                 }
                 ImGui::EndTable();
