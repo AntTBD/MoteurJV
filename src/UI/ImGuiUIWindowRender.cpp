@@ -126,6 +126,9 @@ void ImGuiUIWindowRender::newSize(float width, float height){
     // -------------------------
     glBindFramebuffer(GL_FRAMEBUFFER, this->framebuffer);
     glEnable(GL_DEPTH_TEST);
+    // hide face color if not in front of cam
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
     // create a color attachment texture
     glBindTexture(GL_TEXTURE_2D, this->textureColorbuffer);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
@@ -204,6 +207,7 @@ void ImGuiUIWindowRender::checkToAddParticles()
             Vector3 d = (obj->GetPosition() - pos);
             // f = - k * ( |d| - l0) * d.normalized
             obj->AddForce(-1 * d.Magnitude()/2.f * d.Normalized() * (1.0f / obj->GetInvMass()));
+            obj->AddTorque(-1 * d.Magnitude()/2.f * d.Normalized() * (1.0f / obj->GetInvMass()));
             //p->SetPosition(pos);
         }
     }

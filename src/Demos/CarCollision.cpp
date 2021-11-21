@@ -9,14 +9,14 @@ void CarCollision::GenerateScene()
 
     // ================ cars =================
     // car1
-    Vector3 positionCar1(-100, carDimension.GetY(), 10);
+    Vector3 positionCar1(-65, carDimension.GetY(), 10);
     Vector3 eulerRotationCar1(0, 20, 0);
     Vector3 angularRotationCar1(0.5f, 0.2f, 0.3f);
     cars->push_back(new RigidBody(mass, positionCar1,Vector3(), Quaternion::EulerInDegreesToQuaternion(eulerRotationCar1),angularRotationCar1, RigidBody::ShapeType::Cube, carDimension));
     EngineManager::getInstance().getScene()->addObject(*cars->at(0));
 
     // car2
-    Vector3 positionCar2(100, carDimension.GetY(), 0);
+    Vector3 positionCar2(65, carDimension.GetY(), 0);
     cars->push_back(new RigidBody(mass, positionCar2, RigidBody::ShapeType::Cube, carDimension));
     EngineManager::getInstance().getScene()->addObject(*cars->at(1));
     // ================ =======================
@@ -31,7 +31,7 @@ void CarCollision::GenerateScene()
     // top
     Vector3 topDimension = groundDimension;
     Vector3 topPosition(0, 100, 0);
-    Vector3 topEulerRotation(0, 0, 0);
+    Vector3 topEulerRotation(180, 0, 0);
     auto top = new RigidBody(mass, topPosition, Quaternion::EulerInDegreesToQuaternion(topEulerRotation), RigidBody::ShapeType::Plan, topDimension);
     EngineManager::getInstance().getScene()->addObject(*top);
     // left
@@ -46,6 +46,18 @@ void CarCollision::GenerateScene()
     Vector3 rightEulerRotation(90, 0, -90);
     auto right = new RigidBody(mass, rightPosition, Quaternion::EulerInDegreesToQuaternion(rightEulerRotation), RigidBody::ShapeType::Plan, rightDimension);
     EngineManager::getInstance().getScene()->addObject(*right);
+    // front
+    Vector3 frontDimension = groundDimension;
+    Vector3 frontPosition(0, 0, -100);
+    Vector3 frontEulerRotation(-90, 0, 0);
+    auto front = new RigidBody(mass, frontPosition, Quaternion::EulerInDegreesToQuaternion(frontEulerRotation), RigidBody::ShapeType::Plan, frontDimension);
+    EngineManager::getInstance().getScene()->addObject(*front);
+    // back (without draw)
+    Vector3 backDimension = groundDimension;
+    Vector3 backPosition(0, 0, 100);
+    Vector3 backEulerRotation(90, 0, 0);
+    auto back = new RigidBody(mass, backPosition, Quaternion::EulerInDegreesToQuaternion(backEulerRotation), RigidBody::ShapeType::Plan, backDimension);
+    EngineManager::getInstance().getScene()->addObject(*back);
     // ===========================================
 
     std::vector<RigidBody*>* allObjectsWithoutWalls = new std::vector<RigidBody*>();
@@ -79,5 +91,11 @@ void CarCollision::GenerateScene()
     // contact avec le right
     GroundContactGenerator* rightContactGenerator = new GroundContactGenerator(allObjectsWithoutWalls, rightPosition.GetX(),true, Vector3(1,0,0));// contact avec le top à une hauteur de 100
     EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(rightContactGenerator, allObjectsWithoutWalls->size());
+    // contact avec le front
+    GroundContactGenerator* frontContactGenerator = new GroundContactGenerator(allObjectsWithoutWalls, frontPosition.GetZ(),false, Vector3(0,0,1));// contact avec le top à une hauteur de 100
+    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(frontContactGenerator, allObjectsWithoutWalls->size());
+    // contact avec le back
+    GroundContactGenerator* backContactGenerator = new GroundContactGenerator(allObjectsWithoutWalls, backPosition.GetZ(),true, Vector3(0,0,1));// contact avec le top à une hauteur de 100
+    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(backContactGenerator, allObjectsWithoutWalls->size());
 
 }
