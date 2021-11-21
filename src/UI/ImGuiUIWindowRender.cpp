@@ -34,10 +34,10 @@ void ImGuiUIWindowRender::update()
             {
                 this->HelpMarker(
                         u8"- Click (Mouse left) on this window to interact wind objects.\n"
-                        "- Bouger la première particule ajoutée (Mouse right).\n"
-                        "Toutes les autres particules seront relié à cette première particule.\n"
-                        "Zoomer grâce à la molette de la souris\n"
-                        "Changer l'orientation de la camera en maintenant appuyé la molette et en déplaçant la souris.");
+                        "- Bouger la premiï¿½re particule ajoutï¿½e (Mouse right).\n"
+                        "Toutes les autres particules seront reliï¿½ ï¿½ cette premiï¿½re particule.\n"
+                        "Zoomer grï¿½ce ï¿½ la molette de la souris\n"
+                        "Changer l'orientation de la camera en maintenant appuyï¿½ la molette et en dï¿½plaï¿½ant la souris.");
 
                 ImGui::SetWindowFontScale(1.2);
                 // espace pour centrer les boutons
@@ -159,6 +159,20 @@ void ImGuiUIWindowRender::render3D() {
     //this->shader->use();
 
     EngineManager::getInstance().getScene()->draw();
+
+// display mouse position with a small sphere
+    if (this->play && !this->pause && ImGui::IsWindowFocused() && ImGui::IsMouseDown(1)) // right click down
+    {
+        ImGuiIO &io = ImGui::GetIO();
+        ImVec2 wsize = ImGui::GetWindowSize();
+        float ratio = 4.0f;
+        ImVec2 mousePositionInChild(io.MousePos.x - ImGui::GetWindowPos().x,io.MousePos.y - ImGui::GetWindowPos().y);
+
+        Vector3 offsetPosition = Vector3(-(float)wsize.x / 2.0f, (float)wsize.y, 0);
+        Vector3 pos = Vector3((offsetPosition.GetX() + (float)mousePositionInChild.x) / ratio, (offsetPosition.GetY() - (float)mousePositionInChild.y) / ratio, 0);
+        auto obj = new RigidBody(0, pos);
+        OpenGLRendererManager::drawSphere(Vector3(2,2,2), obj->GetPosition(), obj->GetTransform()); // create a small sphere to simulate mouse click
+    }
 
     // now bind back to default framebuffer and draw a quad plane with the attached framebuffer color texture
     //this->shader->unUse();

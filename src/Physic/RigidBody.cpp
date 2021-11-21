@@ -398,7 +398,7 @@ void RigidBody::AddForceAtPoint(const Vector3 &force, const Vector3 &worldPoint)
 
 void RigidBody::AddForceAtBodyPoint(const Vector3 &force, const Vector3 &localPoint) {
     // Convert to coordinates relative to center of mass.
-    Vector3 pt = this->GetPointInWorldSpace(this->position);
+    Vector3 pt = this->GetPointInWorldSpace(localPoint);
     this->AddForceAtPoint(force, pt);
 }
 

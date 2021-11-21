@@ -78,4 +78,5 @@ void Scene::reset() {
         delete object;
     }
     this->objects->clear();
+    EngineManager::getInstance().console.logWarning("The scene has been cleaned\n");
 }
