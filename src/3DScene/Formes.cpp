@@ -179,10 +179,10 @@ void Formes::CreateCarre()
     glNewList(carre, GL_COMPILE);
     // carre construit par rapport à son centre
     glBegin(GL_QUADS);
-    glVertex2d(0, -1.0f / 2.0f);
-    glVertex2d(0, 1.0f / 2.0f);
-    glVertex2d(1.0f / 2.0f, 1.0f / 2.0f);
-    glVertex2d(1.0f / 2.0f, -1.0f / 2.0f);
+    glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(-1.0f / 2.0f, 0, -1.0f / 2.0f);
+    glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(-1.0f / 2.0f, 0, 1.0f / 2.0f);
+    glColor3f(0.0f, 0.0f, 1.0f); glVertex3f(1.0f / 2.0f, 0, 1.0f / 2.0f);
+    glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(1.0f / 2.0f, 0, -1.0f / 2.0f);
     glEnd();
     glEndList();
 }

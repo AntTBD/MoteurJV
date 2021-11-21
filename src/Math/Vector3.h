@@ -1,6 +1,7 @@
 #pragma once
 
 #include <math.h>
+#include <algorithm>
 #include <assert.h>
 #include <iostream>
 #include <sstream>
@@ -88,6 +89,9 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	Vector3& SetZero();
+
+    float GetMaxValue() const;
+    float GetMinValue() const;
 
 
     std::string toString() const;

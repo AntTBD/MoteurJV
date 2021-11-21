@@ -57,7 +57,10 @@ void Scene::drawObjects() {
                 OpenGLRendererManager::drawSphere(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small sphere to simulate particle in 3D
                 break;
             case RigidBody::ShapeType::Cube:
-                OpenGLRendererManager::drawCube(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small sphere to simulate particle in 3D
+                OpenGLRendererManager::drawCube(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small Cube to simulate particle in 3D
+                break;
+            case RigidBody::ShapeType::Plan:
+                OpenGLRendererManager::drawRect2D(object->GetDimensions(), object->GetPosition(), object->GetTransform()); // create a plan
                 break;
             default:// draw sphere by default
                 OpenGLRendererManager::drawSphere(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small sphere to simulate particle in 3D

@@ -17,6 +17,7 @@ public:
         Sphere,
         Cube,
         Cylindre,
+        Plan,
         _enumEnd // used to loop on this enum
     };
 private:

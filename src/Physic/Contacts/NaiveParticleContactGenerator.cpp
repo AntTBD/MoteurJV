@@ -18,8 +18,10 @@ unsigned int NaiveParticleContactGenerator::addContact(std::vector<ParticleConta
 				}
 				if (i == j) continue;
 				float length = (this->rigidBodies->at(j)->GetPosition() - this->rigidBodies->at(i)->GetPosition()).Magnitude();
-				if (length <= this->radius) {
-					contacts->push_back(new ParticleContact(this->rigidBodies->at(i), this->rigidBodies->at(j), 1, this->radius - length));
+                // get minimum length between 2 rgidbodies with max dimension of them (as a sphere)
+                float minLength = this->rigidBodies->at(i)->GetDimensions().GetMaxValue() + this->rigidBodies->at(j)->GetDimensions().GetMaxValue();
+				if (length <= minLength) {
+					contacts->push_back(new ParticleContact(this->rigidBodies->at(i), this->rigidBodies->at(j), 1, minLength - length));
 					iteration++;
 				}
 			}

@@ -59,52 +59,13 @@ void PhysicEngine::init()
     // copy objects
     this->objects = EngineManager::getInstance().getScene()->getObjects();
 
-    if (!this->objects->empty()) {
 
 
 
-        // ------ add contacts -------
-        // add contacts naive entre particules (=colision entre 2 particules)
-        NaiveParticleContactGenerator* naiveParticleContactGenerator = new NaiveParticleContactGenerator(this->objects, 10);// contacts entre particules de rayon 10
-        this->particleContactRegistry->Add(naiveParticleContactGenerator, 2 * this->objects->size());
-        // contact avec le sol
-        GroundContactGenerator* groundContactGenerator = new GroundContactGenerator(this->objects, 0.0f);// contact avec le sol à une hauteur de 0
-        this->particleContactRegistry->Add(groundContactGenerator, this->objects->size());
+    this->isUpdateFinished = true;
 
+    std::cout << "PhysicEngine ready => init ended " << this->isUpdateFinished << std::endl;
 
-        for (int i = 0; i < this->objects->size(); i++)
-        {
-            // ------ force -------
-            // add ressort ancré sur la particule actuelle
-            ParticleSpring* particleSpringGenerator = new ParticleSpring(*this->objects->at(i), 5, 50);
-
-            // add tiges or cables between each particles + spring force anchored on actual particle
-            for (int k = i + 1; k < this->objects->size(); k++) {
-                // ------ contacts -------
-                // add contacts cables
-                //auto tige = new ParticleRod(this->objects->at(i), this->objects->at(k), 100);// tige de longueur 200
-                //this->particleContactRegistry->Add(tige, 1);
-
-                // add contacts tiges
-                auto cable = new ParticleCable(this->objects->at(i), this->objects->at(k), 100);// cable de longueur 200
-                this->particleContactRegistry->Add(cable, 1);
-
-                // ------ force -------
-                // Add spring force
-                this->particleForceRegistry->Add(this->objects->at(k), particleSpringGenerator);
-            }
-
-            // ------ force -------
-            // Add gravity force
-            ParticleGravity* particleGravityGenerator = new ParticleGravity();
-            this->particleForceRegistry->Add(this->objects->at(i), particleGravityGenerator);
-        }
-
-
-        this->isUpdateFinished = true;
-
-        std::cout << "PhysicEngine ready => init ended " << this->isUpdateFinished << std::endl;
-    }
 }
 
 
@@ -197,4 +158,12 @@ void PhysicEngine::clearParticlesAndRegisters()
 
 bool PhysicEngine::isRunning() {
     return this->isSimulating;
+}
+
+ParticleForceRegistry *PhysicEngine::getForceRegistry() {
+    return this->particleForceRegistry;
+}
+
+ParticleContactRegistry *PhysicEngine::getContactRegistry() {
+    return this->particleContactRegistry;
 }

@@ -203,7 +203,7 @@ void ImGuiUIWindowRender::checkToAddParticles()
             // d = xa - xb
             Vector3 d = (obj->GetPosition() - pos);
             // f = - k * ( |d| - l0) * d.normalized
-            obj->AddForce(-1 * d.Magnitude() * d.Normalized() * (1.0f / obj->GetInvMass()));
+            obj->AddForce(-1 * d.Magnitude()/2.f * d.Normalized() * (1.0f / obj->GetInvMass()));
             //p->SetPosition(pos);
         }
     }

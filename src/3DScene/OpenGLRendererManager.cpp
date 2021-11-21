@@ -150,11 +150,14 @@ void OpenGLRendererManager::drawAxis(float echelle)
     glPopMatrix();
 }
 
-void OpenGLRendererManager::drawRect2D(double largeur, double hauteur)
+void OpenGLRendererManager::drawRect2D(const Vector3& dimensions, const Vector3& pos, const Matrix34& transformMatrix)
 {
-    glScalef(largeur, hauteur, 1.0);
+    glPushMatrix();
+    glMultMatrixf(transformMatrix.GetMatrix44ForGL().data());
+    glScalef(2.f * dimensions.GetX(), 1.0, 2.f * dimensions.GetZ());
     OpenGLRendererManager::formes->DrawCarre();
-    glScalef(1.0f / largeur, 1.0f / hauteur, 1.0);
+    glScalef(1.0f / (2.f * dimensions.GetX()), 1.0, 1.0f / (2.f * dimensions.GetZ()));
+    glPopMatrix();
 }
 
 void OpenGLRendererManager::drawCube(const Vector3& dimensions, const Vector3& pos, const Matrix34& transformMatrix, const Vector3& rot) {

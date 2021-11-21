@@ -209,6 +209,7 @@ void RigidBody::SetLinearDamping(float linearDamping) {
 
 void RigidBody::SetPosition(const Vector3 &position) {
     this->position = position;
+    this->Integrate(0);
 }
 
 void RigidBody::SetVelocity(const Vector3 &velocity) {
@@ -238,6 +239,7 @@ void RigidBody::SetAngularAcceleration(const Vector3 &angularAcceleration) {
 
 void RigidBody::SetTransform(const Matrix34 &transformMatrix) {
     this->transformMatrix = transformMatrix;
+    this->Integrate(0);
 }
 
 void RigidBody::SetDimensions(const Vector3 &dimensions) {
@@ -330,6 +332,7 @@ void RigidBody::SetInertiaTensorByType(ShapeType type) {
             });
             break;
         case 1: // cube
+        case 3: // plan
             //  I = [ 1/12 * m * (d.y� + d.z�),            0            ,           0             ,
             //                  0             , 1/12 * m * (d.x� + d.z�),           0             ,
             //                  0             ,            0            , 1/12 * m * (d.x� + d.y�) ]
