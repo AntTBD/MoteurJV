@@ -5,12 +5,12 @@ RigidBody::RigidBody() {
 
     this->invMass = 1.0f;
 
-    this->linearDamping = 0.99f;
+    this->linearDamping = 0.9f;
     this->position = Vector3();
     this->velocity = Vector3();
     this->acceleration = Vector3();
 
-    this->m_angularDamping = 0.99f;
+    this->m_angularDamping = 0.9f;
     this->orientation = Quaternion();
     this->angularVelocity = Vector3();
     this->angularAcceleration = Vector3();
@@ -40,11 +40,11 @@ RigidBody::RigidBody(float mass, const Vector3 &position, const RigidBody::Shape
 {
     this->SetMass(mass);
 
-    this->linearDamping = 0.99f;
+    this->linearDamping = 0.9f;
     this->velocity = Vector3();
     this->acceleration = Vector3();
 
-    this->m_angularDamping = 0.99f;
+    this->m_angularDamping = 0.9f;
     this->orientation = Quaternion();
     this->angularVelocity = Vector3();
     this->angularAcceleration = Vector3();
@@ -71,11 +71,11 @@ RigidBody::RigidBody(float mass, const Vector3 &position, const Quaternion& orie
 {
     this->SetMass(mass);
 
-    this->linearDamping = 0.99f;
+    this->linearDamping = 0.9f;
     this->velocity = Vector3();
     this->acceleration = Vector3();
 
-    this->m_angularDamping = 0.99f;
+    this->m_angularDamping = 0.9f;
     this->angularVelocity = Vector3();
     this->angularAcceleration = Vector3();
 
@@ -100,10 +100,10 @@ RigidBody::RigidBody(float mass, const Vector3 &position, const Vector3 &velocit
 {
     this->SetMass(mass);
 
-    this->linearDamping = 0.99f;
+    this->linearDamping = 0.9f;
     this->acceleration = Vector3();
 
-    this->m_angularDamping = 0.99f;
+    this->m_angularDamping = 0.9f;
     this->angularAcceleration = Vector3();
 
     this->transformMatrix = Matrix34();

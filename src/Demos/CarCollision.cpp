@@ -38,11 +38,11 @@ void CarCollision::GenerateScene()
 */
     // car2
     Vector3 positionCar2(165, carDimension.GetMaxValue(), 0);
-    /*Vector3 eulerRotationCar2(0, 0, 0);
+    Vector3 eulerRotationCar2(0, 180, 0);
     Vector3 velocityCar2(-500.f, 0.f, 0.f);
     Vector3 angularVelocityCar2(0.f, 0.f, 0.0f);
     cars->push_back(new RigidBody(mass, positionCar2, velocityCar2, Quaternion::EulerInDegreesToQuaternion(eulerRotationCar2), angularVelocityCar2, RigidBody::ShapeType::Cube, carDimension));
-    */cars->push_back(new RigidBody(mass, positionCar2, RigidBody::ShapeType::Cube, carDimension));
+    //cars->push_back(new RigidBody(mass, positionCar2, RigidBody::ShapeType::Cube, carDimension));
     cars->at(cars->size()-1)->SetName("Car2");
     cars->at(cars->size()-1)->AddForceAtBodyPoint(Vector3(-1500.f, 0.f, 0.f), Vector3(carDimension.GetX(), -carDimension.GetY(), 0));
     EngineManager::getInstance().getScene()->addObject(*cars->at(cars->size()-1));
