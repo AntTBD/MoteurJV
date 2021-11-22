@@ -359,16 +359,16 @@ void RigidBody::SetInertiaTensorByType(ShapeType type) {
             break;
         case 2: // cylindre
             // d.x = r.o
-            // d.y = h
+            // d.y = h / 2
             // d.z = r.i
             //  I = [ 1/12 * m * h� + 1/4 * m * (r.o� + r.i�),            0            ,           0             ,
             //                  0             , 1/12 * m * h� + 1/4 * m * (r.o� + r.i�),           0             ,
             //                  0             ,            0            , 1/12 * m * h� + 1/4 * m * (r.o� + r.i�) ]
             //  where m is the mass and d.x, d.y and d.z are the extent of the cuboid along each axis.
             this->inertiaTensor = Matrix33({
-               1.f / 12.f * this->GetMass() * pow(this->dimensions.GetZ(), 2.f) + 1.f/4.f * this->GetMass() * (pow(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetZ(), 2.f)), 0.f, 0.f,
-               0.f, 1.f / 12.f * this->GetMass() * pow(this->dimensions.GetZ(), 2.f) + 1.f/4.f * this->GetMass() * (pow(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetZ(), 2.f)), 0.f,
-               0.f, 0.f, 1.f / 12.f * this->GetMass() * pow(this->dimensions.GetZ(), 2.f) + 1.f/4.f * this->GetMass() * (pow(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetZ(), 2.f))
+               1.f / 12.f * this->GetMass() * pow(this->dimensions.GetY(), 2.f) + 1.f/4.f * this->GetMass() * (pow(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetZ(), 2.f)), 0.f, 0.f,
+               0.f, 1.f / 12.f * this->GetMass() * pow(this->dimensions.GetY(), 2.f) + 1.f/4.f * this->GetMass() * (pow(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetZ(), 2.f)), 0.f,
+               0.f, 0.f, 1.f / 12.f * this->GetMass() * pow(this->dimensions.GetY(), 2.f) + 1.f/4.f * this->GetMass() * (pow(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetZ(), 2.f))
             });
             break;
     }
