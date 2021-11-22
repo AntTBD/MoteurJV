@@ -17,7 +17,7 @@ void InputManager::update(MainWindow* mainWindow)
 
     // blob
     static bool b_key_pressed = false;
-    if(b_key_pressed == false && glfwGetKey(mainWindow->getWindow(), GLFW_KEY_B) == GLFW_PRESS){
+    if(EngineManager::getInstance().getPhysicEngine()->isRunning() == false && b_key_pressed == false && glfwGetKey(mainWindow->getWindow(), GLFW_KEY_B) == GLFW_PRESS){
         b_key_pressed = true;
         Blob::GenerateScene();
     }
@@ -27,7 +27,7 @@ void InputManager::update(MainWindow* mainWindow)
 
     // rigidbody rotation
     static bool r_key_pressed = false;
-    if(r_key_pressed == false && glfwGetKey(mainWindow->getWindow(), GLFW_KEY_R) == GLFW_PRESS){
+    if(EngineManager::getInstance().getPhysicEngine()->isRunning() == false && r_key_pressed == false && glfwGetKey(mainWindow->getWindow(), GLFW_KEY_R) == GLFW_PRESS){
         r_key_pressed = true;
         RigidBodyRotation::GenerateScene();
     }
@@ -37,7 +37,7 @@ void InputManager::update(MainWindow* mainWindow)
 
     // car Collision
     static bool c_key_pressed = false;
-    if(c_key_pressed == false && glfwGetKey(mainWindow->getWindow(), GLFW_KEY_C) == GLFW_PRESS){
+    if(EngineManager::getInstance().getPhysicEngine()->isRunning() == false && c_key_pressed == false && glfwGetKey(mainWindow->getWindow(), GLFW_KEY_C) == GLFW_PRESS){
         c_key_pressed = true;
         CarCollision::GenerateScene();
     }
