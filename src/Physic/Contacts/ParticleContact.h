@@ -20,7 +20,7 @@ public:
 	Vector3 m_contactNormal;
 
 	ParticleContact();
-	ParticleContact(RigidBody* rigidBody1, float restitution, float penetration);
+	ParticleContact(RigidBody* rigidBody1, float restitution, float penetration, const Vector3& contactNormal = Vector3(0,1,0), bool inverseNormal = false);
 	ParticleContact(RigidBody* rigidBody1, RigidBody* rigidBody2, float restitution, float penetration, bool inverseNormal = false);
 	~ParticleContact();
 

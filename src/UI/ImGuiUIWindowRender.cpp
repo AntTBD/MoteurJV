@@ -32,12 +32,26 @@ void ImGuiUIWindowRender::update()
             ImGuiIO &io = ImGui::GetIO();
             // Top buttons
             {
-                this->HelpMarker(
+                ImGui::Text("Help");
+                ImGui::SameLine();this->HelpMarker(
                         u8"- Click (Mouse left) on this window to interact wind objects.\n"
                         "- Bouger la première particule ajoutée (Mouse right).\n"
                         "Toutes les autres particules seront relié à cette première particule.\n"
                         "Zoomer grâce à la molette de la souris\n"
                         "Changer l'orientation de la camera en maintenant appuyé la molette et en déplaçant la souris.");
+                ImGui::SameLine();ImGui::Text("Blob");
+                ImGui::SameLine();this->HelpMarker(
+                        u8"- Ajouter toutes les particules avec le click droite de la souris \n"
+                        "- Appuyer sur B puis le bouton PLAY\n"
+                        "- Toutes les spheres vont former un blob (elles sont toutes reliées par des cables et ressorts).");
+                ImGui::SameLine();ImGui::Text("Preset Body");
+                ImGui::SameLine();this->HelpMarker(
+                        u8"- Appuyer sur R puis le bouton PLAY\n"
+                        "- Un rigidbody avec une velocité lineaire et angulaire de base et un facteur de gravité sera simulé.");
+                ImGui::SameLine();ImGui::Text("Cars");
+                ImGui::SameLine();this->HelpMarker(
+                        u8"- Appuyer sur C puis le bouton PLAY\n"
+                        "- Les 2 voitures vont s'entre choquer et engendrer une rotation.");
 
                 ImGui::SetWindowFontScale(1.2);
                 // espace pour centrer les boutons
@@ -126,6 +140,9 @@ void ImGuiUIWindowRender::newSize(float width, float height){
     // -------------------------
     glBindFramebuffer(GL_FRAMEBUFFER, this->framebuffer);
     glEnable(GL_DEPTH_TEST);
+    // hide face color if not in front of cam
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
     // create a color attachment texture
     glBindTexture(GL_TEXTURE_2D, this->textureColorbuffer);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
@@ -156,6 +173,24 @@ void ImGuiUIWindowRender::render3D() {
     //this->shader->use();
 
     EngineManager::getInstance().getScene()->draw();
+
+// display mouse position with a small sphere
+    if (this->play && !this->pause && ImGui::IsWindowFocused() && ImGui::IsMouseDown(1)) // right click down
+    {
+        ImGuiIO &io = ImGui::GetIO();
+        ImVec2 wsize = ImGui::GetWindowSize();
+        float ratio = 4.0f;
+        ImVec2 mousePositionInChild(io.MousePos.x - ImGui::GetWindowPos().x,io.MousePos.y - ImGui::GetWindowPos().y);
+
+        Vector3 offsetPosition = Vector3(-(float)wsize.x / 2.0f, (float)wsize.y, 0);
+        Vector3 pos = Vector3((offsetPosition.GetX() + (float)mousePositionInChild.x) / ratio, (offsetPosition.GetY() - (float)mousePositionInChild.y) / ratio, 0);
+        auto obj = new RigidBody(0, pos);
+        OpenGLRendererManager::drawSphere(Vector3(2,2,2), obj->GetPosition(), obj->GetTransform()); // create a small sphere to simulate mouse click
+        // draw line
+        if (EngineManager::getInstance().getScene()->getObjects()->size() > 0) {
+            OpenGLRendererManager::drawLine(obj->GetPosition(), EngineManager::getInstance().getScene()->GetObject(0)->GetPosition());//+EngineManager::getInstance().getScene()->GetObject(0)->GetDimensions());
+        }
+    }
 
     // now bind back to default framebuffer and draw a quad plane with the attached framebuffer color texture
     //this->shader->unUse();
@@ -188,8 +223,6 @@ void ImGuiUIWindowRender::checkToAddParticles()
         std::cout << pos << std::endl;
         auto obj = new RigidBody(mass, pos);
         EngineManager::getInstance().getScene()->addObject(*obj);
-        //std::cout << "Add particle " << *p << std::endl;
-        EngineManager::getInstance().console.logSuccess("Add %s %d: %s\n", typeid(*obj).name(), EngineManager::getInstance().getScene()->getObjectsByCopy().size(),obj->toString().c_str());
     }
 
     // --------------------------- Check mouse click & move first particle -------------------------------------
@@ -199,11 +232,15 @@ void ImGuiUIWindowRender::checkToAddParticles()
 
         auto obj = EngineManager::getInstance().getScene()->GetObject(0);
         if (obj != nullptr) {
-
+// same as spring
             // d = xa - xb
             Vector3 d = (obj->GetPosition() - pos);
             // f = - k * ( |d| - l0) * d.normalized
-            obj->AddForce(-1 * d.Magnitude() * d.Normalized() * (1.0f / obj->GetInvMass()));
+            float k = 5.f;
+            float restLength = 0.f;
+            //obj->AddForce(-k * (d.Magnitude() - restLength) * d.Normalized());
+            //obj->AddTorque(-k * (d.Magnitude() - restLength) * d.Normalized());
+            obj->AddForceAtPoint(-k * abs(d.Magnitude() - restLength) * d.Normalized(), Vector3());//obj->GetDimensions());
             //p->SetPosition(pos);
         }
     }

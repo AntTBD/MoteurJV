@@ -11,8 +11,10 @@ private:
     std::vector<RigidBody*>* rigidBodies;
 
     float positionY;
+    Vector3 normal;
+    bool inverse;
 public: 
-    GroundContactGenerator(std::vector<RigidBody*>* rigidBodies, float positionY = 0);
+    GroundContactGenerator(std::vector<RigidBody*>* rigidBodies, float positionY = 0, bool inverse = false, Vector3 normal = Vector3(0,1,0));
     ~GroundContactGenerator();
 
     // Fill ParticleContact with information form particles and contact generator.

@@ -26,6 +26,8 @@ Camera *Scene::getCamera() {
 
 void Scene::addObject(Object &object) {
     this->objects->push_back(&object);
+    EngineManager::getInstance().console.logSuccess("Add %s %d: %s\n", typeid(object).name(), this->objects->size(),object.toString().c_str());
+
 }
 
 Object *Scene::GetObject(int id) {
@@ -57,7 +59,10 @@ void Scene::drawObjects() {
                 OpenGLRendererManager::drawSphere(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small sphere to simulate particle in 3D
                 break;
             case RigidBody::ShapeType::Cube:
-                OpenGLRendererManager::drawCube(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small sphere to simulate particle in 3D
+                OpenGLRendererManager::drawCube(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small Cube to simulate particle in 3D
+                break;
+            case RigidBody::ShapeType::Plan:
+                OpenGLRendererManager::drawRect2D(object->GetDimensions(), object->GetPosition(), object->GetTransform()); // create a plan
                 break;
             default:// draw sphere by default
                 OpenGLRendererManager::drawSphere(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small sphere to simulate particle in 3D
@@ -73,4 +78,5 @@ void Scene::reset() {
         delete object;
     }
     this->objects->clear();
+    EngineManager::getInstance().console.logWarning("The scene has been cleaned\n");
 }

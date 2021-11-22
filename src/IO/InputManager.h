@@ -4,6 +4,9 @@
 #include "../ClassIncludes.h"
 
 #include "../UI/MainWindow.h"
+#include "../Demos/Blob.h"
+#include "../Demos/RigidBodyRotation.h"
+#include "../Demos/CarCollision.h"
 
 class InputManager {
 

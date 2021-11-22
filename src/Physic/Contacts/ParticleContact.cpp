@@ -8,13 +8,15 @@ ParticleContact::ParticleContact()
 	this->m_contactNormal = Vector3(0, 0, 0);
 }
 
-ParticleContact::ParticleContact(RigidBody* rigidBody1, float restitution, float penetration) :
-	m_restitution(restitution), m_penetration(penetration)
+ParticleContact::ParticleContact(RigidBody* rigidBody1, float restitution, float penetration, const Vector3& contactNormal, bool inverseNormal) :
+	m_restitution(restitution), m_penetration(penetration), m_contactNormal(contactNormal)
 {
 	this->m_rigidBody[0] = rigidBody1;
 	this->m_rigidBody[1] = nullptr;
 
-	this->m_contactNormal = Vector3(0, 1, 0);
+    if (inverseNormal) {
+        this->m_contactNormal *= -1;
+    }
 }
 
 ParticleContact::ParticleContact(RigidBody* rigidBody1, RigidBody* rigidBody2, float restitution, float penetration, bool inverseNormal) :
@@ -89,29 +91,31 @@ void ParticleContact::resolveVelocity() // Application de l’impulsion diapo p12
 	// mais avec la normal inversé, on obtient :
 	// particule 1 : v1' = v1 - k * n / m1
 	this->m_rigidBody[0]->SetVelocity(this->m_rigidBody[0]->GetVelocity() - k * this->m_contactNormal * this->m_rigidBody[0]->GetInvMass());
-	// particule 2 (if exist) : v2' = v2 + k * n / m2
+    this->m_rigidBody[0]->AddTorque(-k*2.f * this->m_contactNormal );// hard code rotation
+    // particule 2 (if exist) : v2' = v2 + k * n / m2
 	if (this->m_rigidBody[1] != nullptr) {
 		this->m_rigidBody[1]->SetVelocity(this->m_rigidBody[1]->GetVelocity() + k * this->m_contactNormal * this->m_rigidBody[1]->GetInvMass());
-	}
+        this->m_rigidBody[1]->AddTorque(+k*2.f * this->m_contactNormal );// hard code rotation
+    }
 	//std::cout << "k: " << k << std::endl;
 }
 
 void ParticleContact::resolveInterpenetration() // Résolution d’interpénétration diapo p15
 {
-	if (m_penetration > 0) {
+    if (m_penetration > 0) {
 
-		float somInvMass = this->m_rigidBody[0]->GetInvMass();
-		if (this->m_rigidBody[1] != nullptr) {
-			somInvMass += this->m_rigidBody[1]->GetInvMass();
-		}
+        float somInvMass = this->m_rigidBody[0]->GetInvMass();
+        if (this->m_rigidBody[1] != nullptr) {
+            somInvMass += this->m_rigidBody[1]->GetInvMass();
+        }
         // If all particles have infinite mass, then we do nothing.
         if (somInvMass <= 0) return;
 
-		// particule 1 : p' = p + m2 / (m1+m2) * d * n
-		this->m_rigidBody[0]->SetPosition(this->m_rigidBody[0]->GetPosition() + (1.0f/this->m_rigidBody[0]->GetInvMass()) * somInvMass * m_penetration * this->m_contactNormal);
-		// particule 2 (if exist) : p' = p + (- m2 / (m1+m2)) * d * n
-		if (this->m_rigidBody[1] != nullptr) {
-			this->m_rigidBody[1]->SetPosition(this->m_rigidBody[1]->GetPosition() - (1.0f / this->m_rigidBody[1]->GetInvMass()) * somInvMass * m_penetration * this->m_contactNormal);
-		}
-	}
+        // particule 1 : p' = p + m2 / (m1+m2) * d * n
+        this->m_rigidBody[0]->SetPosition(this->m_rigidBody[0]->GetPosition() + (this->m_rigidBody[0]->GetMass() * somInvMass) * m_penetration * this->m_contactNormal);
+        // particule 2 (if exist) : p' = p + (- m2 / (m1+m2)) * d * n
+        if (this->m_rigidBody[1] != nullptr) {
+            this->m_rigidBody[1]->SetPosition(this->m_rigidBody[1]->GetPosition() - (this->m_rigidBody[1]->GetMass() * somInvMass) * m_penetration * this->m_contactNormal);
+        }
+    }
 }

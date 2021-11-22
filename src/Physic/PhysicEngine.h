@@ -54,6 +54,9 @@ public:
 
     bool isRunning();
 
+    ParticleForceRegistry* getForceRegistry();
+    ParticleContactRegistry* getContactRegistry();
+
 private:
 
     void init();
@@ -66,7 +69,6 @@ private:
     void clearParticlesAndRegisters();
 
     bool isUpdated() const;
-
 
 };
 

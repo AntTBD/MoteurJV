@@ -206,7 +206,7 @@ Quaternion Quaternion::Conjugate() const
 // Rotate the quaternion by a vector : multiply this by q = (0, dx, dy, dz)
 void Quaternion::RotateByVector(const Vector3& vector)
 {
-	Quaternion vector_bis(vector, 0);
+	Quaternion vector_bis(vector, 1);
 	this->Normalize();
 	//vector_bis.Normalize();
 

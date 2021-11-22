@@ -194,6 +194,9 @@
     <ClCompile Include="src\3DScene\OpenGLRendererManager.cpp" />
     <ClCompile Include="src\3DScene\Shader.cpp" />
     <ClCompile Include="src\Debug\Debug.cpp" />
+    <ClCompile Include="src\Demos\Blob.cpp" />
+    <ClCompile Include="src\Demos\CarCollision.cpp" />
+    <ClCompile Include="src\Demos\RigidBodyRotation.cpp" />
     <ClCompile Include="src\EngineManager.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\IO\InputManager.cpp" />
@@ -244,6 +247,9 @@
     <ClInclude Include="src\3DScene\Shader.h" />
     <ClInclude Include="src\ClassIncludes.h" />
     <ClInclude Include="src\Debug\Debug.h" />
+    <ClInclude Include="src\Demos\Blob.h" />
+    <ClInclude Include="src\Demos\CarCollision.h" />
+    <ClInclude Include="src\Demos\RigidBodyRotation.h" />
     <ClInclude Include="src\EngineManager.h" />
     <ClInclude Include="src\ImGuiIncludes.h" />
     <ClInclude Include="src\IO\InputManager.h" />

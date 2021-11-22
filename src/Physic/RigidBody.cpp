@@ -28,6 +28,8 @@ RigidBody::RigidBody() {
     this->dimensions = Vector3(1,1,1);
     this->shapeType = RigidBody::ShapeType::Sphere;
 
+    this->name = nullptr;
+
     // init tenseur d'inertie
     this->SetInertiaTensorByType(this->shapeType);
     this->Integrate(0);
@@ -55,6 +57,8 @@ RigidBody::RigidBody(float mass, const Vector3 &position, const RigidBody::Shape
     this->inertiaTensor = Matrix33();
     this->inverseInertiaTensor = Matrix33();
     this->inverseInertiaTensorWorld = Matrix33();
+
+    this->name = nullptr;
 
     // init tenseur d'inertie
     this->SetInertiaTensorByType(this->shapeType);
@@ -84,6 +88,8 @@ RigidBody::RigidBody(float mass, const Vector3 &position, const Quaternion& orie
     this->inverseInertiaTensor = Matrix33();
     this->inverseInertiaTensorWorld = Matrix33();
 
+    this->name = nullptr;
+
     // init tenseur d'inertie
     this->SetInertiaTensorByType(this->shapeType);
     this->Integrate(0);
@@ -108,6 +114,8 @@ RigidBody::RigidBody(float mass, const Vector3 &position, const Vector3 &velocit
     this->inertiaTensor = Matrix33();
     this->inverseInertiaTensor = Matrix33();
     this->inverseInertiaTensorWorld = Matrix33();
+
+    this->name = nullptr;
 
     // init tenseur d'inertie
     this->SetInertiaTensorByType(this->shapeType);
@@ -186,6 +194,10 @@ RigidBody::ShapeType RigidBody::GetShapeType() const {
     return this->shapeType;
 }
 
+const char *RigidBody::GetName() const {
+    return this->name;
+}
+
 
 void RigidBody::SetInvMass(float inverseMass) {
     this->invMass = inverseMass;
@@ -195,7 +207,7 @@ void RigidBody::SetInvMass(float inverseMass) {
 
 void RigidBody::SetMass(float mass) {
     // on s'assure de ne pas diviser par 0
-    if(mass == 0) mass = 10e-10;
+    if(mass == 0) mass = 10e-5;
     assert(mass != 0 && "Mass = 0 and division by 0 is not possible");
 
     this->invMass = 1.f / mass;
@@ -209,6 +221,7 @@ void RigidBody::SetLinearDamping(float linearDamping) {
 
 void RigidBody::SetPosition(const Vector3 &position) {
     this->position = position;
+    this->Integrate(0);
 }
 
 void RigidBody::SetVelocity(const Vector3 &velocity) {
@@ -238,6 +251,7 @@ void RigidBody::SetAngularAcceleration(const Vector3 &angularAcceleration) {
 
 void RigidBody::SetTransform(const Matrix34 &transformMatrix) {
     this->transformMatrix = transformMatrix;
+    this->Integrate(0);
 }
 
 void RigidBody::SetDimensions(const Vector3 &dimensions) {
@@ -250,6 +264,10 @@ void RigidBody::SetShapeType(RigidBody::ShapeType type) {
     this->shapeType = type;
     this->SetInertiaTensorByType(this->shapeType);
     this->Integrate(0);
+}
+
+void RigidBody::SetName(const char *name) {
+    this->name = name;
 }
 
 void RigidBody::Integrate(float duration) {
@@ -286,8 +304,6 @@ void RigidBody::Integrate(float duration) {
     this->orientation.UpdateByAngularVelocity(this->angularVelocity, duration);
 
     // 7. Calculer les valeurs d�riv�es (matrice de transformation et I(^-1)')
-    // Normalize the orientation, and update the matrices with the new
-    // position and orientation.
     this->CalculateDerivedData();
 
     // 8. Remettre � z�ro les accumulateurs (forces et couples).
@@ -330,6 +346,7 @@ void RigidBody::SetInertiaTensorByType(ShapeType type) {
             });
             break;
         case 1: // cube
+        case 3: // plan
             //  I = [ 1/12 * m * (d.y� + d.z�),            0            ,           0             ,
             //                  0             , 1/12 * m * (d.x� + d.z�),           0             ,
             //                  0             ,            0            , 1/12 * m * (d.x� + d.y�) ]
@@ -371,15 +388,14 @@ void RigidBody::AddTorque(const Vector3& torque)
 
 void RigidBody::AddForceAtPoint(const Vector3 &force, const Vector3 &worldPoint) {
     // Convert to coordinates relative to center of mass.
-    Vector3 pt = worldPoint;
-    pt -= this->position;
+    Vector3 pt = worldPoint - this->position;
     this->m_forceAccum += force;
     this->m_torqueAccum += pt.CrossProduct(force);
 }
 
 void RigidBody::AddForceAtBodyPoint(const Vector3 &force, const Vector3 &localPoint) {
     // Convert to coordinates relative to center of mass.
-    Vector3 pt = this->GetPointInWorldSpace(this->position);
+    Vector3 pt = this->GetPointInWorldSpace(localPoint);
     this->AddForceAtPoint(force, pt);
 }
 
@@ -419,5 +435,9 @@ std::string RigidBody::toString() const {
 
 std::ostream &operator<<(std::ostream &os, const RigidBody &rigidBody) {
     os << "Mass : " << rigidBody.GetMass() << ", Acceleration : " << rigidBody.GetAcceleration() << ", Velocity : " << rigidBody.GetVelocity() << ", Position : " << rigidBody.GetPosition() << ", SumForces : " << rigidBody.GetForceAccum();
+
+    if(rigidBody.GetName() != nullptr){
+        os << ", Name : " << rigidBody.GetName();
+    }
     return os;
 }

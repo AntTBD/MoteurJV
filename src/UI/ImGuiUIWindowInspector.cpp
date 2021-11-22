@@ -24,7 +24,7 @@ void ImGuiUIWindowInspector::update()
                 // Iterate placeholder objects (all the same data)
                 for (int obj_i = 0; obj_i < listOfObectsInScene.size(); obj_i++)
                 {
-                    this->ShowPlaceholderObject("Object", obj_i);
+                    this->ShowPlaceholderObject((listOfObectsInScene.at(obj_i)->GetName() == nullptr ? "Object" : listOfObectsInScene.at(obj_i)->GetName()), obj_i);
                     //ImGui::Separator();
                 }
                 ImGui::EndTable();
@@ -133,7 +133,7 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
         ImGui::PushID(i); // Use field index as identifier.
         ImGui::BeginDisabled(EngineManager::getInstance().getPhysicEngine()->isRunning()); // avoid change during simulation
         //this->ShowVector3PlaceHolder(objectShapeType, uid, "Shape");
-        auto newValuesShapeType = this->ShowDropdownPlaceHolder<RigidBody::ShapeType>(objectShapeType, {"Sphere", "Cube", "Cylinder"}, uid, "Shape");
+        auto newValuesShapeType = this->ShowDropdownPlaceHolder<RigidBody::ShapeType>(objectShapeType, {"Sphere", "Cube", "Cylinder", "Plan"}, uid, "Shape");
         if(int(newValuesShapeType) != int(objectShapeType)){
             EngineManager::getInstance().getScene()->GetObject(uid)->SetShapeType(newValuesShapeType);
         }

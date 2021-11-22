@@ -98,12 +98,12 @@ std::ostream& operator<<(std::ostream& os, const Vector3& vector)
 	return os;
 }
 
-Vector3 operator*(const Vector3& vec, const float value)
+Vector3 operator*(const Vector3& vec, float value)
 {
 	return {vec.GetX() * value, vec.GetY() * value, vec.GetZ() * value};
 }
 
-Vector3 operator*(const float value, const Vector3& vec)
+Vector3 operator*(float value, const Vector3& vec)
 {
 	return vec * value;
 }
@@ -189,4 +189,12 @@ Vector3& Vector3::SetZero() // Set vector to (0, 0, 0)
 	this->y = 0;
 	this->z = 0;
 	return *this;
+}
+
+float Vector3::GetMaxValue() const {
+    return std::max({this->x, this->y, this->z});;
+}
+
+float Vector3::GetMinValue() const {
+    return std::min({this->x, this->y, this->z});;
 }
