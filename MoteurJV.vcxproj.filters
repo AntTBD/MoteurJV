@@ -137,6 +137,15 @@
       <Filter>glad</Filter>
     </ClCompile>
     <ClCompile Include="src\MoteurJV.cpp" />
+    <ClCompile Include="src\Demos\Blob.cpp">
+      <Filter>Sources\Demos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Demos\CarCollision.cpp">
+      <Filter>Sources\Demos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Demos\RigidBodyRotation.cpp">
+      <Filter>Sources\Demos</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\imgui-1.84.2\imconfig.h">
@@ -286,6 +295,15 @@
     <ClInclude Include="src\ImGuiIncludes.h">
       <Filter>Sources</Filter>
     </ClInclude>
+    <ClInclude Include="src\Demos\Blob.h">
+      <Filter>Sources\Demos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demos\CarCollision.h">
+      <Filter>Sources\Demos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demos\RigidBodyRotation.h">
+      <Filter>Sources\Demos</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">
@@ -323,6 +341,9 @@
     </Filter>
     <Filter Include="Sources\UI">
       <UniqueIdentifier>{2f19231d-aaae-49a6-a686-0e407e0c28a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Demos">
+      <UniqueIdentifier>{e7dc8400-7aad-4bc9-a76a-236fa9ffe8e1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
