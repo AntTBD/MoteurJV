@@ -32,12 +32,26 @@ void ImGuiUIWindowRender::update()
             ImGuiIO &io = ImGui::GetIO();
             // Top buttons
             {
-                this->HelpMarker(
+                ImGui::Text("Help");
+                ImGui::SameLine();this->HelpMarker(
                         u8"- Click (Mouse left) on this window to interact wind objects.\n"
-                        "- Bouger la premiï¿½re particule ajoutï¿½e (Mouse right).\n"
-                        "Toutes les autres particules seront reliï¿½ ï¿½ cette premiï¿½re particule.\n"
-                        "Zoomer grï¿½ce ï¿½ la molette de la souris\n"
-                        "Changer l'orientation de la camera en maintenant appuyï¿½ la molette et en dï¿½plaï¿½ant la souris.");
+                        "- Bouger la première particule ajoutée (Mouse right).\n"
+                        "Toutes les autres particules seront relié à cette première particule.\n"
+                        "Zoomer grâce à la molette de la souris\n"
+                        "Changer l'orientation de la camera en maintenant appuyé la molette et en déplaçant la souris.");
+                ImGui::SameLine();ImGui::Text("Blob");
+                ImGui::SameLine();this->HelpMarker(
+                        u8"- Ajouter toutes les particules avec le click droite de la souris \n"
+                        "- Appuyer sur B puis le bouton PLAY\n"
+                        "- Toutes les spheres vont former un blob (elles sont toutes reliées par des cables et ressorts).");
+                ImGui::SameLine();ImGui::Text("Preset Body");
+                ImGui::SameLine();this->HelpMarker(
+                        u8"- Appuyer sur R puis le bouton PLAY\n"
+                        "- Un rigidbody avec une velocité lineaire et angulaire de base et un facteur de gravité sera simulé.");
+                ImGui::SameLine();ImGui::Text("Cars");
+                ImGui::SameLine();this->HelpMarker(
+                        u8"- Appuyer sur C puis le bouton PLAY\n"
+                        "- Les 2 voitures vont s'entre choquer et engendrer une rotation.");
 
                 ImGui::SetWindowFontScale(1.2);
                 // espace pour centrer les boutons
@@ -172,6 +186,10 @@ void ImGuiUIWindowRender::render3D() {
         Vector3 pos = Vector3((offsetPosition.GetX() + (float)mousePositionInChild.x) / ratio, (offsetPosition.GetY() - (float)mousePositionInChild.y) / ratio, 0);
         auto obj = new RigidBody(0, pos);
         OpenGLRendererManager::drawSphere(Vector3(2,2,2), obj->GetPosition(), obj->GetTransform()); // create a small sphere to simulate mouse click
+        // draw line
+        if (EngineManager::getInstance().getScene()->getObjects()->size() > 0) {
+            OpenGLRendererManager::drawLine(obj->GetPosition(), EngineManager::getInstance().getScene()->GetObject(0)->GetPosition());//+EngineManager::getInstance().getScene()->GetObject(0)->GetDimensions());
+        }
     }
 
     // now bind back to default framebuffer and draw a quad plane with the attached framebuffer color texture
@@ -214,12 +232,15 @@ void ImGuiUIWindowRender::checkToAddParticles()
 
         auto obj = EngineManager::getInstance().getScene()->GetObject(0);
         if (obj != nullptr) {
-
+// same as spring
             // d = xa - xb
             Vector3 d = (obj->GetPosition() - pos);
             // f = - k * ( |d| - l0) * d.normalized
-            obj->AddForce(-1 * d.Magnitude()/2.f * d.Normalized() * (1.0f / obj->GetInvMass()));
-            obj->AddTorque(-1 * d.Magnitude()/2.f * d.Normalized() * (1.0f / obj->GetInvMass()));
+            float k = 5.f;
+            float restLength = 0.f;
+            //obj->AddForce(-k * (d.Magnitude() - restLength) * d.Normalized());
+            //obj->AddTorque(-k * (d.Magnitude() - restLength) * d.Normalized());
+            obj->AddForceAtPoint(-k * abs(d.Magnitude() - restLength) * d.Normalized(), Vector3());//obj->GetDimensions());
             //p->SetPosition(pos);
         }
     }

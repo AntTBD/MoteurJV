@@ -172,6 +172,12 @@ void OpenGLRendererManager::drawCube(const Vector3& dimensions, const Vector3& p
     glScalef(2.f * dimensions.GetX(), 2.f * dimensions.GetY(), 2.f * dimensions.GetZ());
     OpenGLRendererManager::formes->DrawCube();
     glScalef(1.0f / (2.f * dimensions.GetX()), 1.0f / (2.f * dimensions.GetY()), 1.0f / (2.f * dimensions.GetZ()));
+
+// debug sphere for rigidbody
+    glScalef(2.f * dimensions.GetMaxValue(), 2.f * dimensions.GetMaxValue(), 2.f * dimensions.GetMaxValue());
+    OpenGLRendererManager::formes->DrawDebugSphere();
+    glScalef(1.0f / (2.f * dimensions.GetMaxValue()), 1.0f / (2.f * dimensions.GetMaxValue()), 1.0f / (2.f * dimensions.GetMaxValue()));
+
     glPopMatrix();
 }
 
@@ -193,4 +199,13 @@ void OpenGLRendererManager::drawSphere(const Vector3& dimensions, const Vector3&
 
 bool OpenGLRendererManager::windowShouldClose() {
     return glfwWindowShouldClose(this->mainWindow->getWindow());
+}
+
+void OpenGLRendererManager::drawLine(const Vector3 &startPosition, const Vector3 &endPosition) {
+    glBegin(GL_LINES);
+    glColor3ub(255, 255, 255); // white
+    glVertex3f(startPosition.GetX(), startPosition.GetY(), startPosition.GetZ());
+    glVertex3f(endPosition.GetX(), endPosition.GetY(), endPosition.GetZ());
+    glEnd();
+    glEndList();
 }

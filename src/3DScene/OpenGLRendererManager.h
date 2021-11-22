@@ -47,6 +47,8 @@ public:
     // Create 3D sphere with the center as a reference point (with specific diametre)
     static void drawSphere(const Vector3& dimensions = Vector3(1.f,1.f,1.f), const Vector3& pos = Vector3(0,0,0), const Matrix34& transformMatrix = Matrix34(), const Vector3& rot = Vector3(0,0,0));
 
+    // Create 2D rectangle with the middle of the left side as a reference point
+    static void drawLine(const Vector3& startPosition, const Vector3& endPosition);
 
 };
 

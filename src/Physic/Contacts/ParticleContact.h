@@ -29,12 +29,10 @@ public:
 
 	// return the separationVelocity of the particle
 	float calculateSeparatingVelocity();
-    float calculateSeparatingAngularVelocity();
 
 private:
 	// Handle impulse for this collision
 	void resolveVelocity();
-    void resolveAngularVelocity();
 
 	// Handle interpenetration for this collision
 	void resolveInterpenetration();

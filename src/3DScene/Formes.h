@@ -16,6 +16,7 @@ private:
     GLuint line;
     GLuint triangle;
     GLuint carre;
+    GLuint debugSphere;
 
 public:
     Formes();
@@ -28,6 +29,7 @@ public:
     void DrawLine();
     void DrawTriangle();
     void DrawCarre();
+    void DrawDebugSphere();
 
 private:
     void CreateCube();
@@ -36,6 +38,7 @@ private:
     void CreateLine();
     void CreateTriangle();
     void CreateCarre();
+    void CreateDebugSphere();
 
 };
 

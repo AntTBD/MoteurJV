@@ -207,7 +207,7 @@ void RigidBody::SetInvMass(float inverseMass) {
 
 void RigidBody::SetMass(float mass) {
     // on s'assure de ne pas diviser par 0
-    if(mass == 0) mass = 10e-10;
+    if(mass == 0) mass = 10e-5;
     assert(mass != 0 && "Mass = 0 and division by 0 is not possible");
 
     this->invMass = 1.f / mass;
@@ -304,8 +304,6 @@ void RigidBody::Integrate(float duration) {
     this->orientation.UpdateByAngularVelocity(this->angularVelocity, duration);
 
     // 7. Calculer les valeurs d�riv�es (matrice de transformation et I(^-1)')
-    // Normalize the orientation, and update the matrices with the new
-    // position and orientation.
     this->CalculateDerivedData();
 
     // 8. Remettre � z�ro les accumulateurs (forces et couples).
@@ -390,8 +388,7 @@ void RigidBody::AddTorque(const Vector3& torque)
 
 void RigidBody::AddForceAtPoint(const Vector3 &force, const Vector3 &worldPoint) {
     // Convert to coordinates relative to center of mass.
-    Vector3 pt = worldPoint;
-    pt -= this->position;
+    Vector3 pt = worldPoint - this->position;
     this->m_forceAccum += force;
     this->m_torqueAccum += pt.CrossProduct(force);
 }

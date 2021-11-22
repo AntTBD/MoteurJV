@@ -8,6 +8,7 @@ Formes::Formes()
     line = 0;
     triangle = 0;
     carre = 0;
+    debugSphere = 0;
 }
 
 void Formes::Init()
@@ -18,6 +19,7 @@ void Formes::Init()
     CreateLine();
     CreateTriangle();
     CreateCarre();
+    CreateDebugSphere();
 }
 
 void Formes::DrawCube()
@@ -48,6 +50,11 @@ void Formes::DrawTriangle()
 void Formes::DrawCarre()
 {
     glCallList(carre);
+}
+
+void Formes::DrawDebugSphere()
+{
+    glCallList(debugSphere);
 }
 
 void Formes::CreateCube()
@@ -183,6 +190,42 @@ void Formes::CreateCarre()
     glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(-1.0f / 2.0f, 0, 1.0f / 2.0f);
     glColor3f(0.0f, 0.0f, 1.0f); glVertex3f(1.0f / 2.0f, 0, 1.0f / 2.0f);
     glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(1.0f / 2.0f, 0, -1.0f / 2.0f);
+    glEnd();
+    glEndList();
+}
+
+void Formes::CreateDebugSphere()
+{
+
+    debugSphere = glGenLists(1);
+    glNewList(debugSphere, GL_COMPILE);
+    float r = 0.5f;//sqrt(pow(0.5f,2.f)+pow(0.5f,2.f));// rayon
+    int num_segments = 100;
+    glColor3f(1.0f, 1.0f, 1.0f); // white
+    // from https://stackoverflow.com/a/24843626
+    glBegin(GL_LINE_LOOP);
+    for (int i = 0; i < num_segments; i++)   {
+        float theta = 2.0f * M_PI * float(i) / float(num_segments);//get the current angle
+        float x = r * cosf(theta);//calculate the x component
+        float y = r * sinf(theta);//calculate the y component
+        glVertex3f(x, y, 0.0f);//output vertex
+    }
+    glEnd();
+    glBegin(GL_LINE_LOOP);
+    for (int i = 0; i < num_segments; i++)   {
+        float theta = 2.0f * M_PI * float(i) / float(num_segments);//get the current angle
+        float x = r * cosf(theta);//calculate the x component
+        float y = r * sinf(theta);//calculate the y component
+        glVertex3f(0.0f, x, y);//output vertex
+    }
+    glEnd();
+    glBegin(GL_LINE_LOOP);
+    for (int i = 0; i < num_segments; i++)   {
+        float theta = 2.0f * M_PI * float(i) / float(num_segments);//get the current angle
+        float x = r * cosf(theta);//calculate the x component
+        float y = r * sinf(theta);//calculate the y component
+        glVertex3f(x, 0.0f, y);//output vertex
+    }
     glEnd();
     glEndList();
 }

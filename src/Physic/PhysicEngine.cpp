@@ -79,13 +79,6 @@ void PhysicEngine::update(float deltaTime)
         // 1 - Update force (gravity)
         this->particleForceRegistry->UpdateForce(deltaTime);
 
-        // 2 - Integrate particles
-        for (int i = 0; i < this->objects->size(); i++)
-        {
-            //std::cout << "Particule " << i + 1 << " : " << *this->particles->at(i) << std::endl;
-            EngineManager::getInstance().console.log("%s %d : %s\n", typeid(*this->objects->at(i)).name(), i+1, this->objects->at(i)->toString().c_str());
-            this->objects->at(i)->Integrate(deltaTime);
-        }
 
         // 3 - Add contacts
         this->particleContactRegistry->UpdateContacts();
@@ -93,6 +86,13 @@ void PhysicEngine::update(float deltaTime)
         // 4 - Resolve contacts
         this->particleContactRegistry->Resolve(deltaTime);
 
+        // 2 - Integrate particles
+        for (int i = 0; i < this->objects->size(); i++)
+        {
+            //std::cout << "Particule " << i + 1 << " : " << *this->particles->at(i) << std::endl;
+            EngineManager::getInstance().console.log("%s %d : %s\n", typeid(*this->objects->at(i)).name(), i+1, this->objects->at(i)->toString().c_str());
+            this->objects->at(i)->Integrate(deltaTime);
+        }
         isUpdateFinished = true;
 
     }
