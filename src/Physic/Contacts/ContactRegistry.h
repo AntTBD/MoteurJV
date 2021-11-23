@@ -4,7 +4,7 @@
 #include "ContactGenerator.h"
 #include "ParticleContactResolver.h"
 
-class ParticleContactRegistry
+class ContactRegistry
 {
 private:
 	struct ParticleContactEntry
@@ -21,7 +21,7 @@ private:
 	std::vector<Contact*> particleContactList;
 	unsigned int nbContacts = 0;
 public:
-	ParticleContactRegistry();
+	ContactRegistry();
 	// ... Registry Accessors
 	void Add(ContactGenerator* forceGenerator, unsigned int limitMax);
 	void UpdateContacts();

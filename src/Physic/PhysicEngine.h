@@ -8,7 +8,7 @@
 #include "Forces/ParticleGravity.h"
 #include "Forces/ParticleSpring.h"
 // contacts
-#include "Contacts/ParticleContactRegistry.h"
+#include "Contacts/ContactRegistry.h"
 #include "Contacts/NaiveContactGenerator.h"
 #include "Contacts/GroundContactGenerator.h"
 #include "Contacts/Cable.h"
@@ -30,7 +30,7 @@ private:
     std::vector<Object*>* objects; // copy of objects in the scene for simulation
 
     ParticleForceRegistry* particleForceRegistry;
-    ParticleContactRegistry* particleContactRegistry;
+    ContactRegistry* contactRegistry;
 
     bool isPaused = false;
     bool isUpdateFinished = false;
@@ -55,7 +55,7 @@ public:
     bool isRunning();
 
     ParticleForceRegistry* getForceRegistry();
-    ParticleContactRegistry* getContactRegistry();
+    ContactRegistry* getContactRegistry();
 
 private:
 

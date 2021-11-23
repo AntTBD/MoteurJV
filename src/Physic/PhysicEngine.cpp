@@ -3,7 +3,7 @@
 PhysicEngine::PhysicEngine()
 {
     this->particleForceRegistry = new ParticleForceRegistry();
-    this->particleContactRegistry = new ParticleContactRegistry();
+    this->contactRegistry = new ContactRegistry();
     this->objects = new std::vector<Object*>();
     this->dT = 0;
     this->isSimulating = false;
@@ -13,7 +13,7 @@ PhysicEngine::PhysicEngine()
 PhysicEngine::~PhysicEngine()
 {
     delete this->particleForceRegistry;
-    delete this->particleContactRegistry;
+    delete this->contactRegistry;
     delete this->objects;
 }
 
@@ -81,10 +81,10 @@ void PhysicEngine::update(float deltaTime)
 
 
         // 3 - Add contacts
-        this->particleContactRegistry->UpdateContacts();
+        this->contactRegistry->UpdateContacts();
 
         // 4 - Resolve contacts
-        this->particleContactRegistry->Resolve(deltaTime);
+        this->contactRegistry->Resolve(deltaTime);
 
         // 2 - Integrate particles
         for (int i = 0; i < this->objects->size(); i++)
@@ -144,7 +144,7 @@ void PhysicEngine::clearParticlesAndRegisters()
 {
     // clear registries
     this->particleForceRegistry->Clear();
-    this->particleContactRegistry->Clear();
+    this->contactRegistry->Clear();
 
     // delete particles
     for (auto p : *this->objects)
@@ -164,6 +164,6 @@ ParticleForceRegistry *PhysicEngine::getForceRegistry() {
     return this->particleForceRegistry;
 }
 
-ParticleContactRegistry *PhysicEngine::getContactRegistry() {
-    return this->particleContactRegistry;
+ContactRegistry *PhysicEngine::getContactRegistry() {
+    return this->contactRegistry;
 }
