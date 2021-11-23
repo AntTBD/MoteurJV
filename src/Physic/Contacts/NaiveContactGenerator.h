@@ -7,16 +7,16 @@ class NaiveContactGenerator :
     public ContactGenerator
 {
 public:
-    // Particle radius
+    // Object radius
     float radius;
 
-    // particles that could collide together
+    // objects that could collide together
     std::vector<RigidBody*>* rigidBodies;
 
     NaiveContactGenerator(std::vector<RigidBody*>* RigidBodies, float radius = 10);
     ~NaiveContactGenerator();
 
-    // iterate throught every pair of particles to check their penetration
+    // iterate throught every pair of objects to check their penetration
     unsigned int addContact(std::vector<Contact*>* contacts, unsigned int limit) const override;
 };
 

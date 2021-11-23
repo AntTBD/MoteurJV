@@ -5,7 +5,7 @@
 class AnchoredSpring : public ForceGenerator
 {
 private:
-    //other anchor
+    // other anchor
     Vector3* m_anchor;
 
     // Spring constant
@@ -18,7 +18,7 @@ public:
 
     ~AnchoredSpring();
 
-    // apply Hooke's law based on particles positions
+    // apply Hooke's law based on objects positions
     void UpdateForce(RigidBody* rigidBody, float duration) override;
 
 };

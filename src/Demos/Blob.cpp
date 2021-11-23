@@ -10,7 +10,7 @@ void Blob::GenerateScene()
 
 
         // ------ add contacts -------
-        // add contacts naive entre particules (=colision entre 2 particules)
+        // add contacts naive entre objets (=colision entre 2 objets)
         NaiveContactGenerator *naiveContactGenerator = new NaiveContactGenerator(objects,
                                                                                                          10);// contacts entre particules de rayon 10
         EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveContactGenerator,
@@ -24,10 +24,10 @@ void Blob::GenerateScene()
 
         for (int i = 0; i < objects->size(); i++) {
             // ------ force -------
-            // add ressort ancré sur la particule actuelle
+            // add ressort ancré sur l'objet actuel
             Spring *springGenerator = new Spring(*objects->at(i), 5, 50);
 
-            // add tiges or cables between each particles + spring force anchored on actual particle
+            // add tiges or cables between each objects + spring force anchored on actual object
             for (int k = i + 1; k < objects->size(); k++) {
                 // ------ contacts -------
                 // add contacts tiges

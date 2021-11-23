@@ -17,7 +17,7 @@ public:
     Buoyancy(float maxDepth, float volume, float waterHeight, float liquidDensity = 1000.0f);
     ~Buoyancy();
 
-    // apply Buoyancy based on particle position
+    // apply Buoyancy based on object position
     void UpdateForce(RigidBody* rigidBody, float duration) override;
 };
 

@@ -7,7 +7,7 @@ class GroundContactGenerator :
     public ContactGenerator
 {
 private:
-    // particles that could collide the wall
+    // objects that could collide the wall
     std::vector<RigidBody*>* rigidBodies;
 
     float positionY;
@@ -17,8 +17,8 @@ public:
     GroundContactGenerator(std::vector<RigidBody*>* rigidBodies, float positionY = 0, bool inverse = false, Vector3 normal = Vector3(0,1,0));
     ~GroundContactGenerator();
 
-    // Fill ParticleContact with information form particles and contact generator.
-    // Contact is different wether the disitance is shaorter or greater than the length
+    // Fill Contact with information form objects and contact generator.
+    // Contact is different wether the distance is shorter or greater than the length
     unsigned int addContact(std::vector<Contact*>* contacts, unsigned int limit) const override;
 };
 

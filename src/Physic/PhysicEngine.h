@@ -61,12 +61,12 @@ private:
 
     void init();
 
-    void update(float deltaTime);// Update acceleration, speed and position of all particles in the simulator
+    void update(float deltaTime);// Update acceleration, speed and position of all objects in the simulator
 
-    // Thread : Update all particles of the simulator every 16.6ms
+    // Thread : Update all objects of the simulator every 16.6ms
     void simulate();
-    // Clear the particle vector
-    void clearParticlesAndRegisters();
+    // Clear the object vector
+    void clearObjectsAndRegisters();
 
     bool isUpdated() const;
 

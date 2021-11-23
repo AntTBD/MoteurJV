@@ -78,7 +78,7 @@ void Contact::resolveVelocity() // Application de l’impulsion diapo p12
 	if (this->m_rigidBody[1] != nullptr) {
 		somInvMass += this->m_rigidBody[1]->GetInvMass();
 	}
-    // If all particles have infinite mass, then impulses have no effect.
+    // If all objects have infinite mass, then impulses have no effect.
     if (somInvMass <= 0) return;
 
 	//     (e + 1)  v_rel . n
@@ -87,12 +87,12 @@ void Contact::resolveVelocity() // Application de l’impulsion diapo p12
 	k = (float)k / somInvMass;
 
 	// ----- update velocity -----
-	// Comme les deux particules subiront la même magnitude d’impulsion 
+	// Comme les deux objets subiront la même magnitude d’impulsion
 	// mais avec la normal inversé, on obtient :
-	// particule 1 : v1' = v1 - k * n / m1
+	// object 1 : v1' = v1 - k * n / m1
 	this->m_rigidBody[0]->SetVelocity(this->m_rigidBody[0]->GetVelocity() - k * this->m_contactNormal * this->m_rigidBody[0]->GetInvMass());
     this->m_rigidBody[0]->AddTorque(-k*2.f * this->m_contactNormal );// hard code rotation
-    // particule 2 (if exist) : v2' = v2 + k * n / m2
+    // object 2 (if exist) : v2' = v2 + k * n / m2
 	if (this->m_rigidBody[1] != nullptr) {
 		this->m_rigidBody[1]->SetVelocity(this->m_rigidBody[1]->GetVelocity() + k * this->m_contactNormal * this->m_rigidBody[1]->GetInvMass());
         this->m_rigidBody[1]->AddTorque(+k*2.f * this->m_contactNormal );// hard code rotation
@@ -108,12 +108,12 @@ void Contact::resolveInterpenetration() // Résolution d’interpénétration diapo p
         if (this->m_rigidBody[1] != nullptr) {
             somInvMass += this->m_rigidBody[1]->GetInvMass();
         }
-        // If all particles have infinite mass, then we do nothing.
+        // If all objects have infinite mass, then we do nothing.
         if (somInvMass <= 0) return;
 
-        // particule 1 : p' = p + m2 / (m1+m2) * d * n
+        // object 1 : p' = p + m2 / (m1+m2) * d * n
         this->m_rigidBody[0]->SetPosition(this->m_rigidBody[0]->GetPosition() + (this->m_rigidBody[0]->GetMass() * somInvMass) * m_penetration * this->m_contactNormal);
-        // particule 2 (if exist) : p' = p + (- m2 / (m1+m2)) * d * n
+        // object 2 (if exist) : p' = p + (- m2 / (m1+m2)) * d * n
         if (this->m_rigidBody[1] != nullptr) {
             this->m_rigidBody[1]->SetPosition(this->m_rigidBody[1]->GetPosition() - (this->m_rigidBody[1]->GetMass() * somInvMass) * m_penetration * this->m_contactNormal);
         }

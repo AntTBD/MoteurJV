@@ -164,9 +164,9 @@ void OpenGLRendererManager::drawCube(const Vector3& dimensions, const Vector3& p
 
     glPushMatrix();
     //glTranslatef(pos.GetX(), pos.GetY(), pos.GetZ());              // translate to the positon
-    //glRotatef(rot.GetX(), 1, 0, 0); // Rotation particle (if necessary)
-    //glRotatef(rot.GetY(), 0, 1, 0); // Rotation particle (if necessary)
-    //glRotatef(rot.GetZ(), 0, 0, 1); // Rotation particle (if necessary)
+    //glRotatef(rot.GetX(), 1, 0, 0); // Rotation object (if necessary)
+    //glRotatef(rot.GetY(), 0, 1, 0); // Rotation object (if necessary)
+    //glRotatef(rot.GetZ(), 0, 0, 1); // Rotation object (if necessary)
     glMultMatrixf(transformMatrix.GetMatrix44ForGL().data());
     //glLoadMatrixf(transformMatrix.Get().data());
     glScalef(2.f * dimensions.GetX(), 2.f * dimensions.GetY(), 2.f * dimensions.GetZ());
@@ -185,9 +185,9 @@ void OpenGLRendererManager::drawSphere(const Vector3& dimensions, const Vector3&
 
     glPushMatrix();
     //glTranslatef(pos.GetX(), pos.GetY(), pos.GetZ());              // translate to the positon
-    //glRotatef(rot.GetX(), 1, 0, 0); // Rotation particle (if necessary)
-    //glRotatef(rot.GetY(), 0, 1, 0); // Rotation particle (if necessary)
-    //glRotatef(rot.GetZ(), 0, 0, 1); // Rotation particle (if necessary)
+    //glRotatef(rot.GetX(), 1, 0, 0); // Rotation object (if necessary)
+    //glRotatef(rot.GetY(), 0, 1, 0); // Rotation object (if necessary)
+    //glRotatef(rot.GetZ(), 0, 0, 1); // Rotation object (if necessary)
     glMultMatrixf(transformMatrix.GetMatrix44ForGL().data());
     //glLoadMatrixf(transformMatrix.Get().data());
     glScalef(2.f * dimensions.GetX(), 2.f * dimensions.GetY(), 2.f * dimensions.GetZ());

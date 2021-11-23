@@ -6,7 +6,7 @@ class Link :
     public ContactGenerator
 {
 protected:
-    // Linked particles
+    // Linked objects
     RigidBody* rigidBody[2];
 public:
     Link(RigidBody* rigidBody1, RigidBody* rigidBody2);
