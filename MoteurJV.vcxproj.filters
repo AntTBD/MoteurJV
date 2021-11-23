@@ -100,7 +100,7 @@
     <ClCompile Include="src\Physic\Contacts\Cable.cpp">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Contacts\ParticleContact.cpp">
+    <ClCompile Include="src\Physic\Contacts\Contact.cpp">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClCompile>
     <ClCompile Include="src\Physic\Contacts\ParticleContactRegistry.cpp">
@@ -265,7 +265,7 @@
     <ClInclude Include="src\Physic\Contacts\Cable.h">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Contacts\ParticleContact.h">
+    <ClInclude Include="src\Physic\Contacts\Contact.h">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClInclude>
     <ClInclude Include="src\Physic\Contacts\ParticleContactGenerator.h">

@@ -208,7 +208,7 @@
     <ClCompile Include="src\Physic\Contacts\GroundContactGenerator.cpp" />
     <ClCompile Include="src\Physic\Contacts\NaiveContactGenerator.cpp" />
     <ClCompile Include="src\Physic\Contacts\Cable.cpp" />
-    <ClCompile Include="src\Physic\Contacts\ParticleContact.cpp" />
+    <ClCompile Include="src\Physic\Contacts\Contact.cpp" />
     <ClCompile Include="src\Physic\Contacts\ParticleContactRegistry.cpp" />
     <ClCompile Include="src\Physic\Contacts\ParticleContactResolver.cpp" />
     <ClCompile Include="src\Physic\Contacts\ParticleLink.cpp" />
@@ -260,7 +260,7 @@
     <ClInclude Include="src\Physic\Contacts\GroundContactGenerator.h" />
     <ClInclude Include="src\Physic\Contacts\NaiveContactGenerator.h" />
     <ClInclude Include="src\Physic\Contacts\Cable.h" />
-    <ClInclude Include="src\Physic\Contacts\ParticleContact.h" />
+    <ClInclude Include="src\Physic\Contacts\Contact.h" />
     <ClInclude Include="src\Physic\Contacts\ParticleContactGenerator.h" />
     <ClInclude Include="src\Physic\Contacts\ParticleContactRegistry.h" />
     <ClInclude Include="src\Physic\Contacts\ParticleContactResolver.h" />

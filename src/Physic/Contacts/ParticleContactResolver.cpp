@@ -17,7 +17,7 @@ ParticleContactResolver::ParticleContactResolver()
 /// </summary>
 /// <param name="contactArray">list des contacts</param>
 /// <param name="duration"></param>
-void ParticleContactResolver::resolveContacts(std::vector<ParticleContact*> contactArray, float duration)
+void ParticleContactResolver::resolveContacts(std::vector<Contact*> contactArray, float duration)
 {
 	if (contactArray.size() > 0) {
 		//  on limite le nombre d’itération (ex : 2 fois le nombre de contacts)

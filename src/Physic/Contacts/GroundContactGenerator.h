@@ -19,6 +19,6 @@ public:
 
     // Fill ParticleContact with information form particles and contact generator.
     // Contact is different wether the disitance is shaorter or greater than the length
-    unsigned int addContact(std::vector<ParticleContact*>* contacts, unsigned int limit) const override;
+    unsigned int addContact(std::vector<Contact*>* contacts, unsigned int limit) const override;
 };
 

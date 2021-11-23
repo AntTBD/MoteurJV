@@ -6,7 +6,7 @@ NaiveContactGenerator::NaiveContactGenerator(std::vector<RigidBody*>* rigidBodie
 
 NaiveContactGenerator::~NaiveContactGenerator() {}
 
-unsigned int NaiveContactGenerator::addContact(std::vector<ParticleContact*>* contacts, unsigned int limit) const
+unsigned int NaiveContactGenerator::addContact(std::vector<Contact*>* contacts, unsigned int limit) const
 {
 	if (limit > 0)
 	{
@@ -21,7 +21,7 @@ unsigned int NaiveContactGenerator::addContact(std::vector<ParticleContact*>* co
                 // get minimum length between 2 rgidbodies with max dimension of them (as a sphere)
                 float minLength = this->rigidBodies->at(i)->GetDimensions().GetMaxValue() + this->rigidBodies->at(j)->GetDimensions().GetMaxValue();
 				if (length <= minLength) {
-					contacts->push_back(new ParticleContact(this->rigidBodies->at(i), this->rigidBodies->at(j), 1, minLength - length));
+					contacts->push_back(new Contact(this->rigidBodies->at(i), this->rigidBodies->at(j), 1, minLength - length));
 					iteration++;
 				}
 			}

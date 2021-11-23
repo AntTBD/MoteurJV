@@ -7,7 +7,7 @@ ParticleRod::ParticleRod(RigidBody* rigidBody1, RigidBody* rigidBody2, float len
 
 ParticleRod::~ParticleRod() {}
 
-unsigned int ParticleRod::addContact(std::vector<ParticleContact*>* contacts, unsigned int limit) const
+unsigned int ParticleRod::addContact(std::vector<Contact*>* contacts, unsigned int limit) const
 {
 	if (limit > 0)
 	{
@@ -16,13 +16,13 @@ unsigned int ParticleRod::addContact(std::vector<ParticleContact*>* contacts, un
 		if (currentLength > this->length)
 		{
             // Always use zero restitution (no bounciness).
-			contacts->push_back(new ParticleContact(this->rigidBody[0], this->rigidBody[1], 0, (currentLength - this->length), true));
+			contacts->push_back(new Contact(this->rigidBody[0], this->rigidBody[1], 0, (currentLength - this->length), true));
 			return 1;
 		}
 		else if (currentLength < this->length)
 		{
             // Always use zero restitution (no bounciness).
-			contacts->push_back(new ParticleContact(this->rigidBody[0], this->rigidBody[1], 0, (this->length - currentLength)));
+			contacts->push_back(new Contact(this->rigidBody[0], this->rigidBody[1], 0, (this->length - currentLength)));
 			return 1;
 		}
 		else

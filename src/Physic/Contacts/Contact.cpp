@@ -1,6 +1,6 @@
-#include "ParticleContact.h"
+#include "Contact.h"
 
-ParticleContact::ParticleContact()
+Contact::Contact()
 {
 	this->m_rigidBody[0] = new RigidBody();
 	this->m_rigidBody[1] = new RigidBody();
@@ -8,7 +8,7 @@ ParticleContact::ParticleContact()
 	this->m_contactNormal = Vector3(0, 0, 0);
 }
 
-ParticleContact::ParticleContact(RigidBody* rigidBody1, float restitution, float penetration, const Vector3& contactNormal, bool inverseNormal) :
+Contact::Contact(RigidBody* rigidBody1, float restitution, float penetration, const Vector3& contactNormal, bool inverseNormal) :
 	m_restitution(restitution), m_penetration(penetration), m_contactNormal(contactNormal)
 {
 	this->m_rigidBody[0] = rigidBody1;
@@ -19,7 +19,7 @@ ParticleContact::ParticleContact(RigidBody* rigidBody1, float restitution, float
     }
 }
 
-ParticleContact::ParticleContact(RigidBody* rigidBody1, RigidBody* rigidBody2, float restitution, float penetration, bool inverseNormal) :
+Contact::Contact(RigidBody* rigidBody1, RigidBody* rigidBody2, float restitution, float penetration, bool inverseNormal) :
 	m_restitution(restitution), m_penetration(penetration)
 
 {
@@ -34,19 +34,19 @@ ParticleContact::ParticleContact(RigidBody* rigidBody1, RigidBody* rigidBody2, f
 	}
 }
 
-ParticleContact::~ParticleContact()
+Contact::~Contact()
 {
 	this->m_rigidBody[0] = nullptr;
 	this->m_rigidBody[1] = nullptr;
 }
 
-void ParticleContact::resolve(float duration)
+void Contact::resolve(float duration)
 {
 	this->resolveVelocity();
 	this->resolveInterpenetration();
 }
 
-float ParticleContact::calculateSeparatingVelocity() // diapo Gestion des collision - p5 
+float Contact::calculateSeparatingVelocity() // diapo Gestion des collision - p5
 {
 	Vector3 velocity = this->m_rigidBody[0]->GetVelocity();
 	if (this->m_rigidBody[1] != nullptr) {
@@ -56,7 +56,7 @@ float ParticleContact::calculateSeparatingVelocity() // diapo Gestion des collis
 	return velocity.DotProduct(this->m_contactNormal);
 }
 
-void ParticleContact::resolveVelocity() // Application de l’impulsion diapo p12
+void Contact::resolveVelocity() // Application de l’impulsion diapo p12
 {
 	float k;
 
@@ -100,7 +100,7 @@ void ParticleContact::resolveVelocity() // Application de l’impulsion diapo p12
 	//std::cout << "k: " << k << std::endl;
 }
 
-void ParticleContact::resolveInterpenetration() // Résolution d’interpénétration diapo p15
+void Contact::resolveInterpenetration() // Résolution d’interpénétration diapo p15
 {
     if (m_penetration > 0) {
 

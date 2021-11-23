@@ -2,7 +2,7 @@
 
 #include "../RigidBody.h"
 
-class ParticleContact
+class Contact
 {
 public:
 	// Particle[0] => Particle A
@@ -19,10 +19,10 @@ public:
 	// normal of the contact
 	Vector3 m_contactNormal;
 
-	ParticleContact();
-	ParticleContact(RigidBody* rigidBody1, float restitution, float penetration, const Vector3& contactNormal = Vector3(0,1,0), bool inverseNormal = false);
-	ParticleContact(RigidBody* rigidBody1, RigidBody* rigidBody2, float restitution, float penetration, bool inverseNormal = false);
-	~ParticleContact();
+	Contact();
+	Contact(RigidBody* rigidBody1, float restitution, float penetration, const Vector3& contactNormal = Vector3(0,1,0), bool inverseNormal = false);
+	Contact(RigidBody* rigidBody1, RigidBody* rigidBody2, float restitution, float penetration, bool inverseNormal = false);
+	~Contact();
 
 	// Resolve velocity and interpenetration
 	void resolve(float duration);

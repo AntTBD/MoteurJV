@@ -18,7 +18,7 @@ private:
 	Registry m_registry;
 
 	ParticleContactResolver* particleContactResolver;
-	std::vector<ParticleContact*> particleContactList;
+	std::vector<Contact*> particleContactList;
 	unsigned int nbContacts = 0;
 public:
 	ParticleContactRegistry();
