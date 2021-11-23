@@ -121,7 +121,7 @@
     <ClCompile Include="src\Physic\Forces\Buoyancy.cpp">
       <Filter>Sources\Physic\Forces</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Forces\ParticleDrag.cpp">
+    <ClCompile Include="src\Physic\Forces\Drag.cpp">
       <Filter>Sources\Physic\Forces</Filter>
     </ClCompile>
     <ClCompile Include="src\Physic\Forces\ParticleForceRegistry.cpp">
@@ -241,7 +241,7 @@
     <ClInclude Include="src\Physic\Forces\Buoyancy.h">
       <Filter>Sources\Physic\Forces</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Forces\ParticleDrag.h">
+    <ClInclude Include="src\Physic\Forces\Drag.h">
       <Filter>Sources\Physic\Forces</Filter>
     </ClInclude>
     <ClInclude Include="src\Physic\Forces\ParticleForceGenerator.h">

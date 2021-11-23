@@ -2,7 +2,7 @@
 
 #include "ParticleForceGenerator.h"
 
-class ParticleDrag :
+class Drag :
     public ParticleForceGenerator
 {
 private:
@@ -11,10 +11,10 @@ private:
     float m_k2;
 
 public:
-    ParticleDrag(float k1, float k2);
-    ~ParticleDrag();
+    Drag(float k1, float k2);
+    ~Drag();
 
-    // apply simplified drag base on particle's velocity
+    // apply simplified drag base on object's velocity
     void UpdateForce(RigidBody* rigidBody, float duration) override;
 };
 
