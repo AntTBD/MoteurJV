@@ -50,33 +50,33 @@ void Scene::draw() {
 }
 
 void Scene::drawObjects() {
-    for (auto &object : this->getObjectsByCopy()) // Browse particles
+    for (auto &object : this->getObjectsByCopy()) // Browse objects
     {
         Vector3 pos = object->GetPosition(); // Get position
         Vector3 rot = object->GetOrientation().ToEulerInDegrees();
         switch(object->GetShapeType()){
             case RigidBody::ShapeType::Sphere :
-                OpenGLRendererManager::drawSphere(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small sphere to simulate particle in 3D
+                OpenGLRendererManager::drawSphere(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small sphere to simulate object in 3D
                 break;
             case RigidBody::ShapeType::Cube:
-                OpenGLRendererManager::drawCube(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small Cube to simulate particle in 3D
+                OpenGLRendererManager::drawCube(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small Cube to simulate object in 3D
                 break;
             case RigidBody::ShapeType::Plan:
                 OpenGLRendererManager::drawRect2D(object->GetDimensions(), object->GetPosition(), object->GetTransform()); // create a plan
                 break;
             default:// draw sphere by default
-                OpenGLRendererManager::drawSphere(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small sphere to simulate particle in 3D
+                OpenGLRendererManager::drawSphere(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small sphere to simulate object in 3D
                 break;
         }
     }
 }
 
 void Scene::reset() {
-    // delete particles
+    // delete objects
     for (auto object : *this->objects)
     {
         delete object;
     }
     this->objects->clear();
-    EngineManager::getInstance().console.logWarning("The scene has been cleaned\n");
+    EngineManager::getInstance().console.logSuccess("The scene has been cleaned\n");
 }

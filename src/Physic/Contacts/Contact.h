@@ -2,11 +2,11 @@
 
 #include "../RigidBody.h"
 
-class ParticleContact
+class Contact
 {
 public:
-	// Particle[0] => Particle A
-	// Particle[1] => Particle B - Could be nullptr
+	// Object[0] => Object A
+	// Object[1] => Object B - Could be nullptr
     RigidBody* m_rigidBody[2];
 
 	// value between 0 - 1
@@ -19,15 +19,15 @@ public:
 	// normal of the contact
 	Vector3 m_contactNormal;
 
-	ParticleContact();
-	ParticleContact(RigidBody* rigidBody1, float restitution, float penetration, const Vector3& contactNormal = Vector3(0,1,0), bool inverseNormal = false);
-	ParticleContact(RigidBody* rigidBody1, RigidBody* rigidBody2, float restitution, float penetration, bool inverseNormal = false);
-	~ParticleContact();
+	Contact();
+	Contact(RigidBody* rigidBody1, float restitution, float penetration, const Vector3& contactNormal = Vector3(0,1,0), bool inverseNormal = false);
+	Contact(RigidBody* rigidBody1, RigidBody* rigidBody2, float restitution, float penetration, bool inverseNormal = false);
+	~Contact();
 
 	// Resolve velocity and interpenetration
 	void resolve(float duration);
 
-	// return the separationVelocity of the particle
+	// return the separationVelocity of the object
 	float calculateSeparatingVelocity();
 
 private:

@@ -1,10 +1,10 @@
-#include "ParticleDrag.h"
+#include "Drag.h"
 
-ParticleDrag::ParticleDrag(float k1, float k2) : m_k1(k1), m_k2(k2) {}
+Drag::Drag(float k1, float k2) : m_k1(k1), m_k2(k2) {}
 
-ParticleDrag::~ParticleDrag() {}
+Drag::~Drag() {}
 
-void ParticleDrag::UpdateForce(RigidBody* rigidBody, float duration)
+void Drag::UpdateForce(RigidBody* rigidBody, float duration)
 {
 	// En jeu vidéo, on peut utiliser une formule simplifiée :
 	// f_drag = - v.normalized() * ( k1 * |v| + k2 * |v|² )

@@ -4,15 +4,15 @@
 
 #include "Particle.h"
 // forces
-#include "Forces/ParticleForceRegistry.h"
-#include "Forces/ParticleGravity.h"
-#include "Forces/ParticleSpring.h"
+#include "Forces/ForceRegistry.h"
+#include "Forces/Gravity.h"
+#include "Forces/Spring.h"
 // contacts
-#include "Contacts/ParticleContactRegistry.h"
-#include "Contacts/NaiveParticleContactGenerator.h"
+#include "Contacts/ContactRegistry.h"
+#include "Contacts/NaiveContactGenerator.h"
 #include "Contacts/GroundContactGenerator.h"
-#include "Contacts/ParticleCable.h"
-#include "Contacts/ParticleRod.h"
+#include "Contacts/Cable.h"
+#include "Contacts/Rod.h"
 // include threads
 #include <thread>
 
@@ -29,8 +29,8 @@ class PhysicEngine {
 private:
     std::vector<Object*>* objects; // copy of objects in the scene for simulation
 
-    ParticleForceRegistry* particleForceRegistry;
-    ParticleContactRegistry* particleContactRegistry;
+    ForceRegistry* forceRegistry;
+    ContactRegistry* contactRegistry;
 
     bool isPaused = false;
     bool isUpdateFinished = false;
@@ -54,19 +54,19 @@ public:
 
     bool isRunning();
 
-    ParticleForceRegistry* getForceRegistry();
-    ParticleContactRegistry* getContactRegistry();
+    ForceRegistry* getForceRegistry();
+    ContactRegistry* getContactRegistry();
 
 private:
 
     void init();
 
-    void update(float deltaTime);// Update acceleration, speed and position of all particles in the simulator
+    void update(float deltaTime);// Update acceleration, speed and position of all objects in the simulator
 
-    // Thread : Update all particles of the simulator every 16.6ms
+    // Thread : Update all objects of the simulator every 16.6ms
     void simulate();
-    // Clear the particle vector
-    void clearParticlesAndRegisters();
+    // Clear the object vector
+    void clearObjectsAndRegisters();
 
     bool isUpdated() const;
 

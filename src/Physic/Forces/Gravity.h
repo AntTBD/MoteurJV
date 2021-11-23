@@ -1,15 +1,15 @@
 #pragma once
-#include "ParticleForceGenerator.h"
+#include "ForceGenerator.h"
 
-class ParticleGravity : public ParticleForceGenerator
+class Gravity : public ForceGenerator
 {
 private:
 	Vector3 m_gravity;
 
 public:
 	//Constructors
-	ParticleGravity();
-	ParticleGravity(Vector3 gravity);
+	Gravity();
+	Gravity(Vector3 gravity);
 
 	//Getterss & Setters
 	Vector3 GetGravity() const;

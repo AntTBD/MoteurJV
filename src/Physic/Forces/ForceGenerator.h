@@ -2,7 +2,7 @@
 
 #include "../RigidBody.h"
 
-class ParticleForceGenerator
+class ForceGenerator
 {
 public:
 	virtual void UpdateForce(RigidBody* rigidBody, float duration) = 0;

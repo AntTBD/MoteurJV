@@ -94,43 +94,43 @@
     <ClCompile Include="src\Physic\Contacts\GroundContactGenerator.cpp">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Contacts\NaiveParticleContactGenerator.cpp">
+    <ClCompile Include="src\Physic\Contacts\NaiveContactGenerator.cpp">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Contacts\ParticleCable.cpp">
+    <ClCompile Include="src\Physic\Contacts\Cable.cpp">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Contacts\ParticleContact.cpp">
+    <ClCompile Include="src\Physic\Contacts\Contact.cpp">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Contacts\ParticleContactRegistry.cpp">
+    <ClCompile Include="src\Physic\Contacts\ContactRegistry.cpp">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Contacts\ParticleContactResolver.cpp">
+    <ClCompile Include="src\Physic\Contacts\ContactResolver.cpp">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Contacts\ParticleLink.cpp">
+    <ClCompile Include="src\Physic\Contacts\Link.cpp">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Contacts\ParticleRod.cpp">
+    <ClCompile Include="src\Physic\Contacts\Rod.cpp">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Forces\ParticleAnchoredSpring.cpp">
+    <ClCompile Include="src\Physic\Forces\AnchoredSpring.cpp">
       <Filter>Sources\Physic\Forces</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Forces\ParticleBuoyancy.cpp">
+    <ClCompile Include="src\Physic\Forces\Buoyancy.cpp">
       <Filter>Sources\Physic\Forces</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Forces\ParticleDrag.cpp">
+    <ClCompile Include="src\Physic\Forces\Drag.cpp">
       <Filter>Sources\Physic\Forces</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Forces\ParticleForceRegistry.cpp">
+    <ClCompile Include="src\Physic\Forces\ForceRegistry.cpp">
       <Filter>Sources\Physic\Forces</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Forces\ParticleGravity.cpp">
+    <ClCompile Include="src\Physic\Forces\Gravity.cpp">
       <Filter>Sources\Physic\Forces</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Forces\ParticleSpring.cpp">
+    <ClCompile Include="src\Physic\Forces\Spring.cpp">
       <Filter>Sources\Physic\Forces</Filter>
     </ClCompile>
     <ClCompile Include="src\glad.c">
@@ -235,52 +235,52 @@
     <ClInclude Include="src\Physic\RigidBody.h">
       <Filter>Sources\Physic</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Forces\ParticleAnchoredSpring.h">
+    <ClInclude Include="src\Physic\Forces\AnchoredSpring.h">
       <Filter>Sources\Physic\Forces</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Forces\ParticleBuoyancy.h">
+    <ClInclude Include="src\Physic\Forces\Buoyancy.h">
       <Filter>Sources\Physic\Forces</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Forces\ParticleDrag.h">
+    <ClInclude Include="src\Physic\Forces\Drag.h">
       <Filter>Sources\Physic\Forces</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Forces\ParticleForceGenerator.h">
+    <ClInclude Include="src\Physic\Forces\ForceGenerator.h">
       <Filter>Sources\Physic\Forces</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Forces\ParticleForceRegistry.h">
+    <ClInclude Include="src\Physic\Forces\ForceRegistry.h">
       <Filter>Sources\Physic\Forces</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Forces\ParticleGravity.h">
+    <ClInclude Include="src\Physic\Forces\Gravity.h">
       <Filter>Sources\Physic\Forces</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Forces\ParticleSpring.h">
+    <ClInclude Include="src\Physic\Forces\Spring.h">
       <Filter>Sources\Physic\Forces</Filter>
     </ClInclude>
     <ClInclude Include="src\Physic\Contacts\GroundContactGenerator.h">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Contacts\NaiveParticleContactGenerator.h">
+    <ClInclude Include="src\Physic\Contacts\NaiveContactGenerator.h">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Contacts\ParticleCable.h">
+    <ClInclude Include="src\Physic\Contacts\Cable.h">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Contacts\ParticleContact.h">
+    <ClInclude Include="src\Physic\Contacts\Contact.h">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Contacts\ParticleContactGenerator.h">
+    <ClInclude Include="src\Physic\Contacts\ContactGenerator.h">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Contacts\ParticleContactRegistry.h">
+    <ClInclude Include="src\Physic\Contacts\ContactRegistry.h">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Contacts\ParticleContactResolver.h">
+    <ClInclude Include="src\Physic\Contacts\ContactResolver.h">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Contacts\ParticleLink.h">
+    <ClInclude Include="src\Physic\Contacts\Link.h">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Contacts\ParticleRod.h">
+    <ClInclude Include="src\Physic\Contacts\Rod.h">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene.h">

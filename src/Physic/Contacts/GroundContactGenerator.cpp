@@ -17,7 +17,7 @@ GroundContactGenerator::~GroundContactGenerator()
 	delete this->rigidBodies;
 }
 
-unsigned int GroundContactGenerator::addContact(std::vector<ParticleContact*>* contacts, unsigned int limit) const
+unsigned int GroundContactGenerator::addContact(std::vector<Contact*>* contacts, unsigned int limit) const
 {
 	if (limit > 0)
 	{
@@ -32,11 +32,11 @@ unsigned int GroundContactGenerator::addContact(std::vector<ParticleContact*>* c
 
             float minlengthY =  (!this->inverse?temp.GetMaxValue():temp.GetMinValue()) + (!this->inverse ? -1.f: 1.f)* rigidBody->GetDimensions().GetMaxValue();
 			if (!this->inverse && minlengthY < 0) {
-				contacts->push_back(new ParticleContact(rigidBody, 1, this->positionY - minlengthY, this->normal));
+				contacts->push_back(new Contact(rigidBody, 1, this->positionY - minlengthY, this->normal));
 				iteration++;
 			}
             else if (this->inverse && minlengthY > 0) {
-                contacts->push_back(new ParticleContact(rigidBody, 1, minlengthY - this->positionY, this->normal, true));
+                contacts->push_back(new Contact(rigidBody, 1, minlengthY - this->positionY, this->normal, true));
                 iteration++;
             }
 		}

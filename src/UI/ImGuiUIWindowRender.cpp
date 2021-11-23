@@ -117,7 +117,7 @@ void ImGuiUIWindowRender::update()
                     this->newSize(wsize.x, wsize.y);
                 }
 
-                this->checkToAddParticles();
+                this->checkToAddObjects();
 
                 this->render3D();
 
@@ -198,7 +198,7 @@ void ImGuiUIWindowRender::render3D() {
 
 }
 
-void ImGuiUIWindowRender::checkToAddParticles()
+void ImGuiUIWindowRender::checkToAddObjects()
 {
     // Get the size of the child (i.e. the whole draw size of the windows).
     ImVec2 wsize = ImGui::GetWindowSize();
@@ -206,26 +206,19 @@ void ImGuiUIWindowRender::checkToAddParticles()
 
     ImVec2 mousePositionInChild(io.MousePos.x - ImGui::GetWindowPos().x,io.MousePos.y - ImGui::GetWindowPos().y);
 
-    static float px = 0.0f;
-    static float py = 5.0f;
-    static float pz = 0.0f;
-    static float sx = 0.0f;
-    static float sy = 0.0f;
-    static float sz = 0.0f;
-    static float mass = 10.0f;
-
-    // -------------------- Check mouse click & add particle if not in simulation -----------------------------
+    // -------------------- Check mouse click & add object if not in simulation -----------------------------
     Vector3 offsetPosition = Vector3(-(float)wsize.x / 2.0f, (float)wsize.y, 0);
     float ratio = 4.0f;
     if (this->play == false && ImGui::IsWindowHovered() && ImGui::IsMouseClicked(1))// right click if not in simulation
     {
         Vector3 pos = Vector3((offsetPosition.GetX() + (float)mousePositionInChild.x) / ratio, (offsetPosition.GetY() - (float)mousePositionInChild.y) / ratio, 0);
         std::cout << pos << std::endl;
+        float mass = 10.0f;
         auto obj = new RigidBody(mass, pos);
         EngineManager::getInstance().getScene()->addObject(*obj);
     }
 
-    // --------------------------- Check mouse click & move first particle -------------------------------------
+    // --------------------------- Check mouse click & move first object -------------------------------------
     if (this->play && !this->pause && ImGui::IsWindowFocused() && ImGui::IsMouseDown(1)) // right click down
     {
         Vector3 pos = Vector3((offsetPosition.GetX() + (float)mousePositionInChild.x) / ratio, (offsetPosition.GetY() - (float)mousePositionInChild.y) / ratio, 0);

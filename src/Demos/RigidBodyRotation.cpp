@@ -22,12 +22,14 @@ void RigidBodyRotation::GenerateScene()
 
 
     // =============== gravity================
-    ParticleGravity* particleGravityGenerator = new ParticleGravity();
-    EngineManager::getInstance().getPhysicEngine()->getForceRegistry()->Add(obj, particleGravityGenerator);
+    Gravity* gravityGenerator = new Gravity();
+    EngineManager::getInstance().getPhysicEngine()->getForceRegistry()->Add(obj, gravityGenerator);
 
     // ==================== contacts ====================
     // contact avec le ground
     GroundContactGenerator* groundContactGenerator = new GroundContactGenerator(EngineManager::getInstance().getScene()->getObjects(), 0, false, Vector3(0,1,0));// contact avec le sol à une hauteur de -100
     EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(groundContactGenerator, EngineManager::getInstance().getScene()->getObjects()->size());
 
+
+    EngineManager::getInstance().console.logSuccess("Rigidbody initial velocity demo has been generated\n");
 }

@@ -1,11 +1,11 @@
-#include "ParticleBuoyancy.h"
+#include "Buoyancy.h"
 
-ParticleBuoyancy::ParticleBuoyancy(float maxDepth, float volume, float waterHeight, float liquidDensity) :
+Buoyancy::Buoyancy(float maxDepth, float volume, float waterHeight, float liquidDensity) :
 	m_maxDepth(maxDepth), m_volume(volume), m_waterHeight(waterHeight), m_liquidDensity(liquidDensity) {}
 
-ParticleBuoyancy::~ParticleBuoyancy() {}
+Buoyancy::~Buoyancy() {}
 
-void ParticleBuoyancy::UpdateForce(RigidBody* rigidBody, float duration)
+void Buoyancy::UpdateForce(RigidBody* rigidBody, float duration)
 {
 	float d = (this->m_waterHeight + this->m_maxDepth - (rigidBody->GetPosition()).DotProduct(Vector3(0, 1, 0)) / (2.f * this->m_maxDepth));
 	if (d <= 0) // L’objet est hors du liquide

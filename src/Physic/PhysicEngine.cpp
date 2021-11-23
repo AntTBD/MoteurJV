@@ -2,8 +2,8 @@
 
 PhysicEngine::PhysicEngine()
 {
-    this->particleForceRegistry = new ParticleForceRegistry();
-    this->particleContactRegistry = new ParticleContactRegistry();
+    this->forceRegistry = new ForceRegistry();
+    this->contactRegistry = new ContactRegistry();
     this->objects = new std::vector<Object*>();
     this->dT = 0;
     this->isSimulating = false;
@@ -12,8 +12,8 @@ PhysicEngine::PhysicEngine()
 
 PhysicEngine::~PhysicEngine()
 {
-    delete this->particleForceRegistry;
-    delete this->particleContactRegistry;
+    delete this->forceRegistry;
+    delete this->contactRegistry;
     delete this->objects;
 }
 
@@ -25,7 +25,7 @@ void PhysicEngine::startSimulation()
 
 void PhysicEngine::simulate()
 {
-    std::cout << "Start" << std::endl;
+    EngineManager::getInstance().console.logSuccess("Start\n");
     // init engine
     this->init();
 
@@ -77,19 +77,18 @@ void PhysicEngine::update(float deltaTime)
         isUpdateFinished = false;
 
         // 1 - Update force (gravity)
-        this->particleForceRegistry->UpdateForce(deltaTime);
+        this->forceRegistry->UpdateForce(deltaTime);
 
 
         // 3 - Add contacts
-        this->particleContactRegistry->UpdateContacts();
+        this->contactRegistry->UpdateContacts();
 
         // 4 - Resolve contacts
-        this->particleContactRegistry->Resolve(deltaTime);
+        this->contactRegistry->Resolve(deltaTime);
 
-        // 2 - Integrate particles
+        // 2 - Integrate objects
         for (int i = 0; i < this->objects->size(); i++)
         {
-            //std::cout << "Particule " << i + 1 << " : " << *this->particles->at(i) << std::endl;
             EngineManager::getInstance().console.log("%s %d : %s\n", typeid(*this->objects->at(i)).name(), i+1, this->objects->at(i)->toString().c_str());
             this->objects->at(i)->Integrate(deltaTime);
         }
@@ -100,7 +99,7 @@ void PhysicEngine::update(float deltaTime)
 
 void PhysicEngine::pause()
 {
-    std::cout << "Pause" << std::endl;
+    EngineManager::getInstance().console.logWarning("Pause\n");
     this->isPaused = true;
 }
 
@@ -116,21 +115,23 @@ void PhysicEngine::togglePause()
 
 void PhysicEngine::resume()
 {
-    std::cout << "Resume" << std::endl;
+    EngineManager::getInstance().console.logWarning("Resume\n");
+
     this->isPaused = false;
 }
 
 void PhysicEngine::stop()
 {
-    std::cout << "Stop" << std::endl;
+    EngineManager::getInstance().console.logWarning("Stop\n");
     this->dT = 0;
     this->isSimulating = false;
 
     if (this->physicEngineThread.joinable()) {
         this->physicEngineThread.join();
     }
-    this->clearParticlesAndRegisters();
-    this->resume(); // Set simulation back to unpaused if we cleared while it was paused
+    this->clearObjectsAndRegisters();
+
+    this->isPaused = false; // Set simulation back to unpaused if we cleared while it was paused
 
 
 }
@@ -140,30 +141,31 @@ bool PhysicEngine::isUpdated() const
     return this->isUpdateFinished;
 }
 
-void PhysicEngine::clearParticlesAndRegisters()
+void PhysicEngine::clearObjectsAndRegisters()
 {
     // clear registries
-    this->particleForceRegistry->Clear();
-    this->particleContactRegistry->Clear();
+    this->forceRegistry->Clear();
+    this->contactRegistry->Clear();
 
-    // delete particles
+    // delete objects
     for (auto p : *this->objects)
     {
         delete p;
     }
     this->objects->clear();
     EngineManager::getInstance().getScene()->reset();
-    std::cout << "Particles cleared" << std::endl;
+    EngineManager::getInstance().console.logSuccess("Objects & Registers cleared\n");
+
 }
 
 bool PhysicEngine::isRunning() {
     return this->isSimulating;
 }
 
-ParticleForceRegistry *PhysicEngine::getForceRegistry() {
-    return this->particleForceRegistry;
+ForceRegistry *PhysicEngine::getForceRegistry() {
+    return this->forceRegistry;
 }
 
-ParticleContactRegistry *PhysicEngine::getContactRegistry() {
-    return this->particleContactRegistry;
+ContactRegistry *PhysicEngine::getContactRegistry() {
+    return this->contactRegistry;
 }

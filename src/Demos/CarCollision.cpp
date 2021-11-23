@@ -38,11 +38,11 @@ void CarCollision::GenerateScene()
 */
     // car2
     Vector3 positionCar2(165, carDimension.GetMaxValue(), 0);
-    /*Vector3 eulerRotationCar2(0, 0, 0);
+    Vector3 eulerRotationCar2(0, 180, 0);
     Vector3 velocityCar2(-500.f, 0.f, 0.f);
     Vector3 angularVelocityCar2(0.f, 0.f, 0.0f);
     cars->push_back(new RigidBody(mass, positionCar2, velocityCar2, Quaternion::EulerInDegreesToQuaternion(eulerRotationCar2), angularVelocityCar2, RigidBody::ShapeType::Cube, carDimension));
-    */cars->push_back(new RigidBody(mass, positionCar2, RigidBody::ShapeType::Cube, carDimension));
+    //cars->push_back(new RigidBody(mass, positionCar2, RigidBody::ShapeType::Cube, carDimension));
     cars->at(cars->size()-1)->SetName("Car2");
     cars->at(cars->size()-1)->AddForceAtBodyPoint(Vector3(-1500.f, 0.f, 0.f), Vector3(carDimension.GetX(), -carDimension.GetY(), 0));
     EngineManager::getInstance().getScene()->addObject(*cars->at(cars->size()-1));
@@ -96,35 +96,35 @@ void CarCollision::GenerateScene()
     std::vector<RigidBody*>* allObjectsWithoutWalls = new std::vector<RigidBody*>();
 
     // ==================== forces ====================
-    ParticleGravity* particleGravityGenerator = new ParticleGravity();
+    Gravity* gravityGenerator = new Gravity();
     // Add gravity force on each objects of the scene
     for (int i = 0; i<EngineManager::getInstance().getScene()->getObjects()->size(); i++) {
         auto obj = EngineManager::getInstance().getScene()->GetObject(i);
         if(obj->GetShapeType() != RigidBody::ShapeType::Plan) {
             // =============== gravity================
-            EngineManager::getInstance().getPhysicEngine()->getForceRegistry()->Add(obj, particleGravityGenerator);
+            EngineManager::getInstance().getPhysicEngine()->getForceRegistry()->Add(obj, gravityGenerator);
             allObjectsWithoutWalls->push_back(obj);
         }
     }
-    /*ParticleSpring *particleSpringGenerator = new ParticleSpring(*allObjectsWithoutWalls->at(0), 5, carDimension.GetMaxValue()*2.f);
+    /*Spring *springGenerator = new Spring(*allObjectsWithoutWalls->at(0), 5, carDimension.GetMaxValue()*2.f);
     // Add spring force
-    EngineManager::getInstance().getPhysicEngine()->getForceRegistry()->Add(allObjectsWithoutWalls->at(1), particleSpringGenerator);
+    EngineManager::getInstance().getPhysicEngine()->getForceRegistry()->Add(allObjectsWithoutWalls->at(1), springGenerator);
     */
     // ==================== contacts ====================
     // ------ add contacts -------
-    // add contacts naive entre chaque objets (=colision entre 2 particules)
-    NaiveParticleContactGenerator *naiveParticleContactGenerator = new NaiveParticleContactGenerator(allObjectsWithoutWalls);// contacts entre particules de rayon 10
-    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveParticleContactGenerator, 2 * allObjectsWithoutWalls->size());
-    /*NaiveParticleContactGenerator *naiveParticleContactGenerator1 = new NaiveParticleContactGenerator( new std::vector<RigidBody*>({cars->at(0), cars->at(3)}) );
-    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveParticleContactGenerator1, 2 * 2);
-    NaiveParticleContactGenerator *naiveParticleContactGenerator2 = new NaiveParticleContactGenerator( new std::vector<RigidBody*>({cars->at(1), cars->at(3)}) );
-    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveParticleContactGenerator2, 2 * 2);
-    NaiveParticleContactGenerator *naiveParticleContactGenerator3 = new NaiveParticleContactGenerator( new std::vector<RigidBody*>({cars->at(2), cars->at(3)}) );
-    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveParticleContactGenerator3, 2 * 2);
+    // add contacts naive entre chaque objets (=colision entre 2 objets)
+    NaiveContactGenerator *naiveContactGenerator = new NaiveContactGenerator(allObjectsWithoutWalls);// contacts entre objets de rayon 10
+    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveContactGenerator, 2 * allObjectsWithoutWalls->size());
+    /*NaiveContactGenerator *naiveContactGenerator1 = new NaiveContactGenerator( new std::vector<RigidBody*>({cars->at(0), cars->at(3)}) );
+    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveContactGenerator1, 2 * 2);
+    NaiveContactGenerator *naiveContactGenerator2 = new NaiveContactGenerator( new std::vector<RigidBody*>({cars->at(1), cars->at(3)}) );
+    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveContactGenerator2, 2 * 2);
+    NaiveContactGenerator *naiveContactGenerator3 = new NaiveContactGenerator( new std::vector<RigidBody*>({cars->at(2), cars->at(3)}) );
+    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveContactGenerator3, 2 * 2);
 
-    auto tige = new ParticleRod(cars->at(0), cars->at(1), (cars->at(1)->GetPosition()-cars->at(0)->GetPosition()).Magnitude());// tige de longueur 200
+    auto tige = new Rod(cars->at(0), cars->at(1), (cars->at(1)->GetPosition()-cars->at(0)->GetPosition()).Magnitude());// tige de longueur 200
     EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(tige, 1);
-    tige = new ParticleRod(cars->at(0), cars->at(2), (cars->at(2)->GetPosition()-cars->at(0)->GetPosition()).Magnitude());// tige de longueur 200
+    tige = new Rod(cars->at(0), cars->at(2), (cars->at(2)->GetPosition()-cars->at(0)->GetPosition()).Magnitude());// tige de longueur 200
     EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(tige, 1);*/
 
     // contact avec le ground
@@ -146,4 +146,7 @@ void CarCollision::GenerateScene()
     GroundContactGenerator* backContactGenerator = new GroundContactGenerator(allObjectsWithoutWalls, backPosition.GetZ(),true, Vector3(0,0,1));// contact avec le top à une hauteur de 100
     EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(backContactGenerator, allObjectsWithoutWalls->size());
 
+
+
+    EngineManager::getInstance().console.logSuccess("Car collision demo has been generated\n");
 }
