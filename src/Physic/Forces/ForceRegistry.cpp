@@ -1,16 +1,16 @@
 #include "ForceRegistry.h"
 
-ForceRegistry::ParticleForceEntry::ParticleForceEntry(RigidBody* rigidBody, ForceGenerator* forceGenerator) : rigidBody(rigidBody), forceGenerator(forceGenerator) {}
+ForceRegistry::ForceEntry::ForceEntry(RigidBody* rigidBody, ForceGenerator* forceGenerator) : rigidBody(rigidBody), forceGenerator(forceGenerator) {}
 
 
 void ForceRegistry::Add(RigidBody* rigidBody, ForceGenerator* forceGenerator)
 {
-	this->m_registry.push_back(ForceRegistry::ParticleForceEntry(rigidBody, forceGenerator));
+	this->m_registry.push_back(ForceRegistry::ForceEntry(rigidBody, forceGenerator));
 }
 
 void ForceRegistry::UpdateForce(float duration)
 {
-	for (ParticleForceEntry entry : this->m_registry )
+	for (ForceEntry entry : this->m_registry )
 	{
 		entry.forceGenerator->UpdateForce(entry.rigidBody, duration);
 	}

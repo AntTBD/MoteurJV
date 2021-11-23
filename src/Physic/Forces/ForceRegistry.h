@@ -6,14 +6,14 @@
 class ForceRegistry
 {
 private:
-	struct ParticleForceEntry
+	struct ForceEntry
 	{
         RigidBody* rigidBody;
 		ForceGenerator* forceGenerator;
-		ParticleForceEntry(RigidBody* rigidBody, ForceGenerator* forceGenerator);
+		ForceEntry(RigidBody* rigidBody, ForceGenerator* forceGenerator);
 
 	};
-	using Registry = std::vector<ParticleForceEntry>;
+	using Registry = std::vector<ForceEntry>;
 	Registry  m_registry;
 public:
 	// ... Registry Accessors
