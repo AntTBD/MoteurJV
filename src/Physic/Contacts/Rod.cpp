@@ -1,13 +1,13 @@
-#include "ParticleRod.h"
+#include "Rod.h"
 
-ParticleRod::ParticleRod(RigidBody* rigidBody1, RigidBody* rigidBody2, float length) :
+Rod::Rod(RigidBody* rigidBody1, RigidBody* rigidBody2, float length) :
 	Link(rigidBody1, rigidBody2),
 	length(length)
 {}
 
-ParticleRod::~ParticleRod() {}
+Rod::~Rod() {}
 
-unsigned int ParticleRod::addContact(std::vector<Contact*>* contacts, unsigned int limit) const
+unsigned int Rod::addContact(std::vector<Contact*>* contacts, unsigned int limit) const
 {
 	if (limit > 0)
 	{

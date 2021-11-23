@@ -12,7 +12,7 @@
 #include "Contacts/NaiveContactGenerator.h"
 #include "Contacts/GroundContactGenerator.h"
 #include "Contacts/Cable.h"
-#include "Contacts/ParticleRod.h"
+#include "Contacts/Rod.h"
 // include threads
 #include <thread>
 

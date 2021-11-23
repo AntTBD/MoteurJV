@@ -30,11 +30,11 @@ void Blob::GenerateScene()
             // add tiges or cables between each particles + spring force anchored on actual particle
             for (int k = i + 1; k < objects->size(); k++) {
                 // ------ contacts -------
-                // add contacts cables
-                //auto tige = new ParticleRod(objects->at(i), objects->at(k), 100);// tige de longueur 200
+                // add contacts tiges
+                //auto tige = new Rod(objects->at(i), objects->at(k), 100);// tige de longueur 200
                 //EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(tige, 1);
 
-                // add contacts tiges
+                // add contacts cables
                 auto cable = new Cable(objects->at(i), objects->at(k), 100);// cable de longueur 200
                 EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(cable, 1);
 

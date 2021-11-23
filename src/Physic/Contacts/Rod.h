@@ -2,7 +2,7 @@
 
 #include "Link.h"
 
-class ParticleRod :
+class Rod :
     public Link
 {
 public:
@@ -11,8 +11,8 @@ public:
     // between particles is not equal to the length
     float length;
 
-    ParticleRod(RigidBody* rigidBody1, RigidBody* rigidBody2, float length);
-    ~ParticleRod();
+    Rod(RigidBody* rigidBody1, RigidBody* rigidBody2, float length);
+    ~Rod();
 
     // Fill ParticleContact with information form particles and contact generator.
     // Contact is different wether the disitance is shaorter or greater than the length
