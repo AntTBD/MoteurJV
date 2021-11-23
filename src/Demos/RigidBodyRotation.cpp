@@ -30,4 +30,6 @@ void RigidBodyRotation::GenerateScene()
     GroundContactGenerator* groundContactGenerator = new GroundContactGenerator(EngineManager::getInstance().getScene()->getObjects(), 0, false, Vector3(0,1,0));// contact avec le sol à une hauteur de -100
     EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(groundContactGenerator, EngineManager::getInstance().getScene()->getObjects()->size());
 
+
+    EngineManager::getInstance().console.logSuccess("Rigidbody initial velocity demo has been generated\n");
 }

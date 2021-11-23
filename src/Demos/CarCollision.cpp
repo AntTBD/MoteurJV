@@ -146,4 +146,7 @@ void CarCollision::GenerateScene()
     GroundContactGenerator* backContactGenerator = new GroundContactGenerator(allObjectsWithoutWalls, backPosition.GetZ(),true, Vector3(0,0,1));// contact avec le top à une hauteur de 100
     EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(backContactGenerator, allObjectsWithoutWalls->size());
 
+
+
+    EngineManager::getInstance().console.logSuccess("Car collision demo has been generated\n");
 }

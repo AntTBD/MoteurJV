@@ -51,4 +51,7 @@ void Blob::GenerateScene()
                                                                                     gravityGenerator);
         }
     }
+
+
+    EngineManager::getInstance().console.logSuccess("Blob demo has been generated\n");
 }

@@ -206,14 +206,6 @@ void ImGuiUIWindowRender::checkToAddObjects()
 
     ImVec2 mousePositionInChild(io.MousePos.x - ImGui::GetWindowPos().x,io.MousePos.y - ImGui::GetWindowPos().y);
 
-    static float px = 0.0f;
-    static float py = 5.0f;
-    static float pz = 0.0f;
-    static float sx = 0.0f;
-    static float sy = 0.0f;
-    static float sz = 0.0f;
-    static float mass = 10.0f;
-
     // -------------------- Check mouse click & add object if not in simulation -----------------------------
     Vector3 offsetPosition = Vector3(-(float)wsize.x / 2.0f, (float)wsize.y, 0);
     float ratio = 4.0f;
@@ -221,6 +213,7 @@ void ImGuiUIWindowRender::checkToAddObjects()
     {
         Vector3 pos = Vector3((offsetPosition.GetX() + (float)mousePositionInChild.x) / ratio, (offsetPosition.GetY() - (float)mousePositionInChild.y) / ratio, 0);
         std::cout << pos << std::endl;
+        float mass = 10.0f;
         auto obj = new RigidBody(mass, pos);
         EngineManager::getInstance().getScene()->addObject(*obj);
     }
