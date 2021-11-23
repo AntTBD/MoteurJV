@@ -2,7 +2,7 @@
 
 #include "ParticleForceGenerator.h"
 
-class ParticleAnchoredSpring : public ParticleForceGenerator
+class AnchoredSpring : public ParticleForceGenerator
 {
 private:
     //other anchor
@@ -14,9 +14,9 @@ private:
     float m_restLenght;
 
 public:
-    ParticleAnchoredSpring(Vector3& anchor, float k, float restLenght);
+    AnchoredSpring(Vector3& anchor, float k, float restLenght);
 
-    ~ParticleAnchoredSpring();
+    ~AnchoredSpring();
 
     // apply Hooke's law based on particles positions
     void UpdateForce(RigidBody* rigidBody, float duration) override;
