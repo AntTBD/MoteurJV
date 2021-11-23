@@ -1,6 +1,6 @@
 #include "ContactRegistry.h"
 
-ContactRegistry::ParticleContactEntry::ParticleContactEntry(ContactGenerator* contactGenerator, unsigned int limitMax) :
+ContactRegistry::ContactEntry::ContactEntry(ContactGenerator* contactGenerator, unsigned int limitMax) :
 	contactGenerator(contactGenerator),
 	limitMax(limitMax)
 {}
@@ -13,26 +13,26 @@ ContactRegistry::ContactRegistry()
 
 void ContactRegistry::Add(ContactGenerator* contactGenerator, unsigned int limitMax)
 {
-	this->m_registry.push_back(ContactRegistry::ParticleContactEntry(contactGenerator, limitMax));
+	this->m_registry.push_back(ContactRegistry::ContactEntry(contactGenerator, limitMax));
 }
 
 void ContactRegistry::UpdateContacts()
 {
 	nbContacts = 0;
-	for (ParticleContactEntry entry : this->m_registry)
+	for (ContactEntry entry : this->m_registry)
 	{
-		nbContacts += entry.contactGenerator->addContact(&particleContactList, entry.limitMax);
+		nbContacts += entry.contactGenerator->addContact(&contactList, entry.limitMax);
 	}
 }
 
 void ContactRegistry::Resolve(float deltaTime)
 {
 	if (nbContacts > 0) {
-		this->particleContactResolver->resolveContacts(particleContactList, deltaTime);
+		this->particleContactResolver->resolveContacts(contactList, deltaTime);
 	}
 
 	// clear list of contacts
-	particleContactList.clear();
+	contactList.clear();
 }
 
 void ContactRegistry::Clear()

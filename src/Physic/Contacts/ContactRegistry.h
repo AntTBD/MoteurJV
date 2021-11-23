@@ -7,23 +7,23 @@
 class ContactRegistry
 {
 private:
-	struct ParticleContactEntry
+	struct ContactEntry
 	{
 		unsigned int limitMax;
 		ContactGenerator* contactGenerator;
-		ParticleContactEntry(ContactGenerator* forceGenerator, unsigned int limitMax);
+		ContactEntry(ContactGenerator* contactGenerator, unsigned int limitMax);
 
 	};
-	using Registry = std::vector<ParticleContactEntry>;
+	using Registry = std::vector<ContactEntry>;
 	Registry m_registry;
 
 	ParticleContactResolver* particleContactResolver;
-	std::vector<Contact*> particleContactList;
+	std::vector<Contact*> contactList;
 	unsigned int nbContacts = 0;
 public:
 	ContactRegistry();
 	// ... Registry Accessors
-	void Add(ContactGenerator* forceGenerator, unsigned int limitMax);
+	void Add(ContactGenerator* contactGenerator, unsigned int limitMax);
 	void UpdateContacts();
 	void Resolve(float deltaTime);
 	void Clear();
