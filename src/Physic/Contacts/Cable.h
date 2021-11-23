@@ -2,7 +2,7 @@
 
 #include "ParticleLink.h"
 
-class ParticleCable :
+class Cable :
     public ParticleLink
 {
 public:
@@ -14,8 +14,8 @@ public:
     // float bounciness of the cable
     float restitution;
 
-    ParticleCable(RigidBody* rigidBody1, RigidBody* rigidBody2, float maxLength);
-    ~ParticleCable();
+    Cable(RigidBody* rigidBody1, RigidBody* rigidBody2, float maxLength);
+    ~Cable();
 
     // Fill ParticleContact ith information from particles and contact generator
     unsigned int addContact(std::vector<ParticleContact*>* contacts, unsigned int limit) const override;

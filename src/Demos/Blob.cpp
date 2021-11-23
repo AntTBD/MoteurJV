@@ -35,7 +35,7 @@ void Blob::GenerateScene()
                 //EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(tige, 1);
 
                 // add contacts tiges
-                auto cable = new ParticleCable(objects->at(i), objects->at(k), 100);// cable de longueur 200
+                auto cable = new Cable(objects->at(i), objects->at(k), 100);// cable de longueur 200
                 EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(cable, 1);
 
                 // ------ force -------

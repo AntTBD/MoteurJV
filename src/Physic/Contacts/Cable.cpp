@@ -1,14 +1,14 @@
-#include "ParticleCable.h"
+#include "Cable.h"
 
 
-ParticleCable::ParticleCable(RigidBody* rigidBody1, RigidBody* rigidBody2, float maxLength) :
+Cable::Cable(RigidBody* rigidBody1, RigidBody* rigidBody2, float maxLength) :
 	ParticleLink(rigidBody1, rigidBody2),
 	maxLength(maxLength), restitution(1.0f)
 {}
 
-ParticleCable::~ParticleCable() {}
+Cable::~Cable() {}
 
-unsigned int ParticleCable::addContact(std::vector<ParticleContact*>* contacts, unsigned int limit) const
+unsigned int Cable::addContact(std::vector<ParticleContact*>* contacts, unsigned int limit) const
 {
 	if (limit > 0)
 	{

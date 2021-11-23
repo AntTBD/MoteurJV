@@ -11,7 +11,7 @@
 #include "Contacts/ParticleContactRegistry.h"
 #include "Contacts/NaiveContactGenerator.h"
 #include "Contacts/GroundContactGenerator.h"
-#include "Contacts/ParticleCable.h"
+#include "Contacts/Cable.h"
 #include "Contacts/ParticleRod.h"
 // include threads
 #include <thread>

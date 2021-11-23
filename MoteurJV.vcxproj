@@ -206,8 +206,8 @@
     <ClCompile Include="src\Math\Vector3.cpp" />
     <ClCompile Include="src\MoteurJV.cpp" />
     <ClCompile Include="src\Physic\Contacts\GroundContactGenerator.cpp" />
-    <ClCompile Include="src\Physic\Contacts\NaiveParticleContactGenerator.cpp" />
-    <ClCompile Include="src\Physic\Contacts\ParticleCable.cpp" />
+    <ClCompile Include="src\Physic\Contacts\NaiveContactGenerator.cpp" />
+    <ClCompile Include="src\Physic\Contacts\Cable.cpp" />
     <ClCompile Include="src\Physic\Contacts\ParticleContact.cpp" />
     <ClCompile Include="src\Physic\Contacts\ParticleContactRegistry.cpp" />
     <ClCompile Include="src\Physic\Contacts\ParticleContactResolver.cpp" />
@@ -258,8 +258,8 @@
     <ClInclude Include="src\Math\Quaternion.h" />
     <ClInclude Include="src\Math\Vector3.h" />
     <ClInclude Include="src\Physic\Contacts\GroundContactGenerator.h" />
-    <ClInclude Include="src\Physic\Contacts\NaiveParticleContactGenerator.h" />
-    <ClInclude Include="src\Physic\Contacts\ParticleCable.h" />
+    <ClInclude Include="src\Physic\Contacts\NaiveContactGenerator.h" />
+    <ClInclude Include="src\Physic\Contacts\Cable.h" />
     <ClInclude Include="src\Physic\Contacts\ParticleContact.h" />
     <ClInclude Include="src\Physic\Contacts\ParticleContactGenerator.h" />
     <ClInclude Include="src\Physic\Contacts\ParticleContactRegistry.h" />
