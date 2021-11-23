@@ -1,7 +1,7 @@
 #include "ParticleRod.h"
 
 ParticleRod::ParticleRod(RigidBody* rigidBody1, RigidBody* rigidBody2, float length) :
-	ParticleLink(rigidBody1, rigidBody2),
+	Link(rigidBody1, rigidBody2),
 	length(length)
 {}
 

@@ -2,7 +2,7 @@
 
 
 Cable::Cable(RigidBody* rigidBody1, RigidBody* rigidBody2, float maxLength) :
-	ParticleLink(rigidBody1, rigidBody2),
+	Link(rigidBody1, rigidBody2),
 	maxLength(maxLength), restitution(1.0f)
 {}
 

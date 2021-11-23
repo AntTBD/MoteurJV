@@ -1,9 +1,9 @@
 #pragma once
 
-#include "ParticleLink.h"
+#include "Link.h"
 
 class ParticleRod :
-    public ParticleLink
+    public Link
 {
 public:
 

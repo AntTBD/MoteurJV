@@ -1,9 +1,9 @@
 #pragma once
 
-#include "ParticleLink.h"
+#include "Link.h"
 
 class Cable :
-    public ParticleLink
+    public Link
 {
 public:
 

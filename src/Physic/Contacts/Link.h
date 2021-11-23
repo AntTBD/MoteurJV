@@ -2,15 +2,15 @@
 
 #include "ContactGenerator.h"
 
-class ParticleLink :
+class Link :
     public ContactGenerator
 {
 protected:
     // Linked particles
     RigidBody* rigidBody[2];
 public:
-    ParticleLink(RigidBody* rigidBody1, RigidBody* rigidBody2);
-    ~ParticleLink();
+    Link(RigidBody* rigidBody1, RigidBody* rigidBody2);
+    ~Link();
 
     // return the length of the link
     float currentLength() const;

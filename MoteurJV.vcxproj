@@ -211,7 +211,7 @@
     <ClCompile Include="src\Physic\Contacts\Contact.cpp" />
     <ClCompile Include="src\Physic\Contacts\ContactRegistry.cpp" />
     <ClCompile Include="src\Physic\Contacts\ContactResolver.cpp" />
-    <ClCompile Include="src\Physic\Contacts\ParticleLink.cpp" />
+    <ClCompile Include="src\Physic\Contacts\Link.cpp" />
     <ClCompile Include="src\Physic\Contacts\ParticleRod.cpp" />
     <ClCompile Include="src\Physic\Forces\ParticleAnchoredSpring.cpp" />
     <ClCompile Include="src\Physic\Forces\ParticleBuoyancy.cpp" />
@@ -264,7 +264,7 @@
     <ClInclude Include="src\Physic\Contacts\ContactGenerator.h" />
     <ClInclude Include="src\Physic\Contacts\ContactRegistry.h" />
     <ClInclude Include="src\Physic\Contacts\ContactResolver.h" />
-    <ClInclude Include="src\Physic\Contacts\ParticleLink.h" />
+    <ClInclude Include="src\Physic\Contacts\Link.h" />
     <ClInclude Include="src\Physic\Contacts\ParticleRod.h" />
     <ClInclude Include="src\Physic\Forces\ParticleAnchoredSpring.h" />
     <ClInclude Include="src\Physic\Forces\ParticleBuoyancy.h" />
