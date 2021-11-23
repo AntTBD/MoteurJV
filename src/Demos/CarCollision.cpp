@@ -113,8 +113,8 @@ void CarCollision::GenerateScene()
     // ==================== contacts ====================
     // ------ add contacts -------
     // add contacts naive entre chaque objets (=colision entre 2 particules)
-    NaiveParticleContactGenerator *naiveParticleContactGenerator = new NaiveParticleContactGenerator(allObjectsWithoutWalls);// contacts entre particules de rayon 10
-    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveParticleContactGenerator, 2 * allObjectsWithoutWalls->size());
+    NaiveContactGenerator *naiveContactGenerator = new NaiveContactGenerator(allObjectsWithoutWalls);// contacts entre particules de rayon 10
+    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveContactGenerator, 2 * allObjectsWithoutWalls->size());
     /*NaiveParticleContactGenerator *naiveParticleContactGenerator1 = new NaiveParticleContactGenerator( new std::vector<RigidBody*>({cars->at(0), cars->at(3)}) );
     EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveParticleContactGenerator1, 2 * 2);
     NaiveParticleContactGenerator *naiveParticleContactGenerator2 = new NaiveParticleContactGenerator( new std::vector<RigidBody*>({cars->at(1), cars->at(3)}) );

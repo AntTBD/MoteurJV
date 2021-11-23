@@ -9,7 +9,7 @@
 #include "Forces/ParticleSpring.h"
 // contacts
 #include "Contacts/ParticleContactRegistry.h"
-#include "Contacts/NaiveParticleContactGenerator.h"
+#include "Contacts/NaiveContactGenerator.h"
 #include "Contacts/GroundContactGenerator.h"
 #include "Contacts/ParticleCable.h"
 #include "Contacts/ParticleRod.h"

@@ -1,12 +1,12 @@
-#include "NaiveParticleContactGenerator.h"
+#include "NaiveContactGenerator.h"
 
-NaiveParticleContactGenerator::NaiveParticleContactGenerator(std::vector<RigidBody*>* rigidBodies, float radius) :
+NaiveContactGenerator::NaiveContactGenerator(std::vector<RigidBody*>* rigidBodies, float radius) :
 	rigidBodies(rigidBodies), radius(radius)
 {}
 
-NaiveParticleContactGenerator::~NaiveParticleContactGenerator() {}
+NaiveContactGenerator::~NaiveContactGenerator() {}
 
-unsigned int NaiveParticleContactGenerator::addContact(std::vector<ParticleContact*>* contacts, unsigned int limit) const
+unsigned int NaiveContactGenerator::addContact(std::vector<ParticleContact*>* contacts, unsigned int limit) const
 {
 	if (limit > 0)
 	{

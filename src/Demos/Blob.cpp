@@ -11,9 +11,9 @@ void Blob::GenerateScene()
 
         // ------ add contacts -------
         // add contacts naive entre particules (=colision entre 2 particules)
-        NaiveParticleContactGenerator *naiveParticleContactGenerator = new NaiveParticleContactGenerator(objects,
+        NaiveContactGenerator *naiveContactGenerator = new NaiveContactGenerator(objects,
                                                                                                          10);// contacts entre particules de rayon 10
-        EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveParticleContactGenerator,
+        EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveContactGenerator,
                                                                                   2 * objects->size());
         // contact avec le sol
         GroundContactGenerator *groundContactGenerator = new GroundContactGenerator(objects,
