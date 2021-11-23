@@ -25,7 +25,7 @@ void Blob::GenerateScene()
         for (int i = 0; i < objects->size(); i++) {
             // ------ force -------
             // add ressort ancré sur la particule actuelle
-            ParticleSpring *particleSpringGenerator = new ParticleSpring(*objects->at(i), 5, 50);
+            Spring *springGenerator = new Spring(*objects->at(i), 5, 50);
 
             // add tiges or cables between each particles + spring force anchored on actual particle
             for (int k = i + 1; k < objects->size(); k++) {
@@ -41,7 +41,7 @@ void Blob::GenerateScene()
                 // ------ force -------
                 // Add spring force
                 EngineManager::getInstance().getPhysicEngine()->getForceRegistry()->Add(objects->at(k),
-                                                                                        particleSpringGenerator);
+                                                                                        springGenerator);
             }
 
             // ------ force -------

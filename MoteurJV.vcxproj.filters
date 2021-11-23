@@ -130,7 +130,7 @@
     <ClCompile Include="src\Physic\Forces\Gravity.cpp">
       <Filter>Sources\Physic\Forces</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Forces\ParticleSpring.cpp">
+    <ClCompile Include="src\Physic\Forces\Spring.cpp">
       <Filter>Sources\Physic\Forces</Filter>
     </ClCompile>
     <ClCompile Include="src\glad.c">
@@ -253,7 +253,7 @@
     <ClInclude Include="src\Physic\Forces\Gravity.h">
       <Filter>Sources\Physic\Forces</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Forces\ParticleSpring.h">
+    <ClInclude Include="src\Physic\Forces\Spring.h">
       <Filter>Sources\Physic\Forces</Filter>
     </ClInclude>
     <ClInclude Include="src\Physic\Contacts\GroundContactGenerator.h">

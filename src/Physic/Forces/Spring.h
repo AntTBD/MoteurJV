@@ -2,7 +2,7 @@
 
 #include "ForceGenerator.h"
 
-class ParticleSpring : public ForceGenerator
+class Spring : public ForceGenerator
 {
 private:
     //other anchor
@@ -14,11 +14,11 @@ private:
     float m_restLength;
 
 public:
-    ParticleSpring(RigidBody& other, float k, float restLength);
+    Spring(RigidBody& other, float k, float restLength);
 
-    ~ParticleSpring();
+    ~Spring();
 
-    // apply Hooke's law based on particles positions
+    // apply Hooke's law based on objects positions
     void UpdateForce(RigidBody* rigidBody, float duration) override;
 
 };

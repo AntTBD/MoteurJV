@@ -6,7 +6,7 @@
 // forces
 #include "Forces/ForceRegistry.h"
 #include "Forces/Gravity.h"
-#include "Forces/ParticleSpring.h"
+#include "Forces/Spring.h"
 // contacts
 #include "Contacts/ContactRegistry.h"
 #include "Contacts/NaiveContactGenerator.h"
