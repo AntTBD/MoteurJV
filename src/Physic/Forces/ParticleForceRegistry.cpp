@@ -1,9 +1,9 @@
 #include "ParticleForceRegistry.h"
 
-ParticleForceRegistry::ParticleForceEntry::ParticleForceEntry(RigidBody* rigidBody, ParticleForceGenerator* forceGenerator) : rigidBody(rigidBody), forceGenerator(forceGenerator) {}
+ParticleForceRegistry::ParticleForceEntry::ParticleForceEntry(RigidBody* rigidBody, ForceGenerator* forceGenerator) : rigidBody(rigidBody), forceGenerator(forceGenerator) {}
 
 
-void ParticleForceRegistry::Add(RigidBody* rigidBody, ParticleForceGenerator* forceGenerator)
+void ParticleForceRegistry::Add(RigidBody* rigidBody, ForceGenerator* forceGenerator)
 {
 	this->m_registry.push_back(ParticleForceRegistry::ParticleForceEntry(rigidBody, forceGenerator));
 }

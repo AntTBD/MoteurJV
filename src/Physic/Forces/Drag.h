@@ -1,9 +1,9 @@
 #pragma once
 
-#include "ParticleForceGenerator.h"
+#include "ForceGenerator.h"
 
 class Drag :
-    public ParticleForceGenerator
+    public ForceGenerator
 {
 private:
     // drag coeffiecents

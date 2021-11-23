@@ -269,7 +269,7 @@
     <ClInclude Include="src\Physic\Forces\AnchoredSpring.h" />
     <ClInclude Include="src\Physic\Forces\Buoyancy.h" />
     <ClInclude Include="src\Physic\Forces\Drag.h" />
-    <ClInclude Include="src\Physic\Forces\ParticleForceGenerator.h" />
+    <ClInclude Include="src\Physic\Forces\ForceGenerator.h" />
     <ClInclude Include="src\Physic\Forces\ParticleForceRegistry.h" />
     <ClInclude Include="src\Physic\Forces\ParticleGravity.h" />
     <ClInclude Include="src\Physic\Forces\ParticleSpring.h" />
