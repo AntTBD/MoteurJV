@@ -214,7 +214,7 @@
     <ClCompile Include="src\Physic\Contacts\Link.cpp" />
     <ClCompile Include="src\Physic\Contacts\Rod.cpp" />
     <ClCompile Include="src\Physic\Forces\AnchoredSpring.cpp" />
-    <ClCompile Include="src\Physic\Forces\ParticleBuoyancy.cpp" />
+    <ClCompile Include="src\Physic\Forces\Buoyancy.cpp" />
     <ClCompile Include="src\Physic\Forces\ParticleDrag.cpp" />
     <ClCompile Include="src\Physic\Forces\ParticleForceRegistry.cpp" />
     <ClCompile Include="src\Physic\Forces\ParticleGravity.cpp" />
@@ -267,7 +267,7 @@
     <ClInclude Include="src\Physic\Contacts\Link.h" />
     <ClInclude Include="src\Physic\Contacts\Rod.h" />
     <ClInclude Include="src\Physic\Forces\AnchoredSpring.h" />
-    <ClInclude Include="src\Physic\Forces\ParticleBuoyancy.h" />
+    <ClInclude Include="src\Physic\Forces\Buoyancy.h" />
     <ClInclude Include="src\Physic\Forces\ParticleDrag.h" />
     <ClInclude Include="src\Physic\Forces\ParticleForceGenerator.h" />
     <ClInclude Include="src\Physic\Forces\ParticleForceRegistry.h" />

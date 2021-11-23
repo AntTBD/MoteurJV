@@ -2,7 +2,7 @@
 
 #include "ParticleForceGenerator.h"
 
-class ParticleBuoyancy : public ParticleForceGenerator
+class Buoyancy : public ParticleForceGenerator
 {
 private:
     // particule properties
@@ -14,8 +14,8 @@ private:
     float m_liquidDensity;
 
 public:
-    ParticleBuoyancy(float maxDepth, float volume, float waterHeight, float liquidDensity = 1000.0f);
-    ~ParticleBuoyancy();
+    Buoyancy(float maxDepth, float volume, float waterHeight, float liquidDensity = 1000.0f);
+    ~Buoyancy();
 
     // apply Buoyancy based on particle position
     void UpdateForce(RigidBody* rigidBody, float duration) override;
