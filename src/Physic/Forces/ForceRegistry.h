@@ -3,7 +3,7 @@
 
 #include <vector>
 
-class ParticleForceRegistry
+class ForceRegistry
 {
 private:
 	struct ParticleForceEntry

@@ -216,7 +216,7 @@
     <ClCompile Include="src\Physic\Forces\AnchoredSpring.cpp" />
     <ClCompile Include="src\Physic\Forces\Buoyancy.cpp" />
     <ClCompile Include="src\Physic\Forces\Drag.cpp" />
-    <ClCompile Include="src\Physic\Forces\ParticleForceRegistry.cpp" />
+    <ClCompile Include="src\Physic\Forces\ForceRegistry.cpp" />
     <ClCompile Include="src\Physic\Forces\ParticleGravity.cpp" />
     <ClCompile Include="src\Physic\Forces\ParticleSpring.cpp" />
     <ClCompile Include="src\Physic\Particle.cpp" />
@@ -270,7 +270,7 @@
     <ClInclude Include="src\Physic\Forces\Buoyancy.h" />
     <ClInclude Include="src\Physic\Forces\Drag.h" />
     <ClInclude Include="src\Physic\Forces\ForceGenerator.h" />
-    <ClInclude Include="src\Physic\Forces\ParticleForceRegistry.h" />
+    <ClInclude Include="src\Physic\Forces\ForceRegistry.h" />
     <ClInclude Include="src\Physic\Forces\ParticleGravity.h" />
     <ClInclude Include="src\Physic\Forces\ParticleSpring.h" />
     <ClInclude Include="src\Physic\Particle.h" />

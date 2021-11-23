@@ -2,7 +2,7 @@
 
 PhysicEngine::PhysicEngine()
 {
-    this->particleForceRegistry = new ParticleForceRegistry();
+    this->forceRegistry = new ForceRegistry();
     this->contactRegistry = new ContactRegistry();
     this->objects = new std::vector<Object*>();
     this->dT = 0;
@@ -12,7 +12,7 @@ PhysicEngine::PhysicEngine()
 
 PhysicEngine::~PhysicEngine()
 {
-    delete this->particleForceRegistry;
+    delete this->forceRegistry;
     delete this->contactRegistry;
     delete this->objects;
 }
@@ -77,7 +77,7 @@ void PhysicEngine::update(float deltaTime)
         isUpdateFinished = false;
 
         // 1 - Update force (gravity)
-        this->particleForceRegistry->UpdateForce(deltaTime);
+        this->forceRegistry->UpdateForce(deltaTime);
 
 
         // 3 - Add contacts
@@ -143,7 +143,7 @@ bool PhysicEngine::isUpdated() const
 void PhysicEngine::clearParticlesAndRegisters()
 {
     // clear registries
-    this->particleForceRegistry->Clear();
+    this->forceRegistry->Clear();
     this->contactRegistry->Clear();
 
     // delete particles
@@ -160,8 +160,8 @@ bool PhysicEngine::isRunning() {
     return this->isSimulating;
 }
 
-ParticleForceRegistry *PhysicEngine::getForceRegistry() {
-    return this->particleForceRegistry;
+ForceRegistry *PhysicEngine::getForceRegistry() {
+    return this->forceRegistry;
 }
 
 ContactRegistry *PhysicEngine::getContactRegistry() {

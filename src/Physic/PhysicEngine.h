@@ -4,7 +4,7 @@
 
 #include "Particle.h"
 // forces
-#include "Forces/ParticleForceRegistry.h"
+#include "Forces/ForceRegistry.h"
 #include "Forces/ParticleGravity.h"
 #include "Forces/ParticleSpring.h"
 // contacts
@@ -29,7 +29,7 @@ class PhysicEngine {
 private:
     std::vector<Object*>* objects; // copy of objects in the scene for simulation
 
-    ParticleForceRegistry* particleForceRegistry;
+    ForceRegistry* forceRegistry;
     ContactRegistry* contactRegistry;
 
     bool isPaused = false;
@@ -54,7 +54,7 @@ public:
 
     bool isRunning();
 
-    ParticleForceRegistry* getForceRegistry();
+    ForceRegistry* getForceRegistry();
     ContactRegistry* getContactRegistry();
 
 private:

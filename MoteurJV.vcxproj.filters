@@ -124,7 +124,7 @@
     <ClCompile Include="src\Physic\Forces\Drag.cpp">
       <Filter>Sources\Physic\Forces</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Forces\ParticleForceRegistry.cpp">
+    <ClCompile Include="src\Physic\Forces\ForceRegistry.cpp">
       <Filter>Sources\Physic\Forces</Filter>
     </ClCompile>
     <ClCompile Include="src\Physic\Forces\ParticleGravity.cpp">
@@ -247,7 +247,7 @@
     <ClInclude Include="src\Physic\Forces\ForceGenerator.h">
       <Filter>Sources\Physic\Forces</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Forces\ParticleForceRegistry.h">
+    <ClInclude Include="src\Physic\Forces\ForceRegistry.h">
       <Filter>Sources\Physic\Forces</Filter>
     </ClInclude>
     <ClInclude Include="src\Physic\Forces\ParticleGravity.h">
