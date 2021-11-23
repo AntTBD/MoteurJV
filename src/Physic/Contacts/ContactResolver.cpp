@@ -1,7 +1,7 @@
-#include "ParticleContactResolver.h"
+#include "ContactResolver.h"
 #include <limits>
 
-ParticleContactResolver::ParticleContactResolver()
+ContactResolver::ContactResolver()
 {
 }
 
@@ -17,7 +17,7 @@ ParticleContactResolver::ParticleContactResolver()
 /// </summary>
 /// <param name="contactArray">list des contacts</param>
 /// <param name="duration"></param>
-void ParticleContactResolver::resolveContacts(std::vector<Contact*> contactArray, float duration)
+void ContactResolver::resolveContacts(std::vector<Contact*> contactArray, float duration)
 {
 	if (contactArray.size() > 0) {
 		//  on limite le nombre d’itération (ex : 2 fois le nombre de contacts)

@@ -3,7 +3,7 @@
 #include "Contact.h"
 #include <vector>
 
-class ParticleContactResolver
+class ContactResolver
 {
 protected:
 
@@ -11,7 +11,7 @@ protected:
 	unsigned int maxIteration;
 
 public:
-	ParticleContactResolver();
+	ContactResolver();
 
 	// take an array of contact
 	// iterate on each contact according to their separatingVelocity

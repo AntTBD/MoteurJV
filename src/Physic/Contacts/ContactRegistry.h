@@ -2,7 +2,7 @@
 
 #include <vector>
 #include "ContactGenerator.h"
-#include "ParticleContactResolver.h"
+#include "ContactResolver.h"
 
 class ContactRegistry
 {
@@ -17,7 +17,7 @@ private:
 	using Registry = std::vector<ContactEntry>;
 	Registry m_registry;
 
-	ParticleContactResolver* particleContactResolver;
+	ContactResolver* contactResolver;
 	std::vector<Contact*> contactList;
 	unsigned int nbContacts = 0;
 public:

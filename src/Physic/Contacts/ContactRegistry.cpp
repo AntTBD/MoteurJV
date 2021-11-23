@@ -8,7 +8,7 @@ ContactRegistry::ContactEntry::ContactEntry(ContactGenerator* contactGenerator, 
 
 ContactRegistry::ContactRegistry()
 {
-	this->particleContactResolver = new ParticleContactResolver();
+	this->contactResolver = new ContactResolver();
 }
 
 void ContactRegistry::Add(ContactGenerator* contactGenerator, unsigned int limitMax)
@@ -28,7 +28,7 @@ void ContactRegistry::UpdateContacts()
 void ContactRegistry::Resolve(float deltaTime)
 {
 	if (nbContacts > 0) {
-		this->particleContactResolver->resolveContacts(contactList, deltaTime);
+		this->contactResolver->resolveContacts(contactList, deltaTime);
 	}
 
 	// clear list of contacts
