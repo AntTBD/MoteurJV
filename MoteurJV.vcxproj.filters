@@ -127,7 +127,7 @@
     <ClCompile Include="src\Physic\Forces\ForceRegistry.cpp">
       <Filter>Sources\Physic\Forces</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Forces\ParticleGravity.cpp">
+    <ClCompile Include="src\Physic\Forces\Gravity.cpp">
       <Filter>Sources\Physic\Forces</Filter>
     </ClCompile>
     <ClCompile Include="src\Physic\Forces\ParticleSpring.cpp">
@@ -250,7 +250,7 @@
     <ClInclude Include="src\Physic\Forces\ForceRegistry.h">
       <Filter>Sources\Physic\Forces</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Forces\ParticleGravity.h">
+    <ClInclude Include="src\Physic\Forces\Gravity.h">
       <Filter>Sources\Physic\Forces</Filter>
     </ClInclude>
     <ClInclude Include="src\Physic\Forces\ParticleSpring.h">

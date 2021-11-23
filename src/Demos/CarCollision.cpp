@@ -96,13 +96,13 @@ void CarCollision::GenerateScene()
     std::vector<RigidBody*>* allObjectsWithoutWalls = new std::vector<RigidBody*>();
 
     // ==================== forces ====================
-    ParticleGravity* particleGravityGenerator = new ParticleGravity();
+    Gravity* gravityGenerator = new Gravity();
     // Add gravity force on each objects of the scene
     for (int i = 0; i<EngineManager::getInstance().getScene()->getObjects()->size(); i++) {
         auto obj = EngineManager::getInstance().getScene()->GetObject(i);
         if(obj->GetShapeType() != RigidBody::ShapeType::Plan) {
             // =============== gravity================
-            EngineManager::getInstance().getPhysicEngine()->getForceRegistry()->Add(obj, particleGravityGenerator);
+            EngineManager::getInstance().getPhysicEngine()->getForceRegistry()->Add(obj, gravityGenerator);
             allObjectsWithoutWalls->push_back(obj);
         }
     }

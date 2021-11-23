@@ -5,7 +5,7 @@
 #include "Particle.h"
 // forces
 #include "Forces/ForceRegistry.h"
-#include "Forces/ParticleGravity.h"
+#include "Forces/Gravity.h"
 #include "Forces/ParticleSpring.h"
 // contacts
 #include "Contacts/ContactRegistry.h"

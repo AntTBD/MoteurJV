@@ -22,8 +22,8 @@ void RigidBodyRotation::GenerateScene()
 
 
     // =============== gravity================
-    ParticleGravity* particleGravityGenerator = new ParticleGravity();
-    EngineManager::getInstance().getPhysicEngine()->getForceRegistry()->Add(obj, particleGravityGenerator);
+    Gravity* gravityGenerator = new Gravity();
+    EngineManager::getInstance().getPhysicEngine()->getForceRegistry()->Add(obj, gravityGenerator);
 
     // ==================== contacts ====================
     // contact avec le ground

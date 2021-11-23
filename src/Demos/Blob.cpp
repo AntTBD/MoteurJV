@@ -46,9 +46,9 @@ void Blob::GenerateScene()
 
             // ------ force -------
             // Add gravity force
-            ParticleGravity *particleGravityGenerator = new ParticleGravity();
+            Gravity *gravityGenerator = new Gravity();
             EngineManager::getInstance().getPhysicEngine()->getForceRegistry()->Add(objects->at(i),
-                                                                                    particleGravityGenerator);
+                                                                                    gravityGenerator);
         }
     }
 }
