@@ -1,9 +1,9 @@
 #pragma once
 
-#include "ParticleContactGenerator.h"
+#include "ContactGenerator.h"
 
 class ParticleLink :
-    public ParticleContactGenerator
+    public ContactGenerator
 {
 protected:
     // Linked particles

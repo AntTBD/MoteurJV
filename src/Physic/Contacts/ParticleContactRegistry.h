@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "ParticleContactGenerator.h"
+#include "ContactGenerator.h"
 #include "ParticleContactResolver.h"
 
 class ParticleContactRegistry
@@ -10,8 +10,8 @@ private:
 	struct ParticleContactEntry
 	{
 		unsigned int limitMax;
-		ParticleContactGenerator* contactGenerator;
-		ParticleContactEntry(ParticleContactGenerator* forceGenerator, unsigned int limitMax);
+		ContactGenerator* contactGenerator;
+		ParticleContactEntry(ContactGenerator* forceGenerator, unsigned int limitMax);
 
 	};
 	using Registry = std::vector<ParticleContactEntry>;
@@ -23,7 +23,7 @@ private:
 public:
 	ParticleContactRegistry();
 	// ... Registry Accessors
-	void Add(ParticleContactGenerator* forceGenerator, unsigned int limitMax);
+	void Add(ContactGenerator* forceGenerator, unsigned int limitMax);
 	void UpdateContacts();
 	void Resolve(float deltaTime);
 	void Clear();

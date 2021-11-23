@@ -1,10 +1,10 @@
 #pragma once
 
-#include "ParticleContactGenerator.h"
+#include "ContactGenerator.h"
 #include <vector>
 
 class NaiveContactGenerator :
-    public ParticleContactGenerator
+    public ContactGenerator
 {
 public:
     // Particle radius

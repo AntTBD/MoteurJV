@@ -268,7 +268,7 @@
     <ClInclude Include="src\Physic\Contacts\Contact.h">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Contacts\ParticleContactGenerator.h">
+    <ClInclude Include="src\Physic\Contacts\ContactGenerator.h">
       <Filter>Sources\Physic\Contacts</Filter>
     </ClInclude>
     <ClInclude Include="src\Physic\Contacts\ParticleContactRegistry.h">

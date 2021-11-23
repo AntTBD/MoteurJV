@@ -3,7 +3,7 @@
 #include "Contact.h"
 #include <vector>
 
-class ParticleContactGenerator
+class ContactGenerator
 {
 public:
 	// Take a pointer to an array of contact and the number of contact left to be generated

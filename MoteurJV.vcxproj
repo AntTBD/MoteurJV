@@ -261,7 +261,7 @@
     <ClInclude Include="src\Physic\Contacts\NaiveContactGenerator.h" />
     <ClInclude Include="src\Physic\Contacts\Cable.h" />
     <ClInclude Include="src\Physic\Contacts\Contact.h" />
-    <ClInclude Include="src\Physic\Contacts\ParticleContactGenerator.h" />
+    <ClInclude Include="src\Physic\Contacts\ContactGenerator.h" />
     <ClInclude Include="src\Physic\Contacts\ParticleContactRegistry.h" />
     <ClInclude Include="src\Physic\Contacts\ParticleContactResolver.h" />
     <ClInclude Include="src\Physic\Contacts\ParticleLink.h" />

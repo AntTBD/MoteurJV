@@ -1,10 +1,10 @@
 #pragma once
 
-#include "ParticleContactGenerator.h"
+#include "ContactGenerator.h"
 #include <vector>
 
 class GroundContactGenerator :
-    public ParticleContactGenerator
+    public ContactGenerator
 {
 private:
     // particles that could collide the wall

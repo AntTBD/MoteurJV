@@ -1,6 +1,6 @@
 #include "ParticleContactRegistry.h"
 
-ParticleContactRegistry::ParticleContactEntry::ParticleContactEntry(ParticleContactGenerator* contactGenerator, unsigned int limitMax) :
+ParticleContactRegistry::ParticleContactEntry::ParticleContactEntry(ContactGenerator* contactGenerator, unsigned int limitMax) :
 	contactGenerator(contactGenerator),
 	limitMax(limitMax)
 {}
@@ -11,7 +11,7 @@ ParticleContactRegistry::ParticleContactRegistry()
 	this->particleContactResolver = new ParticleContactResolver();
 }
 
-void ParticleContactRegistry::Add(ParticleContactGenerator* contactGenerator, unsigned int limitMax)
+void ParticleContactRegistry::Add(ContactGenerator* contactGenerator, unsigned int limitMax)
 {
 	this->m_registry.push_back(ParticleContactRegistry::ParticleContactEntry(contactGenerator, limitMax));
 }
