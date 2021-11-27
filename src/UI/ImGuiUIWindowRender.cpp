@@ -52,6 +52,13 @@ void ImGuiUIWindowRender::update()
                 ImGui::SameLine();this->HelpMarker(
                         u8"- Appuyer sur C puis le bouton PLAY\n"
                         "- Les 2 voitures vont s'entre choquer et engendrer une rotation.");
+                ImGui::SameLine();ImGui::Text("Collision Detection");
+                ImGui::SameLine();this->HelpMarker(
+                        u8"- Appuyer sur D puis le bouton PLAY\n"
+                        "- Une boîte rectangulaire est lancée dans une pièce rectangulaire fermée.\n"
+                        "- Les vélocités linéaire et angulaire initiales sont non nulles\n"
+                        "- Lorsque la boîte entre en collision avec un des murs, la démo s'arrête\n"
+                        "- Les informations de collisions sont alors affichés dans la console");
 
                 ImGui::SetWindowFontScale(1.2);
                 // espace pour centrer les boutons

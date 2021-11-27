@@ -7,6 +7,7 @@
 #include "../Demos/Blob.h"
 #include "../Demos/RigidBodyRotation.h"
 #include "../Demos/CarCollision.h"
+#include "../Demos/AdvancedCollisionDetection.h"
 
 class InputManager {
 
