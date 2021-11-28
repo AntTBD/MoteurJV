@@ -32,9 +32,9 @@ public:
 
 private:
 	// Handle impulse for this collision
-	void resolveVelocity();
+	void resolveVelocity(float duration);
 
 	// Handle interpenetration for this collision
-	void resolveInterpenetration();
+	void resolveInterpenetration(float duration);
 };
 

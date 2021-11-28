@@ -146,6 +146,9 @@
     <ClCompile Include="src\Demos\RigidBodyRotation.cpp">
       <Filter>Sources\Demos</Filter>
     </ClCompile>
+    <ClCompile Include="src\Demos\AdvancedCollisionDetection.cpp">
+      <Filter>Sources\Demos</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\imgui-1.84.2\imconfig.h">
@@ -302,6 +305,9 @@
       <Filter>Sources\Demos</Filter>
     </ClInclude>
     <ClInclude Include="src\Demos\RigidBodyRotation.h">
+      <Filter>Sources\Demos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demos\AdvancedCollisionDetection.h">
       <Filter>Sources\Demos</Filter>
     </ClInclude>
   </ItemGroup>

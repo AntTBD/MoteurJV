@@ -1,52 +1,23 @@
-#include "CarCollision.h"
+#include "AdvancedCollisionDetection.h"
 
-void CarCollision::GenerateScene()
+
+void AdvancedCollisionDetection::GenerateScene()
 {
     // clear all objects added in the scene
     EngineManager::getInstance().getScene()->reset();
 
 
-    std::vector<RigidBody*>* cars = new std::vector<RigidBody*>();
-
     float mass = 50.f;
-    Vector3 carDimension(15, 5, 10);
-    Vector3 feuDimension(2.5f, 2.5f, 2.5f);
+    Vector3 boiteDimension(15, 5, 10);
+    // boite
+    Vector3 boitePosition(-165, boiteDimension.GetMaxValue()+5, 0);
+    Vector3 boiteEulerRotation(0, 0, 0);
+    Vector3 boiteVelocity(500.f, 0.f, 0.f);
+    Vector3 boiteAngularVelocity(0.f, 0.f, 0.0f);
+    auto boite = new RigidBody(mass, boitePosition,boiteVelocity, Quaternion::EulerInDegreesToQuaternion(boiteEulerRotation), boiteAngularVelocity, RigidBody::ShapeType::Cube, boiteDimension);
+    boite->SetName(u8"Boîte");
+    EngineManager::getInstance().getScene()->addObject(*boite);
 
-    // ================ cars =================
-    // car1
-    Vector3 positionCar1(-165, carDimension.GetMaxValue()+5, 0);
-    Vector3 eulerRotationCar1(0, 0, 0);
-    Vector3 velocityCar1(500.f, 0.f, 0.f);
-    Vector3 angularVelocityCar1(0.f, 0.f, 0.0f);
-    cars->push_back(new RigidBody(mass, positionCar1,velocityCar1, Quaternion::EulerInDegreesToQuaternion(eulerRotationCar1), angularVelocityCar1, RigidBody::ShapeType::Cube, carDimension));
-    //cars->push_back(new RigidBody(mass, positionCar1, RigidBody::ShapeType::Cube, carDimension));
-    cars->at(cars->size()-1)->SetName("Car1");
-    cars->at(cars->size()-1)->AddForceAtBodyPoint(Vector3(1500.f, 0.f, 0.f), Vector3(-carDimension.GetX(), -carDimension.GetY(), 0));
-    EngineManager::getInstance().getScene()->addObject(*cars->at(cars->size()-1));
-    /*// feu droit
-    Vector3 feuDroit1(carDimension.GetX(), 0, carDimension.GetZ()-5);
-    feuDroit1 = cars->at(0)->GetPointInWorldSpace(feuDroit1);
-    cars->push_back(new RigidBody(mass, feuDroit1, RigidBody::ShapeType::Sphere, feuDimension));
-    cars->at(cars->size()-1)->SetName("FeuDroit1");
-    EngineManager::getInstance().getScene()->addObject(*cars->at(cars->size()-1));
-    // feu gauche
-    Vector3 feuGauche1(carDimension.GetX(), 0, -carDimension.GetZ()+5);
-    feuGauche1 = cars->at(0)->GetPointInWorldSpace(feuGauche1);
-    cars->push_back(new RigidBody(mass, feuGauche1, RigidBody::ShapeType::Sphere, feuDimension));
-    cars->at(cars->size()-1)->SetName("FeuGauche1");
-    EngineManager::getInstance().getScene()->addObject(*cars->at(cars->size()-1));
-*/
-    // car2
-    Vector3 positionCar2(165, carDimension.GetMaxValue(), 0);
-    Vector3 eulerRotationCar2(0, 180, 0);
-    Vector3 velocityCar2(-500.f, 0.f, 0.f);
-    Vector3 angularVelocityCar2(0.f, 0.f, 0.0f);
-    cars->push_back(new RigidBody(mass, positionCar2, velocityCar2, Quaternion::EulerInDegreesToQuaternion(eulerRotationCar2), angularVelocityCar2, RigidBody::ShapeType::Cube, carDimension));
-    //cars->push_back(new RigidBody(mass, positionCar2, RigidBody::ShapeType::Cube, carDimension));
-    cars->at(cars->size()-1)->SetName("Car2");
-    cars->at(cars->size()-1)->AddForceAtBodyPoint(Vector3(-1500.f, 0.f, 0.f), Vector3(carDimension.GetX(), -carDimension.GetY(), 0));
-    EngineManager::getInstance().getScene()->addObject(*cars->at(cars->size()-1));
-    // ================ =======================
 
     // ================ walls =================
     // Ground
@@ -93,9 +64,10 @@ void CarCollision::GenerateScene()
     EngineManager::getInstance().getScene()->addObject(*back);
     // ===========================================
 
+
     std::vector<RigidBody*>* allObjectsWithoutWalls = new std::vector<RigidBody*>();
 
-    // ==================== forces ====================
+    // ==================== forces + get all obj without plans ====================
     Gravity* gravityGenerator = new Gravity();
     // Add gravity force on each objects of the scene
     for (int i = 0; i<EngineManager::getInstance().getScene()->getObjects()->size(); i++) {
@@ -106,28 +78,9 @@ void CarCollision::GenerateScene()
             allObjectsWithoutWalls->push_back(obj);
         }
     }
-    /*Spring *springGenerator = new Spring(*allObjectsWithoutWalls->at(0), 5, carDimension.GetMaxValue()*2.f);
-    // Add spring force
-    EngineManager::getInstance().getPhysicEngine()->getForceRegistry()->Add(allObjectsWithoutWalls->at(1), springGenerator);
-    */
+
     // ==================== contacts ====================
-    // ------ add contacts -------
-    // add contacts naive entre chaque objets (=colision entre 2 objets)
-    NaiveContactGenerator *naiveContactGenerator = new NaiveContactGenerator(allObjectsWithoutWalls);// contacts entre objets de rayon 10
-    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveContactGenerator, 2 * allObjectsWithoutWalls->size());
-    /*NaiveContactGenerator *naiveContactGenerator1 = new NaiveContactGenerator( new std::vector<RigidBody*>({cars->at(0), cars->at(3)}) );
-    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveContactGenerator1, 2 * 2);
-    NaiveContactGenerator *naiveContactGenerator2 = new NaiveContactGenerator( new std::vector<RigidBody*>({cars->at(1), cars->at(3)}) );
-    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveContactGenerator2, 2 * 2);
-    NaiveContactGenerator *naiveContactGenerator3 = new NaiveContactGenerator( new std::vector<RigidBody*>({cars->at(2), cars->at(3)}) );
-    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(naiveContactGenerator3, 2 * 2);
-
-    auto tige = new Rod(cars->at(0), cars->at(1), (cars->at(1)->GetPosition()-cars->at(0)->GetPosition()).Magnitude());// tige de longueur 200
-    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(tige, 1);
-    tige = new Rod(cars->at(0), cars->at(2), (cars->at(2)->GetPosition()-cars->at(0)->GetPosition()).Magnitude());// tige de longueur 200
-    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(tige, 1);*/
-
-
+    // contact avec le ground
     GroundContactGenerator* groundContactGenerator = new GroundContactGenerator(allObjectsWithoutWalls, groundPosition.GetY(),false, Vector3(0,1,0));// contact avec le sol à la meme hauteur que renseigné précédemment
     EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(groundContactGenerator, allObjectsWithoutWalls->size());
     // contact avec le top
@@ -148,5 +101,5 @@ void CarCollision::GenerateScene()
 
 
 
-    EngineManager::getInstance().console.logSuccess("Car collision demo has been generated\n");
+    EngineManager::getInstance().console.logSuccess("Advanced collision detection demo has been generated\n");
 }

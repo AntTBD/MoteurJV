@@ -17,6 +17,8 @@ Particle::Particle(Vector3 position, Vector3 speed, float invMass)
 	this->position = position;
 	this->speed = speed;
 	this->invMass = invMass;
+    this->acceleration = Vector3();
+    this->sumForces = Vector3();
 }
 
 Particle::Particle(const Particle& particle)
@@ -38,15 +40,7 @@ std::string Particle::toString() const
 // Operator
 std::ostream& operator<< (std::ostream& os, const Particle& particle)
 {
-	try {
-		os << "Mass : " << 1.0f / particle.GetInvMass() << ", Acceleration : " << particle.GetAcceleration() << ", Speed : " << particle.GetSpeed() << ", Position : " << particle.GetPosition() << ", SumForces : " << particle.GetSumForces();
-
-	}
-	catch (std::exception ex)
-	{
-		os << "Error Particle.ToString(): " << ex.what();
-	};
-	
+    os << "Mass : " << 1.0f / particle.GetInvMass() << ", Acceleration : " << particle.GetAcceleration() << ", Speed : " << particle.GetSpeed() << ", Position : " << particle.GetPosition() << ", SumForces : " << particle.GetSumForces();
 	return os;
 }
 
@@ -112,7 +106,7 @@ void Particle::Integrate(float dTime)
 	UpdateAcceleration();
 
 	// 3 - Update speed : v' = v * dt + a * t
-	this->speed = (this->speed + this->acceleration * dTime) * this->damping;
+	this->speed = (this->speed + this->acceleration * dTime) * powf(this->damping, dTime);
 	
 	// Put sumforces back to 0 because we work with impulsions
 	sumForces.SetZero();
@@ -121,9 +115,6 @@ void Particle::Integrate(float dTime)
 void Particle::UpdateAcceleration()
 {
 	// Update acceleration with sumForces, invMass
-	this->acceleration = this->sumForces;
+    // We reset acceleration with gravity
+	this->acceleration += this->sumForces * this->invMass;
 }
-/*
-const char *Particle::toString() {
-    return "Mass : ", std::string(1.0f / this->GetinvMass()) , ", Acceleration : ", std::string(this->GetAcceleration()), ", Speed : ", std::string(this->GetSpeed()), ", Position : ", std::string(this->GetPosition()), ", SumForces : ", std::string(this->GetSumForces());
-}*/

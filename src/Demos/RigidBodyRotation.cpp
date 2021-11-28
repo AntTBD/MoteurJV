@@ -2,7 +2,7 @@
 
 void RigidBodyRotation::GenerateScene()
 {
-    // clear all objects add in the scene
+    // clear all objects added in the scene
     EngineManager::getInstance().getScene()->reset();
 
     std::vector<RigidBody*>* cars = new std::vector<RigidBody*>();

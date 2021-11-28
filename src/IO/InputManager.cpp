@@ -44,4 +44,14 @@ void InputManager::update(MainWindow* mainWindow)
     if(c_key_pressed && glfwGetKey(mainWindow->getWindow(), GLFW_KEY_C) == GLFW_RELEASE){
         c_key_pressed = false;
     }
+
+    // advanced collision detection
+    static bool d_key_pressed = false;
+    if(EngineManager::getInstance().getPhysicEngine()->isRunning() == false && d_key_pressed == false && glfwGetKey(mainWindow->getWindow(), GLFW_KEY_D) == GLFW_PRESS){
+        d_key_pressed = true;
+        AdvancedCollisionDetection::GenerateScene();
+    }
+    if(d_key_pressed && glfwGetKey(mainWindow->getWindow(), GLFW_KEY_D) == GLFW_RELEASE){
+        d_key_pressed = false;
+    }
 }
