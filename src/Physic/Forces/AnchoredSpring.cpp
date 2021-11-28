@@ -13,5 +13,5 @@ void AnchoredSpring::UpdateForce(RigidBody* rigidBody, float duration)
 	Vector3 d = (rigidBody->GetPosition() - *this->m_anchor);
 
 	// f = - k * ( |d| - l0) * d.normalized
-    rigidBody->AddForce(-this->m_k * (d.Magnitude() - this->m_restLenght) * d.Normalized());
+    rigidBody->AddForce(this->m_k * (this->m_restLenght - d.Magnitude()) * d.Normalized());
 }

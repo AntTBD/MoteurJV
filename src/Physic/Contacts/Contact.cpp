@@ -42,8 +42,8 @@ Contact::~Contact()
 
 void Contact::resolve(float duration)
 {
-	this->resolveVelocity();
-	this->resolveInterpenetration();
+	this->resolveVelocity(duration);
+	this->resolveInterpenetration(duration);
 }
 
 float Contact::calculateSeparatingVelocity() // diapo Gestion des collision - p5
@@ -56,7 +56,7 @@ float Contact::calculateSeparatingVelocity() // diapo Gestion des collision - p5
 	return velocity.DotProduct(this->m_contactNormal);
 }
 
-void Contact::resolveVelocity() // Application de l’impulsion diapo p12
+void Contact::resolveVelocity(float duration) // Application de l’impulsion diapo p12
 {
 	float k;
 
@@ -79,7 +79,8 @@ void Contact::resolveVelocity() // Application de l’impulsion diapo p12
 		somInvMass += this->m_rigidBody[1]->GetInvMass();
 	}
     // If all objects have infinite mass, then impulses have no effect.
-    if (somInvMass <= 0) return;
+    if (somInvMass <= 0)
+		return;
 
 	//     (e + 1)  v_rel . n
 	// k = -------------------     avec n . n = 1 car n unitaire
@@ -91,16 +92,16 @@ void Contact::resolveVelocity() // Application de l’impulsion diapo p12
 	// mais avec la normal inversé, on obtient :
 	// object 1 : v1' = v1 - k * n / m1
 	this->m_rigidBody[0]->SetVelocity(this->m_rigidBody[0]->GetVelocity() - k * this->m_contactNormal * this->m_rigidBody[0]->GetInvMass());
-    this->m_rigidBody[0]->AddTorque(-k*2.f * this->m_contactNormal );// hard code rotation
+    //this->m_rigidBody[0]->AddTorque(-k*2.f * this->m_contactNormal );// hard code rotation
     // object 2 (if exist) : v2' = v2 + k * n / m2
 	if (this->m_rigidBody[1] != nullptr) {
 		this->m_rigidBody[1]->SetVelocity(this->m_rigidBody[1]->GetVelocity() + k * this->m_contactNormal * this->m_rigidBody[1]->GetInvMass());
-        this->m_rigidBody[1]->AddTorque(+k*2.f * this->m_contactNormal );// hard code rotation
+        //this->m_rigidBody[1]->AddTorque(+k*2.f * this->m_contactNormal );// hard code rotation
     }
 	//std::cout << "k: " << k << std::endl;
 }
 
-void Contact::resolveInterpenetration() // Résolution d’interpénétration diapo p15
+void Contact::resolveInterpenetration(float duration) // Résolution d’interpénétration diapo p15
 {
     if (m_penetration > 0) {
 
@@ -109,13 +110,14 @@ void Contact::resolveInterpenetration() // Résolution d’interpénétration diapo p
             somInvMass += this->m_rigidBody[1]->GetInvMass();
         }
         // If all objects have infinite mass, then we do nothing.
-        if (somInvMass <= 0) return;
+        if (somInvMass <= 0)
+			return;
 
         // object 1 : p' = p + m2 / (m1+m2) * d * n
-        this->m_rigidBody[0]->SetPosition(this->m_rigidBody[0]->GetPosition() + (this->m_rigidBody[0]->GetMass() * somInvMass) * m_penetration * this->m_contactNormal);
+        this->m_rigidBody[0]->SetPosition(this->m_rigidBody[0]->GetPosition() + (this->m_rigidBody[0]->GetMass() * somInvMass) * this->m_penetration * this->m_contactNormal);
         // object 2 (if exist) : p' = p + (- m2 / (m1+m2)) * d * n
         if (this->m_rigidBody[1] != nullptr) {
-            this->m_rigidBody[1]->SetPosition(this->m_rigidBody[1]->GetPosition() - (this->m_rigidBody[1]->GetMass() * somInvMass) * m_penetration * this->m_contactNormal);
+            this->m_rigidBody[1]->SetPosition(this->m_rigidBody[1]->GetPosition() - (this->m_rigidBody[1]->GetMass() * somInvMass) * this->m_penetration * this->m_contactNormal);
         }
     }
 }

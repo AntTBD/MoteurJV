@@ -14,5 +14,5 @@ Link::~Link()
 
 float Link::currentLength() const
 {
-	return (this->rigidBody[1]->GetPosition() - this->rigidBody[0]->GetPosition()).Magnitude();
+	return (this->rigidBody[0]->GetPosition() - this->rigidBody[1]->GetPosition()).Magnitude();
 }

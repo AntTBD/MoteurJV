@@ -14,5 +14,5 @@ void Spring::UpdateForce(RigidBody* rigidBody, float duration)
     Vector3 d = rigidBody->GetPosition() - this->m_other->GetPosition();
 
     // f = - k * ( |d| - l0) * d.normalized
-    rigidBody->AddForce(-this->m_k * (d.Magnitude() - this->m_restLength) * d.Normalized());
+    rigidBody->AddForce(-this->m_k * abs(d.Magnitude() - this->m_restLength) * d.Normalized());
 }

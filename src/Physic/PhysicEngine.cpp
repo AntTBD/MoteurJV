@@ -79,19 +79,18 @@ void PhysicEngine::update(float deltaTime)
         // 1 - Update force (gravity)
         this->forceRegistry->UpdateForce(deltaTime);
 
-
-        // 3 - Add contacts
-        this->contactRegistry->UpdateContacts();
-
-        // 4 - Resolve contacts
-        this->contactRegistry->Resolve(deltaTime);
-
         // 2 - Integrate objects
         for (int i = 0; i < this->objects->size(); i++)
         {
             EngineManager::getInstance().console.log("%s %d : %s\n", typeid(*this->objects->at(i)).name(), i+1, this->objects->at(i)->toString().c_str());
             this->objects->at(i)->Integrate(deltaTime);
         }
+
+        // 3 - Add contacts
+        this->contactRegistry->UpdateContacts();
+
+        // 4 - Resolve contacts
+        this->contactRegistry->Resolve(deltaTime);
         isUpdateFinished = true;
 
     }

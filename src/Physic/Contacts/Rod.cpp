@@ -22,7 +22,7 @@ unsigned int Rod::addContact(std::vector<Contact*>* contacts, unsigned int limit
 		else if (currentLength < this->length)
 		{
             // Always use zero restitution (no bounciness).
-			contacts->push_back(new Contact(this->rigidBody[0], this->rigidBody[1], 0, (this->length - currentLength)));
+			contacts->push_back(new Contact(this->rigidBody[0], this->rigidBody[1], 0, (currentLength - this->length)));
 			return 1;
 		}
 		else

@@ -32,13 +32,13 @@ void ContactResolver::resolveContacts(std::vector<Contact*> contactArray, float 
 		{
 			// Calculer les vélocités relatives de tout les contacts et conserver la plus petite valeur
 			minSeparatingVelocity = std::numeric_limits<float>::infinity(); // on initialise le min à l'infini
-			minContactIndex = 0;
+			minContactIndex = contactArray.size();
 
 			for (int i = 0; i < contactArray.size(); i++)
 			{
 				if (contactArray[i] != nullptr) {
 					tempSeparatingVelocity = contactArray[i]->calculateSeparatingVelocity();
-					if (tempSeparatingVelocity < minSeparatingVelocity) // on conserve la plus petite valeur
+					if (tempSeparatingVelocity < minSeparatingVelocity && (tempSeparatingVelocity < 0 || contactArray[i]->m_penetration > 0)) // on conserve la plus petite valeur
 					{
 						minSeparatingVelocity = tempSeparatingVelocity;
 						minContactIndex = i;
@@ -47,7 +47,7 @@ void ContactResolver::resolveContacts(std::vector<Contact*> contactArray, float 
 			}
 
 			// Si la plus petite valeur est plus grand que 0, alors tout les contacts sont résolues
-			if (minSeparatingVelocity >= 0)
+			if (minContactIndex >= contactArray.size())
 			{
 				break;
 			}

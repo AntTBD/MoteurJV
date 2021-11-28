@@ -26,6 +26,7 @@ void Gravity::SetGravity(Vector3 gravity)
 
 void Gravity::UpdateForce(RigidBody* rigidBody, float duration)
 {
-    rigidBody->AddForce(this->m_gravity * rigidBody->GetMass());
+    // ATTENTION : set acceleration to avoid erase mass when we calculate acceleration in rigidbody integrate function
+    rigidBody->SetAcceleration(this->m_gravity * rigidBody->GetMass());
 
 }
