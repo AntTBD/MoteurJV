@@ -335,9 +335,9 @@ void RigidBody::SetInertiaTensorByType(ShapeType type) {
 
     switch (this->shapeType) {
         case 0: // sphere
-            //  I = [ 1/5 * m * (r.y� + r.z�),            0            ,           0             ,
-            //                  0             , 1/5 * m * (r.x� + r.z�),           0             ,
-            //                  0             ,            0            , 1/5 * m * (r.x� + r.y�) ]
+            //  I = [ 1/5 * m * (r.y² + r.z²),            0            ,           0             ,
+            //                  0             , 1/5 * m * (r.x² + r.z²),           0             ,
+            //                  0             ,            0            , 1/5 * m * (r.x² + r.y²) ]
             //  where m is the mass and r.x, r.y and r.z are radii along respective axes.
             // You can see by inspection that this reduces to the sphere inertia tensor when the radii are all equal
             this->inertiaTensor = Matrix33({
@@ -348,28 +348,28 @@ void RigidBody::SetInertiaTensorByType(ShapeType type) {
             break;
         case 1: // cube
         case 3: // plan
-            //  I = [ 1/12 * m * (d.y� + d.z�),            0            ,           0             ,
-            //                  0             , 1/12 * m * (d.x� + d.z�),           0             ,
-            //                  0             ,            0            , 1/12 * m * (d.x� + d.y�) ]
+            //  I = [ 1/12 * m * (d.y² + d.z²),            0            ,           0             ,
+            //                  0             , 1/12 * m * (d.x² + d.z²),           0             ,
+            //                  0             ,            0            , 1/12 * m * (d.x² + d.y²) ]
             //  where m is the mass and d.x, d.y and d.z are the extent of the cuboid along each axis.
             this->inertiaTensor = Matrix33({
-                1.f / 12.f * this->GetMass() * (pow(this->dimensions.GetY(), 2.f) + powf(this->dimensions.GetZ(), 2.f)), 0.f, 0.f,
-                0.f, 1.f / 12.f * this->GetMass() * (pow(this->dimensions.GetX(), 2.f) + powf(this->dimensions.GetZ(), 2.f)), 0.f,
-                0.f, 0.f, 1.f / 12.f * this->GetMass() * (pow(this->dimensions.GetX(), 2.f) + powf(this->dimensions.GetY(), 2.f))
+                1.f / 12.f * this->GetMass() * (pow(this->dimensions.GetY()*2.f, 2.f) + powf(this->dimensions.GetZ()*2.f, 2.f)), 0.f, 0.f,
+                0.f, 1.f / 12.f * this->GetMass() * (pow(this->dimensions.GetX()*2.f, 2.f) + powf(this->dimensions.GetZ()*2.f, 2.f)), 0.f,
+                0.f, 0.f, 1.f / 12.f * this->GetMass() * (pow(this->dimensions.GetX()*2.f, 2.f) + powf(this->dimensions.GetY()*2.f, 2.f))
             });
             break;
         case 2: // cylindre
             // d.x = r.o
             // d.y = h / 2
             // d.z = r.i
-            //  I = [ 1/12 * m * h� + 1/4 * m * (r.o� + r.i�),            0            ,           0             ,
-            //                  0             , 1/12 * m * h� + 1/4 * m * (r.o� + r.i�),           0             ,
-            //                  0             ,            0            , 1/12 * m * h� + 1/4 * m * (r.o� + r.i�) ]
+            //  I = [ 1/12 * m * h² + 1/4 * m * (r.o² + r.i²),            0            ,           0             ,
+            //                  0             , 1/12 * m * h² + 1/4 * m * (r.o² + r.i²),           0             ,
+            //                  0             ,            0            , 1/12 * m * h² + 1/4 * m * (r.o² + r.i²) ]
             //  where m is the mass and d.x, d.y and d.z are the extent of the cuboid along each axis.
             this->inertiaTensor = Matrix33({
-               1.f / 12.f * this->GetMass() * powf(this->dimensions.GetY(), 2.f) + 1.f/4.f * this->GetMass() * (powf(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetZ(), 2.f)), 0.f, 0.f,
-               0.f, 1.f / 12.f * this->GetMass() * powf(this->dimensions.GetY(), 2.f) + 1.f/4.f * this->GetMass() * (powf(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetZ(), 2.f)), 0.f,
-               0.f, 0.f, 1.f / 12.f * this->GetMass() * powf(this->dimensions.GetY(), 2.f) + 1.f/4.f * this->GetMass() * (powf(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetZ(), 2.f))
+               1.f / 12.f * this->GetMass() * powf(this->dimensions.GetY()*2.f, 2.f) + 1.f/4.f * this->GetMass() * (powf(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetZ(), 2.f)), 0.f, 0.f,
+               0.f, 1.f / 12.f * this->GetMass() * powf(this->dimensions.GetY()*2.f, 2.f) + 1.f/4.f * this->GetMass() * (powf(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetZ(), 2.f)), 0.f,
+               0.f, 0.f, 1.f / 12.f * this->GetMass() * powf(this->dimensions.GetY()*2.f, 2.f) + 1.f/4.f * this->GetMass() * (powf(this->dimensions.GetX(), 2.f) + pow(this->dimensions.GetZ(), 2.f))
             });
             break;
     }

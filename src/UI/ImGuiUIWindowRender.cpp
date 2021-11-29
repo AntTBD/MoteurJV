@@ -195,7 +195,7 @@ void ImGuiUIWindowRender::render3D() {
         OpenGLRendererManager::drawSphere(Vector3(2,2,2), obj->GetPosition(), obj->GetTransform()); // create a small sphere to simulate mouse click
         // draw line
         if (EngineManager::getInstance().getScene()->getObjects()->size() > 0) {
-            OpenGLRendererManager::drawLine(obj->GetPosition(), EngineManager::getInstance().getScene()->GetObject(0)->GetPosition());//+EngineManager::getInstance().getScene()->GetObject(0)->GetDimensions());
+            OpenGLRendererManager::drawLine(obj->GetPosition(), EngineManager::getInstance().getScene()->GetObject(0)->GetPointInWorldSpace(EngineManager::getInstance().getScene()->GetObject(0)->GetDimensions()));
         }
     }
 
@@ -240,7 +240,7 @@ void ImGuiUIWindowRender::checkToAddObjects()
             float restLength = 0.f;
             //obj->AddForce(-k * (d.Magnitude() - restLength) * d.Normalized());
             //obj->AddTorque(-k * (d.Magnitude() - restLength) * d.Normalized());
-            obj->AddForceAtPoint(-k * abs(d.Magnitude() - restLength) * d.Normalized(), Vector3());//obj->GetDimensions());
+            obj->AddForceAtBodyPoint(-k * abs(d.Magnitude() - restLength) * d.Normalized(), obj->GetDimensions()*-1.f);
             //p->SetPosition(pos);
         }
     }
