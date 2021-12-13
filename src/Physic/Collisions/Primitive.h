@@ -1,13 +1,14 @@
 #pragma once
-#include "../MoteurJV/src/Physic/RigidBody.h"
+#include "../RigidBody.h"
 
 
 class Primitive
 {
 public:
-	RigidBody* body;
-	Matrix34 offset;
+	RigidBody* body;	// Primitive d'un objet
+	Matrix34 offset;	// Transformation par rapport au centre de l'objet
 
 
+	virtual float distancePoint(Vector3 point);
 
 };

@@ -2,8 +2,14 @@
 #include "Primitive.h"
 class Plane : public Primitive
 {
-	public :
+private :
 		Vector3 normal;
-		//real offset; 
+		float offset; 
+
+
+public :
+
+	float distancePoint(Vector3 point);
+	
 };
 

@@ -2,8 +2,15 @@
 #include "Primitive.h"
 class Sphere : public Primitive
 {
-	public :
-		//real radius;
+private :
+	Vector3 centre;
+	float radius;
+		
+
+public :
+	float distancePoint(Vector3 point);
+	
+		 
 
 
 };
