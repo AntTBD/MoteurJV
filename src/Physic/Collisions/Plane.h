@@ -9,6 +9,20 @@ private :
 
 public :
 
+	// Constructors
+	Plane();
+	Plane(Vector3 normal, float offset);
+
+	// Getters & Setters
+	Vector3 getNormal();
+	float getOffset();
+
+	void setNormal(Vector3 normal);
+	void setOffset(float offset);
+
+
+
+
 	float distancePoint(Vector3 point);
 	
 };
