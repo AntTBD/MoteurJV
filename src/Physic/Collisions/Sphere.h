@@ -17,17 +17,5 @@ public :
 	float getRadius();
 
 	void setRadius(float radius);
-
-
-
-
-
-	//float distance2Spheres(Sphere sphere);
-
-	//float distancePoint(Vector3 point);
-	
-		 
-
-
 };
 

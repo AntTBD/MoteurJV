@@ -56,10 +56,3 @@ void Box::setHalfZ(float Z)
 {
 	this->halfSize.SetZ(Z);
 }
-
-
-// Functions 
-float Box::distancePoint(Vector3 point)
-{
-	return 0.0f;
-}

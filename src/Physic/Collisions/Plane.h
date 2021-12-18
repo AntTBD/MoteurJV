@@ -21,12 +21,6 @@ public :
 
 	void setNormal(Vector3 normal);
 	void setOffset(float offset);
-
-
-
-
-	//float distancePoint(Vector3 point);
-	//float distanceSpherePlan(Sphere sphere);
 	
 };
 

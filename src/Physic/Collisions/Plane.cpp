@@ -33,18 +33,3 @@ void Plane::setOffset(float offset)
 {
 	this->offset = offset;
 }
-
-/*float Plane::distancePoint(Vector3 point)
-{
-	return normal.Normalize().DotProduct(point) - offset;
-}
-
-float Plane::distanceSpherePlan(Sphere sphere)
-{
-
-
-	return normal.Normalize().DotProduct(sphere.getCenter()) - offset;
-
-	return 0.0f;
-}
-*/
