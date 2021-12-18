@@ -149,23 +149,8 @@
     <ClCompile Include="src\Demos\AdvancedCollisionDetection.cpp">
       <Filter>Sources\Demos</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physic\Collisions\Box.cpp">
-      <Filter>Sources\Physic\Collisions</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Physic\Collisions\Plane.cpp">
-      <Filter>Sources\Physic\Collisions</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Physic\Collisions\Primitive.cpp">
-      <Filter>Sources\Physic\Collisions</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Physic\Collisions\Sphere.cpp">
-      <Filter>Sources\Physic\Collisions</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Physic\Collisions\CollisionData.cpp">
-      <Filter>Sources\Physic\Collisions</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Physic\Collisions\CollisionDetector.cpp">
-      <Filter>Sources\Physic\Collisions</Filter>
+    <ClCompile Include="src\Math\BVH.cpp">
+      <Filter>Sources\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -328,23 +313,11 @@
     <ClInclude Include="src\Demos\AdvancedCollisionDetection.h">
       <Filter>Sources\Demos</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Collisions\Box.h">
-      <Filter>Sources\Physic\Collisions</Filter>
+    <ClInclude Include="src\Math\BoundingSphere.h">
+      <Filter>Sources\Math</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physic\Collisions\Plane.h">
-      <Filter>Sources\Physic\Collisions</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Physic\Collisions\Primitive.h">
-      <Filter>Sources\Physic\Collisions</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Physic\Collisions\Sphere.h">
-      <Filter>Sources\Physic\Collisions</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Physic\Collisions\CollisionData.h">
-      <Filter>Sources\Physic\Collisions</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Physic\Collisions\CollisionDetector.h">
-      <Filter>Sources\Physic\Collisions</Filter>
+    <ClInclude Include="src\Math\BVH.h">
+      <Filter>Sources\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -386,9 +359,6 @@
     </Filter>
     <Filter Include="Sources\Demos">
       <UniqueIdentifier>{e7dc8400-7aad-4bc9-a76a-236fa9ffe8e1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Physic\Collisions">
-      <UniqueIdentifier>{92a9fbd4-fd2a-461c-92d5-dd2dd2429f87}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
