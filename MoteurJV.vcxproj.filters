@@ -152,6 +152,24 @@
     <ClCompile Include="src\Math\BVH.cpp">
       <Filter>Sources\Math</Filter>
     </ClCompile>
+    <ClCompile Include="src\Physic\Collisions\Box.cpp">
+      <Filter>Sources\Physic\Collisions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Collisions\CollisionData.cpp">
+      <Filter>Sources\Physic\Collisions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Collisions\CollisionDetector.cpp">
+      <Filter>Sources\Physic\Collisions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Collisions\Plane.cpp">
+      <Filter>Sources\Physic\Collisions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Collisions\Primitive.cpp">
+      <Filter>Sources\Physic\Collisions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Collisions\Sphere.cpp">
+      <Filter>Sources\Physic\Collisions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\imgui-1.84.2\imconfig.h">
@@ -319,6 +337,24 @@
     <ClInclude Include="src\Math\BVH.h">
       <Filter>Sources\Math</Filter>
     </ClInclude>
+    <ClInclude Include="src\Physic\Collisions\Box.h">
+      <Filter>Sources\Physic\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Collisions\CollisionData.h">
+      <Filter>Sources\Physic\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Collisions\CollisionDetector.h">
+      <Filter>Sources\Physic\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Collisions\Plane.h">
+      <Filter>Sources\Physic\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Collisions\Primitive.h">
+      <Filter>Sources\Physic\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Collisions\Sphere.h">
+      <Filter>Sources\Physic\Collisions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">
@@ -359,6 +395,9 @@
     </Filter>
     <Filter Include="Sources\Demos">
       <UniqueIdentifier>{e7dc8400-7aad-4bc9-a76a-236fa9ffe8e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Physic\Collisions">
+      <UniqueIdentifier>{9985a225-fe00-4776-8d89-63943d21598d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

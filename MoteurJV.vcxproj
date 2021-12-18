@@ -207,6 +207,12 @@
     <ClCompile Include="src\Math\Quaternion.cpp" />
     <ClCompile Include="src\Math\Vector3.cpp" />
     <ClCompile Include="src\MoteurJV.cpp" />
+    <ClCompile Include="src\Physic\Collisions\Box.cpp" />
+    <ClCompile Include="src\Physic\Collisions\CollisionData.cpp" />
+    <ClCompile Include="src\Physic\Collisions\CollisionDetector.cpp" />
+    <ClCompile Include="src\Physic\Collisions\Plane.cpp" />
+    <ClCompile Include="src\Physic\Collisions\Primitive.cpp" />
+    <ClCompile Include="src\Physic\Collisions\Sphere.cpp" />
     <ClCompile Include="src\Physic\Contacts\GroundContactGenerator.cpp" />
     <ClCompile Include="src\Physic\Contacts\NaiveContactGenerator.cpp" />
     <ClCompile Include="src\Physic\Contacts\Cable.cpp" />
@@ -262,6 +268,12 @@
     <ClInclude Include="src\Math\Matrix34.h" />
     <ClInclude Include="src\Math\Quaternion.h" />
     <ClInclude Include="src\Math\Vector3.h" />
+    <ClInclude Include="src\Physic\Collisions\Box.h" />
+    <ClInclude Include="src\Physic\Collisions\CollisionData.h" />
+    <ClInclude Include="src\Physic\Collisions\CollisionDetector.h" />
+    <ClInclude Include="src\Physic\Collisions\Plane.h" />
+    <ClInclude Include="src\Physic\Collisions\Primitive.h" />
+    <ClInclude Include="src\Physic\Collisions\Sphere.h" />
     <ClInclude Include="src\Physic\Contacts\GroundContactGenerator.h" />
     <ClInclude Include="src\Physic\Contacts\NaiveContactGenerator.h" />
     <ClInclude Include="src\Physic\Contacts\Cable.h" />

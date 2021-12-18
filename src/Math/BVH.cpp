@@ -48,4 +48,6 @@ Node* Node::getBrother()
 	{
 
 	}
+
+	return brother;
 }

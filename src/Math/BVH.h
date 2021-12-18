@@ -6,8 +6,8 @@
 #include <iostream>
 
 #include "BoundingSphere.h"
-//#include "Primitive.h"
-//#include "CollisionData.h"
+#include "Physic/Collisions/Primitive.h"
+#include "Physic/Collisions/CollisionData.h"
 
 class Primitive;
 class CollisionData;
