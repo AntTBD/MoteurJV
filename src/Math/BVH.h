@@ -15,12 +15,12 @@ class CollisionData;
 class Node {
 private:
 	Node* parentNode;
-	std::vector<Node*> childNodes;
-	
-	BoundingSphere sphere;
-	Primitive primitive;
 
 public:
+	BoundingSphere sphere;
+	Primitive primitive;
+	std::vector<Node*> childNodes;
+
 	//Constructor
 	Node();
 	Node(BoundingSphere sphere);
@@ -28,12 +28,12 @@ public:
 
 	//Sphere
 	float getSphereVolume();
-	BoundingSphere addSphere(BoundingSphere sphereA, BoundingSphere sphereB);
+	BoundingSphere sphereBouding2Nodes(BoundingSphere sphereA, BoundingSphere sphereB);
 
 	//Node
 	bool hasParent() { return parentNode != nullptr; }
 	bool isLeaf() { return childNodes.size() == 0; }
-	Node* getBrother();
+	Node* getBrotherNode();
 	void RemoveFromChild(Node* node);
 
 	void insertNode(Node* node);
@@ -41,4 +41,18 @@ public:
 
 	void print(int degree);
 
+};
+
+class BVH
+{
+private:
+	Node* root;
+
+public:
+	//Constructor
+	BVH();
+	BVH(BoundingSphere sphere);
+
+	void broadPhaseCheck(Node* parent, CollisionData* cd);
+	void broadPhaseCheck();
 };
