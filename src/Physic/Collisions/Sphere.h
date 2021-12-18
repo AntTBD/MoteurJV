@@ -22,9 +22,9 @@ public :
 
 
 
-	float distance2Spheres(Sphere sphere);
+	//float distance2Spheres(Sphere sphere);
 
-	float distancePoint(Vector3 point);
+	//float distancePoint(Vector3 point);
 	
 		 
 

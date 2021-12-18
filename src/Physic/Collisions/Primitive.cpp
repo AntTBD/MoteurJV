@@ -1,6 +1,6 @@
 #include "Primitive.h"
 
-Vector3 Primitive::getCenter()
+Vector3 Primitive::getCenter() const
 {
     return this->center;
 }
