@@ -41,7 +41,9 @@ float Plane::distancePoint(Vector3 point)
 
 float Plane::distanceSpherePlan(Sphere sphere)
 {
-	return normal.Normalize().DotProduct(sphere.getCentre()) - offset;
+
+
+	return normal.Normalize().DotProduct(sphere.getCenter()) - offset;
 
 	return 0.0f;
 }

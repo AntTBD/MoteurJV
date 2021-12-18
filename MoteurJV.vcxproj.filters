@@ -161,6 +161,12 @@
     <ClCompile Include="src\Physic\Collisions\Sphere.cpp">
       <Filter>Sources\Physic\Collisions</Filter>
     </ClCompile>
+    <ClCompile Include="src\Physic\Collisions\CollisionData.cpp">
+      <Filter>Sources\Physic\Collisions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physic\Collisions\CollisionDetector.cpp">
+      <Filter>Sources\Physic\Collisions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\imgui-1.84.2\imconfig.h">
@@ -332,6 +338,12 @@
       <Filter>Sources\Physic\Collisions</Filter>
     </ClInclude>
     <ClInclude Include="src\Physic\Collisions\Sphere.h">
+      <Filter>Sources\Physic\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Collisions\CollisionData.h">
+      <Filter>Sources\Physic\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\Collisions\CollisionDetector.h">
       <Filter>Sources\Physic\Collisions</Filter>
     </ClInclude>
   </ItemGroup>
