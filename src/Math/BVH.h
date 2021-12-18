@@ -56,4 +56,5 @@ public:
 
 	void broadPhaseCheck(Node* parent, CollisionData* cd);
 	void broadPhaseCheck();
+	void insertNode(Node* node);
 };
