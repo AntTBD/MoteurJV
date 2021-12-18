@@ -24,7 +24,8 @@ public:
 	//Constructor
 	Node();
 	Node(BoundingSphere sphere);
-	Node(Primitive prim);
+	Node(Primitive _primitive);
+	Node(BoundingSphere sphere, Primitive _primitive);
 
 	//Sphere
 	float getSphereVolume();

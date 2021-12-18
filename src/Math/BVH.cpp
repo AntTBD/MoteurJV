@@ -20,6 +20,13 @@ Node::Node(Primitive _primitive)
 	this->primitive = _primitive;
 }
 
+Node::Node(BoundingSphere sphere, Primitive _primitive)
+{
+	this->parentNode = nullptr;
+	this->sphere = sphere;
+	this->primitive = _primitive;
+}
+
 float Node::getSphereVolume()
 {
 	return  (4 / 3) * 3.14 * sphere.radius * sphere.radius;
@@ -183,4 +190,9 @@ void BVH::broadPhaseCheck()
 {
 	CollisionData* cd = new CollisionData();
 	broadPhaseCheck(this->root, cd);
+}
+
+void BVH::insertNode(Node* node)
+{
+	root->insertNode(node);
 }
