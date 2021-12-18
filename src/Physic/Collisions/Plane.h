@@ -1,5 +1,7 @@
 #pragma once
 #include "Primitive.h"
+#include "Sphere.h"
+
 class Plane : public Primitive
 {
 private :

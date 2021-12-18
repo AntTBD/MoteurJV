@@ -1,8 +1,5 @@
 #pragma once
 #include "../RigidBody.h"
-#include "Box.h"
-#include "Sphere.h"
-#include "Plane.h"
 
 
 class Primitive
