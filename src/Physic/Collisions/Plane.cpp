@@ -14,12 +14,12 @@ Plane::Plane(Vector3 normal, float offset)
 	this->offset = offset;
 }
 
-Vector3 Plane::getNormal()
+Vector3 Plane::getNormal() const
 {
 	return this->normal;
 }
 
-float Plane::getOffset()
+float Plane::getOffset() const
 {
 	return this->offset;
 }

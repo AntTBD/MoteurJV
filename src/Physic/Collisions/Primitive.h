@@ -1,5 +1,7 @@
 #pragma once
 #include "../RigidBody.h"
+#include "../Contacts/Contact.h"
+
 
 
 class Primitive
