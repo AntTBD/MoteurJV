@@ -2,11 +2,8 @@
 #include "Primitive.h"
 class Sphere : public Primitive
 {
-private :
-	float radius;
-		
-
 public :
+	float radius;
 
 	// Constructors
 
@@ -16,15 +13,9 @@ public :
 
 
 	// Getters & Setters
-	Vector3 getCentre();
 	float getRadius();
 
-	void setCentre(Vector3 centre);
 	void setRadius(float radius);
-
-
-
-
 
 
 

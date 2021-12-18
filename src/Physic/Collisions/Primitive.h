@@ -13,6 +13,9 @@ public:
 	Vector3 center;
 
 
+    // Getters & Setters
+    Vector3 getCenter();
+    void setCenter(Vector3 center);
 	
 
 	virtual float distancePoint(Vector3 point);

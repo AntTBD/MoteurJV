@@ -4,21 +4,17 @@
 // Constuctors
 Box::Box()
 {
-	this->centre = Vector3();
+	this->center = Vector3();
 	this->halfSize = Vector3(1, 1, 1);
 }
 
-Box::Box(Vector3 centre, Vector3 halfsize)
+Box::Box(Vector3 center, Vector3 halfsize)
 {
-	this->centre = centre;
+	this->center = center;
 	this->halfSize = halfSize;
 }
 
 // Getters
-Vector3 Box::getCentre()
-{
-	return this->centre;
-}
 
 Vector3 Box::getHalfSize()
 {
@@ -41,11 +37,6 @@ float Box::getHalfZ()
 }
 
 // Setters
-void Box::setCentre(Vector3 centre)
-{
-	this->centre = centre;
-}
-
 void Box::setHalfSize(Vector3 halfSize)
 {
 	this->halfSize = halfSize;

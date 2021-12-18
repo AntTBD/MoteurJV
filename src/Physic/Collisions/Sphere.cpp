@@ -6,15 +6,10 @@ Sphere::Sphere()
 	this->radius = 1;
 }
 
-Sphere::Sphere(Vector3 centre, float radius)
+Sphere::Sphere(Vector3 center, float radius)
 {
-	this->center = centre;
+	this->center = center;
 	this->radius = radius;
-}
-
-Vector3 Sphere::getCentre()
-{
-	return this->center;
 }
 
 float Sphere::getRadius()
@@ -22,10 +17,6 @@ float Sphere::getRadius()
 	return this->radius;
 }
 
-void Sphere::setCentre(Vector3 centre)
-{
-	this->center = centre;
-}
 
 void Sphere::setRadius(float radius)
 {
@@ -34,7 +25,7 @@ void Sphere::setRadius(float radius)
 
 float Sphere::distance2Spheres(Sphere sphere)
 {
-	float normalSquare = pow(sphere.getCentre().GetX() - this->center.GetX(), 2) + pow(sphere.getCentre().GetY() - this->center.GetY(), 2) + pow(sphere.getCentre().GetZ() - this->center.GetZ(), 2);
+	float normalSquare = pow(sphere.getCenter().GetX() - this->center.GetX(), 2) + pow(sphere.getCenter().GetY() - this->center.GetY(), 2) + pow(sphere.getCenter().GetZ() - this->center.GetZ(), 2);
 	float sumRadiusSquare = pow(sphere.getRadius() + this->radius, 2);
 	return normalSquare - sumRadiusSquare;
 }
