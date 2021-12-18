@@ -217,15 +217,6 @@ unsigned CollisionDetector::boxAndHalfSpace(
     CHECK_OVERLAP(two.getAxis(2), 5);
 
 
-
-
-
-
-
-
-
-
-
     return 0;
 }
 

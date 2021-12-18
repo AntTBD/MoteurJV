@@ -16,8 +16,8 @@ public :
 	Plane(Vector3 normal, float offset);
 
 	// Getters & Setters
-	Vector3 getNormal();
-	float getOffset();
+	Vector3 getNormal() const;
+	float getOffset() const;
 
 	void setNormal(Vector3 normal);
 	void setOffset(float offset);
