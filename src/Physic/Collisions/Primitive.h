@@ -10,7 +10,7 @@ class Primitive
 public:
 	RigidBody* body;	// Primitive d'un objet
 	Matrix34 offset;	// Transformation par rapport au centre de l'objet
-
+	Vector3 center;
 
 
 	

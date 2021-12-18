@@ -3,7 +3,6 @@
 class Sphere : public Primitive
 {
 private :
-	Vector3 centre;
 	float radius;
 		
 
@@ -12,7 +11,7 @@ public :
 	// Constructors
 
 	Sphere();
-	Sphere(Vector3 centre, float radius);
+	Sphere(Vector3 center, float radius);
 
 
 

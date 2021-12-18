@@ -1,6 +1,6 @@
 #pragma once
 #include "Primitive.h"
-class Box
+class Box : public Primitive
 {
 private :
 	Vector3 centre;

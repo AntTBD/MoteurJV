@@ -24,6 +24,7 @@ public :
 
 
 	float distancePoint(Vector3 point);
+	float distanceSpherePlan(Sphere sphere);
 	
 };
 
