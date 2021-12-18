@@ -11,7 +11,7 @@ public:
 
 
     // Getters & Setters
-    Vector3 getCenter();
+    Vector3 getCenter() const;
     void setCenter(Vector3 center);
 	
 
