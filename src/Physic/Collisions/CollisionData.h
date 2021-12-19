@@ -10,6 +10,8 @@ public:
 
     void addContact(Contact *contact);
 
+    //void generateContact(primitive1, primitive2);
+
 
     std::string toString() const;
 

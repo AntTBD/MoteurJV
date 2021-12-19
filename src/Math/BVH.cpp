@@ -3,24 +3,27 @@
 Node::Node()
 {
 	this->parentNode = nullptr;
+    this->primitive = nullptr;
 	this->sphere = BoundingSphere();
 	this->sphere.center = Vector3();
 	this->sphere.radius = 0;
+    this->childNodes = std::vector<Node*>();
 }
 
-Node::Node(Primitive _primitive)
+Node::Node(Primitive* _primitive)
 {
 	this->parentNode = nullptr;
 	this->primitive = _primitive;
 
 	BoundingSphere sphere;
-	sphere.center = this->primitive.center;
-	sphere.radius = this->primitive.body->GetDimensions().GetMaxValue();
+	sphere.center = this->primitive->getCenter();
+	sphere.radius = this->primitive->body->GetDimensions().GetMaxValue();
+    this->childNodes = std::vector<Node*>();
 }
 
 float Node::getSphereVolume()
 {
-	return  (4 / 3) * 3.14 * sphere.radius * sphere.radius;
+	return  (4.f / 3.f) * 3.14f * sphere.radius * sphere.radius;
 }
 
 BoundingSphere Node::sphereBouding2Nodes(BoundingSphere sphereA, BoundingSphere sphereB)

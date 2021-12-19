@@ -15,6 +15,9 @@
 #include "Contacts/Rod.h"
 // include threads
 #include <thread>
+// collisions
+#include "../Math/BVH.h"
+#include "Collisions/Primitive.h"
 
 // engine to get scene and objects
 #include "../EngineManager.h"
@@ -22,7 +25,7 @@
 
 //////////////////////////////////////////
 //          change type of objects (Particle - RigidBody)
-#define Object RigidBody
+#define Object Primitive
 //////////////////////////////////////////
 
 class PhysicEngine {
@@ -39,6 +42,7 @@ private:
     // to know if thread is running
     bool isSimulating;
     std::thread physicEngineThread;
+
 public:
     float dT; // init at the beginning of .cpp
 

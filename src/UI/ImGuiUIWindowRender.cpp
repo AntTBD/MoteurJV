@@ -195,7 +195,7 @@ void ImGuiUIWindowRender::render3D() {
         OpenGLRendererManager::drawSphere(Vector3(2,2,2), obj->GetPosition(), obj->GetTransform()); // create a small sphere to simulate mouse click
         // draw line
         if (EngineManager::getInstance().getScene()->getObjects()->size() > 0) {
-            OpenGLRendererManager::drawLine(obj->GetPosition(), EngineManager::getInstance().getScene()->GetObject(0)->GetPointInWorldSpace(EngineManager::getInstance().getScene()->GetObject(0)->GetDimensions()));
+            OpenGLRendererManager::drawLine(obj->GetPosition(), EngineManager::getInstance().getScene()->GetObject(0)->body->GetPointInWorldSpace(EngineManager::getInstance().getScene()->GetObject(0)->body->GetDimensions()));
         }
     }
 
@@ -221,7 +221,8 @@ void ImGuiUIWindowRender::checkToAddObjects()
         Vector3 pos = Vector3((offsetPosition.GetX() + (float)mousePositionInChild.x) / ratio, (offsetPosition.GetY() - (float)mousePositionInChild.y) / ratio, 0);
         std::cout << pos << std::endl;
         float mass = 10.0f;
-        auto obj = new RigidBody(mass, pos);
+        auto obj = new Primitive();
+        obj->body = new RigidBody(mass, pos);
         EngineManager::getInstance().getScene()->addObject(*obj);
     }
 
@@ -234,13 +235,13 @@ void ImGuiUIWindowRender::checkToAddObjects()
         if (obj != nullptr) {
 // same as spring
             // d = xa - xb
-            Vector3 d = (obj->GetPosition() - pos);
+            Vector3 d = (obj->body->GetPosition() - pos);
             // f = - k * ( |d| - l0) * d.normalized
             float k = 5.f;
             float restLength = 0.f;
             //obj->AddForce(-k * (d.Magnitude() - restLength) * d.Normalized());
             //obj->AddTorque(-k * (d.Magnitude() - restLength) * d.Normalized());
-            obj->AddForceAtBodyPoint(-k * abs(d.Magnitude() - restLength) * d.Normalized(), obj->GetDimensions()*-1.f);
+            obj->body->AddForceAtBodyPoint(-k * abs(d.Magnitude() - restLength) * d.Normalized(), obj->body->GetDimensions()*-1.f);
             //p->SetPosition(pos);
         }
     }

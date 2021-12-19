@@ -8,4 +8,4 @@ typedef struct BoundingSphere {
 	Vector3 center;
 	float radius;
 
-};
+}BoundingSphere;

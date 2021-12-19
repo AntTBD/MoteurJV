@@ -14,16 +14,16 @@ class CollisionData;
 
 class Node {
 private:
-	Node* parentNode;
 
 public:
+    Node* parentNode;
 	BoundingSphere sphere;
-	Primitive primitive;
+	Primitive* primitive;
 	std::vector<Node*> childNodes;
 
 	//Constructor
 	Node();
-	Node(Primitive _primitive);
+	Node(Primitive* _primitive);
 
 	//Sphere
 	float getSphereVolume();
@@ -45,9 +45,9 @@ public:
 class BVH
 {
 private:
-	Node* root;
 
 public:
+    Node* root;
 	//Constructor
 	BVH();
 

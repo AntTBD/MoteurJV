@@ -26,7 +26,7 @@ Camera *Scene::getCamera() {
 
 void Scene::addObject(Object &object) {
     this->objects->push_back(&object);
-    EngineManager::getInstance().console.logSuccess("Add %s %d: %s\n", typeid(object).name(), this->objects->size(),object.toString().c_str());
+    EngineManager::getInstance().console.logSuccess("Add %s %d: %s\n", typeid(object).name(), this->objects->size(),object.body->toString().c_str());
 
 }
 
@@ -52,20 +52,20 @@ void Scene::draw() {
 void Scene::drawObjects() {
     for (auto &object : this->getObjectsByCopy()) // Browse objects
     {
-        Vector3 pos = object->GetPosition(); // Get position
-        Vector3 rot = object->GetOrientation().ToEulerInDegrees();
-        switch(object->GetShapeType()){
+        Vector3 pos = object->body->GetPosition(); // Get position
+        Vector3 rot = object->body->GetOrientation().ToEulerInDegrees();
+        switch(object->body->GetShapeType()){
             case RigidBody::ShapeType::Sphere :
-                OpenGLRendererManager::drawSphere(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small sphere to simulate object in 3D
+                OpenGLRendererManager::drawSphere(object->body->GetDimensions(), object->body->GetPosition(), object->body->GetTransform(), rot); // create a small sphere to simulate object in 3D
                 break;
             case RigidBody::ShapeType::Cube:
-                OpenGLRendererManager::drawCube(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small Cube to simulate object in 3D
+                OpenGLRendererManager::drawCube(object->body->GetDimensions(), object->body->GetPosition(), object->body->GetTransform(), rot); // create a small Cube to simulate object in 3D
                 break;
             case RigidBody::ShapeType::Plan:
-                OpenGLRendererManager::drawRect2D(object->GetDimensions(), object->GetPosition(), object->GetTransform()); // create a plan
+                OpenGLRendererManager::drawRect2D(object->body->GetDimensions(), object->body->GetPosition(), object->body->GetTransform()); // create a plan
                 break;
             default:// draw sphere by default
-                OpenGLRendererManager::drawSphere(object->GetDimensions(), object->GetPosition(), object->GetTransform(), rot); // create a small sphere to simulate object in 3D
+                OpenGLRendererManager::drawSphere(object->body->GetDimensions(), object->body->GetPosition(), object->body->GetTransform(), rot); // create a small sphere to simulate object in 3D
                 break;
         }
     }

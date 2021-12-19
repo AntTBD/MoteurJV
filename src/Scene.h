@@ -16,7 +16,7 @@
 
 //////////////////////////////////////////
 //          change type of objects (Particle - RigidBody)
-#define Object RigidBody
+#define Object Primitive
 //////////////////////////////////////////
 
 class Scene {

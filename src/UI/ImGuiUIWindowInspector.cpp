@@ -24,7 +24,7 @@ void ImGuiUIWindowInspector::update()
                 // Iterate placeholder objects (all the same data)
                 for (int obj_i = 0; obj_i < listOfObectsInScene.size(); obj_i++)
                 {
-                    this->ShowPlaceholderObject((listOfObectsInScene.at(obj_i)->GetName() == nullptr ? "Object" : listOfObectsInScene.at(obj_i)->GetName()), obj_i);
+                    this->ShowPlaceholderObject((listOfObectsInScene.at(obj_i)->body->GetName() == nullptr ? "Object" : listOfObectsInScene.at(obj_i)->body->GetName()), obj_i);
                     //ImGui::Separator();
                 }
                 ImGui::EndTable();
@@ -52,13 +52,13 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
     {
         int i = 0;
 
-        Vector3 objectPos = EngineManager::getInstance().getScene()->GetObject(uid)->GetPosition();
-        Vector3 objectVelocity = EngineManager::getInstance().getScene()->GetObject(uid)->GetVelocity();
-        Vector3 objectAngularVelocity = EngineManager::getInstance().getScene()->GetObject(uid)->GetAngularVelocity();
-        Vector3 objectOrientation = EngineManager::getInstance().getScene()->GetObject(uid)->GetOrientation().ToEulerInDegrees();
-        float objectMass = EngineManager::getInstance().getScene()->GetObject(uid)->GetMass();
-        Vector3 objectDimensions = EngineManager::getInstance().getScene()->GetObject(uid)->GetDimensions();
-        RigidBody::ShapeType objectShapeType = EngineManager::getInstance().getScene()->GetObject(uid)->GetShapeType();
+        Vector3 objectPos = EngineManager::getInstance().getScene()->GetObject(uid)->body->GetPosition();
+        Vector3 objectVelocity = EngineManager::getInstance().getScene()->GetObject(uid)->body->GetVelocity();
+        Vector3 objectAngularVelocity = EngineManager::getInstance().getScene()->GetObject(uid)->body->GetAngularVelocity();
+        Vector3 objectOrientation = EngineManager::getInstance().getScene()->GetObject(uid)->body->GetOrientation().ToEulerInDegrees();
+        float objectMass = EngineManager::getInstance().getScene()->GetObject(uid)->body->GetMass();
+        Vector3 objectDimensions = EngineManager::getInstance().getScene()->GetObject(uid)->body->GetDimensions();
+        RigidBody::ShapeType objectShapeType = EngineManager::getInstance().getScene()->GetObject(uid)->body->GetShapeType();
 
 
         // ============================= Position =================================
@@ -66,7 +66,7 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
         //this->ShowVector3PlaceHolder(objectPos, uid, "Position");
         Vector3 newValuesPosition = this->ShowVector3PlaceHolder(objectPos, uid, "Position");
         if(newValuesPosition != objectPos){
-            EngineManager::getInstance().getScene()->GetObject(uid)->SetPosition(newValuesPosition);
+            EngineManager::getInstance().getScene()->GetObject(uid)->body->SetPosition(newValuesPosition);
         }
         ImGui::PopID();
         i++;
@@ -77,7 +77,7 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
         //this->ShowVector3PlaceHolder(objectOrientation, uid, "Orientation");
         Vector3 newValuesOrientation = this->ShowVector3PlaceHolder(objectOrientation, uid, u8"Orientation °");
         if(newValuesOrientation != objectOrientation){
-            EngineManager::getInstance().getScene()->GetObject(uid)->SetOrientation(Quaternion::EulerInDegreesToQuaternion(newValuesOrientation));
+            EngineManager::getInstance().getScene()->GetObject(uid)->body->SetOrientation(Quaternion::EulerInDegreesToQuaternion(newValuesOrientation));
         }
         ImGui::EndDisabled();
         ImGui::PopID();
@@ -89,7 +89,7 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
         //this->ShowVector3PlaceHolder(objectVelocity, uid, "Velocity");
         Vector3 newValuesVelocity = this->ShowVector3PlaceHolder(objectVelocity, uid, "Velocity");
         if(newValuesVelocity != objectVelocity){
-            EngineManager::getInstance().getScene()->GetObject(uid)->SetVelocity(newValuesVelocity);
+            EngineManager::getInstance().getScene()->GetObject(uid)->body->SetVelocity(newValuesVelocity);
         }
         ImGui::EndDisabled();
         ImGui::PopID();
@@ -101,7 +101,7 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
         //this->ShowVector3PlaceHolder(objectAngularVelocity, uid, "Angular Velocity");
         Vector3 newValuesAngularVelocity = this->ShowVector3PlaceHolder(objectAngularVelocity, uid, "Angular Velocity");
         if(newValuesAngularVelocity != objectAngularVelocity){
-            EngineManager::getInstance().getScene()->GetObject(uid)->SetAngularVelocity(newValuesAngularVelocity);
+            EngineManager::getInstance().getScene()->GetObject(uid)->body->SetAngularVelocity(newValuesAngularVelocity);
         }
         ImGui::EndDisabled();
         ImGui::PopID();
@@ -112,7 +112,7 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
         //this->ShowVector3PlaceHolder(objectMass, uid, "Position");
         float newValuesMass = this->ShowVector3PlaceHolder(objectMass, uid, "Mass");
         if(newValuesMass != objectMass){
-            EngineManager::getInstance().getScene()->GetObject(uid)->SetMass(newValuesMass);
+            EngineManager::getInstance().getScene()->GetObject(uid)->body->SetMass(newValuesMass);
         }
         ImGui::PopID();
         i++;
@@ -123,7 +123,7 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
         //this->ShowVector3PlaceHolder(objectDimensions, uid, "Dimensions");
         Vector3 newValuesDimensions = this->ShowVector3PlaceHolder(objectDimensions, uid, "Dimensions\nfrom center\nto exterior");
         if(newValuesDimensions != objectDimensions){
-            EngineManager::getInstance().getScene()->GetObject(uid)->SetDimensions(newValuesDimensions);
+            EngineManager::getInstance().getScene()->GetObject(uid)->body->SetDimensions(newValuesDimensions);
         }
         ImGui::EndDisabled();
         ImGui::PopID();
@@ -135,7 +135,7 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
         //this->ShowVector3PlaceHolder(objectShapeType, uid, "Shape");
         auto newValuesShapeType = this->ShowDropdownPlaceHolder<RigidBody::ShapeType>(objectShapeType, {"Sphere", "Cube", "Cylinder", "Plan"}, uid, "Shape");
         if(int(newValuesShapeType) != int(objectShapeType)){
-            EngineManager::getInstance().getScene()->GetObject(uid)->SetShapeType(newValuesShapeType);
+            EngineManager::getInstance().getScene()->GetObject(uid)->body->SetShapeType(newValuesShapeType);
         }
         ImGui::EndDisabled();
         ImGui::PopID();

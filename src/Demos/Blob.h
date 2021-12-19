@@ -4,7 +4,7 @@
 
 //////////////////////////////////////////
 //          change type of objects (Particle - RigidBody)
-#define Object RigidBody
+//#define Object RigidBody
 //////////////////////////////////////////
 class Blob
 {
