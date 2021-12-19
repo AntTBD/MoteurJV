@@ -5,7 +5,7 @@
 // Bounding Sphere 
 typedef struct BoundingSphere {
 
-	Vector3 center;
-	float radius;
+	Vector3 center = Vector3();
+	float radius = 0;
 
 }BoundingSphere;
