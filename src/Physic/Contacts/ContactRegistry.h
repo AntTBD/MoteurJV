@@ -27,5 +27,7 @@ public:
 	void UpdateContacts();
 	void Resolve(float deltaTime);
 	void Clear();
+
+    void SetContactList(std::vector<Contact*> list);
 };
 

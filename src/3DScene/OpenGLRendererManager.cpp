@@ -157,6 +157,14 @@ void OpenGLRendererManager::drawRect2D(const Vector3& dimensions, const Vector3&
     glScalef(2.f * dimensions.GetX(), 1.0, 2.f * dimensions.GetZ());
     OpenGLRendererManager::formes->DrawCarre();
     glScalef(1.0f / (2.f * dimensions.GetX()), 1.0, 1.0f / (2.f * dimensions.GetZ()));
+
+
+// debug sphere for plan
+    glScalef(2.f * dimensions.GetMaxValue(), 2.f * dimensions.GetMaxValue(), 2.f * dimensions.GetMaxValue());
+    OpenGLRendererManager::formes->DrawDebugSphere();
+    glScalef(1.0f / (2.f * dimensions.GetMaxValue()), 1.0f / (2.f * dimensions.GetMaxValue()), 1.0f / (2.f * dimensions.GetMaxValue()));
+
+
     glPopMatrix();
 }
 
@@ -208,4 +216,9 @@ void OpenGLRendererManager::drawLine(const Vector3 &startPosition, const Vector3
     glVertex3f(endPosition.GetX(), endPosition.GetY(), endPosition.GetZ());
     glEnd();
     glEndList();
+}
+
+void OpenGLRendererManager::drawDebugSphere(){
+    OpenGLRendererManager::formes->DrawDebugSphere();
+
 }

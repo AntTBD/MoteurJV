@@ -8,6 +8,10 @@
 #include "BoundingSphere.h"
 #include "../Physic/Collisions/Primitive.h"
 #include "../Physic/Collisions/CollisionData.h"
+#include "../Physic/Collisions/CollisionDetector.h"
+
+#include "../3DScene/OpenGLRendererManager.h"
+#include "../EngineManager.h"
 
 class Primitive;
 class CollisionData;
@@ -40,6 +44,8 @@ public:
 
 	void print(int degree);
 
+    const Primitive& getPrimitive() const;
+
 };
 
 class BVH
@@ -52,7 +58,7 @@ public:
 	BVH();
 
 	void broadPhaseCheck(Node* parent, CollisionData* cd);
-	void broadPhaseCheck();
+	void broadPhaseCheck(CollisionData* cd);
 	void insertNode(Node* node);
 
     void print();

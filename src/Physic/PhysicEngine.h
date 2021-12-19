@@ -74,6 +74,8 @@ private:
 
     bool isUpdated() const;
 
+    void drawBVH(Node* node);
+
 };
 
 #endif // PhysicEngine_H_

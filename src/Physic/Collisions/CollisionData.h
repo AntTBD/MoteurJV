@@ -8,6 +8,9 @@ class CollisionData
 public:
     std::vector<Contact*>* contacts;
 
+    CollisionData();
+    ~CollisionData();
+
     void addContact(Contact *contact);
 
     //void generateContact(primitive1, primitive2);

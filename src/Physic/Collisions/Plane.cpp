@@ -8,10 +8,12 @@ Plane::Plane()
 	this->offset = 1;
 }
 
-Plane::Plane(Vector3 normal, float offset)
+Plane::Plane(Vector3 normal, float offset, Vector3 center, Vector3 halfSize)
 {
 	this->normal = normal;
 	this->offset = offset;
+    this->center = &center;
+    this->halfSize = halfSize;
 }
 
 Vector3 Plane::getNormal() const

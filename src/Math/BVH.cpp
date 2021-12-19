@@ -30,15 +30,24 @@ BoundingSphere Node::sphereBouding2Nodes(BoundingSphere sphereA, BoundingSphere 
 {
 	BoundingSphere newSphere;
 
-	float distanceAB = (sphereA.center + sphereB.center).Magnitude();
+    float distanceAB = (sphereA.center + sphereB.center).Magnitude();
+    if(distanceAB < sphereA.radius + sphereB.radius || distanceAB == 0){
+        newSphere.radius = sphereA.radius > sphereB.radius ? sphereA.radius : sphereB.radius;
+        newSphere.center = sphereA.radius > sphereB.radius ? sphereA.center : sphereB.center;
+    }else{
+        if(distanceAB > 0) {
+            Vector3 norm = (sphereB.center - sphereA.center).Normalize();
 
-	newSphere.center = Vector3(
-		(sphereA.center.GetX() + sphereB.center.GetX()) / 2.f,
-		(sphereA.center.GetY() + sphereB.center.GetY()) / 2.f,
-		(sphereA.center.GetZ() + sphereB.center.GetZ()) / 2.f);
+            Vector3 segmentCoteA = sphereA.center - norm * sphereA.radius;
+            Vector3 segmentCoteB = sphereB.center + norm * sphereB.radius;
 
-	newSphere.radius = distanceAB + sphereA.radius + sphereB.radius;
-
+            newSphere.center = Vector3(
+                    (segmentCoteA.GetX() + segmentCoteB.GetX()) / 2.f,
+                    (segmentCoteA.GetY() + segmentCoteB.GetY()) / 2.f,
+                    (segmentCoteA.GetZ() + segmentCoteB.GetZ()) / 2.f);
+            newSphere.radius = (segmentCoteA - segmentCoteB).Magnitude() /2.f;
+        }
+    }
 	return newSphere;
 }
 
@@ -106,6 +115,14 @@ void Node::insertNode(Node* node)
         this->childNodes.push_back(newChild);
         // on recalcule la sphere englobante avec maintenant les 2 enfants
         this->sphere = this->sphereBouding2Nodes(newChild->sphere, node->sphere);
+
+        //if(this->parentNode != nullptr)
+        //    this->parentNode->sphere =  this->sphereBouding2Nodes(this->parentNode->childNodes.at(0)->sphere, this->parentNode->childNodes.at(1)->sphere);
+        Node* tempNode = this;
+        while(tempNode->parentNode != nullptr){
+            tempNode->parentNode->sphere =  tempNode->sphereBouding2Nodes(tempNode->parentNode->childNodes.at(0)->sphere, tempNode->parentNode->childNodes.at(1)->sphere);
+            tempNode = tempNode->parentNode;
+        }
 	}
 	else
 	{
@@ -151,15 +168,20 @@ void Node::print(int degree)
 		std::cout << "----";
 	}
 
-	std::cout << "Node " << this->childNodes.size() << " " ;
+	std::cout << "Node " << this->childNodes.size() << " center:" << this->sphere.center << " r:" << this->sphere.radius << " " ;
     if(this->primitive != nullptr)
-        std::cout << this->primitive->body->GetName() << " " << *this->primitive->center << " " << this->primitive->body->position;
+        std::cout << "   >>>    "  << this->primitive->body->GetName() << " p.center:" << *this->primitive->center;
     std::cout << " \n";
+
 
 	for (Node* child : this->childNodes)
 	{
 		child->print(degree + 1);
 	}
+}
+
+const Primitive& Node::getPrimitive() const {
+    return *this->primitive;
 }
 
 BVH::BVH()
@@ -178,6 +200,43 @@ void BVH::broadPhaseCheck(Node* parent, CollisionData* cd) {
 				{
 					//cd->CheckerCollision
 					std::cout << "Potentielle collision a checker" << std::endl;
+                    if(parent->childNodes[i]->primitive != nullptr){
+
+                        Node* tempNode = parent->childNodes[j];
+                        while(parent->childNodes[j]->primitive != nullptr && parent->childNodes[j]->childNodes.size() > 0){
+                            tempNode = parent->childNodes[j]->childNodes[0];
+                        }
+                        if (parent->childNodes[i]->primitive->body->GetShapeType() == RigidBody::ShapeType::Sphere &&
+                                tempNode->primitive->body->GetShapeType() == RigidBody::ShapeType::Plan) {
+                            CollisionDetector::sphereAndHalfSpace((const Sphere &) parent->childNodes[i]->getPrimitive(),
+                                                                  (const Plane &) tempNode->getPrimitive(),
+                                                                  cd);
+                        } else if (parent->childNodes[i]->primitive->body->GetShapeType() == RigidBody::ShapeType::Sphere &&
+                                tempNode->primitive->body->GetShapeType() == RigidBody::ShapeType::Cube) {
+                            CollisionDetector::sphereAndHalfSpace((const Sphere &) tempNode->getPrimitive(),
+                                                                  (const Plane &) parent->childNodes[i]->getPrimitive(),
+                                                                  cd);
+                        }
+
+                    }
+
+/*
+                    if(parent->childNodes[i]->primitive != nullptr && parent->childNodes[j]->primitive != nullptr) {
+                        std::cout << typeid(*parent->childNodes[i]->primitive).name() << " && " << typeid(*parent->childNodes[j]->primitive).name()<< std::endl;
+                        std::cout << parent->childNodes[i]->primitive->body->GetShapeType() << " && " << parent->childNodes[j]->primitive->body->GetShapeType()<< std::endl;
+                        std::cout << parent->childNodes[i]->primitive->body->GetName() << " && " << parent->childNodes[j]->primitive->body->GetName()<< std::endl;
+                        if (parent->childNodes[i]->primitive->body->GetShapeType() == RigidBody::ShapeType::Sphere &&
+                                parent->childNodes[j]->primitive->body->GetShapeType() == RigidBody::ShapeType::Plan) {
+                            CollisionDetector::sphereAndHalfSpace((const Sphere &) parent->childNodes[i]->getPrimitive(),
+                                                               (const Plane &) parent->childNodes[j]->getPrimitive(),
+                                                               cd);
+                        } else if (parent->childNodes[i]->primitive->body->GetShapeType() == RigidBody::ShapeType::Sphere &&
+                                   parent->childNodes[j]->primitive->body->GetShapeType() == RigidBody::ShapeType::Cube) {
+                            CollisionDetector::sphereAndHalfSpace((const Sphere &) parent->childNodes[j]->getPrimitive(),
+                                                               (const Plane &) parent->childNodes[i]->getPrimitive(),
+                                                               cd);
+                        }
+                    }*/
 				}
 			}
 		}
@@ -189,9 +248,9 @@ void BVH::broadPhaseCheck(Node* parent, CollisionData* cd) {
 	}
 }
 
-void BVH::broadPhaseCheck()
+void BVH::broadPhaseCheck(CollisionData* cd)
 {
-	CollisionData* cd = new CollisionData();
+	//CollisionData* cd = new CollisionData();
 	broadPhaseCheck(this->root, cd);
 }
 

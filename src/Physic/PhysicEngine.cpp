@@ -76,6 +76,22 @@ void PhysicEngine::update(float deltaTime)
     {
         isUpdateFinished = false;
 
+        auto p1 = EngineManager::getInstance().getScene()->GetObject(0);
+        auto p2 = EngineManager::getInstance().getScene()->GetObject(1);
+        auto p3 = EngineManager::getInstance().getScene()->GetObject(2);
+        auto p4 = EngineManager::getInstance().getScene()->GetObject(3);
+        auto p5 = EngineManager::getInstance().getScene()->GetObject(4);
+        auto p6 = EngineManager::getInstance().getScene()->GetObject(5);
+        auto p7 = EngineManager::getInstance().getScene()->GetObject(6);
+        EngineManager::getInstance().getScene()->getObjects()->clear();
+        EngineManager::getInstance().getScene()->addObject(*p1);
+        EngineManager::getInstance().getScene()->addObject(*p2);
+        EngineManager::getInstance().getScene()->addObject(*p3);
+        EngineManager::getInstance().getScene()->addObject(*p4);
+        EngineManager::getInstance().getScene()->addObject(*p5);
+        EngineManager::getInstance().getScene()->addObject(*p6);
+        EngineManager::getInstance().getScene()->addObject(*p7);
+
         // 1 - Update force (gravity)
         this->forceRegistry->UpdateForce(deltaTime);
 
@@ -94,7 +110,16 @@ void PhysicEngine::update(float deltaTime)
             bvh.insertNode(node);
         }
         bvh.print();
-        bvh.broadPhaseCheck();
+        drawBVH(bvh.root);
+
+        CollisionData* cd = new CollisionData();
+        bvh.broadPhaseCheck(cd);
+        if(cd->contacts->size()>0){
+            this->pause();
+            EngineManager::getInstance().console.log("%s\n",cd->toString().c_str());
+
+        }
+        //this->contactRegistry->SetContactList(*cd->contacts);
 
         // 4 - Resolve contacts
         this->contactRegistry->Resolve(deltaTime);
@@ -174,4 +199,27 @@ ForceRegistry *PhysicEngine::getForceRegistry() {
 
 ContactRegistry *PhysicEngine::getContactRegistry() {
     return this->contactRegistry;
+}
+
+void PhysicEngine::drawBVH(Node* node){
+
+
+// debug sphere for plan
+        /*glTranslatef(node->sphere.center.GetX(), node->sphere.center.GetY(), node->sphere.center.GetZ());
+        glScalef(2.f * node->sphere.radius, 2.f * node->sphere.radius, 2.f * node->sphere.radius);
+        EngineManager::getInstance().getOpenGlRendererManager()->drawDebugSphere();
+        glScalef(1.0f / (2.f * node->sphere.radius), 1.0f / (2.f * node->sphere.radius), 1.0f / (2.f * node->sphere.radius));
+        glTranslatef(-node->sphere.center.GetX(), -node->sphere.center.GetY(), -node->sphere.center.GetZ());
+*/
+    auto debug = new Sphere(node->sphere.center, node->sphere.radius*(sqrtf(2.f)/2.f));
+    debug->setBody(new RigidBody(0.f, node->sphere.center,Vector3(0,0,0), Quaternion::EulerInDegreesToQuaternion(Vector3(0,0,0)), Vector3(0,0,0), RigidBody::ShapeType::Plan, Vector3(node->sphere.radius*(sqrtf(2.f)/2.f),node->sphere.radius*(sqrtf(2.f)/2.f),node->sphere.radius*(sqrtf(2.f)/2.f))));
+    debug->body->SetName(u8"Node");
+    EngineManager::getInstance().getScene()->addObject(*debug);
+    debug = nullptr;
+
+        for (Node* child : node->childNodes)
+        {
+            drawBVH(child);
+        }
+
 }

@@ -1,5 +1,13 @@
 #include "CollisionData.h"
 
+
+CollisionData::CollisionData(){
+    this->contacts = new std::vector<Contact*>();
+}
+CollisionData::~CollisionData(){
+    this->contacts = nullptr;
+}
+
 void CollisionData::addContact(Contact *contact)
 {
     contacts->push_back(contact);

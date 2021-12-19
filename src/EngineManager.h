@@ -35,6 +35,7 @@ public:
     Scene* getScene();
     PhysicEngine* getPhysicEngine();
     ImGuiUIManager* getUiManager();
+    OpenGLRendererManager* getOpenGlRendererManager();
     bool isRunning();
     void run();
 };
