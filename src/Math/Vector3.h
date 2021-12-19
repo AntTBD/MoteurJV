@@ -25,7 +25,9 @@ public:
 	Vector3& operator-=(const Vector3& vector);
 	//Vector3 operator*(float value) const; operator remplac� par operator globale non membre de la classe pour avoir les deux sens
 	Vector3& operator*=(float value);
-	Vector3 operator/(float value) const;
+    Vector3 operator*(const Vector3& vector) const;
+    Vector3& operator*=(const Vector3 &vector);
+    Vector3 operator/(float value) const;
 	Vector3& operator/=(float value);
     bool operator==(const Vector3& vector) const;
     bool operator!=(const Vector3& vector) const;

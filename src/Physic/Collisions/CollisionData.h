@@ -12,7 +12,7 @@ public:
 
     void reset();
 
-    void addContacts(Contact *contact);
+    void addContact(Contact *contact);
 
 
     std::string toString() const;

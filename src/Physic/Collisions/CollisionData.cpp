@@ -11,7 +11,7 @@ void CollisionData::reset()
     contacts->clear();
 }
 
-void CollisionData::addContacts(Contact *contact)
+void CollisionData::addContact(Contact *contact)
 {
     contacts->push_back(contact);
 }
