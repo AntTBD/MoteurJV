@@ -22,9 +22,6 @@ public:
 	void setHalfY(float Y);
 	void setHalfZ(float Z);
 
-	// Functions
-
-	float distancePoint(Vector3 point);
 	
 
 

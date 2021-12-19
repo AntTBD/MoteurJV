@@ -50,6 +50,11 @@ public:
             const Sphere &sphere,
             CollisionData *data
     );
+
+    static bool IntersectionTestsBoxAndHalfSpace(
+            const Box &box,
+            const Plane &plane
+    );
 };
 
 

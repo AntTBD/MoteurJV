@@ -9,8 +9,3 @@ void Primitive::setCenter(Vector3 center)
 {
     this->center = center;
 }
-
-float Primitive::distancePoint(Vector3 point)
-{
-	return 0.0f;
-}

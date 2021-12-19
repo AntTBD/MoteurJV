@@ -62,6 +62,22 @@ Vector3& Vector3::operator-=(const Vector3& vector)
 	return Vector3(this->x * value, this->y * value, this->z * value);
 }*/
 
+Vector3 Vector3::operator*(const Vector3 &vector) const
+{
+    return {this->x * vector.GetX(),
+    this->y * vector.GetY(),
+    this->z * vector.GetZ()
+    };
+}
+
+Vector3& Vector3::operator*=(const Vector3 &vector)
+{
+    this->x *= vector.GetX();
+    this->y *= vector.GetY();
+    this->z *= vector.GetZ();
+    return *this;
+}
+
 Vector3& Vector3::operator*=(float value)
 {
 	this->x *= value;

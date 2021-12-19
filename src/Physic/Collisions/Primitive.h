@@ -15,8 +15,5 @@ public:
     // Getters & Setters
     Vector3 getCenter() const;
     void setCenter(Vector3 center);
-	
-
-	virtual float distancePoint(Vector3 point);
 
 };
