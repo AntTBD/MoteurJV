@@ -9,11 +9,12 @@ class Primitive
 public:
 	RigidBody* body;	// Primitive d'un objet
 	Matrix34 offset;	// Transformation par rapport au centre de l'objet
-	Vector3 center;
+	Vector3* center;
 
 
     // Getters & Setters
     Vector3 getCenter() const;
     void setCenter(Vector3 center);
+    void setBody(RigidBody* body);
 
 };

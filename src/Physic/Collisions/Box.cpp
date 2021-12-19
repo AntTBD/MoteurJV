@@ -4,13 +4,13 @@
 // Constuctors
 Box::Box()
 {
-	this->center = Vector3();
+	this->center = new Vector3();
 	this->halfSize = Vector3(1, 1, 1);
 }
 
 Box::Box(Vector3 center, Vector3 halfsize)
 {
-	this->center = center;
+	this->center = &center;
 	this->halfSize = halfSize;
 }
 

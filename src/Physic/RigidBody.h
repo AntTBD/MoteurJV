@@ -28,7 +28,6 @@ private:
     // ------------- Position -------------
     // same as for Particle
 	float linearDamping;
-	Vector3 position;
 	Vector3 velocity;
     Vector3 acceleration;
 
@@ -75,6 +74,7 @@ private:
     const char * name;
 
 public:
+    Vector3 position;
 	RigidBody();
     RigidBody(float mass, const Vector3 &position, const RigidBody::ShapeType &type = RigidBody::ShapeType::Sphere, const Vector3 &dimensions = Vector3(5, 5, 5));
     RigidBody(float mass, const Vector3 &position, const Quaternion& orientation, const RigidBody::ShapeType &type = RigidBody::ShapeType::Sphere, const Vector3 &dimensions = Vector3(5, 5, 5));

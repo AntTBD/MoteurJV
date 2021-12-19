@@ -93,6 +93,7 @@ void PhysicEngine::update(float deltaTime)
             Node* node = new Node(this->objects->at(i));
             bvh.insertNode(node);
         }
+        bvh.print();
         bvh.broadPhaseCheck();
 
         // 4 - Resolve contacts

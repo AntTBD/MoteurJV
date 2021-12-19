@@ -33,9 +33,9 @@ BoundingSphere Node::sphereBouding2Nodes(BoundingSphere sphereA, BoundingSphere 
 	float distanceAB = (sphereA.center + sphereB.center).Magnitude();
 
 	newSphere.center = Vector3(
-		(sphereA.center.GetX() + sphereB.center.GetX()) / 2,
-		(sphereA.center.GetY() + sphereB.center.GetY()) / 2,
-		(sphereA.center.GetZ() + sphereB.center.GetZ()) / 2);
+		(sphereA.center.GetX() + sphereB.center.GetX()) / 2.f,
+		(sphereA.center.GetY() + sphereB.center.GetY()) / 2.f,
+		(sphereA.center.GetZ() + sphereB.center.GetZ()) / 2.f);
 
 	newSphere.radius = distanceAB + sphereA.radius + sphereB.radius;
 
@@ -91,33 +91,37 @@ void Node::insertNode(Node* node)
         if(parentNode != nullptr) {
             this->parentNode->RemoveFromChild(this);
 
-            Node *newParent;
+            Node *newParent = new Node();
             this->parentNode->childNodes.push_back(newParent);
             this->parentNode = newParent;
+            node->parentNode = newParent;
             newParent->childNodes.push_back(node);
             newParent->childNodes.push_back(this);
         }else{
-            this->parentNode = this;
-            this->parentNode->childNodes.push_back(node);
+            node->parentNode = this;
+            this->childNodes.push_back(node);
         }
 	}
 	else
 	{
 		float minSearch = std::numeric_limits<float>::max();
 		Node* childToSave = nullptr;
-
+        BoundingSphere sphere;
 		for (Node* child : this->childNodes)
 		{
-			BoundingSphere sphere = this->sphereBouding2Nodes(child->sphere, node->sphere);
+            if(child->primitive != nullptr) {
+            sphere = this->sphereBouding2Nodes(child->sphere, node->sphere);
 
-			if (sphere.radius < minSearch)
-			{
-				minSearch = sphere.radius;
-				childToSave = child;
-			}
+                if (sphere.radius < minSearch) {
+                    minSearch = sphere.radius;
+                    childToSave = child;
+                }
+            }
 		}
-
-		childToSave->insertNode(node);
+        if(childToSave != nullptr){
+            this->sphere = sphere;
+            childToSave->insertNode(node);
+        }
 	}
 }
 
@@ -145,7 +149,10 @@ void Node::print(int degree)
 		std::cout << "----";
 	}
 
-	std::cout << "Node \n";
+	std::cout << "Node " << this->childNodes.size() << " " ;
+    if(this->primitive != nullptr)
+        std::cout << this->primitive->body->GetName() << " " << *this->primitive->center << " " << this->primitive->body->position;
+    std::cout << " \n";
 
 	for (Node* child : this->childNodes)
 	{
@@ -168,7 +175,7 @@ void BVH::broadPhaseCheck(Node* parent, CollisionData* cd) {
 				if ((parent->childNodes[i]->sphere.center - parent->childNodes[j]->sphere.center).Magnitude() < parent->childNodes[i]->sphere.radius + parent->childNodes[j]->sphere.radius)
 				{
 					//cd->CheckerCollision
-					std::cout << "Potentielle collision à checker" << std::endl;
+					std::cout << "Potentielle collision ï¿½ checker" << std::endl;
 				}
 			}
 		}
