@@ -88,13 +88,18 @@ void Node::insertNode(Node* node)
 {
 	if (isLeaf())
 	{
-		this->parentNode->RemoveFromChild(this);
+        if(parentNode != nullptr) {
+            this->parentNode->RemoveFromChild(this);
 
-		Node* newParent;
-		this->parentNode->childNodes.push_back(newParent);
-		this->parentNode = newParent;
-		newParent->childNodes.push_back(node);
-		newParent->childNodes.push_back(this);
+            Node *newParent;
+            this->parentNode->childNodes.push_back(newParent);
+            this->parentNode = newParent;
+            newParent->childNodes.push_back(node);
+            newParent->childNodes.push_back(this);
+        }else{
+            this->parentNode = this;
+            this->parentNode->childNodes.push_back(node);
+        }
 	}
 	else
 	{
