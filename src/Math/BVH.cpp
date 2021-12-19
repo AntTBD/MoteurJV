@@ -190,3 +190,8 @@ void BVH::insertNode(Node* node)
 {
 	root->insertNode(node);
 }
+
+void BVH::print()
+{
+	root->print(0);
+}
