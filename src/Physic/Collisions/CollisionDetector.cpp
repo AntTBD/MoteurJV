@@ -71,9 +71,6 @@ unsigned CollisionDetector::sphereAndHalfSpace(
         const Plane &plane,
         CollisionData *data) {
 
-    // Make sure we have contacts
-    //if (data->contactsLeft  <= 0) return 0;
-
     // Sphere position
     Vector3 position = sphere.getCenter();
 
@@ -132,9 +129,6 @@ unsigned CollisionDetector::sphereAndSphere(
     const Sphere& sphere2,
     CollisionData* data) {
 
-    // Make sure we have contacts
-    //if(data->contactsLeft <= 0) return 0;
-
     // Sphere positions
     Vector3 positionOne = sphere1.getCenter();
     Vector3 positionTwo = sphere2.getCenter();
@@ -180,8 +174,6 @@ unsigned CollisionDetector::boxAndHalfSpace(
         const Box &box,
         const Plane &plane,
         CollisionData *data) {
-    // Make sure we have contacts
-    //if (data->contactsLeft <= 0) return 0;
 
     // check for intersection
     if (!CollisionDetector::IntersectionTestsBoxAndHalfSpace(box, plane))
