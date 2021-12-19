@@ -1,16 +1,5 @@
 #include "CollisionData.h"
 
-
-bool CollisionData::hasMoreContacts()
-{
-    return contacts->size() > 0;
-}
-
-void CollisionData::reset()
-{
-    contacts->clear();
-}
-
 void CollisionData::addContact(Contact *contact)
 {
     contacts->push_back(contact);

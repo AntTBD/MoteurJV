@@ -14,9 +14,10 @@ void AdvancedCollisionDetection::GenerateScene()
     Vector3 boiteEulerRotation(0, 0, 0);
     Vector3 boiteVelocity(500.f, 0.f, 0.f);
     Vector3 boiteAngularVelocity(0.f, 0.f, 0.0f);
-    auto boite = new RigidBody(mass, boitePosition,boiteVelocity, Quaternion::EulerInDegreesToQuaternion(boiteEulerRotation), boiteAngularVelocity, RigidBody::ShapeType::Cube, boiteDimension);
-    boite->SetName(u8"Boîte");
-    EngineManager::getInstance().getScene()->addObject(*boite);
+    auto p = new Box();
+    p->body = new RigidBody(mass, boitePosition,boiteVelocity, Quaternion::EulerInDegreesToQuaternion(boiteEulerRotation), boiteAngularVelocity, RigidBody::ShapeType::Cube, boiteDimension);
+    p->body->SetName(u8"Boîte");
+    EngineManager::getInstance().getScene()->addObject(*p->body);
 
 
     // ================ walls =================

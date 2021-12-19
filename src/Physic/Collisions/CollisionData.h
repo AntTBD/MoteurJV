@@ -8,10 +8,6 @@ class CollisionData
 public:
     std::vector<Contact*>* contacts;
 
-    bool hasMoreContacts();
-
-    void reset();
-
     void addContact(Contact *contact);
 
 

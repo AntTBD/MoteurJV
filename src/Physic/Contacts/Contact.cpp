@@ -7,6 +7,7 @@ Contact::Contact()
 
 	this->m_contactNormal = Vector3(0, 0, 0);
     this->m_contactPoint =  Vector3(0, 0, 0);
+	this->m_friction = 0;
 }
 
 Contact::Contact(RigidBody* rigidBody1, float restitution, float penetration, const Vector3& contactNormal, bool inverseNormal) :
@@ -19,6 +20,7 @@ Contact::Contact(RigidBody* rigidBody1, float restitution, float penetration, co
         this->m_contactNormal *= -1;
     }
     this->m_contactPoint =  Vector3(0, 0, 0);
+	this->m_friction = 0;
 }
 
 Contact::Contact(RigidBody* rigidBody1, RigidBody* rigidBody2, float restitution, float penetration, bool inverseNormal) :
@@ -35,6 +37,7 @@ Contact::Contact(RigidBody* rigidBody1, RigidBody* rigidBody2, float restitution
 		this->m_contactNormal *= -1;
 	}
     this->m_contactPoint =  Vector3(0, 0, 0);
+	this->m_friction = 0;
 }
 
 Contact::~Contact()

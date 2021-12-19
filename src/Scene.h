@@ -5,6 +5,10 @@
 #include <vector>
 #include "Physic/Particle.h"
 #include "Physic/RigidBody.h"
+#include "Physic/Collisions/Primitive.h"
+#include "Physic/Collisions/Box.h"
+#include "Physic/Collisions/Sphere.h"
+#include "Physic/Collisions/Plane.h"
 #include "3DScene/Camera.h"
 #include "3DScene/OpenGLRendererManager.h"
 #include "Math/Vector3.h"

@@ -19,7 +19,11 @@ public:
 	// normal of the contact
 	Vector3 m_contactNormal;
 
+    // point of contact
     Vector3 m_contactPoint;
+
+    // friction between 2 objects
+    float m_friction;
 
 	Contact();
 	Contact(RigidBody* rigidBody1, float restitution, float penetration, const Vector3& contactNormal = Vector3(0,1,0), bool inverseNormal = false);
