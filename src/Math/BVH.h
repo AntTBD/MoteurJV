@@ -23,9 +23,7 @@ public:
 
 	//Constructor
 	Node();
-	Node(BoundingSphere sphere);
 	Node(Primitive _primitive);
-	Node(BoundingSphere sphere, Primitive _primitive);
 
 	//Sphere
 	float getSphereVolume();
@@ -52,7 +50,6 @@ private:
 public:
 	//Constructor
 	BVH();
-	BVH(BoundingSphere sphere);
 
 	void broadPhaseCheck(Node* parent, CollisionData* cd);
 	void broadPhaseCheck();

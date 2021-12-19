@@ -208,7 +208,18 @@ Vector3& Vector3::SetZero() // Set vector to (0, 0, 0)
 }
 
 float Vector3::GetMaxValue() const {
+	float length1 = std::max(this->x, std::max(this->y, this->z));
+	float length2;
+	if (length1 == this->x) length2 = std::max(this->y, this->z);
+	else if (length1 == this->y) length2 = std::max(this->x, this->z);
+	else if (length1 == this->z) length2 = std::max(this->x, this->y);
+
+	return (sqrt((length1 * length1) + (length2 * length2)));
+	
+
     return std::max({this->x, this->y, this->z});;
+
+
 }
 
 float Vector3::GetMinValue() const {

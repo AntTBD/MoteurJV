@@ -8,23 +8,14 @@ Node::Node()
 	this->sphere.radius = 0;
 }
 
-Node::Node(BoundingSphere sphere)
-{
-	this->parentNode = nullptr;
-	this->sphere = sphere;
-}
-
 Node::Node(Primitive _primitive)
 {
 	this->parentNode = nullptr;
 	this->primitive = _primitive;
-}
 
-Node::Node(BoundingSphere sphere, Primitive _primitive)
-{
-	this->parentNode = nullptr;
-	this->sphere = sphere;
-	this->primitive = _primitive;
+	BoundingSphere sphere;
+	sphere.center = this->primitive.center;
+	sphere.radius = this->primitive.body->GetDimensions().GetMaxValue();
 }
 
 float Node::getSphereVolume()
@@ -157,11 +148,6 @@ void Node::print(int degree)
 BVH::BVH()
 {
 	root = new Node();
-}
-
-BVH::BVH(BoundingSphere sphere)
-{
-	root = new Node(sphere);
 }
 
 void BVH::broadPhaseCheck(Node* parent, CollisionData* cd) {
