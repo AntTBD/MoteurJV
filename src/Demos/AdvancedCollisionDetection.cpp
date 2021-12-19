@@ -78,14 +78,8 @@ void AdvancedCollisionDetection::GenerateScene()
     // ==================== forces + get all obj without plans ====================
     Gravity* gravityGenerator = new Gravity();
     // Add gravity force on each objects of the scene
-    for (int i = 0; i<EngineManager::getInstance().getScene()->getObjects()->size(); i++) {
-        auto obj = EngineManager::getInstance().getScene()->GetObject(i);
-        if(obj->body->GetShapeType() != RigidBody::ShapeType::Plan) {
-            // =============== gravity================
-            EngineManager::getInstance().getPhysicEngine()->getForceRegistry()->Add(obj->body, gravityGenerator);
-            allObjectsWithoutWalls->push_back(obj);
-        }
-    }
+    EngineManager::getInstance().getPhysicEngine()->getForceRegistry()->Add(box->body, gravityGenerator);
+    allObjectsWithoutWalls->push_back(box);
 
     // ==================== contacts ====================
     /*// contact avec le ground
