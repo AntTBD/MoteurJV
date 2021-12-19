@@ -74,11 +74,16 @@ unsigned CollisionDetector::sphereAndHalfSpace(
     // Sphere position
     Vector3 position = sphere.getCenter();
 
+    // 1. Trouver la distance entre la sphère et le plan (prendre en compte le rayon)
     // Find the distance from the plane
-    
     float sphereDistance = plane.getNormal().DotProduct(position) - sphere.radius - plane.getOffset();
+    // Si la distance est positive, il n’y a pas de contact
     if (sphereDistance >= 0) return 0;
 
+    // 2. Générer le contact avec :
+    //• Normal :                direction du plan;
+    //• Interpénétration :      distance entre la sphère et le plan;
+    //• Le point de contact :   Le point sur la sphère en direction du contact.
     // Create the contact ; it has normal in the plane direction
     Contact* contact = new Contact(sphere.body, 1, -sphereDistance, plane.getNormal());
     contact->m_contactPoint =
@@ -133,16 +138,22 @@ unsigned CollisionDetector::sphereAndSphere(
     Vector3 positionOne = sphere1.getCenter();
     Vector3 positionTwo = sphere2.getCenter();
 
+    // 1. Calculer la distance entre les deux sphères
     // Find the vector between the objects
     Vector3 midline = positionOne - positionTwo;
-    float size = midline.Magnitude();
 
+    // Si la distance au carré est plus petite que la somme des rayons au carré, il n’y a pas de collision.
+    float size = midline.Magnitude();
     // See if it is large enough
     if (size <= 0.0f || size >= sphere1.radius + sphere2.radius) 
     {
         return 0;
     }
 
+    // 2. Générer un contact :
+    //• Normal :                norme de la distance entre les deux sphères;
+    //• Interpénétration :      somme des rayons moins la distance entre le centre des sphères.
+    //• Le point de contact :   un point sur la surface d’une des sphères dans la direction du contact
     // Creating the normal
     Vector3 normal = midline * float((1.0f/size));
     // contacts.....
@@ -264,8 +275,10 @@ unsigned CollisionDetector::boxAndSphere(
         const Box &box,
         const Sphere &sphere,
         CollisionData *data) {
+    // 1. Convertir le centre du cercle en coordonné de la boîte
     Vector3 center = sphere.getCenter();
     Vector3 relCenter = box.body->GetPointInLocalSpace(center);
+
     // Early out check to see if we can exclude the contact. 
     if (relCenter.GetX() - sphere.radius > box.halfSize.GetX() ||
         relCenter.GetY() - sphere.radius > box.halfSize.GetY() ||
@@ -277,7 +290,7 @@ unsigned CollisionDetector::boxAndSphere(
     Vector3 closestPt(0, 0, 0);
     float dist;
 
-    //Clamp each coordinate to the box
+    // 2. Resserrer les coordonnés du point par rapport à la boîte
     dist = relCenter.GetX();
     if (dist > box.halfSize.GetX()) dist = box.halfSize.GetX();
     if (dist > -box.halfSize.GetX()) dist = -box.halfSize.GetX();
@@ -294,7 +307,7 @@ unsigned CollisionDetector::boxAndSphere(
     closestPt.SetZ(dist);
 
     
-
+    // 3. À l’aide de ce point, il est possible d’extraire les données de contacts
     // Check to see if contact
     dist = (closestPt - relCenter).Magnitude();
     if (dist > sphere.radius * sphere.radius) return 0;
