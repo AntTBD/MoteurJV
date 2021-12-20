@@ -81,16 +81,16 @@ void PhysicEngine::update(float deltaTime)
         auto p3 = EngineManager::getInstance().getScene()->GetObject(2);//top
         auto p4 = EngineManager::getInstance().getScene()->GetObject(3);//left
         auto p5 = EngineManager::getInstance().getScene()->GetObject(4);//right
-        auto p6 = EngineManager::getInstance().getScene()->GetObject(5);//front
-        auto p7 = EngineManager::getInstance().getScene()->GetObject(6);//back
+//        auto p6 = EngineManager::getInstance().getScene()->GetObject(5);//front
+//        auto p7 = EngineManager::getInstance().getScene()->GetObject(6);//back
         EngineManager::getInstance().getScene()->getObjects()->clear();
         EngineManager::getInstance().getScene()->addObject(*p1);
         EngineManager::getInstance().getScene()->addObject(*p2);
         EngineManager::getInstance().getScene()->addObject(*p3);
         EngineManager::getInstance().getScene()->addObject(*p4);
         EngineManager::getInstance().getScene()->addObject(*p5);
-        EngineManager::getInstance().getScene()->addObject(*p6);
-        EngineManager::getInstance().getScene()->addObject(*p7);
+//        EngineManager::getInstance().getScene()->addObject(*p6);
+//        EngineManager::getInstance().getScene()->addObject(*p7);
 
         // 1 - Update force (gravity)
         this->forceRegistry->UpdateForce(deltaTime);

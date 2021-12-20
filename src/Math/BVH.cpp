@@ -253,7 +253,7 @@ void Node::insertNode(Primitive* newPrimitive, const BoundingSphere &newSphere)
         this->primitive = nullptr;
 
         // We need to recalculate our bounding volume
-        recalculateBoundingVolume();
+        this->recalculateBoundingVolume();
     }
 
         // Otherwise we need to work out which child gets to keep
@@ -269,11 +269,19 @@ void Node::insertNode(Primitive* newPrimitive, const BoundingSphere &newSphere)
                 this->childNodes[1]->insertNode(newPrimitive, newSphere);
             }
         }else if(this->childNodes.size() == 1){
+            if (this->childNodes[0]->sphere.getGrowth(newSphere) >
+                this->sphere.getGrowth(newSphere)) {
+                this->childNodes[0]->insertNode(newPrimitive, newSphere);
+            } else {
+                this->childNodes.push_back(new Node(this, newSphere, newPrimitive));
+            }
             //this->childNodes[0]->insertNode(newPrimitive, newSphere);
-            this->childNodes.push_back(new Node(this, newSphere, newPrimitive));
+            //this->childNodes.push_back(new Node(this, newSphere, newPrimitive));
         }else{
             this->childNodes.push_back(new Node(this, newSphere, newPrimitive));
         }
+        // We need to recalculate our bounding volume
+        this->recalculateBoundingVolume();
 
     }
 }
@@ -325,10 +333,12 @@ BVH::BVH()
 }
 
 void BVH::broadPhaseCheck(Node* parent, CollisionData* cd) {
-    Node *child1 = parent->childNodes[0];
-    Node *child2 = parent->childNodes[1];
+    if(parent->childNodes.size() == 2) {
+        Node *child1 = parent->childNodes[0];
+        Node *child2 = parent->childNodes[1];
 
-    broadPhaseCheckChildPrimitive(child1, child2, cd);
+        broadPhaseCheckChildPrimitive(child1, child2, cd);
+    }
 }
 
 
@@ -385,7 +395,13 @@ void BVH::broadPhaseCheckChildPrimitive(Node *child1, Node *child2, CollisionDat
                 broadPhaseCheckChildPrimitive(child_1, child_2, cd);
             }
         }
-    };
+    }
+    if(child1->childNodes.size()>0){
+        broadPhaseCheckChildPrimitive(child1->childNodes[0], child1->childNodes[1], cd);
+    }
+    if(child2->childNodes.size()>0){
+        broadPhaseCheckChildPrimitive(child2->childNodes[0], child2->childNodes[1], cd);
+    }
 
     // Determine which node to descend into. If either is
     // a leaf, then we descend the other. If both are branches,
@@ -569,12 +585,16 @@ void BVH::print()
 void Node::recalculateBoundingVolume() {
     if (isLeaf()) return;
 
-    // Use the bounding volume combining constructor.
-    this->sphere = BoundingSphere(
-            this->childNodes[0]->sphere,
-            this->childNodes[1]->sphere
-    );
+    if(this->childNodes.size() == 2) {
+        // Use the bounding volume combining constructor.
+        this->sphere = BoundingSphere(
+                this->childNodes[0]->sphere,
+                this->childNodes[1]->sphere
+        );
+    }else if(this->childNodes.size() == 1){
+        this->sphere = this->childNodes[0]->sphere;
+    }
 
-    // Recurse up the tree
+        // Recurse up the tree
     if (this->parentNode) this->parentNode->recalculateBoundingVolume();
 }

@@ -26,20 +26,6 @@ void AdvancedCollisionDetection::GenerateScene()
     // ================ walls =================
     // Ground
     Vector3 groundDimension(200, 0, 200);
-    Vector3 groundPosition(0, -0, 0);
-    Vector3 groundEulerRotation(0, 0, 0);
-    auto ground = new Plane(Vector3(0,1,0), groundPosition.GetY(), groundPosition, groundDimension);//new Plane();
-    ground->setBody(new RigidBody(0, groundPosition, Quaternion::EulerInDegreesToQuaternion(groundEulerRotation), RigidBody::ShapeType::Plan, groundDimension));
-    ground->body->SetName("Ground");
-    EngineManager::getInstance().getScene()->addObject(*ground);
-    // Top
-    Vector3 topDimension = groundDimension;
-    Vector3 topPosition(0, 400, 0);
-    Vector3 topEulerRotation(180, 0, 0);
-    auto top = new Plane(Vector3(0,-1,0), topPosition.GetY(), topPosition, topDimension);//new Plane();
-    top->setBody(new RigidBody(0, topPosition, Quaternion::EulerInDegreesToQuaternion(topEulerRotation), RigidBody::ShapeType::Plan, topDimension));
-    top->body->SetName("Top");
-    EngineManager::getInstance().getScene()->addObject(*top);
     // Left
     Vector3 leftDimension = groundDimension;
     Vector3 leftPosition(-200, 200, 0);
@@ -56,6 +42,21 @@ void AdvancedCollisionDetection::GenerateScene()
     right->setBody(new RigidBody(0, rightPosition, Quaternion::EulerInDegreesToQuaternion(rightEulerRotation), RigidBody::ShapeType::Plan, rightDimension));
     right->body->SetName("Right");
     EngineManager::getInstance().getScene()->addObject(*right);
+    // Top
+    Vector3 topDimension = groundDimension;
+    Vector3 topPosition(0, 400, 0);
+    Vector3 topEulerRotation(180, 0, 0);
+    auto top = new Plane(Vector3(0,-1,0), topPosition.GetY(), topPosition, topDimension);//new Plane();
+    top->setBody(new RigidBody(0, topPosition, Quaternion::EulerInDegreesToQuaternion(topEulerRotation), RigidBody::ShapeType::Plan, topDimension));
+    top->body->SetName("Top");
+    EngineManager::getInstance().getScene()->addObject(*top);
+
+    Vector3 groundPosition(0, -0, 0);
+    Vector3 groundEulerRotation(0, 0, 0);
+    auto ground = new Plane(Vector3(0,1,0), groundPosition.GetY(), groundPosition, groundDimension);//new Plane();
+    ground->setBody(new RigidBody(0, groundPosition, Quaternion::EulerInDegreesToQuaternion(groundEulerRotation), RigidBody::ShapeType::Plan, groundDimension));
+    ground->body->SetName("Ground");
+    EngineManager::getInstance().getScene()->addObject(*ground);
     // Front
     Vector3 frontDimension = groundDimension;
     Vector3 frontPosition(0, 200, -200);

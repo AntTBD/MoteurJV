@@ -65,7 +65,7 @@ void Scene::drawObjects() {
                 OpenGLRendererManager::drawRect2D(object->body->GetDimensions(), object->body->GetPosition(), object->body->GetTransform()); // create a plan
                 break;
             case RigidBody::ShapeType::BoundingSphereDebug:
-                OpenGLRendererManager::drawDebugSphere(object->body->GetDimensions(), object->body->GetPosition(), object->body->GetTransform()); // create a plan
+                OpenGLRendererManager::drawDebugSphere(object->body->GetDimensions(), object->getCenter()); // create a plan
                 break;
             default:// draw sphere by default
                 OpenGLRendererManager::drawSphere(object->body->GetDimensions(), object->body->GetPosition(), object->body->GetTransform(), rot); // create a small sphere to simulate object in 3D

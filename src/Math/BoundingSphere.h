@@ -26,11 +26,11 @@ typedef struct BoundingSphere {
                    const BoundingSphere &two)
     {
         Vector3 centreOffset = two.center - one.center;
-        float distance = centreOffset.SquaredMagnitude();
+        float distance = centreOffset.Magnitude();
         float radiusDiff = two.radius - one.radius;
 
         // Check if the larger sphere encloses the small one
-        if (radiusDiff*radiusDiff >= distance)
+        if (radiusDiff >= distance)
         {
             if (one.radius > two.radius)
             {
@@ -48,7 +48,6 @@ typedef struct BoundingSphere {
             // overlapping spheres
         else
         {
-            distance = sqrt(distance);
             radius = (distance + one.radius + two.radius) * 0.5f;
 
             // The new centre is based on one's centre, moved towards
@@ -57,7 +56,7 @@ typedef struct BoundingSphere {
             center = one.center;
             if (distance > 0)
             {
-                center += centreOffset * ((radius - one.radius)/distance);
+                center += centreOffset * ((float)(radius - one.radius)/(float)distance);
             }
         }
 
@@ -79,8 +78,8 @@ typedef struct BoundingSphere {
     }
 
     bool overlaps(const BoundingSphere &other) const{
-        float distanceSquared = (this->center - other.center).SquaredMagnitude();
-        return distanceSquared < powf(radius+other.radius, 2);
+        float distance = (this->center - other.center).Magnitude();
+        return distance < this->radius + other.radius;
     }
 
 }BoundingSphere;

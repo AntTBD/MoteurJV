@@ -173,12 +173,13 @@ bool CollisionDetector::IntersectionTestsBoxAndHalfSpace(
         const Plane &plane
 )
 {
+    Vector3 normPlan = plane.getNormal();
     // Work out the projected radius of the box onto the plane direction
-    float projectedRadius = transformToAxis(box, plane.getNormal());
+    float projectedRadius = transformToAxis( box, normPlan);
 
     // Work out how far the box is from the origin
     float boxDistance =
-            plane.getNormal().DotProduct(box.transform->GetAxis(3)) - projectedRadius;
+            normPlan.DotProduct(box.body->GetOrientation().ToEulerInDegrees()) - projectedRadius;
 
     // Check for the intersection
     return boxDistance <= plane.getOffset();
@@ -190,10 +191,14 @@ unsigned CollisionDetector::boxAndHalfSpace(
         CollisionData *data) {
 
     // check for intersection
-    if (!CollisionDetector::IntersectionTestsBoxAndHalfSpace(box, plane))
+   /* if (!CollisionDetector::IntersectionTestsBoxAndHalfSpace(box, plane))
     {
         return 0;
-    }
+    }*/
+   // check intersection with bounding sphere of the box
+   Vector3 testBoxInPlan = (box.getCenter()+box.halfSize.GetMaxValue()*plane.getNormal()*-1);
+   float test = testBoxInPlan.DotProduct(plane.getNormal());
+    if(test >  plane.getOffset()) return 0;
 
 
     //
@@ -206,14 +211,14 @@ unsigned CollisionDetector::boxAndHalfSpace(
 
         // Calculate the position of each vertex
         Vector3 vertexPos(mults[i][0], mults[i][1], mults[i][2]);
-        vertexPos *= box.halfSize;
+        vertexPos = vertexPos * box.halfSize;
         vertexPos = box.body->GetPointInWorldSpace(vertexPos);
 
         // Calculate the distance from the plane
-        float vertexDistance = vertexPos.DotProduct(plane.getNormal());
+        float vertexDistance = vertexPos.DotProduct(plane.getNormal()*-1);
 
         // Compare this to the plane's distance
-        if (vertexDistance <= plane.getOffset())
+        if ((vertexDistance - plane.getOffset()) > 0 )
         {
             // Create the contact data.
 
@@ -221,13 +226,13 @@ unsigned CollisionDetector::boxAndHalfSpace(
             // plane - we multiply the direction by half the separation
             // distance and add the vertex location.
 
-            Contact* contact = new Contact(box.body,
+            Contact* contact = new Contact(box.body, plane.body,
                                            1,
-                                           (plane.getOffset() - vertexDistance)
+                                           (vertexDistance - plane.getOffset())
                                            );
-            contact->m_contactNormal = plane.getNormal();
-            contact->m_contactPoint = plane.getNormal();
-            contact->m_contactPoint *= (vertexDistance-plane.getOffset());
+            contact->m_contactNormal = plane.getNormal()*-1;
+            contact->m_contactPoint = plane.getNormal()*-1;
+            contact->m_contactPoint *= (-plane.getOffset()+vertexDistance);
             contact->m_contactPoint += vertexPos;
 
             data->addContact(contact);

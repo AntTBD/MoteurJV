@@ -210,10 +210,10 @@ void OpenGLRendererManager::drawLine(const Vector3 &startPosition, const Vector3
     glEndList();
 }
 
-void OpenGLRendererManager::drawDebugSphere(const Vector3& dimensions, const Vector3& pos, const Matrix34& transformMatrix){
+void OpenGLRendererManager::drawDebugSphere(const Vector3& dimensions, const Vector3& pos){
     //glPushMatrix();
 
-    //glMultMatrixf(transformMatrix.GetMatrix44ForGL().data());
+//    glMultMatrixf(transformMatrix.GetMatrix44ForGL().data());
     glTranslatef(pos.GetX(), pos.GetY(), pos.GetZ());
 // debug sphere englobante
     glScalef(2.f * dimensions.GetMaxValue(), 2.f * dimensions.GetMaxValue(), 2.f * dimensions.GetMaxValue());
