@@ -12,11 +12,14 @@ void AdvancedCollisionDetection::GenerateScene()
     // boite
     Vector3 boitePosition(-165, boiteDimension.GetMaxValue()+5, 0);
     Vector3 boiteEulerRotation(0, 0, 0);
-    Vector3 boiteVelocity(500.f, 0.f, 0.f);
-    Vector3 boiteAngularVelocity(0.f, 0.f, 0.0f);
-    auto box = new Sphere(boitePosition, 10);
-    box->setBody(new RigidBody(mass, boitePosition,boiteVelocity, Quaternion::EulerInDegreesToQuaternion(boiteEulerRotation), boiteAngularVelocity, RigidBody::ShapeType::Sphere, boiteDimension));
-    box->body->SetName(u8"Boîte");
+    Vector3 boiteVelocity(300.f, 200.f, 0.f);
+    Vector3 boiteAngularVelocity(1.f, 1.f, 1.0f);
+//    auto box = new Sphere(boitePosition, 10.f/sqrtf(2.f)/2.f);
+//    box->setBody(new RigidBody(mass, boitePosition,boiteVelocity, Quaternion::EulerInDegreesToQuaternion(boiteEulerRotation), boiteAngularVelocity, RigidBody::ShapeType::Sphere, boiteDimension));
+//    box->body->SetName(u8"Boite");
+    auto box = new Box(boitePosition, boiteDimension);
+    box->setBody(new RigidBody(mass, boitePosition,boiteVelocity, Quaternion::EulerInDegreesToQuaternion(boiteEulerRotation), boiteAngularVelocity, RigidBody::ShapeType::Cube, boiteDimension));
+    box->body->SetName(u8"Boite");
     EngineManager::getInstance().getScene()->addObject(*box);
 
 
@@ -33,7 +36,7 @@ void AdvancedCollisionDetection::GenerateScene()
     Vector3 topDimension = groundDimension;
     Vector3 topPosition(0, 400, 0);
     Vector3 topEulerRotation(180, 0, 0);
-    auto top = new Plane(Vector3(0,-1,0), groundPosition.GetY(), topPosition, topDimension);//new Plane();
+    auto top = new Plane(Vector3(0,-1,0), topPosition.GetY(), topPosition, topDimension);//new Plane();
     top->setBody(new RigidBody(0, topPosition, Quaternion::EulerInDegreesToQuaternion(topEulerRotation), RigidBody::ShapeType::Plan, topDimension));
     top->body->SetName("Top");
     EngineManager::getInstance().getScene()->addObject(*top);
@@ -41,7 +44,7 @@ void AdvancedCollisionDetection::GenerateScene()
     Vector3 leftDimension = groundDimension;
     Vector3 leftPosition(-200, 200, 0);
     Vector3 leftEulerRotation(90, 0, 90);
-    auto left = new Plane(Vector3(1,0,0), groundPosition.GetX(), leftPosition, leftDimension);//new Plane();
+    auto left = new Plane(Vector3(1,0,0), leftPosition.GetX(), leftPosition, leftDimension);//new Plane();
     left->setBody(new RigidBody(0, leftPosition, Quaternion::EulerInDegreesToQuaternion(leftEulerRotation), RigidBody::ShapeType::Plan, leftDimension));
     left->body->SetName("Left");
     EngineManager::getInstance().getScene()->addObject(*left);
@@ -49,7 +52,7 @@ void AdvancedCollisionDetection::GenerateScene()
     Vector3 rightDimension = groundDimension;
     Vector3 rightPosition(200, 200, 0);
     Vector3 rightEulerRotation(90, 0, -90);
-    auto right = new Plane(Vector3(-1,0,0), groundPosition.GetX(), rightPosition, rightDimension);//new Plane();
+    auto right = new Plane(Vector3(-1,0,0), rightPosition.GetX(), rightPosition, rightDimension);//new Plane();
     right->setBody(new RigidBody(0, rightPosition, Quaternion::EulerInDegreesToQuaternion(rightEulerRotation), RigidBody::ShapeType::Plan, rightDimension));
     right->body->SetName("Right");
     EngineManager::getInstance().getScene()->addObject(*right);
@@ -57,7 +60,7 @@ void AdvancedCollisionDetection::GenerateScene()
     Vector3 frontDimension = groundDimension;
     Vector3 frontPosition(0, 200, -200);
     Vector3 frontEulerRotation(-90, 0, 0);
-    auto front = new Plane(Vector3(0,0,1), groundPosition.GetZ(), frontPosition, frontDimension);//new Plane();
+    auto front = new Plane(Vector3(0,0,1), frontPosition.GetZ(), frontPosition, frontDimension);//new Plane();
     front->setBody(new RigidBody(0, frontPosition, Quaternion::EulerInDegreesToQuaternion(frontEulerRotation), RigidBody::ShapeType::Plan, frontDimension));
     front->body->SetName("Front");
     EngineManager::getInstance().getScene()->addObject(*front);
@@ -65,7 +68,7 @@ void AdvancedCollisionDetection::GenerateScene()
     Vector3 backDimension = groundDimension;
     Vector3 backPosition(0, 200, 200);
     Vector3 backEulerRotation(90, 0, 0);
-    auto back = new Plane(Vector3(0,0,-1), groundPosition.GetZ(), backPosition, backDimension);//new Plane();
+    auto back = new Plane(Vector3(0,0,-1), backPosition.GetZ(), backPosition, backDimension);//new Plane();
     back->setBody(new RigidBody(0, backPosition, Quaternion::EulerInDegreesToQuaternion(backEulerRotation), RigidBody::ShapeType::Plan, backDimension));
     back->body->SetName("Back");
     EngineManager::getInstance().getScene()->addObject(*back);

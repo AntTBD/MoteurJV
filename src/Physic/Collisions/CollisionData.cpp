@@ -21,7 +21,7 @@ std::string CollisionData::toString() const {
 }
 
 std::ostream &operator<<(std::ostream &os, const CollisionData &collisionData) {
-    os << "==== Collision Data ====\n" << "All Collisions : \n";
+    os << "==== Collision Data ====\n" << "All Collisions : (" << collisionData.contacts->size() << ")\n";
 
     for (Contact *contact : *collisionData.contacts) {
         os << "-- CONTACT --\n"

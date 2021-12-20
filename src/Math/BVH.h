@@ -58,6 +58,7 @@ public:
 	BVH();
 
 	void broadPhaseCheck(Node* parent, CollisionData* cd);
+    void broadPhaseCheckChildPrimitive(Node *child1, Node *child2, CollisionData* cd);
 	void broadPhaseCheck(CollisionData* cd);
 	void insertNode(Node* node);
 

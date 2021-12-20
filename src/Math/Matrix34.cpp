@@ -51,6 +51,10 @@ float Matrix34::Get(int index) const
 	return this->values[index];
 }
 
+Vector3 Matrix34::GetAxis(int axe) const {
+    return {this->values[0+axe],this->values[4+axe],this->values[8+axe]};
+}
+
 Matrix33 Matrix34::GetMatrix33() const
 {
 	std::vector<float> valuesCopy(9);
