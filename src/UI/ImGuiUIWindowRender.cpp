@@ -58,17 +58,19 @@ void ImGuiUIWindowRender::update()
                         "- Une boîte rectangulaire est lancée dans une pièce rectangulaire fermée.\n"
                         "- Les vélocités linéaire et angulaire initiales sont non nulles\n"
                         "- Lorsque la boîte entre en collision avec un des murs, la démo s'arrête\n"
-                        "- Les informations de collisions sont alors affichés dans la console");
+                        "- Les informations de collisions sont alors affichés dans la console\n"
+                        "  et sous forme de petit cercle au point de contact");
                 ImGui::SameLine(0.0f, 200);
                 ImGui::SameLine();
+                ImGui::BeginDisabled(EngineManager::getInstance().getPhysicEngine()->isRunning()); // avoid change during simulation
+
                 ImGui::Checkbox("Debug Node", &this->debugNodes);
                 ImGui::SameLine();this->HelpMarker(
-                        u8"- Click (Mouse left) on this window to interact wind objects.\n"
-                        "- Bouger la première particule ajoutée (Mouse right).\n"
-                        "Toutes les autres particules seront relié à cette première particule.\n"
-                        "Zoomer grâce à la molette de la souris\n"
-                        "Changer l'orientation de la camera en maintenant appuyé la molette et en déplaçant la souris.");
+                        u8"- Affiche des cercles blancs correspondant \n"
+                        "aux caractéristique de chaque noeud du BVH.\n"
+                        "A changer AVANT d'appuyer sur play.");
                 EngineManager::getInstance().getPhysicEngine()->setDebugNodes(this->debugNodes);
+                ImGui::EndDisabled();
 
                 ImGui::SetWindowFontScale(1.2);
                 // espace pour centrer les boutons

@@ -14,9 +14,6 @@ void AdvancedCollisionDetection::GenerateScene()
     Vector3 boiteEulerRotation(0, 0, 0);
     Vector3 boiteVelocity(500.f, 500.f, 0.f);
     Vector3 boiteAngularVelocity(1.f, 1.f, 1.50f);
-//    auto box = new Sphere(boitePosition, 10.f/sqrtf(2.f)/2.f);
-//    box->setBody(new RigidBody(mass, boitePosition,boiteVelocity, Quaternion::EulerInDegreesToQuaternion(boiteEulerRotation), boiteAngularVelocity, RigidBody::ShapeType::Sphere, boiteDimension));
-//    box->body->SetName(u8"Boite");
     auto box = new Box(boitePosition, boiteDimension);
     box->setBody(new RigidBody(mass, boitePosition,boiteVelocity, Quaternion::EulerInDegreesToQuaternion(boiteEulerRotation), boiteAngularVelocity, RigidBody::ShapeType::Cube, boiteDimension));
     box->body->SetName(u8"Boite");
@@ -26,6 +23,12 @@ void AdvancedCollisionDetection::GenerateScene()
     // ================ walls =================
     // Ground
     Vector3 groundDimension(200, 0, 200);
+    Vector3 groundPosition(0, -0, 0);
+    Vector3 groundEulerRotation(0, 0, 0);
+    auto ground = new Plane(Vector3(0,1,0), groundPosition.GetY(), groundPosition, groundDimension);//new Plane();
+    ground->setBody(new RigidBody(0, groundPosition, Quaternion::EulerInDegreesToQuaternion(groundEulerRotation), RigidBody::ShapeType::Plan, groundDimension));
+    ground->body->SetName("Ground");
+    EngineManager::getInstance().getScene()->addObject(*ground);
     // Left
     Vector3 leftDimension = groundDimension;
     Vector3 leftPosition(-200, 200, 0);
@@ -50,13 +53,6 @@ void AdvancedCollisionDetection::GenerateScene()
     top->setBody(new RigidBody(0, topPosition, Quaternion::EulerInDegreesToQuaternion(topEulerRotation), RigidBody::ShapeType::Plan, topDimension));
     top->body->SetName("Top");
     EngineManager::getInstance().getScene()->addObject(*top);
-
-    Vector3 groundPosition(0, -0, 0);
-    Vector3 groundEulerRotation(0, 0, 0);
-    auto ground = new Plane(Vector3(0,1,0), groundPosition.GetY(), groundPosition, groundDimension);//new Plane();
-    ground->setBody(new RigidBody(0, groundPosition, Quaternion::EulerInDegreesToQuaternion(groundEulerRotation), RigidBody::ShapeType::Plan, groundDimension));
-    ground->body->SetName("Ground");
-    EngineManager::getInstance().getScene()->addObject(*ground);
     // Front
     Vector3 frontDimension = groundDimension;
     Vector3 frontPosition(0, 200, -200);
@@ -79,32 +75,11 @@ void AdvancedCollisionDetection::GenerateScene()
 
     std::vector<Object*>* allObjectsWithoutWalls = new std::vector<Object*>();
 
-    // ==================== forces + get all obj without plans ====================
+    // ==================== gravity ====================
     Gravity* gravityGenerator = new Gravity();
-    // Add gravity force on each objects of the scene
+    // Add gravity force on box
     EngineManager::getInstance().getPhysicEngine()->getForceRegistry()->Add(box->body, gravityGenerator);
     allObjectsWithoutWalls->push_back(box);
-
-    // ==================== contacts ====================
-    /*// contact avec le ground
-    GroundContactGenerator* groundContactGenerator = new GroundContactGenerator(allObjectsWithoutWalls, groundPosition.GetY(),false, Vector3(0,1,0));// contact avec le sol à la meme hauteur que renseigné précédemment
-    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(groundContactGenerator, allObjectsWithoutWalls->size());
-    // contact avec le top
-    GroundContactGenerator* topContactGenerator = new GroundContactGenerator(allObjectsWithoutWalls, topPosition.GetY(), true, Vector3(0,1,0));// contact avec le top à la meme hauteur que renseigné précédemment
-    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(topContactGenerator, allObjectsWithoutWalls->size());
-    // contact avec le left
-    GroundContactGenerator* leftContactGenerator = new GroundContactGenerator(allObjectsWithoutWalls, leftPosition.GetX(), false, Vector3(1,0,0));// contact avec le left à la meme hauteur que renseigné précédemment
-    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(leftContactGenerator, allObjectsWithoutWalls->size());
-    // contact avec le right
-    GroundContactGenerator* rightContactGenerator = new GroundContactGenerator(allObjectsWithoutWalls, rightPosition.GetX(),true, Vector3(1,0,0));// contact avec le right à la meme hauteur que renseigné précédemment
-    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(rightContactGenerator, allObjectsWithoutWalls->size());
-    // contact avec le front
-    GroundContactGenerator* frontContactGenerator = new GroundContactGenerator(allObjectsWithoutWalls, frontPosition.GetZ(),false, Vector3(0,0,1));// contact avec le front à la meme hauteur que renseigné précédemment
-    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(frontContactGenerator, allObjectsWithoutWalls->size());
-    // contact avec le back
-    GroundContactGenerator* backContactGenerator = new GroundContactGenerator(allObjectsWithoutWalls, backPosition.GetZ(),true, Vector3(0,0,1));// contact avec le back à la meme hauteur que renseigné précédemment
-    EngineManager::getInstance().getPhysicEngine()->getContactRegistry()->Add(backContactGenerator, allObjectsWithoutWalls->size());
-*/
 
 
     EngineManager::getInstance().console.logSuccess("Advanced collision detection demo has been generated\n");
