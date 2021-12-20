@@ -28,6 +28,7 @@ public:
 	//Constructor
 	Node();
 	Node(Primitive* _primitive);
+    Node(Node* parent, const BoundingSphere &sphere, Primitive* _primitive = nullptr);
 
 	//Sphere
 	float getSphereVolume();
@@ -35,12 +36,15 @@ public:
 
 	//Node
 	bool hasParent() { return parentNode != nullptr; }
-	bool isLeaf() { return childNodes.size() == 0; }
+    //Checks if this node is at the bottom of the hierarchy.
+	bool isLeaf() { return primitive != nullptr; }// childNodes.size() == 0; }
 	Node* getBrotherNode();
 	void RemoveFromChild(Node* node);
 
-	void insertNode(Node* node);
+	void insertNode(Primitive* newPrimitive, const BoundingSphere &newSphere);
 	void deleteNode();
+
+    void recalculateBoundingVolume();
 
 	void print(int degree);
 

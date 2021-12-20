@@ -158,12 +158,7 @@ void OpenGLRendererManager::drawRect2D(const Vector3& dimensions, const Vector3&
     OpenGLRendererManager::formes->DrawCarre();
     glScalef(1.0f / (2.f * dimensions.GetX()), 1.0, 1.0f / (2.f * dimensions.GetZ()));
 
-
-// debug sphere for plan
-    glScalef(2.f * dimensions.GetMaxValue(), 2.f * dimensions.GetMaxValue(), 2.f * dimensions.GetMaxValue());
-    OpenGLRendererManager::formes->DrawDebugSphere();
-    glScalef(1.0f / (2.f * dimensions.GetMaxValue()), 1.0f / (2.f * dimensions.GetMaxValue()), 1.0f / (2.f * dimensions.GetMaxValue()));
-
+    //drawDebugSphere(dimensions, Vector3(0,0,0), transformMatrix);
 
     glPopMatrix();
 }
@@ -181,12 +176,9 @@ void OpenGLRendererManager::drawCube(const Vector3& dimensions, const Vector3& p
     OpenGLRendererManager::formes->DrawCube();
     glScalef(1.0f / (2.f * dimensions.GetX()), 1.0f / (2.f * dimensions.GetY()), 1.0f / (2.f * dimensions.GetZ()));
 
-// debug sphere for rigidbody
-    glScalef(2.f * dimensions.GetMaxValue(), 2.f * dimensions.GetMaxValue(), 2.f * dimensions.GetMaxValue());
-    OpenGLRendererManager::formes->DrawDebugSphere();
-    glScalef(1.0f / (2.f * dimensions.GetMaxValue()), 1.0f / (2.f * dimensions.GetMaxValue()), 1.0f / (2.f * dimensions.GetMaxValue()));
-
+    //drawDebugSphere(dimensions, Vector3(0,0,0), transformMatrix);
     glPopMatrix();
+
 }
 
 void OpenGLRendererManager::drawSphere(const Vector3& dimensions, const Vector3& pos, const Matrix34& transformMatrix, const Vector3& rot) {
@@ -218,7 +210,17 @@ void OpenGLRendererManager::drawLine(const Vector3 &startPosition, const Vector3
     glEndList();
 }
 
-void OpenGLRendererManager::drawDebugSphere(){
+void OpenGLRendererManager::drawDebugSphere(const Vector3& dimensions, const Vector3& pos, const Matrix34& transformMatrix){
+    //glPushMatrix();
+
+    //glMultMatrixf(transformMatrix.GetMatrix44ForGL().data());
+    glTranslatef(pos.GetX(), pos.GetY(), pos.GetZ());
+// debug sphere englobante
+    glScalef(2.f * dimensions.GetMaxValue(), 2.f * dimensions.GetMaxValue(), 2.f * dimensions.GetMaxValue());
     OpenGLRendererManager::formes->DrawDebugSphere();
+    glScalef(1.0f / (2.f * dimensions.GetMaxValue()), 1.0f / (2.f * dimensions.GetMaxValue()), 1.0f / (2.f * dimensions.GetMaxValue()));
+
+    glTranslatef(-pos.GetX(), -pos.GetY(), -pos.GetZ());
+    //glPopMatrix();
 
 }

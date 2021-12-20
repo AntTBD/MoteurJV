@@ -31,9 +31,10 @@ std::ostream &operator<<(std::ostream &os, const CollisionData &collisionData) {
         if(contact->m_rigidBody[1] != nullptr)
             os << contact->m_rigidBody[1]->toString() << "\n";
         os << "infos : \n"
-            << "normal : " << contact->m_contactNormal.toString()
-            << "penetration : " << contact->m_penetration
-            << "restitution : " << contact->m_restitution
+            << "- normal : " << contact->m_contactNormal << "\n"
+            << "- point de contact : " << contact->m_contactPoint << "\n"
+            << "- penetration : " << contact->m_penetration << "\n"
+            << "- restitution : " << contact->m_restitution << "\n"
             << "\n";
     }
 

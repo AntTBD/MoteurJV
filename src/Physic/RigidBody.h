@@ -18,6 +18,7 @@ public:
         Cube,
         Cylindre,
         Plan,
+        BoundingSphereDebug,
         _enumEnd // used to loop on this enum
     };
 private:
