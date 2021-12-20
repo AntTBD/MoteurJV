@@ -37,7 +37,7 @@ public:
 	//Node
 	bool hasParent() { return parentNode != nullptr; }
     //Checks if this node is at the bottom of the hierarchy.
-	bool isLeaf() { return primitive != nullptr; }// childNodes.size() == 0; }
+	bool isLeaf() { return primitive != nullptr; }
 	Node* getBrotherNode();
 	void RemoveFromChild(Node* node);
 

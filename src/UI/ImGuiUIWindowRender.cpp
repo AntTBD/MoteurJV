@@ -39,7 +39,7 @@ void ImGuiUIWindowRender::update()
                         "Toutes les autres particules seront relié à cette première particule.\n"
                         "Zoomer grâce à la molette de la souris\n"
                         "Changer l'orientation de la camera en maintenant appuyé la molette et en déplaçant la souris.");
-                ImGui::SameLine();ImGui::Text("Blob");
+               /* ImGui::SameLine();ImGui::Text("Blob");
                 ImGui::SameLine();this->HelpMarker(
                         u8"- Ajouter toutes les particules avec le click droite de la souris \n"
                         "- Appuyer sur B puis le bouton PLAY\n"
@@ -51,7 +51,7 @@ void ImGuiUIWindowRender::update()
                 ImGui::SameLine();ImGui::Text("Cars");
                 ImGui::SameLine();this->HelpMarker(
                         u8"- Appuyer sur C puis le bouton PLAY\n"
-                        "- Les 2 voitures vont s'entre choquer et engendrer une rotation.");
+                        "- Les 2 voitures vont s'entre choquer et engendrer une rotation.");*/
                 ImGui::SameLine();ImGui::Text("Collision Detection");
                 ImGui::SameLine();this->HelpMarker(
                         u8"- Appuyer sur D puis le bouton PLAY\n"
@@ -60,7 +60,14 @@ void ImGuiUIWindowRender::update()
                         "- Lorsque la boîte entre en collision avec un des murs, la démo s'arrête\n"
                         "- Les informations de collisions sont alors affichés dans la console");
                 ImGui::SameLine(0.0f, 200);
+                ImGui::SameLine();
                 ImGui::Checkbox("Debug Node", &this->debugNodes);
+                ImGui::SameLine();this->HelpMarker(
+                        u8"- Click (Mouse left) on this window to interact wind objects.\n"
+                        "- Bouger la première particule ajoutée (Mouse right).\n"
+                        "Toutes les autres particules seront relié à cette première particule.\n"
+                        "Zoomer grâce à la molette de la souris\n"
+                        "Changer l'orientation de la camera en maintenant appuyé la molette et en déplaçant la souris.");
                 EngineManager::getInstance().getPhysicEngine()->setDebugNodes(this->debugNodes);
 
                 ImGui::SetWindowFontScale(1.2);

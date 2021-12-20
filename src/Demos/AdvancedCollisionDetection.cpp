@@ -12,8 +12,8 @@ void AdvancedCollisionDetection::GenerateScene()
     // boite
     Vector3 boitePosition(-165, boiteDimension.GetMaxValue()+5, 0);
     Vector3 boiteEulerRotation(0, 0, 0);
-    Vector3 boiteVelocity(300.f, 200.f, 0.f);
-    Vector3 boiteAngularVelocity(1.f, 1.f, 1.0f);
+    Vector3 boiteVelocity(500.f, 500.f, 0.f);
+    Vector3 boiteAngularVelocity(1.f, 1.f, 1.50f);
 //    auto box = new Sphere(boitePosition, 10.f/sqrtf(2.f)/2.f);
 //    box->setBody(new RigidBody(mass, boitePosition,boiteVelocity, Quaternion::EulerInDegreesToQuaternion(boiteEulerRotation), boiteAngularVelocity, RigidBody::ShapeType::Sphere, boiteDimension));
 //    box->body->SetName(u8"Boite");

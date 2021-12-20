@@ -1,73 +1,6 @@
 #include "CollisionDetector.h"
 
 
-static inline float transformToAxis(
-    const Box &box,
-    const Vector3 &axis
-)
-{
-    float tempX = fabsf(axis.DotProduct(box.transform->GetAxis(0)));
-    float tempY = fabsf(axis.DotProduct(box.transform->GetAxis(1)));
-    float tempZ = fabsf(axis.DotProduct(box.transform->GetAxis(2)));
-    return
-        box.halfSize.GetX() * tempX +
-        box.halfSize.GetY() * tempY +
-        box.halfSize.GetZ() * tempZ;
-}
-
-/*
-static inline float penetrationOnAxis(
-    const Box &box1,
-    const Box &box2,
-    const Vector3& axis,
-    const Vector3& toCentre
-)
-{
-    // Project the half-size of one onto axis
-    float oneProject = transformToAxis(box1, axis);
-    float twoProject = transformToAxis(box2, axis);
-
-    // Project this onto the axis
-    float distance = fabs(toCentre.DotProduct(axis));
-
-    // Return the overlap (i.e. positive indicates
-    // overlap, negative indicates separation).
-    return oneProject + twoProject - distance;
-}
-
-
-
-
-
-
-
-static inline bool tryAxis(
-    const Box &box1,
-    const Box &box2,
-    Vector3 axis,
-    const Vector3& toCentre,
-    unsigned index,
-
-    // These values may be updated
-    float& smallestPenetration,
-    unsigned &smallestCase
-)
-{
-    // Make sure we have a normalized axis, and don't check almost parallel axes
-    if (axis.Magnitude() < 0.0001) return true;
-    axis.Normalize();
-
-    float penetration = penetrationOnAxis(box1, box2, axis, toCentre);
-
-    if (penetration < 0) return false;
-    if (penetration < smallestPenetration) {
-        smallestPenetration = penetration;
-        smallestCase = index;
-    }
-    return true;
-}
-*/
-
 
 unsigned CollisionDetector::sphereAndHalfSpace(
         const Sphere &sphere,
@@ -94,42 +27,6 @@ unsigned CollisionDetector::sphereAndHalfSpace(
     data->addContact(contact);
     return 1;
 }
-
-/*unsigned CollisionDetector::sphereAndTruePlane(
-        const Sphere &sphere,
-        const Plane &plane,
-        CollisionData *data) {
-
-    // Make sure we have contacts
-    // if(data->contactsLeft<=0) return 0;
-    // Sphere position
-    Vector3 position = sphere.getCenter();
-    // Find the distance from the plane
-    //float centerDistance = plane.getNormal().DotProduct(position) - plane.getOffset();
-
-    // Check radius
-    //if (centerDistance * centerDistance > sphere.radius * sphere.radius)
-    //{
-    //    return 0;
-    //}
-
-    // Check plane side
-   // Vector3 normal = plane.getNormal();
-    //float penetration = -centerDistance;
-    //if (centerDistance < 0)
-    //{
-    //    normal *= -1;
-    //    penetration = -penetration;
-    //}
-    //penetration += sphere.radius;
-
-
-    // Create the contact
-    //...
-
-    //...
-    return 1;
-}*/
 
 unsigned CollisionDetector::sphereAndSphere(
     const Sphere& sphere1,
@@ -168,33 +65,11 @@ unsigned CollisionDetector::sphereAndSphere(
     return 1;
 }
 
-bool CollisionDetector::IntersectionTestsBoxAndHalfSpace(
-        const Box &box,
-        const Plane &plane
-)
-{
-    Vector3 normPlan = plane.getNormal();
-    // Work out the projected radius of the box onto the plane direction
-    float projectedRadius = transformToAxis( box, normPlan);
-
-    // Work out how far the box is from the origin
-    float boxDistance =
-            normPlan.DotProduct(box.body->GetOrientation().ToEulerInDegrees()) - projectedRadius;
-
-    // Check for the intersection
-    return boxDistance <= plane.getOffset();
-}
-
 unsigned CollisionDetector::boxAndHalfSpace(
         const Box &box,
         const Plane &plane,
         CollisionData *data) {
 
-    // check for intersection
-   /* if (!CollisionDetector::IntersectionTestsBoxAndHalfSpace(box, plane))
-    {
-        return 0;
-    }*/
    // check intersection with bounding sphere of the box
    Vector3 testBoxInPlan = (box.getCenter()+box.halfSize.GetMaxValue()*plane.getNormal()*-1);
    float test = testBoxInPlan.DotProduct(plane.getNormal());
@@ -243,43 +118,6 @@ unsigned CollisionDetector::boxAndHalfSpace(
 
     return contactsUsed;
 }
-
-/*#define CHECK_OVERLAP(axis,index)\
-    if (!tryAxis(box1, box2, (axis), toCentre, (index), pen, best)) return 0;
-
-
-unsigned CollisionDetector::boxAndBox(
-        const Box &box1,
-        const Box &box2,
-        CollisionData *data) {
-    // Find the vector between the two centres 
-    Vector3 toCentre = box2.transform->GetAxis(3) - box1.transform->GetAxis(3);
-
-    // we start assuming there is no contact
-    float pen = FLT_MAX;
-    unsigned best = 0xffffff;
-
-    // Now we check each axes, returning if it gives us a separating axis, and keeping track of the axis 
-    // with the smallest penetration otherwise
-    CHECK_OVERLAP(box1.transform->GetAxis(0).GetX(), 0);
-    CHECK_OVERLAP(box1.transform->GetAxis(1).GetY(), 1);
-    CHECK_OVERLAP(box1.transform->GetAxis(2).GetZ(), 2);
-
-    CHECK_OVERLAP(box2.transform->GetAxis(0).GetX(), 3);
-    CHECK_OVERLAP(box2.transform->GetAxis(1).GetY(), 4);
-    CHECK_OVERLAP(box2.transform->GetAxis(2).GetZ(), 5);
-
-//...
-
-    return 0;
-}
-
-unsigned CollisionDetector::boxAndPoint(
-        const Box &box,
-        const Vector3 &point,
-        CollisionData *data) {
-    return 0;
-}*/
 
 unsigned CollisionDetector::boxAndSphere(
         const Box &box,
