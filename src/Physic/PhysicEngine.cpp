@@ -81,16 +81,16 @@ void PhysicEngine::update(float deltaTime)
         auto p3 = EngineManager::getInstance().getScene()->GetObject(2);//top
         auto p4 = EngineManager::getInstance().getScene()->GetObject(3);//left
         auto p5 = EngineManager::getInstance().getScene()->GetObject(4);//right
-//        auto p6 = EngineManager::getInstance().getScene()->GetObject(5);//front
-//        auto p7 = EngineManager::getInstance().getScene()->GetObject(6);//back
+        auto p6 = EngineManager::getInstance().getScene()->GetObject(5);//front
+        auto p7 = EngineManager::getInstance().getScene()->GetObject(6);//back
         EngineManager::getInstance().getScene()->getObjects()->clear();
         EngineManager::getInstance().getScene()->addObject(*p1);
         EngineManager::getInstance().getScene()->addObject(*p2);
         EngineManager::getInstance().getScene()->addObject(*p3);
         EngineManager::getInstance().getScene()->addObject(*p4);
         EngineManager::getInstance().getScene()->addObject(*p5);
-//        EngineManager::getInstance().getScene()->addObject(*p6);
-//        EngineManager::getInstance().getScene()->addObject(*p7);
+        EngineManager::getInstance().getScene()->addObject(*p6);
+        EngineManager::getInstance().getScene()->addObject(*p7);
 
         // 1 - Update force (gravity)
         this->forceRegistry->UpdateForce(deltaTime);
@@ -110,11 +110,13 @@ void PhysicEngine::update(float deltaTime)
             bvh.insertNode(node);
         }
         bvh.print();
-        drawBVH(bvh.root);
-
+        if(this->debugNodes) {
+            drawBVH(bvh.root);
+        }
+        // display collisions (console + visiuel)
         CollisionData* cd = new CollisionData();
         bvh.broadPhaseCheck(cd);
-        if(cd->contacts->size()>0){
+        if(cd->contacts->size() > 0) {
             for (auto collision : *cd->contacts) {
                 auto debug = new Sphere(collision->m_contactPoint, 2);
                 debug->setBody(new RigidBody(0.f, collision->m_contactPoint, RigidBody::ShapeType::BoundingSphereDebug, Vector3(2*(sqrtf(2.f)/2.f),2*(sqrtf(2.f)/2.f),2*(sqrtf(2.f)/2.f))));
@@ -223,4 +225,8 @@ void PhysicEngine::drawBVH(Node* node){
         drawBVH(child);
     }
 
+}
+
+void PhysicEngine::setDebugNodes(bool enable) {
+    this->debugNodes = enable;
 }

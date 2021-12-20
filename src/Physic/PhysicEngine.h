@@ -43,6 +43,7 @@ private:
     bool isSimulating;
     std::thread physicEngineThread;
 
+    bool debugNodes;
 public:
     float dT; // init at the beginning of .cpp
 
@@ -55,6 +56,7 @@ public:
     void togglePause();
     void resume();
     void stop();
+    void setDebugNodes(bool enable);
 
     bool isRunning();
 

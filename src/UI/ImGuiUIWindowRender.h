@@ -14,7 +14,7 @@ private:
     //Shader* shader;
 
     // variables
-    bool play, pause;
+    bool play, pause, debugNodes;
 public:
     ImGuiUIWindowRender(bool show = true);
     ~ImGuiUIWindowRender();

@@ -59,6 +59,9 @@ void ImGuiUIWindowRender::update()
                         "- Les vélocités linéaire et angulaire initiales sont non nulles\n"
                         "- Lorsque la boîte entre en collision avec un des murs, la démo s'arrête\n"
                         "- Les informations de collisions sont alors affichés dans la console");
+                ImGui::SameLine(0.0f, 200);
+                ImGui::Checkbox("Debug Node", &this->debugNodes);
+                EngineManager::getInstance().getPhysicEngine()->setDebugNodes(this->debugNodes);
 
                 ImGui::SetWindowFontScale(1.2);
                 // espace pour centrer les boutons
