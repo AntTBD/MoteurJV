@@ -3,21 +3,18 @@
 #include "../Contacts/Contact.h"
 #include <vector>
 
-class CollisionData
-{
+class CollisionData {
 public:
-    std::vector<Contact*>* contacts;
+    std::vector<Contact *> *contacts;
 
     CollisionData();
+
     ~CollisionData();
 
     void addContact(Contact *contact);
 
-    //void generateContact(primitive1, primitive2);
-
-
     std::string toString() const;
 
     // << operator
-    friend std::ostream& operator << (std::ostream& os, const CollisionData& collisionData);
+    friend std::ostream &operator<<(std::ostream &os, const CollisionData &collisionData);
 };

@@ -21,7 +21,7 @@ unsigned CollisionDetector::sphereAndHalfSpace(
     //• Interpénétration :      distance entre la sphère et le plan;
     //• Le point de contact :   Le point sur la sphère en direction du contact.
     // Create the contact ; it has normal in the plane direction
-    Contact* contact = new Contact(sphere.body, 1, -sphereDistance, plane.getNormal());
+    Contact *contact = new Contact(sphere.body, 1, -sphereDistance, plane.getNormal());
     contact->m_contactPoint = position - plane.getNormal() * (sphereDistance + sphere.radius);
 
     data->addContact(contact);
@@ -44,8 +44,7 @@ unsigned CollisionDetector::sphereAndSphere(
     // Si la distance au carré est plus petite que la somme des rayons au carré, il n’y a pas de collision.
     float size = midline.Magnitude();
     // See if it is large enough
-    if (size <= 0.0f || size >= sphere1.radius + sphere2.radius) 
-    {
+    if (size <= 0.0f || size >= sphere1.radius + sphere2.radius) {
         return 0;
     }
 
@@ -54,13 +53,11 @@ unsigned CollisionDetector::sphereAndSphere(
     //• Interpénétration :      somme des rayons moins la distance entre le centre des sphères.
     //• Le point de contact :   un point sur la surface d’une des sphères dans la direction du contact
     // Creating the normal
-    Vector3 normal = midline * float((1.0f/size));
+    Vector3 normal = midline * float((1.0f / size));
     // contacts.....
-    Contact* contact = new Contact(sphere1.body, sphere2.body, 1, (sphere1.radius+sphere2.radius - size));
+    Contact *contact = new Contact(sphere1.body, sphere2.body, 1, (sphere1.radius + sphere2.radius - size));
     contact->m_contactNormal = normal;
     contact->m_contactPoint = positionOne + midline * 0.5f;
-
-
 
     return 1;
 }
@@ -70,15 +67,21 @@ unsigned CollisionDetector::boxAndHalfSpace(
         const Plane &plane,
         CollisionData *data) {
 
-   // check intersection with bounding sphere of the box
-   Vector3 testBoxInPlan = (box.getCenter()+box.halfSize.GetMaxValue()*plane.getNormal()*-1);
-   float test = testBoxInPlan.DotProduct(plane.getNormal());
-    if(test >  plane.getOffset()) return 0;
+    // check intersection with bounding sphere of the box
+    Vector3 testBoxInPlan = (box.getCenter() + box.halfSize.GetMaxValue() * plane.getNormal() * -1);
+    float test = testBoxInPlan.DotProduct(plane.getNormal());
+    if (test > plane.getOffset()) return 0;
 
 
     //
-    static float mults[8][3] = { {1,1,1},{-1,1,1},{1,-1,1},{-1,-1,1},
-                                 {1,1,-1},{-1,1,-1},{1,-1,-1},{-1,-1,-1} };
+    static float mults[8][3] = {{1,  1,  1},
+                                {-1, 1,  1},
+                                {1,  -1, 1},
+                                {-1, -1, 1},
+                                {1,  1,  -1},
+                                {-1, 1,  -1},
+                                {1,  -1, -1},
+                                {-1, -1, -1}};
 
 
     unsigned contactsUsed = 0;
@@ -90,24 +93,23 @@ unsigned CollisionDetector::boxAndHalfSpace(
         vertexPos = box.body->GetPointInWorldSpace(vertexPos);
 
         // Calculate the distance from the plane
-        float vertexDistance = vertexPos.DotProduct(plane.getNormal()*-1);
+        float vertexDistance = vertexPos.DotProduct(plane.getNormal() * -1);
 
         // Compare this to the plane's distance
-        if ((vertexDistance - plane.getOffset()) > 0 )
-        {
+        if ((vertexDistance - plane.getOffset()) > 0) {
             // Create the contact data.
 
             // The contact point is halfway between the vertex and the
             // plane - we multiply the direction by half the separation
             // distance and add the vertex location.
 
-            Contact* contact = new Contact(box.body, plane.body,
+            Contact *contact = new Contact(box.body, plane.body,
                                            1,
                                            (vertexDistance - plane.getOffset())
-                                           );
-            contact->m_contactNormal = plane.getNormal()*-1;
-            contact->m_contactPoint = plane.getNormal()*-1;
-            contact->m_contactPoint *= (-plane.getOffset()+vertexDistance);
+            );
+            contact->m_contactNormal = plane.getNormal() * -1;
+            contact->m_contactPoint = plane.getNormal() * -1;
+            contact->m_contactPoint *= (-plane.getOffset() + vertexDistance);
             contact->m_contactPoint += vertexPos;
 
             data->addContact(contact);
@@ -130,8 +132,7 @@ unsigned CollisionDetector::boxAndSphere(
     // Early out check to see if we can exclude the contact. 
     if (relCenter.GetX() - sphere.radius > box.halfSize.GetX() ||
         relCenter.GetY() - sphere.radius > box.halfSize.GetY() ||
-        relCenter.GetZ() - sphere.radius > box.halfSize.GetZ())
-    {
+        relCenter.GetZ() - sphere.radius > box.halfSize.GetZ()) {
         return 0;
     }
 
@@ -154,7 +155,7 @@ unsigned CollisionDetector::boxAndSphere(
     if (dist > -box.halfSize.GetZ()) dist = -box.halfSize.GetZ();
     closestPt.SetZ(dist);
 
-    
+
     // 3. À l’aide de ce point, il est possible d’extraire les données de contacts
     // Check to see if contact
     dist = (closestPt - relCenter).Magnitude();
@@ -163,7 +164,7 @@ unsigned CollisionDetector::boxAndSphere(
 
     Vector3 closestPtWorld = box.body->GetPointInWorldSpace(closestPt);
 
-    Contact* contact = new Contact(box.body, sphere.body, 1, sphere.radius - sqrt(dist));
+    Contact *contact = new Contact(box.body, sphere.body, 1, sphere.radius - sqrt(dist));
     contact->m_contactNormal = Vector3(closestPtWorld - center);
     contact->m_contactNormal.Normalize();
     contact->m_contactPoint = closestPtWorld;

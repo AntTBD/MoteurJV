@@ -7,7 +7,6 @@ public :
 	float radius;
 
 	// Constructors
-
 	Sphere();
 	Sphere(Vector3 center, float radius);
 
