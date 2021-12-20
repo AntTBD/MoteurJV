@@ -107,10 +107,13 @@ unsigned CollisionDetector::boxAndHalfSpace(
                                            1,
                                            (vertexDistance - plane.getOffset())
             );
-            contact->m_contactNormal = plane.getNormal() * -1;
-            contact->m_contactPoint = plane.getNormal() * -1;
-            contact->m_contactPoint *= (-plane.getOffset() + vertexDistance);
-            contact->m_contactPoint += vertexPos;
+            contact->m_contactNormal = plane.getNormal();
+            // To extrapolate on plane
+            //contact->m_contactPoint = plane.getNormal();
+            //contact->m_contactPoint *= (-plane.getOffset() + vertexDistance);
+            //contact->m_contactPoint += vertexPos;
+            // otherwise, this is the vertex Position of the box
+            contact->m_contactPoint = vertexPos;
 
             data->addContact(contact);
 
