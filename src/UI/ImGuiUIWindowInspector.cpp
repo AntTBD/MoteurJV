@@ -60,6 +60,7 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
         Vector3 objectDimensions = EngineManager::getInstance().getScene()->GetObject(uid)->body->GetDimensions();
         RigidBody::ShapeType objectShapeType = EngineManager::getInstance().getScene()->GetObject(uid)->body->GetShapeType();
 
+        ImGui::BeginDisabled(); // avoid change during simulation
 
         // ============================= Position =================================
         ImGui::PushID(i); // Use field index as identifier.
@@ -140,6 +141,7 @@ void ImGuiUIWindowInspector::ShowPlaceholderObject(const char* prefix, int uid)
         ImGui::EndDisabled();
         ImGui::PopID();
         i++;
+        ImGui::EndDisabled();
 
         // =====================================================================
         ImGui::TreePop();

@@ -13,4 +13,5 @@ void Primitive::setCenter(Vector3 center)
 void Primitive::setBody(RigidBody *body) {
     this->body = body;
     this->center = &this->body->position;
+    this->transform = &this->body->transformMatrix;
 }

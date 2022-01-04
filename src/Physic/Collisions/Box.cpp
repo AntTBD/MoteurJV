@@ -8,7 +8,7 @@ Box::Box()
 	this->halfSize = Vector3(1, 1, 1);
 }
 
-Box::Box(Vector3 center, Vector3 halfsize)
+Box::Box(Vector3 center, Vector3 halfSize)
 {
 	this->center = &center;
 	this->halfSize = halfSize;

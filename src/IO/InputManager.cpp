@@ -15,7 +15,7 @@ void InputManager::update(MainWindow* mainWindow)
     if (glfwGetKey(mainWindow->getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(mainWindow->getWindow(), true);
 
-    // blob
+    /*// blob
     static bool b_key_pressed = false;
     if(EngineManager::getInstance().getPhysicEngine()->isRunning() == false && b_key_pressed == false && glfwGetKey(mainWindow->getWindow(), GLFW_KEY_B) == GLFW_PRESS){
         b_key_pressed = true;
@@ -43,7 +43,7 @@ void InputManager::update(MainWindow* mainWindow)
     }
     if(c_key_pressed && glfwGetKey(mainWindow->getWindow(), GLFW_KEY_C) == GLFW_RELEASE){
         c_key_pressed = false;
-    }
+    }*/
 
     // advanced collision detection
     static bool d_key_pressed = false;

@@ -22,6 +22,8 @@ class MainWindow;
 // base
 class EngineManager;
 class Scene;
+class Node;
+class BVH;
 
 // debug
 //#include "Debug/Debug.h"

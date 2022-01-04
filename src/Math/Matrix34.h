@@ -25,6 +25,7 @@ public:
 
 	std::vector<float> Get() const;
 	float Get(int index) const;
+    Vector3 GetAxis(int axe) const;
 	Matrix33 GetMatrix33() const;
 	Vector3 GetVector() const;
 

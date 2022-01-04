@@ -15,6 +15,7 @@ private:
 
     // variables
     bool play, pause;
+    bool debugNodes = false;
 public:
     ImGuiUIWindowRender(bool show = true);
     ~ImGuiUIWindowRender();

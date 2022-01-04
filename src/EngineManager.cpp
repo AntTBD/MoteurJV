@@ -77,3 +77,7 @@ PhysicEngine *EngineManager::getPhysicEngine() {
 ImGuiUIManager* EngineManager::getUiManager(){
     return this->uiManager;
 }
+
+OpenGLRendererManager *EngineManager::getOpenGlRendererManager() {
+    return this->openGlRendererManager;
+}

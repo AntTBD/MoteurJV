@@ -1,5 +1,6 @@
 #include "ContactResolver.h"
 #include <limits>
+#include "../../EngineManager.h"
 
 ContactResolver::ContactResolver()
 {
@@ -51,9 +52,12 @@ void ContactResolver::resolveContacts(std::vector<Contact*> contactArray, float 
 			{
 				break;
 			}
-
+            if (contactArray[minContactIndex]->m_penetration > 0) {
+                EngineManager::getInstance().getPhysicEngine()->pause();
+                std::cout << "stop" << contactArray.size() << std::endl;
+            }
 			// resolution du contact (Impulsion + interpénétration)
-			contactArray[minContactIndex]->resolve(duration);
+			//contactArray[minContactIndex]->resolve(duration);
 
 			iteration++;
 		}

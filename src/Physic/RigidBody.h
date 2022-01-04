@@ -18,6 +18,7 @@ public:
         Cube,
         Cylindre,
         Plan,
+        BoundingSphereDebug,
         _enumEnd // used to loop on this enum
     };
 private:
@@ -46,9 +47,6 @@ private:
     // Angular acceleration of the rigid body
     Vector3 angularAcceleration;
 
-    // ------------- Transform -------------
-	// Calculates transform matrix from orientation and  rotation
-	Matrix34 transformMatrix;
 
 
     // ------------- Force -------------
@@ -75,6 +73,9 @@ private:
 
 public:
     Vector3 position;
+    // ------------- Transform -------------
+    // Calculates transform matrix from orientation and  rotation
+    Matrix34 transformMatrix;
 	RigidBody();
     RigidBody(float mass, const Vector3 &position, const RigidBody::ShapeType &type = RigidBody::ShapeType::Sphere, const Vector3 &dimensions = Vector3(5, 5, 5));
     RigidBody(float mass, const Vector3 &position, const Quaternion& orientation, const RigidBody::ShapeType &type = RigidBody::ShapeType::Sphere, const Vector3 &dimensions = Vector3(5, 5, 5));

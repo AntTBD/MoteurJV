@@ -26,7 +26,7 @@ Camera *Scene::getCamera() {
 
 void Scene::addObject(Object &object) {
     this->objects->push_back(&object);
-    EngineManager::getInstance().console.logSuccess("Add %s %d: %s\n", typeid(object).name(), this->objects->size(),object.body->toString().c_str());
+    //EngineManager::getInstance().console.logSuccess("Add %s %d: %s\n", typeid(object).name(), this->objects->size(),object.body->toString().c_str());
 
 }
 
@@ -63,6 +63,9 @@ void Scene::drawObjects() {
                 break;
             case RigidBody::ShapeType::Plan:
                 OpenGLRendererManager::drawRect2D(object->body->GetDimensions(), object->body->GetPosition(), object->body->GetTransform()); // create a plan
+                break;
+            case RigidBody::ShapeType::BoundingSphereDebug:
+                OpenGLRendererManager::drawDebugSphere(object->body->GetDimensions(), object->getCenter()); // create a plan
                 break;
             default:// draw sphere by default
                 OpenGLRendererManager::drawSphere(object->body->GetDimensions(), object->body->GetPosition(), object->body->GetTransform(), rot); // create a small sphere to simulate object in 3D

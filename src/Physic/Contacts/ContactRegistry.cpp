@@ -39,3 +39,12 @@ void ContactRegistry::Clear()
 {
 	this->m_registry.clear();
 }
+
+void ContactRegistry::SetContactList(std::vector<Contact *> list) {
+	this->contactList.clear();
+    nbContacts =0;
+	for (auto contact:list) {
+        nbContacts ++;
+		this->contactList.push_back(contact);
+	}
+}

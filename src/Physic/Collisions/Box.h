@@ -9,7 +9,7 @@ public:
 
 	// Constructors
 	Box();
-	Box(Vector3 centre, Vector3 halfsize);
+	Box(Vector3 centre, Vector3 halfSize);
 
 	// Getters & Setters
 	Vector3 getHalfSize();
